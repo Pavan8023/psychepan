@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psyche Panacea - Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #ffffff;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #0052cc;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .active-nav-link {
+      color: #0052cc;
+      font-weight: 600;
+    }
+
+    .active-nav-link::after {
+      width: 100%;
+    }
+
+    /* Service Cards Animation */
+    .service-card {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .service-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Chatbot */
+    .chatbot-message {
+      animation: messageFadeIn 0.3s ease;
+    }
+
+    @keyframes messageFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Animation for service cards */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0052cc',
+            secondary: '#4da8ff',
+            dark: '#1a1a1a',
+            light: '#f8f9fa',
+            accent: '#f59e0b',
+          },
+          fontFamily: {
+            sans: ['Noto Sans', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 1s ease-out',
+            'fade-in-up': 'fadeInUp 0.6s ease forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              from: { opacity: 0 },
+              to: { opacity: 1 },
+            },
+            fadeInUp: {
+              from: { opacity: 0, transform: 'translateY(20px)' },
+              to: { opacity: 1, transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
+    <nav class="hidden md:flex items-center space-x-6">
+      <a href="home.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
+      <a href="services.html" class="text-primary font-semibold transition-colors px-2 py-1 active-nav-link">Services</a>
+      <a href="flagship-programs.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Flagship
+        Programs</a>
+      <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
+      <a href="gallery.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Gallery</a>
+      <a href="about-us.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">About Us</a>
+      <a href="contact.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Contact</a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden flex items-center">
+      <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a href="home.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+      <a href="services.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-primary font-semibold bg-blue-50">Services</a>
+      <a href="flagship-programs.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship
+        Programs</a>
+      <a href="events.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
+      <a href="gallery.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
+      <a href="about-us.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
+        Us</a>
+      <a href="contact.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white pt-32 pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-center">Our Services</h1>
+      <p class="text-xl text-center max-w-3xl mx-auto">
+        Comprehensive solutions to enhance your organization's performance
+      </p>
+    </div>
+  </div>
+  
+  <!-- Services Grid -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Professional Development Solutions</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Tailored programs to meet your organization's unique needs
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Result-Oriented Trainings</h3>
+            <p class="text-gray-600 mb-6">Our trainings are designed to deliver measurable results and improve performance.</p>
+            <button class="text-blue-800 font-medium hover:underline">
+              Read More 😊
+            </button>
+          </div>
+        </div>
+        
+        <div class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">HR Consulting</h3>
+            <p class="text-gray-600 mb-6">Expert HR solutions to transform your organization and workforce.</p>
+            <button class="text-blue-800 font-medium hover:underline">
+              Read More 😊
+            </button>
+          </div>
+        </div>
+        
+        <div class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Outbound Trainings</h3>
+            <p class="text-gray-600 mb-6">Experiential learning in outdoor settings to build teamwork and leadership.</p>
+            <button class="text-blue-800 font-medium hover:underline">
+              Read More 😊
+            </button>
+          </div>
+        </div>
+        
+        <div class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Employee Engagement</h3>
+            <p class="text-gray-600 mb-6">Strategies to boost employee morale, productivity, and retention.</p>
+            <button class="text-blue-800 font-medium hover:underline">
+              Read More 😊
+            </button>
+          </div>
+        </div>
+        
+        <div class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Employee Assistance</h3>
+            <p class="text-gray-600 mb-6">Support programs for employee well-being and work-life balance.</p>
+            <button class="text-blue-800 font-medium hover:underline">
+              Read More 😊
+            </button>
+          </div>
+        </div>
+        
+        <div class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Career Counseling</h3>
+            <p class="text-gray-600 mb-6">Guidance for employees to navigate their career paths effectively.</p>
+            <button class="text-blue-800 font-medium hover:underline">
+              Read More 😊
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- What We Do Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">What We Do</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Comprehensive solutions for your organizational development
+        </p>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">Training & Employee Engagement Services</h3>
+        <p class="text-gray-700 mb-6">
+          At Psyche Panacea you will discover apostles of innovative and breakthrough methodologies in Indian consultation arena. Thinking out of the box is our forte, tailor made solutions is our strong suit and outmatching customer expectation is sacrosanct.
+        </p>
+        <p class="text-gray-700">
+          In last decade Psyche Panacea has established itself as preferred training partner and trusted destination for management solutions. Clients have always known us as pioneers of training trends. With our ability to foresee challenges to come, our clients always find us ready to cater when the need arrives.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-16 bg-gradient-to-r from-blue-800 to-blue-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+        <div class="p-6">
+          <div class="text-4xl font-bold mb-2">350+</div>
+          <div class="text-xl">Satisfied Clients</div>
+        </div>
+        <div class="p-6">
+          <div class="text-4xl font-bold mb-2">22+</div>
+          <div class="text-xl">Years Experience</div>
+        </div>
+        <div class="p-6">
+          <div class="text-4xl font-bold mb-2">98%</div>
+          <div class="text-xl">Client Retention</div>
+        </div>
+        <div class="p-6">
+          <div class="text-4xl font-bold mb-2">5000+</div>
+          <div class="text-xl">Trained Professionals</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <!-- Company Information -->
+        <div>
+          <div class="flex items-center mb-6">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-3 rounded-lg mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Pioneers of innovative and breakthrough methodologies in the Indian consultation arena, transforming
+            organizations through strategic HR solutions.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="bg-blue-700 hover:bg-blue-800 text-white p-2 rounded-full transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+              </svg>
+            </a>
+            <a href="#" class="bg-blue-700 hover:bg-blue-800 text-white p-2 rounded-full transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <a href="#" class="bg-blue-700 hover:bg-blue-800 text-white p-2 rounded-full transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-lg font-semibold mb-6 text-blue-400 border-b border-blue-700 pb-2">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="home.html" class="text-gray-400 hover:text-blue-400 transition flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Home</a></li>
+            <li><a href="services.html" class="text-blue-400 transition flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Services</a></li>
+            <li><a href="flagship-programs.html" class="text-gray-400 hover:text-blue-400 transition flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Flagship Programs</a></li>
+            <li><a href="events.html" class="text-gray-400 hover:text-blue-400 transition flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Events</a></li>
+            <li><a href="gallery.html" class="text-gray-400 hover:text-blue-400 transition flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Gallery</a></li>
+            <li><a href="about-us.html" class="text-gray-400 hover:text-blue-400 transition flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h4 class="text-lg font-semibold mb-6 text-blue-400 border-b border-blue-700 pb-2">Our Services</h4>
+          <ul class="space-y-3">
+            <li class="text-gray-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Management Trainings
+            </li>
+            <li class="text-gray-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Employee Engagement
+            </li>
+            <li class="text-gray-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              HR Consulting
+            </li>
+            <li class="text-gray-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Outbound Trainings
+            </li>
+            <li class="text-gray-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Employee Assistance
+            </li>
+            <li class="text-gray-400 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Career Counseling
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Map -->
+        <div>
+          <h4 class="text-lg font-semibold mb-6 text-blue-400 border-b border-blue-700 pb-2">Contact Us</h4>
+          <div class="mb-6">
+            <div class="flex items-start mb-4">
+              <div class="bg-blue-700 rounded-full p-2 mr-3 mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-gray-400">308/2, Old Delhi Rd, adjacent Country Inn,</p>
+                <p class="text-gray-400">Sector 12 A, Anamika Enclave, Sector 14,</p>
+                <p class="text-gray-400">Gurugram, Haryana 122001</p>
+              </div>
+            </div>
+            <div class="flex items-center mb-4">
+              <div class="bg-blue-700 rounded-full p-2 mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <p class="text-gray-400">09810323292, 09810319292</p>
+            </div>
+            <div class="flex items-center">
+              <div class="bg-blue-700 rounded-full p-2 mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p class="text-gray-400">hr@psypanconsulting.com</p>
+            </div>
+          </div>
+
+          <!-- Map Container -->
+          <div class="rounded-xl overflow-hidden shadow-lg h-48 border-2 border-blue-700">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.133710932795!2d77.032292!3d28.454980!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d189e0a04f7c9%3A0x9c1b6b3a3a2d0e6b!2s308%2F2%2C%20Old%20Delhi%20Rd%2C%20adjacent%20Country%20Inn%2C%20Sector%2012%20A%2C%20Anamika%20Enclave%2C%20Sector%2014%2C%20Gurugram%2C%20Haryana%20122001!5e0!3m2!1sen!2sin!4v1650275288414!5m2!1sen!2sin"
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+              class="filter grayscale hover:grayscale-0 transition-all duration-500" gestureHandling="greedy"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="bg-gradient-to-r from-blue-800 to-blue-900 rounded-xl p-6 mb-12">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <h3 class="text-xl font-bold text-white mb-2">Subscribe to Our Newsletter</h3>
+            <p class="text-blue-200">Get updates on our latest training programs and events</p>
+          </div>
+          <div class="flex w-full md:w-auto">
+            <input type="email" placeholder="Your email address"
+              class="px-4 py-3 rounded-l-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button
+              class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-r-lg font-semibold hover:from-yellow-600 hover:to-yellow-700 transition-all">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400">© 2023 Psyche Panacea. All rights reserved.</p>
+        <p class="text-gray-600 mt-2">Designed with ❤️ by Psyche Panacea Team</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot -->
+  <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
+    <div id="chatbotToggle"
+      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-transform hover:scale-110">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+        <path
+          d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
+        </path>
+        <path d="M9 9h6v6H9z"></path>
+      </svg>
+    </div>
+
+    <div id="chatbotWindow"
+      class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 w-full max-w-xs sm:max-w-md sm:w-96 h-64 sm:h-[30rem] bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+      <div
+        class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+        <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
+        <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
+      </div>
+
+      <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 h-[calc(100%-7rem)] overflow-y-auto">
+        <div class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
+          Welcome! How can I assist with your training goals today?
+        </div>
+      </div>
+
+      <div class="chatbot-input p-3 sm:p-4 border-t border-gray-200 flex">
+        <input id="chatbotInput" type="text"
+          class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
+          placeholder="Ask about our programs...">
+        <button id="chatbotSend"
+          class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+
+          // Close mobile menu if open
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    });
+
+    // Service Card Animation on Scroll
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 150); // Staggered animation
+        }
+      });
+    }, { threshold: 0.2 });
+
+    serviceCards.forEach(card => observer.observe(card));
+
+    // Chatbot Functionality
+    function toggleChatbot() {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatbotInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chatbotBody = document.getElementById('chatbotBody');
+      const userMessage = document.createElement('div');
+      userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both';
+      userMessage.textContent = message;
+      chatbotBody.appendChild(userMessage);
+
+      // Simulate bot response with typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
+      typingIndicator.textContent = 'Typing...';
+      chatbotBody.appendChild(typingIndicator);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+      setTimeout(() => {
+        chatbotBody.removeChild(typingIndicator);
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
+        botMessage.textContent = getBotResponse(message);
+        chatbotBody.appendChild(botMessage);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }, 1000);
+
+      input.value = '';
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      if (lowerMessage.includes('roi')) return 'Our ROI Toolkit helps quantify training impact. Want to explore it now?';
+      if (lowerMessage.includes('training')) return 'We offer Outbound Training, SAHYOG Wellness, and POSH Certification. Which program are you interested in?';
+      if (lowerMessage.includes('cost') || lowerMessage.includes('price')) return 'I can connect you with our team for a detailed quote. Would you like to schedule a consultation?';
+      return 'I’m here to help! Could you share more details about your query?';
+    }
+
+    // Set up chatbot event listeners
+    document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+    document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+    document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+    document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Open chatbot after a delay
+    setTimeout(() => {
+      document.getElementById('chatbotWindow').style.display = 'block';
+    }, 3000);
+  </script>
+</body>
+</html>
