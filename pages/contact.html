@@ -18,6 +18,10 @@
                         dark: '#1a1a1a',
                         light: '#f8f9fa',
                         accent: '#f59e0b',
+                        chatBg: '#f0f7ff',
+                        chatHeader: '#0052cc',
+                        chatInput: '#e6f0ff',
+                        chatButton: '#0052cc',
                     },
                     fontFamily: {
                         sans: ['Noto Sans', 'sans-serif'],
@@ -191,7 +195,7 @@
 
         /* Enhanced Chatbot Styles */
         .chatbot-message.bot {
-            background: linear-gradient(135deg, #f0f7ff, #e6f0ff);
+            background-color: #f0f7ff;
             border-radius: 18px 18px 18px 4px;
             color: #1a1a1a;
             border: 1px solid #d1e0ff;
@@ -204,9 +208,9 @@
         }
 
         .chatbot-input {
-            background: rgba(255, 255, 255, 0.9);
+            background: #e6f0ff;
             backdrop-filter: blur(5px);
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #d1e0ff;
         }
 
         .typing-indicator span {
@@ -225,6 +229,23 @@
 
         .typing-indicator span:nth-child(3) {
             animation-delay: 0.4s;
+        }
+        
+        /* Quick Reply Buttons */
+        .quick-reply {
+            background-color: white;
+            border: 1px solid #d1e0ff;
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-reply:hover {
+            background-color: #f0f7ff;
+            transform: translateY(-2px);
         }
 
         /* Responsive adjustments */
@@ -567,10 +588,10 @@
         </div>
     </footer>
 
-    <!-- Enhanced Chatbot -->
-    <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
+    <!-- Enhanced Chatbot - Perfect Match to Image -->
+    <div class="chatbot fixed bottom-8 right-8 z-50">
         <div id="chatbotToggle"
-            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-transform hover:scale-110 animate-bounce">
+            class="chatbot-toggle w-14 h-14 bg-gradient-to-br from-primary to-blue-700 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-transform hover:scale-110">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
                 <path
                     d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
@@ -580,9 +601,9 @@
         </div>
 
         <div id="chatbotWindow"
-            class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 w-full max-w-xs sm:max-w-md sm:w-96 h-64 sm:h-[30rem] bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden transform transition-all duration-300 scale-0 origin-bottom-right">
+            class="chatbot-window absolute bottom-20 right-0 w-80 h-96 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden transform transition-all duration-300 origin-bottom-right">
             <div
-                class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+                class="chatbot-header bg-chatHeader text-white p-4 rounded-t-xl flex justify-between items-center">
                 <div class="flex items-center">
                     <div class="bg-white p-1 rounded-full mr-3">
                         <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center">
@@ -595,31 +616,34 @@
                         </div>
                     </div>
                     <div>
-                        <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
-                        <div class="text-xs opacity-80">Online now</div>
+                        <span class="font-bold">Psyche Panacea Assistant</span>
                     </div>
                 </div>
                 <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none hover:text-blue-200">×</span>
             </div>
 
-            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 h-[calc(100%-7rem)] overflow-y-auto space-y-3">
+            <div id="chatbotBody" class="chatbot-body p-4 h-[calc(100%-7rem)] overflow-y-auto bg-chatBg">
                 <div
-                    class="chatbot-message bot animate-message-fade">
+                    class="chatbot-message bot mb-4 p-3 rounded-lg animate-message-fade">
                     <div class="font-medium text-blue-600 mb-1">Psyche Assistant</div>
                     Welcome! How can I assist with your training goals today?
                 </div>
-                <div
-                    class="chatbot-message bot animate-message-fade">
-                    Feel free to ask about our programs, pricing, or anything else!
+                
+                <!-- Quick Reply Buttons -->
+                <div class="flex flex-wrap mt-4">
+                    <div class="quick-reply" data-reply="Training Programs">Training Programs</div>
+                    <div class="quick-reply" data-reply="Pricing">Pricing</div>
+                    <div class="quick-reply" data-reply="Contact">Contact</div>
+                    <div class="quick-reply" data-reply="Schedule Demo">Schedule Demo</div>
                 </div>
             </div>
 
-            <div class="chatbot-input p-3 sm:p-4 flex items-center">
+            <div class="chatbot-input p-3 flex items-center bg-chatInput">
                 <input id="chatbotInput" type="text"
-                    class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-l-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    class="flex-1 p-3 border border-blue-200 rounded-l-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="Ask about our programs...">
                 <button id="chatbotSend"
-                    class="bg-primary text-white px-4 py-2 sm:px-5 sm:py-3 rounded-r-lg font-semibold text-sm sm:text-base hover:bg-blue-700 transition-colors">
+                    class="bg-chatButton text-white px-4 py-3 rounded-r-lg font-semibold text-sm hover:bg-blue-700 transition-colors">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
@@ -656,15 +680,40 @@
             const message = input.value.trim();
             if (!message) return;
 
+            // Add user message
+            addMessage(message, 'user');
+            
+            // Clear input
+            input.value = '';
+            
+            // Simulate bot response
+            setTimeout(() => {
+                botResponse(message);
+            }, 500);
+        }
+        
+        function addMessage(message, sender) {
             const chatbotBody = document.getElementById('chatbotBody');
-            const userMessage = document.createElement('div');
-            userMessage.className = 'chatbot-message user animate-message-fade';
-            userMessage.innerHTML = `<div class="font-medium text-blue-100 mb-1">You</div>${message}`;
-            chatbotBody.appendChild(userMessage);
-
-            // Simulate bot response with typing indicator
+            const messageDiv = document.createElement('div');
+            
+            if (sender === 'user') {
+                messageDiv.className = 'chatbot-message user mb-4 p-3 rounded-lg animate-message-fade';
+                messageDiv.innerHTML = `<div class="font-medium text-blue-100 mb-1">You</div>${message}`;
+            } else {
+                messageDiv.className = 'chatbot-message bot mb-4 p-3 rounded-lg animate-message-fade';
+                messageDiv.innerHTML = `<div class="font-medium text-blue-600 mb-1">Psyche Assistant</div>${message}`;
+            }
+            
+            chatbotBody.appendChild(messageDiv);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }
+        
+        function botResponse(userMessage) {
+            const chatbotBody = document.getElementById('chatbotBody');
+            
+            // Show typing indicator
             const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'chatbot-message bot animate-message-fade';
+            typingIndicator.className = 'chatbot-message bot mb-4 p-3 rounded-lg animate-message-fade';
             typingIndicator.innerHTML = `
                 <div class="font-medium text-blue-600 mb-1">Psyche Assistant</div>
                 <div class="typing-indicator">
@@ -675,43 +724,35 @@
             `;
             chatbotBody.appendChild(typingIndicator);
             chatbotBody.scrollTop = chatbotBody.scrollHeight;
-
+            
             // Simulate response delay
             setTimeout(() => {
                 chatbotBody.removeChild(typingIndicator);
-                const botMessage = document.createElement('div');
-                botMessage.className = 'chatbot-message bot animate-message-fade';
-                botMessage.innerHTML = `<div class="font-medium text-blue-600 mb-1">Psyche Assistant</div>${getBotResponse(message)}`;
-                chatbotBody.appendChild(botMessage);
-                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+                
+                let response = "";
+                const lowerMessage = userMessage.toLowerCase();
+                
+                if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                    response = "Hello! How can I assist with your training goals today?";
+                } 
+                else if (lowerMessage.includes('training') || lowerMessage.includes('program')) {
+                    response = "We offer a variety of training programs:<br>- Leadership Development<br>- Team Building<br>- Employee Wellness<br>- POSH Certification<br><br>Which program are you interested in?";
+                }
+                else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+                    response = "Our pricing varies based on program duration and customization. Would you like a detailed quote?";
+                }
+                else if (lowerMessage.includes('contact') || lowerMessage.includes('email')) {
+                    response = "You can reach us at:<br>📞 +91 9810319292<br>📧 hr@psypanconsulting.com<br><br>Or fill out the contact form on this page!";
+                }
+                else if (lowerMessage.includes('schedule') || lowerMessage.includes('demo')) {
+                    response = "I can help you schedule a demo! Please provide your preferred date and time.";
+                }
+                else {
+                    response = "I'm here to help with your training needs! Could you share more details about your query?";
+                }
+                
+                addMessage(response, 'bot');
             }, 1500);
-
-            input.value = '';
-        }
-
-        function getBotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-                return "Hello! 👋 How can I assist with your training goals today?";
-            }
-            if (lowerMessage.includes('roi')) {
-                return "Our ROI Toolkit helps quantify training impact. Would you like me to email you more information?";
-            }
-            if (lowerMessage.includes('training') || lowerMessage.includes('program')) {
-                return "We offer:<br>- Outbound Training<br>- SAHYOG Wellness<br>- POSH Certification<br><br>Which program are you interested in?";
-            }
-            if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('fee')) {
-                return "I can connect you with our team for a detailed quote. Would you like to schedule a consultation?";
-            }
-            if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('call')) {
-                return "You can reach us at:<br>📞 +91 9810319292<br>📧 hr@psypanconsulting.com<br><br>Or fill out the contact form on this page!";
-            }
-            if (lowerMessage.includes('location') || lowerMessage.includes('office') || lowerMessage.includes('address')) {
-                return "Our office is located at:<br>F280+P38, 308, Old Delhi Rd, Anamika Endave, Sector 14, Gurugram, Haryana 122001<br><br>Would you like directions?";
-            }
-            
-            return "I'm here to help with your training needs! Could you share more details about your query?";
         }
 
         // Set up chatbot event listeners
@@ -720,6 +761,17 @@
         document.getElementById('chatbotSend').addEventListener('click', sendMessage);
         document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
+        });
+        
+        // Quick reply buttons
+        document.querySelectorAll('.quick-reply').forEach(button => {
+            button.addEventListener('click', () => {
+                const reply = button.getAttribute('data-reply');
+                addMessage(reply, 'user');
+                setTimeout(() => {
+                    botResponse(reply);
+                }, 500);
+            });
         });
 
         // EmailJS Form Submission
@@ -765,7 +817,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 toggleChatbot();
-            }, 3000);
+            }, 1000);
         });
     </script>
 </body>
