@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mike Well's Photo Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #fff;
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: left;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        header span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .description {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            max-width: 80%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            color: #fff;
+        }
+
+        .gallery-item:hover .description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .load-more {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .load-more button {
+            background: #007bff;
+            color: #fff;
+            border: 1px solid #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .load-more button:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        footer a {
+            color: #007bff;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Psyche Panacea</h1>
+                <span>You're now browsing Psypan's Photos Collection</span>
+            </div>
+            <span>≡</span>
+        </header>
+
+        <h2 style="margin: 20px 0;">All albums</h2>
+        <div class="gallery" id="gallery">
+            <!-- Initial gallery items will be populated by JavaScript -->
+        </div>
+        <div class="load-more">
+            <button id="loadMore">Load More</button>
+        </div>
+
+        <footer>
+            <p><threelancer class="com"></threelancer></p>
+            <div>
+                <a href="#">📷</a>
+                <a href="#">🌐</a>
+            </div>
+        </footer>
+    </div>
+
+    <div class="modal" id="modal">
+        <span class="close" id="closeModal">×</span>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <script>
+        const galleryData = [
+            { desc: "Urban skyline at dusk", img: "https://via.placeholder.com/400x300?text=Urban" },
+            { desc: "Solitary figure in the field", img: "https://via.placeholder.com/400x300?text=Field" },
+            { desc: "Abstract blue reflection", img: "https://via.placeholder.com/400x300?text=Blue" },
+            { desc: "Window with ivy growth", img: "https://via.placeholder.com/400x300?text=Ivy" },
+            { desc: "Cherry blossoms in bloom", img: "https://via.placeholder.com/400x300?text=Cherry" },
+            { desc: "Shadow on a curved path", img: "https://via.placeholder.com/400x300?text=Path" },
+            { desc: "Seascape with misty horizon", img: "https://via.placeholder.com/400x300?text=Sea" },
+            { desc: "Bridge over calm waters", img: "https://via.placeholder.com/400x300?text=Bridge" },
+            { desc: "Close-up of wildflowers", img: "https://via.placeholder.com/400x300?text=Flowers" },
+            { desc: "Sunset over the city", img: "https://via.placeholder.com/400x300?text=Sunset" },
+            { desc: "Portrait in black and white", img: "https://via.placeholder.com/400x300?text=Portrait" },
+            { desc: "Detailed urban architecture", img: "https://via.placeholder.com/400x300?text=Architecture" },
+        ];
+
+        const gallery = document.getElementById('gallery');
+        const loadMoreBtn = document.getElementById('loadMore');
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modalContent');
+        const closeModal = document.getElementById('closeModal');
+        let visibleItems = 9;
+
+        function createGalleryItem(item) {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.innerHTML = `
+                <img src="${item.img}" alt="Gallery Image">
+                <div class="description">${item.desc}</div>
+            `;
+            div.querySelector('img').addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalContent.innerHTML = `<img src="${item.img}" alt="Expanded Image">`;
+            });
+            return div;
+        }
+
+        function loadGalleryItems(start, count) {
+            for (let i = start; i < start + count && i < galleryData.length; i++) {
+                gallery.appendChild(createGalleryItem(galleryData[i]));
+            }
+        }
+
+        loadGalleryItems(0, visibleItems);
+
+        loadMoreBtn.addEventListener('click', () => {
+            loadGalleryItems(visibleItems, 3);
+            visibleItems += 3;
+            if (visibleItems >= galleryData.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
