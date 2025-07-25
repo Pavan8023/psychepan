@@ -221,7 +221,11 @@
 <body>
   <!-- Header -->
   <header>
-    <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
+    <div class="flex items-center text-2xl font-bold text-primary">
+      <img src="/images/psypan-logo-transparent.png" class="h-12 mr-2" alt="">
+      Psyche Panacea
+    </div>
+
     <nav class="hidden md:flex items-center space-x-6">
       <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
       <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
@@ -271,25 +275,28 @@
   <section id="home" class="relative text-white min-h-screen flex items-center overflow-hidden">
     <!-- Background images with reduced overlay darkness -->
     <div class="hero-slide active"
-      style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/p/AF1QipPdF1ULFTSxiU3RGFURn1ZCDKt8tsPdg-nNNDNy=s1360-w1360-h1020-rw')">
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://lh3.googleusercontent.com/p/AF1QipPdF1ULFTSxiU3RGFURn1ZCDKt8tsPdg-nNNDNy=s1360-w1360-h1020-rw')">
     </div>
     <div class="hero-slide"
-      style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/p/AF1QipPiWvOttoiP2Kk2Wl2g_7ezxfQr-WO5CPbYZJku=s1360-w1360-h1020-rw')">
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://lh3.googleusercontent.com/p/AF1QipPiWvOttoiP2Kk2Wl2g_7ezxfQr-WO5CPbYZJku=s1360-w1360-h1020-rw')">
     </div>
     <div class="hero-slide"
-      style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/p/AF1QipNbVxi5gDs_jmFTuPJE5tFTkk0pmcW3pCHPPTQ0=s1360-w1360-h1020-rw')">
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://lh3.googleusercontent.com/p/AF1QipNbVxi5gDs_jmFTuPJE5tFTkk0pmcW3pCHPPTQ0=s1360-w1360-h1020-rw')">
     </div>
     <div class="hero-slide"
-      style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://lh3.googleusercontent.com/p/AF1QipNSPrL5WgfED0z2hro403kmlUh5Gwso5q6ocbOw=s1360-w1360-h1020-rw')">
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://lh3.googleusercontent.com/p/AF1QipNSPrL5WgfED0z2hro403kmlUh5Gwso5q6ocbOw=s1360-w1360-h1020-rw')">
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div class="text-center md:text-left">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style="font-size: 4.5rem; line-height: 1.2;">
             Welcome To <br>
-            <span class="text-primary" style="font-size: 3.5rem; letter-spacing: 1px; font-weight: 800;">Psyche
-              Panacea</span>
+            <span class="flex items-center text-white"
+              style="font-size: 3rem; letter-spacing: 1px; font-weight: 800;"> Psyche Panacea
+            </span>
+
+
           </h1>
           <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-blue-300">
             Management Trainings
@@ -299,7 +306,7 @@
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <a href="tel:09810319292"
-              class="bg-accent hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg text-center transition-all transform hover:scale-105 shadow-lg">
+              class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg">
               Call Us
             </a>
             <a href="#about"
@@ -372,39 +379,92 @@
       </div>
 
       <div class="logo-slider overflow-hidden relative w-full h-28 bg-blue-50 rounded-xl py-4">
-        <div class="logo-track h-full flex items-center">
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Reliance</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Siemens</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Maruti</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Tata</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Infosys</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            IBM</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Microsoft</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Google</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Amazon</div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center text-gray-800 font-medium mx-4 shadow-md">
-            Wipro</div>
-        </div>
-      </div>
+  <div class="logo-track h-full flex items-center">
+    <!-- First set of client logos -->
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/honda.png" alt="Honda" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/maruti.png" alt="Maruti Suzuki" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/hero.png" alt="Hero" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/jcb.png" alt="JCB" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/BirlaYamaha.png" alt="Yamaha" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/Suzuki-Motorcycles.png" alt="Suzuki Motorcycles" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/jktyre.png" alt="JK Tyres" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/Escort.png" alt="Escort" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/Sona-Koyo.jpg" alt="Sona Koyo" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/minda.png" alt="Minda" class="max-h-16 max-w-full">
+    </div>
+    
+    <!-- Second set (duplicate for seamless infinite scroll) -->
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/honda.png" alt="Honda" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/maruti.png" alt="Maruti Suzuki" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/hero.png" alt="Hero" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/jcb.png" alt="JCB" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/BirlaYamaha.png" alt="Yamaha" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/Suzuki-Motorcycles.png" alt="Suzuki Motorcycles" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/jktyre.png" alt="JK Tyres" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/Escort.png" alt="Escort" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/Sona-Koyo.jpg" alt="Sona Koyo" class="max-h-16 max-w-full">
+    </div>
+    <div class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
+      <img src="/images/clients/minda.png" alt="Minda" class="max-h-16 max-w-full">
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  
+  .logo-track {
+    animation: slide 20s linear infinite;
+    display: flex;
+  }
+  
+  .client-logo img {
+    transition: transform 0.3s ease;
+  }
+  
+  .client-logo:hover img {
+    transform: scale(1.1);
+  }
+</style>
     </div>
   </section>
 
