@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Psyche Panacea - Corporate Training Solutions</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="/images/psypan-logo-transparent.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
@@ -69,15 +69,15 @@
       overflow-x: hidden;
     }
 
-    /* Header */
+    /* Header - Fixed for better mobile */
     header {
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(10px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       position: fixed;
       width: 100%;
       z-index: 1000;
-      padding: 1.2rem 3rem;
+      padding: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -101,6 +101,17 @@
 
     nav a:hover::after {
       width: 100%;
+    }
+
+    /* Mobile Menu - Fixed position */
+    #mobile-menu {
+      position: fixed;
+      top: 68px;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 999;
     }
 
     /* Hero Section */
@@ -182,7 +193,7 @@
       }
 
       header {
-        padding: 1rem 1.5rem;
+        padding: 0.8rem 1rem;
       }
     }
 
@@ -205,17 +216,6 @@
         opacity: 1;
       }
     }
-
-    @keyframes slide {
-      0% {
-        transform: translateX(100%);
-      }
-
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
 
     @keyframes slide {
       0% {
@@ -243,10 +243,10 @@
 </head>
 
 <body>
-  <!-- Header -->
+  <!-- Header - Fixed for better mobile -->
   <header>
-    <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
-    <nav class="hidden md:flex items-center space-x-6">
+    <div class="text-xl md:text-2xl font-bold text-primary">Psyche Panacea</div>
+    <nav class="hidden md:flex items-center space-x-4 lg:space-x-6">
       <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
       <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
       <a href="flagship-programs.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Flagship
@@ -257,40 +257,38 @@
       <a href="contact.html" class="text-primary font-semibold transition-colors px-2 py-1">Contact</a>
     </nav>
 
-    <!-- Mobile Menu Button -->
+    <!-- Mobile Menu Button - Visible on mobile -->
     <div class="md:hidden flex items-center">
-      <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+      <button id="mobile-menu-button" class="text-gray-700 hover:text-primary focus:outline-none">
+        <i class="fas fa-bars text-2xl"></i>
       </button>
     </div>
   </header>
 
-  <!-- Mobile Dropdown Menu -->
+  <!-- Mobile Dropdown Menu - Fixed position -->
   <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <a href="index.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+        class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
       <a href="services.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
+        class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
       <a href="flagship-programs.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship
+        class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship
         Programs</a>
       <a href="events.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
+        class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
       <a href="gallery.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
+        class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
       <a href="about-us.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
+        class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
         Us</a>
       <a href="contact.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Contact</a>
+        class="block px-3 py-3 rounded-md text-base font-medium text-primary bg-blue-50">Contact</a>
     </div>
   </div>
 
-  <!-- Hero Section -->
-  <section id="home" class="relative text-white min-h-screen flex items-center overflow-hidden">
+  <!-- Hero Section - Added padding-top for mobile header -->
+  <section id="home" class="relative text-white min-h-screen flex items-center overflow-hidden pt-16 md:pt-0">
     <!-- Background images with reduced overlay darkness -->
     <div class="hero-slide active"
       style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://lh3.googleusercontent.com/p/AF1QipPdF1ULFTSxiU3RGFURn1ZCDKt8tsPdg-nNNDNy=s1360-w1360-h1020-rw')">
@@ -308,27 +306,26 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div class="text-center md:text-left">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style="font-size: 4.5rem; line-height: 1.2;">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style="font-size: 4rem; line-height: 1.2;">
             Welcome To <br>
-            <span class="flex items-center text-white" style="font-size: 3rem; letter-spacing: 1px; font-weight: 800;">
+            <span class="flex items-center text-white"
+              style="font-size: 2.5rem; letter-spacing: 1px; font-weight: 800;">
               Psyche Panacea
             </span>
-
-
           </h1>
-          <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-blue-300">
+          <h2 class="text-xl md:text-2xl font-semibold mb-6 text-blue-300">
             Management Trainings
           </h2>
-          <p class="text-xl mb-8 font-light text-blue-100">
+          <p class="text-lg mb-8 font-light text-blue-100">
             Served 350+ Clients Since 2001
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <a href="tel:09810319292"
-              class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+              class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
               Call Us
             </a>
             <a href="#about"
-              class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+              class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
               Know More
             </a>
           </div>
@@ -764,6 +761,15 @@
       mobileMenu.classList.toggle('hidden');
     });
 
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) &&
+        !mobileMenuButton.contains(e.target) &&
+        e.target !== mobileMenuButton) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -842,7 +848,7 @@
       showSlide(currentSlide);
     }, 5000);
 
-    // Chatbot Functionality - EXACTLY AS REQUESTED
+    // Chatbot Functionality
     function toggleChatbot() {
       const chatbotWindow = document.getElementById('chatbotWindow');
       chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
