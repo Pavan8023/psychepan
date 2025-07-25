@@ -3,263 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mike Well's Photo Collection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Psyche Panacea Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+      <link rel="icon" href="/images/psypan-logo-transparent.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0052cc',
+                        secondary: '#4da8ff',
+                        dark: '#1a1a1a',
+                        light: '#f8f9fa',
+                        accent: '#f59e0b',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'zoom-in': 'zoomIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            from: { opacity: 0 },
+                            to: { opacity: 1 },
+                        },
+                        zoomIn: {
+                            from: { transform: 'scale(0.8)', opacity: 0 },
+                            to: { transform: 'scale(1)', opacity: 1 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: #fff;
-            color: #000;
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: left;
-            padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        header span {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px 0;
-        }
-
         .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 5px;
-            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .gallery-item img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: block;
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .folder-tab {
+            transition: all 0.3s ease;
+        }
+        .folder-tab:hover, .folder-tab.active {
+            background: linear-gradient(to right, #0052cc, #4da8ff);
+            color: white;
+        }
+        .folder-tab.active {
+            transform: scale(1.05);
+        }
+        .folder-icon {
             transition: transform 0.3s ease;
         }
-
-        .description {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            max-width: 80%;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            color: #fff;
-        }
-
-        .gallery-item:hover .description {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .load-more {
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .load-more button {
-            background: #007bff;
-            color: #fff;
-            border: 1px solid #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s ease;
-        }
-
-        .load-more button:hover {
-            background: #0056b3;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        footer a {
-            color: #007bff;
-            margin: 0 10px;
-        }
-
-        @media (max-width: 768px) {
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-item img {
-                height: 200px;
-            }
+        .folder-tab:hover .folder-icon {
+            transform: translateY(-3px);
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div>
-                <h1>Psyche Panacea</h1>
-                <span>You're now browsing Psypan's Photos Collection</span>
+<body class="bg-gray-50 font-sans">
+    <!-- Navbar -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
+                    <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
+                    <a href="flagship-programs.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Flagship Programs</a>
+                    <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
+                    <a href="gallery.html" class="text-primary font-semibold transition-colors px-2 py-1">Gallery</a>
+                    <a href="about-us.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">About Us</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Contact</a>
+                </nav>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <span>≡</span>
-        </header>
-
-        <h2 style="margin: 20px 0;">All albums</h2>
-        <div class="gallery" id="gallery">
-            <!-- Initial gallery items will be populated by JavaScript -->
         </div>
-        <div class="load-more">
-            <button id="loadMore">Load More</button>
-        </div>
+    </header>
 
-        <footer>
-            <p><threelancer class="com"></threelancer></p>
-            <div>
-                <a href="#">📷</a>
-                <a href="#">🌐</a>
-            </div>
-        </footer>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden fixed w-full z-40 mt-16">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+            <a href="services.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
+            <a href="flagship-programs.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship Programs</a>
+            <a href="events.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
+            <a href="gallery.html" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Gallery</a>
+            <a href="about-us.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About Us</a>
+            <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+        </div>
     </div>
 
-    <div class="modal" id="modal">
-        <span class="close" id="closeModal">×</span>
-        <div class="modal-content" id="modalContent"></div>
+    <!-- Main Content -->
+    <div class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Psyche Panacea Gallery</h1>
+                <div class="h-1 w-24 bg-primary mx-auto rounded mb-6"></div>
+                <p class="text-gray-700 mt-6 max-w-2xl mx-auto text-lg">
+                    Explore our collection of events, workshops, and corporate programs
+                </p>
+            </div>
+
+            <!-- Folder Navigation -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto py-2">
+                <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="all">
+                    <i class="fas fa-folder-open folder-icon text-xl mr-3 text-yellow-500"></i>
+                    <span>All Albums</span>
+                </div>
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="CampusToCorporate">
+                    <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
+                    <span>Campus To Corporate</span>
+                </div>
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="CareerCounselingforEmployeeKids">
+                    <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
+                    <span>Career Counseling</span>
+                </div>
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="diversity&inclusion">
+                    <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
+                    <span>Diversity & Inclusion</span>
+                </div>
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="eep">
+                    <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
+                    <span>EEP Program</span>
+                </div>
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="outbound">
+                    <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
+                    <span>Outbound Activities</span>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="galleryGrid">
+                <!-- Gallery items will be loaded here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="loadMore" class="bg-gradient-to-r from-primary to-blue-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                    Load More
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
+        <div class="relative max-w-5xl w-full">
+            <button id="closeModal" class="absolute -top-12 right-0 text-white text-3xl hover:text-gray-300 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="bg-gray-500 rounded-lg overflow-hidden shadow-2xl">
+                <img id="modalImage" alt="Gallery Image" class="w-full max-h-[80vh] object-contain">
+                <div class="p-4 text-center bg-gray-50">
+                    <h3 id="modalTitle" class="text-xl font-bold text-gray-900"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <!-- Left half: Map -->
+                <div class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+                    <iframe src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
+                        width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
+                        class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
+                        gestureHandling="greedy">
+                    </iframe>
+                </div>
+
+                <!-- Right half: Content -->
+                <div class="grid grid-cols-1 gap-8">
+                    <!-- Company Info -->
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
+                        </div>
+                        <p class="text-gray-400">
+                            Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
+                            transforming organizations through strategic HR solutions.
+                        </p>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">Contact Us
+                        </h4>
+                        <ul class="space-y-4 text-gray-400 text-sm">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
+                                    Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                <span>09810323292, 09810319292</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span>hr@psypanconsulting.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <div class="bg-primary text-white p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition-colors">
+            <i class="fas fa-comment-dots text-2xl"></i>
+        </div>
     </div>
 
     <script>
-        const galleryData = [
-            { desc: "Urban skyline at dusk", img: "https://via.placeholder.com/400x300?text=Urban" },
-            { desc: "Solitary figure in the field", img: "https://via.placeholder.com/400x300?text=Field" },
-            { desc: "Abstract blue reflection", img: "https://via.placeholder.com/400x300?text=Blue" },
-            { desc: "Window with ivy growth", img: "https://via.placeholder.com/400x300?text=Ivy" },
-            { desc: "Cherry blossoms in bloom", img: "https://via.placeholder.com/400x300?text=Cherry" },
-            { desc: "Shadow on a curved path", img: "https://via.placeholder.com/400x300?text=Path" },
-            { desc: "Seascape with misty horizon", img: "https://via.placeholder.com/400x300?text=Sea" },
-            { desc: "Bridge over calm waters", img: "https://via.placeholder.com/400x300?text=Bridge" },
-            { desc: "Close-up of wildflowers", img: "https://via.placeholder.com/400x300?text=Flowers" },
-            { desc: "Sunset over the city", img: "https://via.placeholder.com/400x300?text=Sunset" },
-            { desc: "Portrait in black and white", img: "https://via.placeholder.com/400x300?text=Portrait" },
-            { desc: "Detailed urban architecture", img: "https://via.placeholder.com/400x300?text=Architecture" },
-        ];
+        // Gallery data organized by folders
+        const galleryData = {
+            all: [
+                { title: "Corporate Training Session", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-2.png" },
+                { title: "Graduation Ceremony", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE.jpg" },
+                { title: "Workshop in Progress", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-3.jpg" },
+                { title: "Career Counseling", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-2.png" },
+                { title: "Career Workshop", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-3.jpg" },
+                { title: "Career Guidance", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-5.png" },
+                { title: "Student Counseling", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-4.png" },
+                { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-1.jpg" },
+                { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-2.png" },
+                { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-3.jpg" },
+                { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-4.png" },
+                { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-1.jpg" },
+                { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-2.jpg" },
+                { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-1.jpg" },
+                { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-2.jpg" },
+                { title: "Program Session", folder: "EEP", image: "EEP-PICTURES-3.jpg" },
+                { title: "Workshop in Progress", folder: "EEP", image: "EEP-PICTURES-4.jpg" },
+                { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-5.png" },
+                { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-6.jpg" },
+                { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-7.png" },
+                { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-8.png" },
+                { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-9.png" },
+                { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-1.jpg" },
+                { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-2-1.jpg" },
+                { title: "Ist Engagement", folder: "EEP", image: "ist-enagament.png"},
+                { title: "Ist Engagement", folder: "EEP", image: "ist-engagement.jpg"},
+                { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-1.png" },
+                { title: "Team Adventure", folder: "Outbound", image: "Outbound-2.png" },
+                { title: "Group Activity", folder: "Outbound", image: "Outbound-3.png" },
+                { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-4.png" },
+                { title: "Group Activity", folder: "Outbound", image: "Outbound-5.png" },
+                { title: "Team Adventure", folder: "Outbound", image: "Outbound-6.png" },
+                { title: "Team Building", folder: "Outbound", image: "Outbound-7.png" },
 
-        const gallery = document.getElementById('gallery');
+            ],
+            CampusToCorporate: [
+                { title: "Corporate Training Session", image: "CAMPUS-TO-CORPORATE-2.png" },
+                { title: "Graduation Ceremony", image: "CAMPUS-TO-CORPORATE.jpg" },
+                { title: "Workshop in Progress", image: "CAMPUS-TO-CORPORATE-3.jpg" },
+            ],
+            CareerCounselingforEmployeeKids: [
+                { title: "Career Counseling", image: "Career-Counselling-for-employee-kids-2.png" },
+                { title: "Career Workshop", image: "Career-Counselling-for-employee-kids-3.jpg" },
+                { title: "Career Guidance", image: "Career-Counselling-for-employee-kids-5.png" },
+                { title: "Student Counseling", image: "Career-Counselling-for-employee-kids-4.png" },
+            ],
+            "diversity&inclusion": [
+                { title: "Diversity Workshop", image: "Diversity-and-inclusion-1.jpg" },
+                { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-2.png" },
+                { title: "Team Diversity", image: "Diversity-and-inclusion-3.jpg" },
+                { title: "Diversity Workshop", image: "Diversity-and-inclusion-4.png" },
+                { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-1.jpg" },
+                { title: "Team Diversity", image: "Diversity-and-inclusion-2.jpg" },
+            ],
+            eep: [
+                { title: "EEP Training", image: "EEP-PICTURES-1.jpg" },
+                { title: "EEP Workshop", image: "EEP-PICTURES-2.jpg" },
+                { title: "Program Session", image: "EEP-PICTURES-3.jpg" },
+                { title: "Workshop in Progress", image: "EEP-PICTURES-4.jpg" },
+                { title: "EEP Program", image: "EEP-PICTURES-5.png" },
+                { title: "EEP Training", image: "EEP-PICTURES-6.jpg" },
+                { title: "EEP Workshop", image: "EEP-PICTURES-7.png" },
+                { title: "EEP Program", image: "EEP-PICTURES-8.png" },
+                { title: "EEP Training", image: "EEP-PICTURES-9.png" },
+                { title: "Employee Engagement", image: "Employee-Engagement-1.jpg" },
+                { title: "Employee Engagement", image: "Employee-Engagement-2-1.jpg" },
+                { title: "Ist Engagement", image: "ist-enagament.png"},                
+                { title: "Ist Engagement", image: "ist-engagement.jpg"},                
+            ],
+            outbound: [
+                { title: "Outdoor Activities", image: "Outbound-1.png" },
+                { title: "Team Adventure", image: "Outbound-2.png" },
+                { title: "Group Activity", image: "Outbound-3.png" },
+                { title: "Outdoor Activities", image: "Outbound-4.png" },
+                { title: "Group Activity", image: "Outbound-5.png" },
+                { title: "Team Adventure", image: "Outbound-6.png" },
+                { title: "Team Building", image: "Outbound-7.png" },
+            ]
+        };
+
+        // DOM Elements
+        const galleryGrid = document.getElementById('galleryGrid');
         const loadMoreBtn = document.getElementById('loadMore');
-        const modal = document.getElementById('modal');
-        const modalContent = document.getElementById('modalContent');
+        const folderTabs = document.querySelectorAll('.folder-tab');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
         const closeModal = document.getElementById('closeModal');
-        let visibleItems = 9;
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        function createGalleryItem(item) {
-            const div = document.createElement('div');
-            div.className = 'gallery-item';
-            div.innerHTML = `
-                <img src="${item.img}" alt="Gallery Image">
-                <div class="description">${item.desc}</div>
+        // Current state
+        let currentFolder = 'all';
+        let visibleItems = 8;
+
+        // Create gallery item
+        function createGalleryItem(item, folder) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'gallery-item bg-white rounded-xl shadow-md overflow-hidden animate-fade-in';
+            
+            const imageUrl = `/images/gallery/${folder ? folder + '/' : ''}${item.image}`;
+            
+            itemDiv.innerHTML = `
+                <div class="relative">
+                    <img src="${imageUrl}" alt="${item.title}" class="w-full h-56 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
+                        <h3 class="text-white font-medium">${item.title}</h3>
+                    </div>
+                </div>
             `;
-            div.querySelector('img').addEventListener('click', () => {
-                modal.style.display = 'flex';
-                modalContent.innerHTML = `<img src="${item.img}" alt="Expanded Image">`;
+            
+            itemDiv.addEventListener('click', () => {
+                modalImage.src = imageUrl;
+                modalTitle.textContent = item.title;
+                imageModal.classList.remove('hidden');
+                imageModal.classList.add('flex');
             });
-            return div;
+            
+            return itemDiv;
         }
 
-        function loadGalleryItems(start, count) {
-            for (let i = start; i < start + count && i < galleryData.length; i++) {
-                gallery.appendChild(createGalleryItem(galleryData[i]));
+        // Render gallery items
+        function renderGallery(folder = 'all', count = visibleItems) {
+            galleryGrid.innerHTML = '';
+            const items = galleryData[folder];
+            const itemsToShow = Math.min(count, items.length);
+            
+            for (let i = 0; i < itemsToShow; i++) {
+                const item = items[i];
+                const galleryItem = createGalleryItem(item, folder === 'all' ? item.folder : folder);
+                galleryGrid.appendChild(galleryItem);
             }
+            
+            // Show/hide load more button
+            loadMoreBtn.style.display = itemsToShow < items.length ? 'block' : 'none';
         }
 
-        loadGalleryItems(0, visibleItems);
+        // Initialize gallery
+        renderGallery();
 
+        // Folder tab click handler
+        folderTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                folderTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Update folder icon
+                const icon = tab.querySelector('.folder-icon');
+                icon.classList.remove('fa-folder');
+                icon.classList.add('fa-folder-open');
+                
+                // Set current folder and render gallery
+                currentFolder = tab.dataset.folder;
+                visibleItems = 8;
+                renderGallery(currentFolder);
+            });
+        });
+
+        // Load more button
         loadMoreBtn.addEventListener('click', () => {
-            loadGalleryItems(visibleItems, 3);
-            visibleItems += 3;
-            if (visibleItems >= galleryData.length) {
-                loadMoreBtn.style.display = 'none';
+            visibleItems += 4;
+            renderGallery(currentFolder, visibleItems);
+        });
+
+        // Modal close
+        closeModal.addEventListener('click', () => {
+            imageModal.classList.add('hidden');
+            imageModal.classList.remove('flex');
+        });
+
+        // Close modal when clicking outside
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                imageModal.classList.add('hidden');
+                imageModal.classList.remove('flex');
             }
         });
 
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
             }
         });
     </script>
