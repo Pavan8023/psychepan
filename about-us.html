@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,7 +118,7 @@
       justify-content: center;
       margin: 2rem 0;
     }
-    
+
     .tab-btn {
       padding: 1rem 2rem;
       font-size: 1.1rem;
@@ -129,13 +130,13 @@
       border-bottom: 3px solid transparent;
       color: #555;
     }
-    
+
     .tab-btn.active {
       color: #0052cc;
       border-bottom: 3px solid #0052cc;
       background: rgba(0, 82, 204, 0.05);
     }
-    
+
     .tab-btn:hover:not(.active) {
       background: rgba(0, 82, 204, 0.1);
     }
@@ -145,7 +146,7 @@
       display: none;
       animation: fadeIn 0.5s ease forwards;
     }
-    
+
     .tab-content.active {
       display: block;
     }
@@ -155,7 +156,7 @@
       transition: all 0.4s ease;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
-    
+
     .career-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 40px rgba(0, 82, 204, 0.2);
@@ -167,7 +168,7 @@
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 2rem;
     }
-    
+
     .client-card {
       height: 120px;
       display: flex;
@@ -179,7 +180,7 @@
       transition: all 0.3s ease;
       overflow: hidden;
     }
-    
+
     .client-card:hover {
       transform: scale(1.05);
       box-shadow: 0 10px 25px rgba(0, 82, 204, 0.15);
@@ -190,11 +191,11 @@
       display: none;
       animation: fadeIn 0.8s ease;
     }
-    
+
     .testimonial-slide.active {
       display: block;
     }
-    
+
     .rating i {
       color: #f59e0b;
       font-size: 1.2rem;
@@ -205,17 +206,17 @@
       header {
         padding: 1rem 1.5rem;
       }
-      
+
       .tab-btn {
         padding: 0.8rem 1.2rem;
         font-size: 0.9rem;
       }
-      
+
       .client-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
       }
-      
+
       .client-card {
         height: 100px;
       }
@@ -224,48 +225,66 @@
     .floating-element {
       animation: float 6s ease-in-out infinite;
     }
-    
+
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
     }
 
-  .client-gallery {
-    perspective: 1000px;
-  }
-  
-  .client-card {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-    cursor: pointer;
-  }
-  
-  .client-card:hover {
-    transform: translateY(-5px) rotateY(5deg);
-    z-index: 10;
-  }
-  
-  #logoModal {
-    transition: opacity 0.3s ease;
-  }
-  
-  #logoModal > div {
-    animation: popupFadeIn 0.4s ease forwards;
-  }
-  
-  @keyframes popupFadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
+    .client-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      background-color: #f9fafb; /* Light grey background */
     }
-    to {
-      opacity: 1;
-      transform: scale(1);
+
+    .client-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
-  }
-</style>
+
+    .lightbox {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .lightbox-content {
+      animation: scaleIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.9);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .filter-btn.active {
+      background-color: #2563eb;
+      color: white;
+    }
+  </style>
+
 </head>
+
 <body>
   <!-- Header -->
   <header>
@@ -305,8 +324,8 @@
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
       <a href="gallery.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
-      <a href="about-us.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">About Us</a>
+      <a href="about-us.html" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">About
+        Us</a>
       <a href="contact.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
     </div>
@@ -318,7 +337,8 @@
       <h1 class="text-4xl md:text-5xl font-bold mb-6">About Psyche Panacea</h1>
       <div class="h-1 w-24 bg-white mx-auto rounded mb-8"></div>
       <p class="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
-        Pioneers of innovative and breakthrough methodologies in the Indian consultation arena, transforming organizations through strategic HR solutions.
+        Pioneers of innovative and breakthrough methodologies in the Indian consultation arena, transforming
+        organizations through strategic HR solutions.
       </p>
     </div>
   </section>
@@ -326,7 +346,7 @@
   <!-- Tab Navigation -->
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="careers">Careers</button>
-    <button class="tab-btn" data-tab="clients">Our Clients</button>
+    <button class="tab-btn" data-tab="clients-tab">Our Clients</button>
     <button class="tab-btn" data-tab="testimonials">Testimonials</button>
   </div>
 
@@ -337,16 +357,20 @@
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold text-gray-900 mb-4">Dear Candidates</h2>
           <p class="text-gray-700 text-lg">
-            We are thrilled to extend a warm welcome to you as you embark on a journey towards a world of exciting job opportunities.
+            We are thrilled to extend a warm welcome to you as you embark on a journey towards a world of exciting job
+            opportunities.
           </p>
         </div>
 
         <div class="mb-10">
           <p class="text-gray-700 mb-6">
-            At Psyche Panacea we believe in the power of talent and the value that each individual brings to our team. As a forward-thinking and dynamic training and consultancy company, we are continuously seeking exceptional individuals like you to join our ranks and contribute to our mission.
+            At Psyche Panacea we believe in the power of talent and the value that each individual brings to our team.
+            As a forward-thinking and dynamic training and consultancy company, we are continuously seeking exceptional
+            individuals like you to join our ranks and contribute to our mission.
           </p>
           <p class="text-gray-700">
-            We are committed to fostering an environment that encourages innovation, personal growth, and collaboration. Your unique skills and experiences are exactly what we are looking for to help us drive our company forward.
+            We are committed to fostering an environment that encourages innovation, personal growth, and collaboration.
+            Your unique skills and experiences are exactly what we are looking for to help us drive our company forward.
           </p>
         </div>
 
@@ -356,32 +380,32 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="first-name">First Name *</label>
-              <input type="text" id="first-name" required 
+              <input type="text" id="first-name" required
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="last-name">Last Name</label>
-              <input type="text" id="last-name" 
+              <input type="text" id="last-name"
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="email">Email *</label>
-              <input type="email" id="email" required 
+              <input type="email" id="email" required
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="phone">Phone</label>
-              <input type="tel" id="phone" 
+              <input type="tel" id="phone"
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
           </div>
-          
+
           <div>
             <label class="block text-gray-700 font-medium mb-2" for="job">Job Applying For: *</label>
-            <select id="job" required 
+            <select id="job" required
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
               <option value="">Select a position</option>
               <option value="hr">HR Consultant: HR/Psychology</option>
@@ -390,16 +414,17 @@
               <option value="coordinator">Event Coordinator</option>
             </select>
           </div>
-          
+
           <div>
             <label class="block text-gray-700 font-medium mb-2" for="resume">Upload Resume *</label>
-            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors">
+            <div
+              class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors">
               <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
               <p class="text-gray-600 mb-2">Click or drag a file to this area to upload</p>
               <p class="text-gray-500 text-sm">Supported formats: PDF, DOC, DOCX (Max size: 5MB)</p>
             </div>
           </div>
-          
+
           <div class="text-center pt-6">
             <button type="submit"
               class="bg-gradient-to-r from-primary to-blue-700 hover:from-blue-700 hover:to-primary text-white font-bold py-4 px-12 rounded-lg transition-all transform hover:scale-105 shadow-lg">
@@ -407,58 +432,64 @@
             </button>
           </div>
         </form>
-        
+
         <div class="mt-12 text-center text-gray-600">
-          <p>Don't find a match with your profile? Do drop a mail at <a href="mailto:hr@psypanconsulting.com" class="text-primary font-medium">hr@psypanconsulting.com</a> for future reference!</p>
+          <p>Don't find a match with your profile? Do drop a mail at <a href="mailto:hr@psypanconsulting.com"
+              class="text-primary font-medium">hr@psypanconsulting.com</a> for future reference!</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-12 px-4 max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Valued Clients</h1>
-            <div class="w-24 h-1 bg-primary mx-auto rounded"></div>
-        </div>
-        
-        <div id="gallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-            <!-- Images will be dynamically inserted here -->
-        </div>
-    </section>
-    
-    <!-- Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
-        <div class="max-w-4xl w-full p-4">
-            <div class="flex justify-end mb-2">
-                <button id="closeModal" class="text-white hover:text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <img id="modalImage" class="max-w-full max-h-[80vh] mx-auto object-contain" src="" alt="Enlarged client logo">
-            <p id="imageName" class="text-white text-center mt-3 text-sm opacity-80"></p>
-        </div>
-    </div>
+  <!-- Our Clients Tab Content -->
+  <section id="clients-tab" class="tab-content py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Esteemed Clients</h2>
+        <div class="h-1 w-20 bg-primary mx-auto rounded mb-6"></div>
+        <p class="text-gray-700 mt-6 max-w-2xl mx-auto text-lg">
+          We've had the privilege of working with industry leaders who trust us to deliver exceptional training and
+          consulting solutions.
+        </p>
+      </div>
 
-  <!-- Logo Modal -->
-  <div id="logoModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden relative">
-      <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 z-10">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
+      <!-- Filter Controls -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white font-medium transition-all"
+          data-filter="all">All Clients</button>
+        <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all"
+          data-filter="automotive">Automotive</button>
+        <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all"
+          data-filter="manufacturing">Manufacturing</button>
+        <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all"
+          data-filter="technology">Technology</button>
+        <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all"
+          data-filter="fmg">FMCG</button>
+      </div>
+
+      <!-- Client Gallery -->
+      <div class="client-gallery grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <!-- Client cards will be generated dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4 lightbox">
+    <div class="relative max-w-4xl w-full lightbox-content">
+      <button id="close-lightbox"
+        class="absolute -top-12 right-0 text-white text-3xl hover:text-gray-300 transition-colors">
+        <i class="fas fa-times"></i>
       </button>
-      <div class="p-6">
-        <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-4"></h3>
-        <div class="flex justify-center">
-          <img id="modalImage" src="" alt="Client Logo" class="max-w-full max-h-[60vh] object-contain">
+      <div class="bg-gray-500 rounded-lg overflow-hidden shadow-2xl">
+        <img id="lightbox-image" alt="Client Logo" class="w-full max-h-[80vh] object-contain">
+        <div class="p-4 text-center bg-gray-50">
+          <h3 id="lightbox-title" class="text-xl font-bold text-gray-900"></h3>
+          <p id="lightbox-tagline" class="text-gray-600 mt-1"></p>
         </div>
-        <p id="modalTagline" class="text-center text-gray-600 mt-4"></p>
       </div>
     </div>
   </div>
-</section>
 
   <!-- Testimonials Tab Content -->
   <section id="testimonials" class="tab-content py-16 bg-white">
@@ -483,7 +514,9 @@
               <i class="fas fa-star"></i>
             </div>
             <p class="text-gray-700 text-lg mb-8 italic">
-              "Working with Psyche Panacea has transformed our approach to employee development. Their innovative training methodologies have significantly improved team cohesion and productivity. The trainers are not just experts but truly passionate about what they do."
+              "Working with Psyche Panacea has transformed our approach to employee development. Their innovative
+              training methodologies have significantly improved team cohesion and productivity. The trainers are not
+              just experts but truly passionate about what they do."
             </p>
             <div class="flex items-center">
               <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16"></div>
@@ -505,7 +538,9 @@
               <i class="fas fa-star"></i>
             </div>
             <p class="text-gray-700 text-lg mb-8 italic">
-              "The leadership development program designed by Psyche Panacea has been a game-changer for our organization. We've seen measurable improvements in decision-making and strategic thinking across our management team. Highly recommended for any forward-thinking company."
+              "The leadership development program designed by Psyche Panacea has been a game-changer for our
+              organization. We've seen measurable improvements in decision-making and strategic thinking across our
+              management team. Highly recommended for any forward-thinking company."
             </p>
             <div class="flex items-center">
               <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16"></div>
@@ -527,7 +562,9 @@
               <i class="fas fa-star-half-alt"></i>
             </div>
             <p class="text-gray-700 text-lg mb-8 italic">
-              "Psyche Panacea's wellness program has made a remarkable difference in our workplace culture. Employee stress levels have decreased significantly, and we've seen a 30% reduction in absenteeism. Their holistic approach to employee wellbeing is exactly what modern organizations need."
+              "Psyche Panacea's wellness program has made a remarkable difference in our workplace culture. Employee
+              stress levels have decreased significantly, and we've seen a 30% reduction in absenteeism. Their holistic
+              approach to employee wellbeing is exactly what modern organizations need."
             </p>
             <div class="flex items-center">
               <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16"></div>
@@ -541,10 +578,12 @@
 
         <!-- Navigation Buttons -->
         <div class="flex justify-center mt-10 space-x-4">
-          <button id="prev-testimonial" class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
+          <button id="prev-testimonial"
+            class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
             <i class="fas fa-chevron-left"></i>
           </button>
-          <button id="next-testimonial" class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
+          <button id="next-testimonial"
+            class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
             <i class="fas fa-chevron-right"></i>
           </button>
         </div>
@@ -571,8 +610,8 @@
           <div>
             <div class="flex items-center mb-4">
               <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -593,28 +632,24 @@
                 Links</h4>
               <ul class="space-y-2 text-gray-400 text-sm">
                 <li><a href="home.html" class="hover:text-blue-400 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                      viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5l7 7-7 7" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>Home</a></li>
                 <li><a href="services.html" class="hover:text-blue-400 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                      viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5l7 7-7 7" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>Services</a></li>
                 <li><a href="flagship-programs.html" class="hover:text-blue-400 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                      viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5l7 7-7 7" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>Flagship Programs</a></li>
                 <li><a href="events.html" class="hover:text-blue-400 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                      viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5l7 7-7 7" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>Events</a></li>
               </ul>
             </div>
@@ -625,31 +660,27 @@
                 Services</h4>
               <ul class="space-y-2 text-gray-400 text-sm">
                 <li class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 13l4 4L19 7" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>Management Trainings
                 </li>
                 <li class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 13l4 4L19 7" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>Employee Engagement
                 </li>
                 <li class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 13l4 4L19 7" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>HR Consulting
                 </li>
                 <li class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 13l4 4L19 7" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>Career Counseling
                 </li>
               </ul>
@@ -662,8 +693,8 @@
             </h4>
             <ul class="space-y-4 text-gray-400 text-sm">
               <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -701,160 +732,268 @@
   </footer>
 
   <script>
-        // Array of all client logos
-        const clientLogos = [
-            "ACC (1).png", "acc.png", "Amtek.jpg", "Anchor.jpg", "Asahi-Glass.png", "Asahi.png", 
-            "Ato-Ato.jpg", "Ato.png", "Bharti.png", "Biotech.webp", "bria-power.png", "Bria.jpg", 
-            "BriaYamaha.png", "bees.png", "Chemsys.png", "Cll.png", "Colgate-and-Palmoliv.png", 
-            "ColgateandPalmolive.png", "DABUR (1).png", "dabur.png", "Daikin.png", "DLT-Utilities-Ltd.png", 
-            "eli.png", "EPCOS.jpg", "Escort.png", "Ester-Industries.png", "Grasim.jpg", "Graviera.png", 
-            "HCL (1).png", "hcl.png", "hero.png", "Hindustan-Zinc.png", "Honda-2-Wheelers.png", 
-            "Honda-cars.webp", "honda.png", "Parle-G.jpg", "pepsi.png", "Perfetti.png", "Quest-Ventures.png", 
-            "Ranbaxy.png", "RMSI.png", "Roop-Polymers.png", "Rouse-India.png", "RS-Cookware-Pvt.-Ltd.png", 
-            "SAB-Exports.png", "Safran.png", "Sekisui.png", "Shree-Cements.jpg", "Sona-Koyo.jpg", 
-            "spencers.png", "SPIL.png", "SRF.png", "Suzuki-Motorcycles.png", "tech-mahindra.png", 
-            "TMTI.png", "Vam.png", "Van-Melle.png", "Wabag.png", "whirl-pool.png", "Hughes-Software.png", 
-            "icici-bank.png", "IIPM.jpg", "indian-oil.png", "J-K-Tyres.jpg", "Jakson.png", "JBM (1),png", 
-            "jbm.png", "JCB (1),png", "jcb.png", "jktyre.png", "Johnson-Lifts.png", "Jubilant-Energy (1)gif", 
-            "Jubilant-Energy.gif", "Jubilant.png", "lanco.png", "Larsen-Tubro.png", "LOGO_OMAX-technology.png", 
-            "logo-ato.png", "maruti.png", "Minda-Industries.png", "minda.png", "Mindarika.jpg", "Mizuho-Bank.png", 
-            "Mother-Dairy.jpg", "MSIL.jpg", "Mytex-polymer.jpg", "Nex-Gen.png", "ntpc.png", "NTPC12-Plants.png", 
-            "Organosys.png", "PalmoIv.webp", "PalmoIve.webp", "Panacea.jpg", "PanaceaS.webp"
-        ];
-        
-        const gallery = document.getElementById('gallery');
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const imageName = document.getElementById('imageName');
-        const closeModal = document.getElementById('closeModal');
-        
-        // Function to create logo element
-        function createLogoElement(logo) {
-            const container = document.createElement('div');
-            container.className = 'bg-white rounded-lg shadow-md overflow-hidden transform transition-all hover:scale-105 hover:shadow-lg cursor-pointer h-36 flex items-center justify-center p-3';
-            container.setAttribute('data-src', `images/clients/${logo}`);
-            container.setAttribute('data-name', logo);
-            
-            const img = document.createElement('img');
-            img.src = `images/clients/${logo}`;
-            img.alt = logo.replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' '); // Remove extension and special chars
-            img.className = 'max-h-24 max-w-full object-contain';
-            
-            container.appendChild(img);
-            return container;
-        }
-        
-        // Populate the gallery
-        clientLogos.forEach(logo => {
-            const logoElement = createLogoElement(logo);
-            gallery.appendChild(logoElement);
-            
-            // Add click event to each logo
-            logoElement.addEventListener('click', () => {
-                modalImage.src = logoElement.getAttribute('data-src');
-                imageName.textContent = logoElement.getAttribute('data-name');
-                modal.classList.remove('hidden');
-            });
-        });
-        
-        // Close modal events
-        closeModal.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
-        
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.add('hidden');
-            }
-        });
-        
-        // Close with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-                modal.classList.add('hidden');
-            }
-        });
+    // Client data with categories
+    const clients = [
+      // Automotive
+      { name: "Honda", image: "honda.png", category: "automotive", tagline: "The Power of Dreams" },
+      { name: "Maruti Suzuki", image: "maruti.png", category: "automotive", tagline: "Way of Life" },
+      { name: "Hero", image: "hero.png", category: "automotive", tagline: "Desh Ki Dhadkan" },
+      { name: "JCB", image: "jcb.png", category: "automotive", tagline: "Powering Progress" },
+      { name: "Yamaha", image: "BirlaYamaha.png", category: "automotive", tagline: "Revs Your Heart" },
+      { name: "Suzuki Motorcycles", image: "Suzuki-Motorcycles.png", category: "automotive" },
+      { name: "JK Tyres", image: "jktyre.png", category: "automotive" },
+      { name: "Escort", image: "Escort.png", category: "automotive" },
+      { name: "Sona Koyo", image: "Sona-Koyo.jpg", category: "automotive" },
+      { name: "Minda", image: "minda.png", category: "automotive" },
+      { name: "JBM Group", image: "jbm.png", category: "automotive" },
 
+      // Manufacturing
+      { name: "ACC", image: "acc.png", category: "manufacturing", tagline: "The Professional's Choice" },
+      { name: "Amtek", image: "Amtek.jpg", category: "manufacturing" },
+      { name: "Anchor", image: "Anchor.jpg", category: "manufacturing" },
+      { name: "Asahi Glass", image: "Asahi-Glass.png", category: "manufacturing" },
+      { name: "ATO", image: "ato.png", category: "manufacturing" },
+      { name: "BIRLA POWER", image: "birla-power.png", category: "manufacturing", tagline: "POWER... the ability to change" },
+      { name: "Bria", image: "Birla.jpg", category: "manufacturing" },
+      { name: "Chemsys", image: "Chemsys.png", category: "manufacturing" },
+      { name: "Colgate and Palmolive", image: "ColgateandPalmolive.png", category: "manufacturing" },
+      { name: "Daikin", image: "Daikin.png", category: "manufacturing" },
+      { name: "Dabur", image: "dabur.png", category: "manufacturing" },
+      { name: "Ester Industries", image: "Ester-Industries.png", category: "manufacturing" },
+      { name: "Grasim", image: "Grasim.jpg", category: "manufacturing" },
+      { name: "Hindustan Zinc", image: "Hindustan-Zinc.png", category: "manufacturing" },
+      { name: "Indian Oil", image: "indian-oil.png", category: "manufacturing" },
+      { name: "NTPC", image: "ntpc.png", category: "manufacturing" },
+      { name: "Shree Cements", image: "Shree-Cements.jpg", category: "manufacturing" },
+      { name: "SRF", image: "SRF.png", category: "manufacturing" },
 
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+      // Technology
+      { name: "Bharti", image: "Bharti.png", category: "technology" },
+      { name: "HCL", image: "hcl.png", category: "technology" },
+      { name: "Hughes Software", image: "Hughes-Software.png", category: "technology" },
+      { name: "ICICI Bank", image: "icici-bank.png", category: "technology" },
+      { name: "Mizuho Bank", image: "Mizuho-Bank.png", category: "technology" },
+      { name: "RMSI", image: "RMSI.png", category: "technology" },
+      { name: "Safran", image: "Safran.png", category: "technology" },
+      { name: "SPIL", image: "SPIL.png", category: "technology" },
+      { name: "Tech Mahindra", image: "tech-mahindra.png", category: "technology" },
+      { name: "TMTL", image: "TMTL.png", category: "technology" },
+      { name: "Wabag", image: "Wabag.png", category: "technology" },
+      { name: "OMAX Technology", image: "LOGO_OMAX-technology.png", category: "technology" },
+      { name: "Nex-Gen", image: "Nex-Gen.png", category: "technology" },
+      { name: "Biotech", image: "Biotech.webp", category: "technology" },
 
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+      // FMCG
+      { name: "Pepsi", image: "pepsi.png", category: "fmg" },
+      { name: "Parle-G", image: "Parle-G.jpg", category: "fmg" },
+      { name: "Perfetti", image: "Perfetti.png", category: "fmg" },
+      { name: "Dabur", image: "DABUR (1).png", category: "fmg" },
+      { name: "Colgate and Palmolive", image: "Colgate-and-Palmoliv.png", category: "fmg" },
+      { name: "Whirlpool", image: "whirl-pool.png", category: "fmg" },
+      { name: "Spencer's", image: "spencers.png", category: "fmg" },
+      { name: "Van Melle", image: "Van-Melle.png", category: "fmg" },
+      { name: "Mother Dairy", image: "Mother-Dairy.jpg", category: "fmg" }
+    ];
 
-    // Tab Switching Functionality
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove active class from all buttons and contents
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-        
-        // Add active class to clicked button
-        button.classList.add('active');
-        
-        // Show corresponding content
-        const tabId = button.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
-      });
-    });
+    // Function to create client card
+    function createClientCard(client) {
+      const card = document.createElement('div');
+      card.className = 'client-card group';
+      card.dataset.category = client.category;
+      card.dataset.name = client.name;
+      card.dataset.tagline = client.tagline || '';
 
-    // Testimonial Carousel
-    const testimonialSlides = document.querySelectorAll('.testimonial-slide');
-    const prevButton = document.getElementById('prev-testimonial');
-    const nextButton = document.getElementById('next-testimonial');
-    let currentTestimonial = 0;
+      card.innerHTML = `
+                <div class="relative overflow-hidden rounded-xl shadow-lg h-56 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                    <div class="p-4 h-full flex items-center justify-center">
+                        <img src="/images/clients/${client.image}" alt="${client.name}" class="max-h-24 max-w-full">
+                    </div>
+                </div>
+            `;
 
-    function showTestimonial(index) {
-      // Hide all slides
-      testimonialSlides.forEach(slide => slide.classList.remove('active'));
-      
-      // Show the selected slide
-      testimonialSlides[index].classList.add('active');
+      // Add click event for lightbox
+      card.addEventListener('click', () => openLightbox(client));
+
+      return card;
     }
 
-    prevButton.addEventListener('click', () => {
-      currentTestimonial--;
-      if (currentTestimonial < 0) {
-        currentTestimonial = testimonialSlides.length - 1;
-      }
-      showTestimonial(currentTestimonial);
-    });
+    // Function to render all clients
+    function renderClientGallery() {
+      const gallery = document.querySelector('.client-gallery');
+      gallery.innerHTML = '';
 
-    nextButton.addEventListener('click', () => {
-      currentTestimonial++;
-      if (currentTestimonial >= testimonialSlides.length) {
-        currentTestimonial = 0;
-      }
-      showTestimonial(currentTestimonial);
-    });
+      clients.forEach(client => {
+        gallery.appendChild(createClientCard(client));
+      });
+    }
 
-    // Initialize the carousel
-    showTestimonial(currentTestimonial);
+    // Function to open lightbox
+    function openLightbox(client) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = document.getElementById('lightbox-image');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const lightboxTagline = document.getElementById('lightbox-tagline');
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+      lightboxImage.src = `/images/clients/${client.image}`;
+      lightboxImage.alt = client.name;
+      lightboxTitle.textContent = client.name;
+      lightboxTagline.textContent = client.tagline || '';
 
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
+      // Hide tagline element if no tagline exists
+      lightboxTagline.style.display = client.tagline ? 'block' : 'none';
 
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+
+      // Prevent scrolling when lightbox is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Function to close lightbox
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+
+      // Restore scrolling
+      document.body.style.overflow = '';
+    }
+
+    // Function to initialize filter functionality
+    function initFilter() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // Update active button
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-primary', 'text-white');
+            btn.classList.add('bg-gray-200');
           });
 
-          // Close mobile menu if open
-          mobileMenu.classList.add('hidden');
-        }
+          this.classList.add('active', 'bg-primary', 'text-white');
+          this.classList.remove('bg-gray-200');
+
+          const filter = this.dataset.filter;
+          const clientCards = document.querySelectorAll('.client-card');
+
+          clientCards.forEach(card => {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    // Tab Switching Functionality
+    function initTabs() {
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          // Add active class to clicked button
+          button.classList.add('active');
+
+          // Show corresponding content
+          const tabId = button.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      renderClientGallery();
+      initFilter();
+      initTabs();
+
+      // Close lightbox events
+      document.getElementById('close-lightbox').addEventListener('click', closeLightbox);
+      document.getElementById('lightbox').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeLightbox();
+      });
+
+      // Close with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+      });
+
+      // Mobile Menu Toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Testimonial Carousel
+      const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+      const prevButton = document.getElementById('prev-testimonial');
+      const nextButton = document.getElementById('next-testimonial');
+      let currentTestimonial = 0;
+
+      function showTestimonial(index) {
+        // Hide all slides
+        testimonialSlides.forEach(slide => slide.classList.remove('active'));
+
+        // Show the selected slide
+        testimonialSlides[index].classList.add('active');
+      }
+
+      if (prevButton && nextButton) {
+        prevButton.addEventListener('click', () => {
+          currentTestimonial--;
+          if (currentTestimonial < 0) {
+            currentTestimonial = testimonialSlides.length - 1;
+          }
+          showTestimonial(currentTestimonial);
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentTestimonial++;
+          if (currentTestimonial >= testimonialSlides.length) {
+            currentTestimonial = 0;
+          }
+          showTestimonial(currentTestimonial);
+        });
+      }
+
+      // Initialize the carousel
+      showTestimonial(currentTestimonial);
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+
+            // Close mobile menu if open
+            if (mobileMenu) {
+              mobileMenu.classList.add('hidden');
+            }
+          }
+        });
       });
     });
   </script>
 </body>
+
 </html>
