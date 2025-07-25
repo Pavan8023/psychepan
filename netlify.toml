@@ -1,5 +1,5 @@
 [build]
-  publish = "pages"   # folder where index.html is located
+  publish = ""   # folder where index.html is located
   command = ""        # no build command needed for plain HTML/CSS/JS
 
 [[redirects]]
