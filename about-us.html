@@ -415,234 +415,31 @@
     </div>
   </section>
 
-  <!-- Client Gallery Section -->
-<section id="clients" class="tab-content py-16 bg-gradient-to-br from-gray-50 to-blue-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Esteemed Clients</h2>
-      <div class="h-1 w-20 bg-primary mx-auto rounded mb-6"></div>
-      <p class="text-gray-700 mt-6 max-w-2xl mx-auto text-lg">
-        We've had the privilege of working with industry leaders who trust us to deliver exceptional training and consulting solutions.
-      </p>
+  <section class="py-12 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Valued Clients</h1>
+            <div class="w-24 h-1 bg-primary mx-auto rounded"></div>
+        </div>
+        
+        <div id="gallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <!-- Images will be dynamically inserted here -->
+        </div>
+    </section>
+    
+    <!-- Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+        <div class="max-w-4xl w-full p-4">
+            <div class="flex justify-end mb-2">
+                <button id="closeModal" class="text-white hover:text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <img id="modalImage" class="max-w-full max-h-[80vh] mx-auto object-contain" src="" alt="Enlarged client logo">
+            <p id="imageName" class="text-white text-center mt-3 text-sm opacity-80"></p>
+        </div>
     </div>
-
-    <!-- Filter Controls -->
-    <div class="flex flex-wrap justify-center gap-3 mb-12">
-      <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white font-medium transition-all" data-filter="all">All Clients</button>
-      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="automotive">Automotive</button>
-      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="manufacturing">Manufacturing</button>
-      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="technology">Technology</button>
-      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="fmg">FMCG</button>
-    </div>
-
-    <!-- Client Gallery -->
-    <div class="client-gallery grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-      <!-- Client Card 1 -->
-      <div class="client-card group" data-category="automotive" data-display-name="JBM Group" data-tagline="Our milestones are touchstones" data-image="jbm.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/jbm.png" alt="JBM Group" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 2 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="BIRLA POWER" data-tagline="POWER... the ability to change" data-image="birla-power.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/birla-power.png" alt="BIRLA POWER" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 3 -->
-      <div class="client-card group" data-category="automotive" data-display-name="MINDA" data-image="minda.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/minda.png" alt="MINDA" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 4 -->
-      <div class="client-card group" data-category="automotive" data-display-name="HONDA" data-image="honda.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/honda.png" alt="HONDA" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 5 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="FCCL" data-image="fccl.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/fccl.png" alt="FCCL" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 6 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="ATO" data-image="ato.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/ato.png" alt="ATO" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 7 -->
-      <div class="client-card group" data-category="technology" data-display-name="Bharti" data-image="bharti.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/bharti.png" alt="Bharti" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 8 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="Alessandro" data-image="alessandro.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/alessandro.png" alt="Alessandro" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 9 -->
-      <div class="client-card group" data-category="automotive" data-display-name="MARUTI" data-image="maruti.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/maruti.png" alt="MARUTI" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 10 -->
-      <div class="client-card group" data-category="automotive" data-display-name="Hero" data-image="hero.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/hero.png" alt="Hero" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 11 -->
-      <div class="client-card group" data-category="energy" data-display-name="BSES" data-image="bses.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/bses.png" alt="BSES" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 12 -->
-      <div class="client-card group" data-category="energy" data-display-name="BSES Yamuna" data-image="bses_yamuna.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/bses_yamuna.png" alt="BSES Yamuna" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 13 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="AIS" data-image="ais.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/ais.png" alt="AIS" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 14 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="Asahi India" data-image="asahi_india.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/asahi_india.png" alt="Asahi India" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 15 -->
-      <div class="client-card group" data-category="technology" data-display-name="LANGO" data-tagline="Always Inspiring" data-image="lanco.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/lanco.png" alt="LANGO" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 16 -->
-      <div class="client-card group" data-category="fmg" data-display-name="Whirlpool" data-image="whirl-pool.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/whirl-pool.png" alt="Whirlpool" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 17 -->
-      <div class="client-card group" data-category="technology" data-display-name="Sierraflug" data-image="sierraflug.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/sierraflug.png" alt="Sierraflug" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 18 -->
-      <div class="client-card group" data-category="energy" data-display-name="IndianOil" data-image="indian-oil.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/indian-oil.png" alt="IndianOil" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 19 -->
-      <div class="client-card group" data-category="fmg" data-display-name="Pepsi" data-image="pepsi.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/pepsi.png" alt="Pepsi" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 20 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="ALCO" data-image="alco.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/alco.png" alt="ALCO" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 21 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="Anchor" data-image="anchor.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/anchor.png" alt="Anchor" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Client Card 22 -->
-      <div class="client-card group" data-category="manufacturing" data-display-name="ATOTECH" data-image="atotech.png">
-        <div class="relative overflow-hidden rounded-xl shadow-lg h-48 w-full bg-white transform transition duration-300 hover:scale-105 hover:shadow-xl">
-          <div class="p-4 h-full flex items-center justify-center">
-            <img src="/images/clients/atotech.png" alt="ATOTECH" class="max-h-20 max-w-full">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- View All Button -->
-    <div class="text-center mt-12">
-      <button class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg">
-        View All Clients
-      </button>
-    </div>
-  </div>
 
   <!-- Logo Modal -->
   <div id="logoModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center p-4">
@@ -904,88 +701,79 @@
   </footer>
 
   <script>
-  // Client Gallery Functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    // Filter functionality
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const clientCards = document.querySelectorAll('.client-card');
-    
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        button.classList.add('active');
+        // Array of all client logos
+        const clientLogos = [
+            "ACC (1).png", "acc.png", "Amtek.jpg", "Anchor.jpg", "Asahi-Glass.png", "Asahi.png", 
+            "Ato-Ato.jpg", "Ato.png", "Bharti.png", "Biotech.webp", "bria-power.png", "Bria.jpg", 
+            "BriaYamaha.png", "bees.png", "Chemsys.png", "Cll.png", "Colgate-and-Palmoliv.png", 
+            "ColgateandPalmolive.png", "DABUR (1).png", "dabur.png", "Daikin.png", "DLT-Utilities-Ltd.png", 
+            "eli.png", "EPCOS.jpg", "Escort.png", "Ester-Industries.png", "Grasim.jpg", "Graviera.png", 
+            "HCL (1).png", "hcl.png", "hero.png", "Hindustan-Zinc.png", "Honda-2-Wheelers.png", 
+            "Honda-cars.webp", "honda.png", "Parle-G.jpg", "pepsi.png", "Perfetti.png", "Quest-Ventures.png", 
+            "Ranbaxy.png", "RMSI.png", "Roop-Polymers.png", "Rouse-India.png", "RS-Cookware-Pvt.-Ltd.png", 
+            "SAB-Exports.png", "Safran.png", "Sekisui.png", "Shree-Cements.jpg", "Sona-Koyo.jpg", 
+            "spencers.png", "SPIL.png", "SRF.png", "Suzuki-Motorcycles.png", "tech-mahindra.png", 
+            "TMTI.png", "Vam.png", "Van-Melle.png", "Wabag.png", "whirl-pool.png", "Hughes-Software.png", 
+            "icici-bank.png", "IIPM.jpg", "indian-oil.png", "J-K-Tyres.jpg", "Jakson.png", "JBM (1),png", 
+            "jbm.png", "JCB (1),png", "jcb.png", "jktyre.png", "Johnson-Lifts.png", "Jubilant-Energy (1)gif", 
+            "Jubilant-Energy.gif", "Jubilant.png", "lanco.png", "Larsen-Tubro.png", "LOGO_OMAX-technology.png", 
+            "logo-ato.png", "maruti.png", "Minda-Industries.png", "minda.png", "Mindarika.jpg", "Mizuho-Bank.png", 
+            "Mother-Dairy.jpg", "MSIL.jpg", "Mytex-polymer.jpg", "Nex-Gen.png", "ntpc.png", "NTPC12-Plants.png", 
+            "Organosys.png", "PalmoIv.webp", "PalmoIve.webp", "Panacea.jpg", "PanaceaS.webp"
+        ];
         
-        const filter = button.getAttribute('data-filter');
+        const gallery = document.getElementById('gallery');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const imageName = document.getElementById('imageName');
+        const closeModal = document.getElementById('closeModal');
         
-        clientCards.forEach(card => {
-          if (filter === 'all' || card.getAttribute('data-category') === filter) {
-            card.style.display = 'block';
-            setTimeout(() => {
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            }, 50);
-          } else {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-              card.style.display = 'none';
-            }, 300);
-          }
+        // Function to create logo element
+        function createLogoElement(logo) {
+            const container = document.createElement('div');
+            container.className = 'bg-white rounded-lg shadow-md overflow-hidden transform transition-all hover:scale-105 hover:shadow-lg cursor-pointer h-36 flex items-center justify-center p-3';
+            container.setAttribute('data-src', `images/clients/${logo}`);
+            container.setAttribute('data-name', logo);
+            
+            const img = document.createElement('img');
+            img.src = `images/clients/${logo}`;
+            img.alt = logo.replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' '); // Remove extension and special chars
+            img.className = 'max-h-24 max-w-full object-contain';
+            
+            container.appendChild(img);
+            return container;
+        }
+        
+        // Populate the gallery
+        clientLogos.forEach(logo => {
+            const logoElement = createLogoElement(logo);
+            gallery.appendChild(logoElement);
+            
+            // Add click event to each logo
+            logoElement.addEventListener('click', () => {
+                modalImage.src = logoElement.getAttribute('data-src');
+                imageName.textContent = logoElement.getAttribute('data-name');
+                modal.classList.remove('hidden');
+            });
         });
-      });
-    });
-    
-    // Modal functionality
-    const modal = document.getElementById('logoModal');
-    const closeModal = document.getElementById('closeModal');
-    const modalImage = document.getElementById('modalImage');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalTagline = document.getElementById('modalTagline');
-    
-    clientCards.forEach(card => {
-      card.addEventListener('click', function() {
-        const displayName = this.getAttribute('data-display-name');
-        const tagline = this.getAttribute('data-tagline') || '';
-        const image = this.getAttribute('data-image');
         
-        modalTitle.textContent = displayName;
-        modalTagline.textContent = tagline;
-        modalImage.src = `/images/clients/${image}`;
-        modalImage.alt = `${displayName} Logo`;
+        // Close modal events
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
         
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    
-    closeModal.addEventListener('click', function() {
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    });
-    
-    // Close modal when clicking outside the content
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-    });
-    
-    // Add initial animations
-    clientCards.forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'opacity 0.5s, transform 0.5s';
-      
-      setTimeout(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      }, 100 + index * 50);
-    });
-  });
-
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                modal.classList.add('hidden');
+            }
+        });
 
 
     // Mobile Menu Toggle
