@@ -6,55 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psyche Panacea - Events</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="/images/psypan-logo-transparent.png">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#0052cc',
-            secondary: '#4da8ff',
-            dark: '#1a1a1a',
-            light: '#f8f9fa',
-            accent: '#f59e0b',
-          },
-          fontFamily: {
-            sans: ['Noto Sans', 'sans-serif'],
-          },
-          animation: {
-            'fade-in': 'fadeIn 1s ease-out',
-            'slide': 'slide 25s linear infinite',
-            'popup-fade': 'popupFadeIn 0.5s ease forwards',
-            'slide-up': 'slideUp 0.5s ease forwards',
-            'message-fade': 'messageFadeIn 0.3s ease',
-          },
-          keyframes: {
-            fadeIn: {
-              from: { opacity: 0 },
-              to: { opacity: 1 },
-            },
-            slide: {
-              '0%': { transform: 'translateX(100%)' },
-              '100%': { transform: 'translateX(-100%)' },
-            },
-            popupFadeIn: {
-              from: { transform: 'scale(0.7)', opacity: 0 },
-              to: { transform: 'scale(1)', opacity: 1 },
-            },
-            slideUp: {
-              from: { transform: 'translateY(30px)', opacity: 0 },
-              to: { transform: 'translateY(0)', opacity: 1 },
-            },
-            messageFadeIn: {
-              from: { opacity: 0, transform: 'translateY(10px)' },
-              to: { opacity: 1, transform: 'translateY(0)' },
-            },
-          }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0052cc',
+                        secondary: '#4da8ff',
+                        dark: '#1a1a1a',
+                        light: '#f8f9fa',
+                        accent: '#f59e0b',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'slide': 'slide 25s linear infinite',
+                        'popup-fade': 'popupFadeIn 0.5s ease forwards',
+                        'slide-up': 'slideUp 0.5s ease forwards',
+                        'message-fade': 'messageFadeIn 0.3s ease',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            from: { opacity: 0 },
+                            to: { opacity: 1 },
+                        },
+                        slide: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        popupFadeIn: {
+                            from: { transform: 'scale(0.7)', opacity: 0 },
+                            to: { transform: 'scale(1)', opacity: 1 },
+                        },
+                        slideUp: {
+                            from: { transform: 'translateY(30px)', opacity: 0 },
+                            to: { transform: 'translateY(0)', opacity: 1 },
+                        },
+                        messageFadeIn: {
+                            from: { opacity: 0, transform: 'translateY(10px)' },
+                            to: { opacity: 1, transform: 'translateY(0)' },
+                        },
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
+    </script>
     <style>
         * {
             margin: 0;
@@ -899,7 +900,7 @@
             if (e.key === 'Enter') sendMessage();
         });
 
-    
+
     </script>
 </body>
 
