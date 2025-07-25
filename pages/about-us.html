@@ -380,156 +380,570 @@
     </div>
   </section>
 
-  <!-- Clients Tab Content -->
-  <section id="clients" class="tab-content py-16 bg-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Esteemed Clients</h2>
-        <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
-        <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
-          We've had the privilege of working with industry leaders who trust us to deliver exceptional training and consulting solutions.
-        </p>
-      </div>
+  <!-- Client Grid with Image Gallery -->
+<section id="clients" class="tab-content py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Esteemed Clients</h2>
+      <div class="h-1 w-20 bg-primary mx-auto rounded mb-6"></div>
+      <p class="text-gray-700 mt-6 max-w-2xl mx-auto text-lg">
+        We've had the privilege of working with industry leaders who trust us to deliver exceptional training and consulting solutions.
+      </p>
+    </div>
 
-      <!-- Client Grid -->
-      <div class="client-grid">
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">JBM Group</h3>
-            <p class="text-gray-600 text-sm mt-1">Our milestones are touchstones</p>
+    <!-- Filter Controls -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white font-medium transition-all" data-filter="all">All Clients</button>
+      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="automotive">Automotive</button>
+      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="manufacturing">Manufacturing</button>
+      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="technology">Technology</button>
+      <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 font-medium transition-all" data-filter="fmg">FMCG</button>
+    </div>
+
+    <!-- Client Gallery -->
+    <div class="client-gallery grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      <!-- Client Card 1 -->
+      <div class="client-card group" data-category="automotive" data-image="jbm.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">JBM Group</h3>
+              <p class="text-gray-600 text-sm mt-1">Our milestones are touchstones</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">BIRLA POWER</h3>
-            <p class="text-gray-600 text-sm mt-1">POWER... the ability to change</p>
+      </div>
+      
+      <!-- Client Card 2 -->
+      <div class="client-card group" data-category="manufacturing" data-image="birla.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">BIRLA POWER</h3>
+              <p class="text-gray-600 text-sm mt-1">POWER... the ability to change</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">MINDA</h3>
+      </div>
+      
+      <!-- Client Card 3 -->
+      <div class="client-card group" data-category="automotive" data-image="minda.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">MINDA</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">HONDA</h3>
+      </div>
+      
+      <!-- Client Card 4 -->
+      <div class="client-card group" data-category="automotive" data-image="honda.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">HONDA</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">FCCL</h3>
+      </div>
+      
+      <!-- Client Card 5 -->
+      <div class="client-card group" data-category="manufacturing" data-image="fccl.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">FCCL</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">ATO</h3>
+      </div>
+      
+      <!-- Client Card 6 -->
+      <div class="client-card group" data-category="manufacturing" data-image="ato.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">ATO</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Bharti</h3>
+      </div>
+      
+      <!-- Client Card 7 -->
+      <div class="client-card group" data-category="technology" data-image="bharti.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Bharti</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Alessandro</h3>
+      </div>
+      
+      <!-- Client Card 8 -->
+      <div class="client-card group" data-category="manufacturing" data-image="alessandro.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Alessandro</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">MARUTI</h3>
+      </div>
+      
+      <!-- Client Card 9 -->
+      <div class="client-card group" data-category="automotive" data-image="maruti.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">MARUTI</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Hero</h3>
+      </div>
+      
+      <!-- Client Card 10 -->
+      <div class="client-card group" data-category="automotive" data-image="hero.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Hero</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">BSES</h3>
+      </div>
+      
+      <!-- Client Card 11 -->
+      <div class="client-card group" data-category="energy" data-image="bses.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">BSES</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">BSES Yamuna</h3>
+      </div>
+      
+      <!-- Client Card 12 -->
+      <div class="client-card group" data-category="energy" data-image="bses_yamuna.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">BSES Yamuna</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">AIS</h3>
+      </div>
+      
+      <!-- Client Card 13 -->
+      <div class="client-card group" data-category="manufacturing" data-image="ais.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">AIS</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Asahi India</h3>
+      </div>
+      
+      <!-- Client Card 14 -->
+      <div class="client-card group" data-category="manufacturing" data-image="asahi_india.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Asahi India</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">LANGO</h3>
-            <p class="text-gray-600 text-sm mt-1">Always Inspiring</p>
+      </div>
+      
+      <!-- Client Card 15 -->
+      <div class="client-card group" data-category="technology" data-image="lango.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">LANGO</h3>
+              <p class="text-gray-600 text-sm mt-1">Always Inspiring</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Whirlpool</h3>
+      </div>
+      
+      <!-- Client Card 16 -->
+      <div class="client-card group" data-category="fmg" data-image="whirlpool.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Whirlpool</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Sierraflug</h3>
+      </div>
+      
+      <!-- Client Card 17 -->
+      <div class="client-card group" data-category="technology" data-image="sierraflug.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Sierraflug</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">IndianOil</h3>
+      </div>
+      
+      <!-- Client Card 18 -->
+      <div class="client-card group" data-category="energy" data-image="indianoil.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">IndianOil</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Pepsi</h3>
+      </div>
+      
+      <!-- Client Card 19 -->
+      <div class="client-card group" data-category="fmg" data-image="pepsi.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Pepsi</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">ALCO</h3>
+      </div>
+      
+      <!-- Client Card 20 -->
+      <div class="client-card group" data-category="manufacturing" data-image="alco.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">ALCO</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">Anchor</h3>
+      </div>
+      
+      <!-- Client Card 21 -->
+      <div class="client-card group" data-category="manufacturing" data-image="anchor.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">Anchor</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
-        
-        <div class="client-card">
-          <div class="text-center">
-            <h3 class="text-xl font-bold text-gray-800">ATOTECH</h3>
+      </div>
+      
+      <!-- Client Card 22 -->
+      <div class="client-card group" data-category="manufacturing" data-image="atotech.png">
+        <div class="relative overflow-hidden rounded-xl shadow-lg h-full bg-white">
+          <div class="p-4 h-40 flex items-center justify-center">
+            <div class="text-center">
+              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-3"></div>
+              <h3 class="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors">ATOTECH</h3>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+            <button class="view-btn text-white font-medium bg-black bg-opacity-40 px-4 py-2 rounded-full backdrop-blur-sm">
+              View Logo
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- View All Button -->
+    <div class="text-center mt-12">
+      <button class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg">
+        View All Clients
+      </button>
+    </div>
+  </div>
+
+  <!-- Logo Modal -->
+  <div id="logoModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden relative">
+      <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 z-10">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div class="p-6">
+        <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-4"></h3>
+        <div class="flex justify-center">
+          <img id="modalImage" src="" alt="Client Logo" class="max-w-full max-h-[60vh] object-contain">
+        </div>
+        <p id="modalTagline" class="text-center text-gray-600 mt-4"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Client Gallery Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const clientCards = document.querySelectorAll('.client-card');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        const filter = button.getAttribute('data-filter');
+        
+        clientCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+    
+    // Modal functionality
+    const viewButtons = document.querySelectorAll('.view-btn');
+    const modal = document.getElementById('logoModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalTagline = document.getElementById('modalTagline');
+    
+    viewButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const card = this.closest('.client-card');
+        const imageName = card.getAttribute('data-image');
+        const title = card.querySelector('h3').textContent;
+        const tagline = card.querySelector('p') ? card.querySelector('p').textContent : '';
+        
+        modalTitle.textContent = title;
+        modalTagline.textContent = tagline;
+        modalImage.src = `images/clients/${imageName}`;
+        modalImage.alt = `${title} Logo`;
+        
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    
+    closeModal.addEventListener('click', function() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+    
+    // Close modal when clicking outside the content
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Add initial animations
+    clientCards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.5s, transform 0.5s';
+      
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 100 + index * 50);
+    });
+  });
+</script>
+
+<style>
+  .client-gallery {
+    perspective: 1000px;
+  }
+  
+  .client-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    cursor: pointer;
+  }
+  
+  .client-card:hover {
+    transform: translateY(-5px) rotateY(5deg);
+    z-index: 10;
+  }
+  
+  .client-card .bg-gradient-to-t {
+    transition: opacity 0.3s ease;
+  }
+  
+  .view-btn {
+    transition: all 0.3s ease;
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  
+  .client-card:hover .view-btn {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  #logoModal {
+    transition: opacity 0.3s ease;
+  }
+  
+  #logoModal > div {
+    animation: popupFadeIn 0.4s ease forwards;
+  }
+  
+  @keyframes popupFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
 
   <!-- Testimonials Tab Content -->
   <section id="testimonials" class="tab-content py-16 bg-white">
