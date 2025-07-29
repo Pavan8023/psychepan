@@ -302,6 +302,36 @@
       background-color: #e6f2ff;
       color: #0052cc;
     }
+
+    /* 1) Container hides the overflow */
+    .logo-slider {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 2) Track flexes its children in one row and animates */
+    .logo-track {
+      display: flex;
+      /* make sure the total length is twice the viewport so 50% translation lines up */
+      width: max-content;
+      animation: scroll-logotrack 20s linear infinite;
+    }
+
+    /* 3) Pause on hover */
+    .logo-slider:hover .logo-track {
+      animation-play-state: paused;
+    }
+
+    /* 4) Keyframes: shift left by exactly half of the track (your duplicated set) */
+    @keyframes scroll-logotrack {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
   </style>
 </head>
 
