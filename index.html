@@ -234,6 +234,74 @@
         opacity: 0;
       }
     }
+
+    @media (max-width: 480px) {
+      .chatbot-window {
+        max-width: 90vw;
+        right: 5px;
+      }
+
+      .chatbot-input {
+        padding: 0.5rem;
+      }
+
+      .chatbot-input input {
+        padding: 0.5rem;
+      }
+
+      .chatbot-toggle {
+        width: 50px;
+        height: 50px;
+      }
+
+      footer .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .map-container {
+        height: 250px;
+      }
+    }
+
+    /* Map container */
+    .map-container {
+      height: 300px;
+    }
+
+    /* Mobile menu fixes */
+    #mobile-menu {
+      position: fixed;
+      left: 0;
+      right: 0;
+      background: white;
+      z-index: 1000;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Mobile menu visible */
+    #mobile-menu.active {
+      display: block;
+    }
+
+    /* Mobile menu links */
+    #mobile-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s;
+    }
+
+    #mobile-menu a:hover {
+      background-color: #f0f7ff;
+    }
+
+    /* Active link in mobile menu */
+    #mobile-menu a.active {
+      background-color: #e6f2ff;
+      color: #0052cc;
+    }
   </style>
 </head>
 
@@ -693,92 +761,119 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-dark text-white pt-16 pb-8">
+  <footer class="bg-gray-900 text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-        <div>
-          <h3 class="text-xl font-bold mb-4">Psyche Panacea</h3>
-          <p class="opacity-80 mb-6">
-            Pioneers of innovative and breakthrough methodologies in the Indian consultation arena, transforming
-            organizations through strategic HR solutions.
-          </p>
-          <div class="flex space-x-4">
-            <a href="#" class="text-white hover:text-accent transition duration-300">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="text-white hover:text-accent transition duration-300">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="text-white hover:text-accent transition duration-300">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="#" class="text-white hover:text-accent transition duration-300">
-              <i class="fab fa-instagram"></i>
-            </a>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <!-- Left half: Map -->
+        <div class="w-full map-container rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+          <iframe src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
+            width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
+            class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
+            gestureHandling="greedy">
+          </iframe>
+        </div>
+
+        <!-- Right half: Content -->
+        <div class="grid grid-cols-1 gap-8">
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center mb-4">
+              <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
+            </div>
+            <p class="text-gray-400">
+              Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
+              transforming organizations through strategic HR solutions.
+            </p>
           </div>
-        </div>
 
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-          <ul class="space-y-3 footer-links">
-            <li><a href="#" class="opacity-80 hover:opacity-100">Home</a></li>
-            <li><a href="#services" class="opacity-80 hover:opacity-100">Services</a></li>
-            <li><a href="#programs" class="opacity-80 hover:opacity-100">Flagship Programs</a></li>
-            <li><a href="#" class="opacity-80 hover:opacity-100">Events</a></li>
-            <li><a href="#" class="opacity-80 hover:opacity-100">Gallery</a></li>
-            <li><a href="#about" class="opacity-80 hover:opacity-100">About Us</a></li>
-            <li><a href="#contact" class="opacity-80 hover:opacity-100">Contact</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Services</h3>
-          <ul class="space-y-3 footer-links">
-            <li><a href="#" class="opacity-80 hover:opacity-100">Outbound Training</a></li>
-            <li><a href="#" class="opacity-80 hover:opacity-100">SAHYOG Wellness</a></li>
-            <li><a href="#" class="opacity-80 hover:opacity-100">POSH Certification</a></li>
-            <li><a href="#" class="opacity-80 hover:opacity-100">Leadership Development</a></li>
-            <li><a href="#" class="opacity-80 hover:opacity-100">Team Building</a></li>
-            <li><a href="#" class="opacity-80 hover:opacity-100">HR Consulting</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
-          <ul class="space-y-4">
-            <li class="flex items-start">
-              <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
-              <span class="opacity-80">
-                308/2, Old Delhi Rd, adjacent Country Inn, Sector 12 A, Anamika Erd Save, Sector 14, Gurugram, Haryana
-                122001
-              </span>
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-phone-alt mr-3 text-accent"></i>
-              <span class="opacity-80">09810323292, 09810319292</span>
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-envelope mr-3 text-accent"></i>
-              <span class="opacity-80">ltr@psypanconsulting.com</span>
-            </li>
-          </ul>
+          <!-- Contact Info -->
+          <div>
+            <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">Contact Us
+            </h4>
+            <ul class="space-y-4 text-gray-400 text-sm">
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
+                  Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span>09810323292, 09810319292</span>
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>hr@psypanconsulting.com</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div class="pt-8 border-t border-gray-800">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <p class="text-center md:text-left opacity-80 mb-4 md:mb-0">
-            © 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.
-          </p>
-          <div class="flex space-x-6">
-            <a href="#" class="opacity-80 hover:opacity-100">Privacy Policy</a>
-            <a href="#" class="opacity-80 hover:opacity-100">Terms of Service</a>
-            <a href="#" class="opacity-80 hover:opacity-100">Sitemap</a>
-          </div>
-        </div>
+      <!-- Footer Bottom -->
+      <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+        <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
       </div>
     </div>
   </footer>
+  <!-- Chatbot -->
+  <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
+    <div id="chatbotToggle"
+      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+        <path
+          d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
+        </path>
+        <path d="M9 9h6v6H9z"></path>
+      </svg>
+    </div>
+
+    <div id="chatbotWindow"
+      class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+      <div
+        class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+        <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
+        <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
+      </div>
+
+      <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
+        <div
+          class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
+          Welcome! How can I assist with your training goals today?
+        </div>
+      </div>
+
+      <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
+        <input id="chatbotInput" type="text"
+          class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
+          placeholder="Ask about our programs...">
+        <button id="chatbotSend"
+          class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Mobile Menu Toggle
@@ -840,6 +935,66 @@
           mobileMenu.classList.add('hidden');
         }
       });
+    });
+
+    // Chatbot Functionality - Fixed and enhanced
+    function toggleChatbot() {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatbotInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chatbotBody = document.getElementById('chatbotBody');
+      const userMessage = document.createElement('div');
+      userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
+      userMessage.textContent = message;
+      chatbotBody.appendChild(userMessage);
+
+      // Simulate bot response with typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+      typingIndicator.textContent = 'Typing...';
+      chatbotBody.appendChild(typingIndicator);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+      setTimeout(() => {
+        chatbotBody.removeChild(typingIndicator);
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+        botMessage.textContent = getBotResponse(message);
+        chatbotBody.appendChild(botMessage);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }, 1000);
+
+      input.value = '';
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+        return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+      if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+        return 'You can reach us at +91 9810319292 or +91 9810323292.';
+      if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+        return 'For inquiries, please email us at hr@psypanconsulting.com';
+      if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+        return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+      if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+        return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+      return 'I’m here to help! Could you share more details about your query?';
+    }
+
+    // Set up chatbot event listeners
+    document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+    document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+    document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+    document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
     });
   </script>
 </body>

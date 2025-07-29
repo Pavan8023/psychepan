@@ -283,6 +283,70 @@
       background-color: #2563eb;
       color: white;
     }
+
+    @media (max-width: 480px) {
+
+      .chatbot-window {
+        max-width: 90vw;
+        right: 5px;
+      }
+
+      .chatbot-input {
+        padding: 0.5rem;
+      }
+
+      .chatbot-input input {
+        padding: 0.5rem;
+      }
+
+      .chatbot-toggle {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    /* Map container */
+    .map-container {
+      height: 300px;
+    }
+
+    /* Mobile menu fixes */
+    #mobile-menu {
+      position: fixed;
+      top: 63px;
+      /* Adjusted to position below header */
+      left: 0;
+      right: 0;
+      background: white;
+      z-index: 1000;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      /* Start hidden */
+    }
+
+    /* Mobile menu visible */
+    #mobile-menu.active {
+      display: block;
+    }
+
+    /* Mobile menu links */
+    #mobile-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s;
+    }
+
+    #mobile-menu a:hover {
+      background-color: #f0f7ff;
+    }
+
+    /* Active link in mobile menu */
+    #mobile-menu a.active {
+      background-color: #e6f2ff;
+      color: #0052cc;
+    }
   </style>
 
 </head>
@@ -673,7 +737,7 @@
   <!-- Chatbot -->
   <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
     <div id="chatbotToggle"
-      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-transform hover:scale-110">
+      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
         <path
           d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
@@ -683,21 +747,21 @@
     </div>
 
     <div id="chatbotWindow"
-      class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 w-full max-w-xs sm:max-w-md sm:w-96 h-64 sm:h-[30rem] bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+      class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
       <div
         class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
         <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
         <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
       </div>
 
-      <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 h-[calc(100%-7rem)] overflow-y-auto">
+      <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
         <div
           class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
           Welcome! How can I assist with your training goals today?
         </div>
       </div>
 
-      <div class="chatbot-input p-3 sm:p-4 border-t border-gray-200 flex">
+      <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
         <input id="chatbotInput" type="text"
           class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
           placeholder="Ask about our programs...">
@@ -710,63 +774,63 @@
   </div>
 
   <script>
-// Chatbot Functionality
-        function toggleChatbot() {
-            const chatbotWindow = document.getElementById('chatbotWindow');
-            chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
-        }
+    // Chatbot Functionality
+    function toggleChatbot() {
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+    }
 
-        function sendMessage() {
-            const input = document.getElementById('chatbotInput');
-            const message = input.value.trim();
-            if (!message) return;
+    function sendMessage() {
+      const input = document.getElementById('chatbotInput');
+      const message = input.value.trim();
+      if (!message) return;
 
-            const chatbotBody = document.getElementById('chatbotBody');
-            const userMessage = document.createElement('div');
-            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both';
-            userMessage.textContent = message;
-            chatbotBody.appendChild(userMessage);
+      const chatbotBody = document.getElementById('chatbotBody');
+      const userMessage = document.createElement('div');
+      userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both';
+      userMessage.textContent = message;
+      chatbotBody.appendChild(userMessage);
 
-            // Simulate bot response with typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
-            typingIndicator.textContent = 'Typing...';
-            chatbotBody.appendChild(typingIndicator);
-            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      // Simulate bot response with typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
+      typingIndicator.textContent = 'Typing...';
+      chatbotBody.appendChild(typingIndicator);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
 
-            setTimeout(() => {
-                chatbotBody.removeChild(typingIndicator);
-                const botMessage = document.createElement('div');
-                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
-                botMessage.textContent = getBotResponse(message);
-                chatbotBody.appendChild(botMessage);
-                chatbotBody.scrollTop = chatbotBody.scrollHeight;
-            }, 1000);
+      setTimeout(() => {
+        chatbotBody.removeChild(typingIndicator);
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
+        botMessage.textContent = getBotResponse(message);
+        chatbotBody.appendChild(botMessage);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }, 1000);
 
-            input.value = '';
-            chatbotBody.scrollTop = chatbotBody.scrollHeight;
-        }
+      input.value = '';
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }
 
-        function getBotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-                return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-            if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
-                return 'You can reach us at +91 9810319292 or +91 9810323292.';
-            if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
-                return 'For inquiries, please email us at hr@psypanconsulting.com';
-            if (lowerMessage.includes('training') || lowerMessage.includes('program'))
-                return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-            return 'I’m here to help! Could you share more details about your query?';
-        }
+    function getBotResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+        return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+      if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+        return 'You can reach us at +91 9810319292 or +91 9810323292.';
+      if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+        return 'For inquiries, please email us at hr@psypanconsulting.com';
+      if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+        return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+      return 'I’m here to help! Could you share more details about your query?';
+    }
 
-        // Set up chatbot event listeners
-        document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-        document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-        document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-        document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+    // Set up chatbot event listeners
+    document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+    document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+    document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+    document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
 
     // Client data with categories
     const clients = [

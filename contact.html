@@ -87,40 +87,6 @@
             box-sizing: border-box;
         }
 
-        /* Header */
-        header {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.2rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav a {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #0052cc;
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
 
         /* Contact Card */
         .contact-card {
@@ -251,20 +217,20 @@
         /* Mobile menu fixes */
         #mobile-menu {
             position: fixed;
-            top: 80px; /* Adjusted to position below header */
+            /* Adjusted to position below header */
             left: 0;
             right: 0;
             background: white;
             z-index: 1000;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            display: none; /* Start hidden */
+            /* Start hidden */
         }
-        
+
         /* Mobile menu visible */
         #mobile-menu.active {
             display: block;
         }
-        
+
         /* Mobile menu links */
         #mobile-menu a {
             display: block;
@@ -274,15 +240,50 @@
             border-bottom: 1px solid #eee;
             transition: background 0.3s;
         }
-        
+
         #mobile-menu a:hover {
             background-color: #f0f7ff;
         }
-        
+
         /* Active link in mobile menu */
         #mobile-menu a.active {
             background-color: #e6f2ff;
             color: #0052cc;
+        }
+    </style>
+    <style>
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0052cc;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
     </style>
 </head>
@@ -314,7 +315,8 @@
     </header>
 
     <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="mt-12 w-full z-50 md:hidden bg-white shadow-lg rounded-b-lg">
+    <div id="mobile-menu" class="mt-16 w-full z-50 md:hidden bg-white shadow-lg rounded-b-lg hidden"
+        style="position: fixed;">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="index.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
@@ -625,46 +627,12 @@
     </div>
 
     <script>
-        // Mobile Menu Toggle - Fixed Implementation
+        // Mobile Menu Toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        let menuOpen = false;
-        
-        // Toggle mobile menu
+
         mobileMenuButton.addEventListener('click', () => {
-            menuOpen = !menuOpen;
-            mobileMenu.classList.toggle('active', menuOpen);
-            
-            // Change icon based on menu state
-            if (menuOpen) {
-                mobileMenuButton.innerHTML = `
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                `;
-            } else {
-                mobileMenuButton.innerHTML = `
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                `;
-            }
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            const isClickInsideMenu = mobileMenu.contains(e.target);
-            const isClickOnButton = mobileMenuButton.contains(e.target);
-            
-            if (menuOpen && !isClickInsideMenu && !isClickOnButton) {
-                menuOpen = false;
-                mobileMenu.classList.remove('active');
-                mobileMenuButton.innerHTML = `
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                `;
-            }
+            mobileMenu.classList.toggle('hidden');
         });
 
         // Smooth scrolling for anchor links
@@ -682,17 +650,32 @@
                     });
 
                     // Close mobile menu if open
-                    menuOpen = false;
-                    mobileMenu.classList.remove('active');
-                    mobileMenuButton.innerHTML = `
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    `;
+                    mobileMenu.classList.add('hidden');
                 }
             });
         });
 
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
         // Form Submission Handler
         document.getElementById('contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
