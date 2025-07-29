@@ -695,31 +695,38 @@
         <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
       </div>
 
-      <div class="max-w-4xl mx-auto">
-        <div class="testimonial-card rounded-2xl p-8 animate-on-scroll">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
-            <div class="ml-4">
-              <div class="font-bold text-lg">Manager, Maruti</div>
-              <div class="text-primary">Automotive Industry</div>
-            </div>
+      <div class="max-w-4xl mx-auto testimonial-card rounded-2xl p-8 shadow-lg">
+        <!-- Photo + Name/Role -->
+        <div class="flex items-center mb-6">
+          <img id="testimonial-photo" src="" alt="Client photo" class="w-16 h-16 rounded-full object-cover" />
+          <div class="ml-4">
+            <div id="testimonial-name" class="font-bold text-lg">Name Here</div>
+            <div id="testimonial-role" class="text-primary">Role • Company</div>
           </div>
-          <p class="text-gray-700 text-xl italic mb-6">
-            "SAHYOG brought mental wellness to the forefront, significantly boosting productivity and reducing
-            absenteeism by 28% in our organization."
-          </p>
-          <div class="flex justify-between">
-            <button class="text-gray-500 hover:text-primary">
-              <i class="fas fa-chevron-left"></i> Prev
-            </button>
-            <button class="text-gray-500 hover:text-primary">
-              Next <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
+        </div>
+
+        <!-- Text -->
+        <p id="testimonial-text" class="text-gray-700 text-xl italic mb-6">
+          “Testimonial text goes here.”
+        </p>
+
+        <!-- Stars -->
+        <div id="testimonial-stars" class="flex mb-6"></div>
+
+        <!-- Controls -->
+        <div class="flex justify-between">
+          <button id="prev-btn" class="text-gray-500 hover:text-primary">
+            <i class="fas fa-chevron-left"></i> Prev
+          </button>
+          <button id="next-btn" class="text-gray-500 hover:text-primary">
+            Next <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>
     </div>
   </section>
+
+
 
   <!-- Contact Section -->
   <section id="contact" class="py-16 bg-primary text-white">
@@ -906,6 +913,80 @@
   </div>
 
   <script>
+    // 1) Define your testimonials (adjust image paths & data as needed)
+    const testimonials = [
+      {
+        photo: '/images/testimonials/vishal-shukla.jpg',
+        name: 'Vishal Shukla',
+        role: 'GM Sales',
+        company: 'True Value',
+        text: 'Associated with Psyche Panacea for last 10 years, Well Experienced Trainers Available In Pan India.',
+        rating: 5
+      },
+      {
+        photo: '/images/testimonials/sunita-pouroush.jpg',
+        name: 'Sunita Pouroush',
+        role: 'Asst Prof',
+        company: 'NCERT',
+        text: 'A long professional association, excellent services, keep doing good work',
+        rating: 5
+      },
+      {
+        photo: '/images/testimonials/neha-goel.jpg',
+        name: 'Neha Goel',
+        role: 'Centre of Innovation',
+        company: 'HMC - Jaipur',
+        text: 'Amazing team…Deepa and team always do great job in giving best experience to employees.',
+        rating: 5
+      }
+      // …add more testimonials as you like
+    ];
+
+    // 2) Cache your DOM nodes
+    const photoEl = document.getElementById('testimonial-photo');
+    const nameEl = document.getElementById('testimonial-name');
+    const roleEl = document.getElementById('testimonial-role');
+    const textEl = document.getElementById('testimonial-text');
+    const starsEl = document.getElementById('testimonial-stars');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    let current = 0;
+
+    // 3) Render function
+    function renderTestimonial(idx) {
+      const t = testimonials[idx];
+      photoEl.src = t.photo;
+      photoEl.alt = t.name + ' photo';
+      nameEl.textContent = t.name;
+      roleEl.textContent = `${t.role} • ${t.company}`;
+      textEl.textContent = t.text;
+      // stars
+      starsEl.innerHTML = '';
+      for (let i = 0; i < 5; i++) {
+        const star = document.createElement('i');
+        star.className = i < t.rating ? 'fas fa-star' : 'far fa-star';
+        star.classList.add('mr-1');
+        starsEl.appendChild(star);
+      }
+    }
+
+    // 4) Button handlers
+    prevBtn.addEventListener('click', () => {
+      current = (current - 1 + testimonials.length) % testimonials.length;
+      renderTestimonial(current);
+    });
+    nextBtn.addEventListener('click', () => {
+      current = (current + 1) % testimonials.length;
+      renderTestimonial(current);
+    });
+
+    // 5) Kick off
+    renderTestimonial(current);
+
+
+
+
     // Mobile Menu Toggle
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
