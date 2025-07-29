@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psyche Panacea Gallery</title>
     <script src="https://cdn.tailwindcss.com"></script>
-      <link rel="icon" href="/images/psypan-logo-transparent.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/images/psypan-logo-transparent.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
@@ -44,28 +46,35 @@
         .gallery-item {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .gallery-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
+
         .folder-tab {
             transition: all 0.3s ease;
         }
-        .folder-tab:hover, .folder-tab.active {
+
+        .folder-tab:hover,
+        .folder-tab.active {
             background: linear-gradient(to right, #0052cc, #4da8ff);
             color: white;
         }
+
         .folder-tab.active {
             transform: scale(1.05);
         }
+
         .folder-icon {
             transition: transform 0.3s ease;
         }
+
         .folder-tab:hover .folder-icon {
             transform: translateY(-3px);
         }
 
-                /* Header */
+        /* Header */
         header {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -100,42 +109,53 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-50 font-sans">
-    <!-- Navbar -->
-    <header class="fixed w-full bg-white shadow-md z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
-                <nav class="hidden md:flex items-center space-x-6">
-                    <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
-                    <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
-                    <a href="flagship-programs.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Flagship Programs</a>
-                    <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
-                    <a href="gallery.html" class="text-primary font-semibold transition-colors px-2 py-1">Gallery</a>
-                    <a href="about-us.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">About Us</a>
-                    <a href="contact.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Contact</a>
-                </nav>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <!-- Header -->
+    <header>
+        <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
+        <nav class="hidden md:flex items-center space-x-6">
+            <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
+            <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
+            <a href="flagship-programs.html"
+                class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Flagship
+                Programs</a>
+            <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
+            <a href="gallery.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Gallery</a>
+            <a href="about-us.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">About Us</a>
+            <a href="contact.html" class="text-primary font-semibold transition-colors px-2 py-1">Contact</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
         </div>
     </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden fixed w-full z-40 mt-16">
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="mt-12 w-full z-50 md:hidden bg-white shadow-lg rounded-b-lg hidden"
+        style="position: fixed;">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
-            <a href="services.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
-            <a href="flagship-programs.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship Programs</a>
-            <a href="events.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
-            <a href="gallery.html" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Gallery</a>
-            <a href="about-us.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About Us</a>
-            <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+            <a href="index.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+            <a href="services.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
+            <a href="flagship-programs.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship
+                Programs</a>
+            <a href="events.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
+            <a href="gallery.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
+            <a href="about-us.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
+                Us</a>
+            <a href="contact.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Contact</a>
         </div>
     </div>
 
@@ -152,27 +172,33 @@
 
             <!-- Folder Navigation -->
             <div class="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto py-2">
-                <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="all">
+                <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
+                    data-folder="all">
                     <i class="fas fa-folder-open folder-icon text-xl mr-3 text-yellow-500"></i>
                     <span>All Albums</span>
                 </div>
-                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="CampusToCorporate">
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
+                    data-folder="CampusToCorporate">
                     <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
                     <span>Campus To Corporate</span>
                 </div>
-                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="CareerCounselingforEmployeeKids">
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
+                    data-folder="CareerCounselingforEmployeeKids">
                     <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
                     <span>Career Counseling</span>
                 </div>
-                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="diversity&inclusion">
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
+                    data-folder="diversity&inclusion">
                     <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
                     <span>Diversity & Inclusion</span>
                 </div>
-                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="eep">
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
+                    data-folder="eep">
                     <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
                     <span>EEP Program</span>
                 </div>
-                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer" data-folder="outbound">
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
+                    data-folder="outbound">
                     <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
                     <span>Outbound Activities</span>
                 </div>
@@ -185,7 +211,8 @@
 
             <!-- Load More Button -->
             <div class="text-center mt-12">
-                <button id="loadMore" class="bg-gradient-to-r from-primary to-blue-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                <button id="loadMore"
+                    class="bg-gradient-to-r from-primary to-blue-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg">
                     Load More
                 </button>
             </div>
@@ -195,7 +222,8 @@
     <!-- Image Modal -->
     <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
         <div class="relative max-w-5xl w-full">
-            <button id="closeModal" class="absolute -top-12 right-0 text-white text-3xl hover:text-gray-300 transition-colors">
+            <button id="closeModal"
+                class="absolute -top-12 right-0 text-white text-3xl hover:text-gray-300 transition-colors">
                 <i class="fas fa-times"></i>
             </button>
             <div class="bg-gray-500 rounded-lg overflow-hidden shadow-2xl">
@@ -226,8 +254,8 @@
                     <div>
                         <div class="flex items-center mb-4">
                             <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                 </svg>
@@ -246,8 +274,8 @@
                         </h4>
                         <ul class="space-y-4 text-gray-400 text-sm">
                             <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -285,9 +313,41 @@
     </footer>
 
     <!-- Chatbot -->
-    <div class="fixed bottom-6 right-6 z-40">
-        <div class="bg-primary text-white p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition-colors">
-            <i class="fas fa-comment-dots text-2xl"></i>
+    <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
+        <div id="chatbotToggle"
+            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-transform hover:scale-110">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
+                </path>
+                <path d="M9 9h6v6H9z"></path>
+            </svg>
+        </div>
+
+        <div id="chatbotWindow"
+            class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 w-full max-w-xs sm:max-w-md sm:w-96 h-64 sm:h-[30rem] bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+            <div
+                class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+                <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
+                <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
+            </div>
+
+            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 h-[calc(100%-7rem)] overflow-y-auto">
+                <div
+                    class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
+                    Welcome! How can I assist with your training goals today?
+                </div>
+            </div>
+
+            <div class="chatbot-input p-3 sm:p-4 border-t border-gray-200 flex">
+                <input id="chatbotInput" type="text"
+                    class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
+                    placeholder="Ask about our programs...">
+                <button id="chatbotSend"
+                    class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
+                    Send
+                </button>
+            </div>
         </div>
     </div>
 
@@ -319,8 +379,8 @@
                 { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-9.png" },
                 { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-1.jpg" },
                 { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-2-1.jpg" },
-                { title: "Ist Engagement", folder: "EEP", image: "ist-enagament.png"},
-                { title: "Ist Engagement", folder: "EEP", image: "ist-engagement.jpg"},
+                { title: "Ist Engagement", folder: "EEP", image: "ist-enagament.png" },
+                { title: "Ist Engagement", folder: "EEP", image: "ist-engagement.jpg" },
                 { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-1.png" },
                 { title: "Team Adventure", folder: "Outbound", image: "Outbound-2.png" },
                 { title: "Group Activity", folder: "Outbound", image: "Outbound-3.png" },
@@ -361,8 +421,8 @@
                 { title: "EEP Training", image: "EEP-PICTURES-9.png" },
                 { title: "Employee Engagement", image: "Employee-Engagement-1.jpg" },
                 { title: "Employee Engagement", image: "Employee-Engagement-2-1.jpg" },
-                { title: "Ist Engagement", image: "ist-enagament.png"},                
-                { title: "Ist Engagement", image: "ist-engagement.jpg"},                
+                { title: "Ist Engagement", image: "ist-enagament.png" },
+                { title: "Ist Engagement", image: "ist-engagement.jpg" },
             ],
             outbound: [
                 { title: "Outdoor Activities", image: "Outbound-1.png" },
@@ -383,8 +443,57 @@
         const modalImage = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
         const closeModal = document.getElementById('closeModal');
+
+
+        // Mobile Menu Toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
 
         // Current state
         let currentFolder = 'all';
@@ -394,9 +503,9 @@
         function createGalleryItem(item, folder) {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'gallery-item bg-white rounded-xl shadow-md overflow-hidden animate-fade-in';
-            
+
             const imageUrl = `/images/gallery/${folder ? folder + '/' : ''}${item.image}`;
-            
+
             itemDiv.innerHTML = `
                 <div class="relative">
                     <img src="${imageUrl}" alt="${item.title}" class="w-full h-56 object-cover">
@@ -405,14 +514,14 @@
                     </div>
                 </div>
             `;
-            
+
             itemDiv.addEventListener('click', () => {
                 modalImage.src = imageUrl;
                 modalTitle.textContent = item.title;
                 imageModal.classList.remove('hidden');
                 imageModal.classList.add('flex');
             });
-            
+
             return itemDiv;
         }
 
@@ -421,13 +530,13 @@
             galleryGrid.innerHTML = '';
             const items = galleryData[folder];
             const itemsToShow = Math.min(count, items.length);
-            
+
             for (let i = 0; i < itemsToShow; i++) {
                 const item = items[i];
                 const galleryItem = createGalleryItem(item, folder === 'all' ? item.folder : folder);
                 galleryGrid.appendChild(galleryItem);
             }
-            
+
             // Show/hide load more button
             loadMoreBtn.style.display = itemsToShow < items.length ? 'block' : 'none';
         }
@@ -440,15 +549,15 @@
             tab.addEventListener('click', () => {
                 // Remove active class from all tabs
                 folderTabs.forEach(t => t.classList.remove('active'));
-                
+
                 // Add active class to clicked tab
                 tab.classList.add('active');
-                
+
                 // Update folder icon
                 const icon = tab.querySelector('.folder-icon');
                 icon.classList.remove('fa-folder');
                 icon.classList.add('fa-folder-open');
-                
+
                 // Set current folder and render gallery
                 currentFolder = tab.dataset.folder;
                 visibleItems = 8;
@@ -476,30 +585,66 @@
             }
         });
 
-        // Mobile Menu Toggle
-    document.getElementById('mobile-menu-button').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-
-          // Close mobile menu if open
-          mobileMenu.classList.add('hidden');
+        // Chatbot Functionality - Fixed and enhanced
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
         }
-      });
-    });
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatbotBody = document.getElementById('chatbotBody');
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
+            userMessage.textContent = message;
+            chatbotBody.appendChild(userMessage);
+
+            // Simulate bot response with typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+            typingIndicator.textContent = 'Typing...';
+            chatbotBody.appendChild(typingIndicator);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+            setTimeout(() => {
+                chatbotBody.removeChild(typingIndicator);
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+                botMessage.textContent = getBotResponse(message);
+                chatbotBody.appendChild(botMessage);
+                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+            }, 1000);
+
+            input.value = '';
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+                return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+            if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+                return 'You can reach us at +91 9810319292 or +91 9810323292.';
+            if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+                return 'For inquiries, please email us at hr@psypanconsulting.com';
+            if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+                return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+            if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+                return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+            return 'I’m here to help! Could you share more details about your query?';
+        }
+
+        // Set up chatbot event listeners
+        document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+        document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+        document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+        document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
     </script>
 </body>
+
 </html>

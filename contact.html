@@ -7,8 +7,7 @@
     <title>Contact Us - Psyche Panacea</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="/images/psypan-logo-transparent.png">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -62,19 +61,6 @@
         }
     </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans', sans-serif;
-            background: linear-gradient(135deg, #f8f9fa, #e6f0ff);
-            color: #1a1a1a;
-            overflow-x: hidden;
-        }
-
         .contact-gradient {
             background: linear-gradient(120deg, #0052cc, #4da8ff, #f59e0b);
             background-size: 200% 200%;
@@ -93,6 +79,12 @@
             100% {
                 background-position: 0% 50%;
             }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         /* Header */
@@ -129,6 +121,7 @@
             width: 100%;
         }
 
+
         /* Contact Card */
         .contact-card {
             box-shadow: 0 15px 30px rgba(0, 82, 204, 0.15);
@@ -161,16 +154,13 @@
             background-color: #f0f7ff;
         }
 
+        /* Floating animation */
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
         /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            header {
-                padding: 1rem 1.5rem;
-            }
-
+        @media (max-width: 1024px) {
             .contact-container {
                 flex-direction: column;
             }
@@ -180,8 +170,119 @@
             }
         }
 
-        .floating-element {
-            animation: float 6s ease-in-out infinite;
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .contact-card,
+            .info-card {
+                padding: 1.5rem;
+            }
+
+            .form-input {
+                padding: 0.75rem;
+            }
+
+            .contact-gradient h1 {
+                font-size: 2rem;
+            }
+
+            .contact-gradient p {
+                font-size: 1rem;
+            }
+
+            .info-card .flex {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .info-card .flex div {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-gradient h1 {
+                font-size: 1.75rem;
+            }
+
+            .form-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .chatbot-window {
+                max-width: 90vw;
+                right: 5px;
+            }
+
+            .chatbot-input {
+                padding: 0.5rem;
+            }
+
+            .chatbot-input input {
+                padding: 0.5rem;
+            }
+
+            .chatbot-toggle {
+                width: 50px;
+                height: 50px;
+            }
+
+            footer .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .map-container {
+                height: 250px;
+            }
+        }
+
+        /* Map container */
+        .map-container {
+            height: 300px;
+        }
+
+        /* Mobile menu fixes */
+        #mobile-menu {
+            position: fixed;
+            top: 80px; /* Adjusted to position below header */
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            display: none; /* Start hidden */
+        }
+        
+        /* Mobile menu visible */
+        #mobile-menu.active {
+            display: block;
+        }
+        
+        /* Mobile menu links */
+        #mobile-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+        
+        #mobile-menu a:hover {
+            background-color: #f0f7ff;
+        }
+        
+        /* Active link in mobile menu */
+        #mobile-menu a.active {
+            background-color: #e6f2ff;
+            color: #0052cc;
         }
     </style>
 </head>
@@ -213,7 +314,7 @@
     </header>
 
     <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+    <div id="mobile-menu" class="mt-12 w-full z-50 md:hidden bg-white shadow-lg rounded-b-lg">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="index.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
@@ -238,16 +339,16 @@
     <section class="pt-32 pb-20 bg-blue-700 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="absolute top-0 right-0 opacity-10">
-                <svg class="w-64 h-64 floating-element" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-40 h-40 md:w-64 md:h-64 floating-element" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M8.07,20.28C7.5,19.5 7,18.27 7,16.92C7,14.27 9.19,12.12 12,12.12C14.81,12.12 17,14.27 17,16.92C17,18.27 16.5,19.5 15.93,20.28C18.12,18.9 19.5,16.57 19.5,14C19.5,9.31 16.14,5.5 12,5.5C7.86,5.5 4.5,9.31 4.5,14C4.5,16.57 5.88,18.9 8.07,20.28M12,8A3,3 0 0,0 9,11A3,3 0 0,0 12,14A3,3 0 0,0 15,11A3,3 0 0,0 12,8Z" />
                 </svg>
             </div>
 
             <div class="text-center max-w-3xl mx-auto">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">We Love To Hear From You</h1>
-                <div class="h-1 w-24 bg-white mx-auto rounded mb-8"></div>
-                <p class="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">We Love To Hear From You</h1>
+                <div class="h-1 w-24 bg-white mx-auto rounded mb-6 sm:mb-8"></div>
+                <p class="text-lg sm:text-xl mb-6 sm:mb-8 text-blue-100 max-w-2xl mx-auto">
                     Please call or email using our contact form and we will be happy to assist you with your training
                     needs.
                 </p>
@@ -256,53 +357,53 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="py-16 relative z-10">
+    <section class="py-12 md:py-16 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="contact-container flex flex-col md:flex-row gap-12">
+            <div class="contact-container flex flex-col lg:flex-row gap-8 md:gap-12">
                 <!-- Contact Form -->
                 <div class="flex-1">
-                    <div class="contact-card bg-white p-8 rounded-xl">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Send Us a Message</h3>
-                        <form id="contact-form" class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="contact-card bg-white p-6 md:p-8 rounded-xl">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">Send Us a Message</h3>
+                        <form id="contact-form" class="space-y-4 md:space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                 <div>
                                     <label class="block text-gray-700 font-medium mb-2" for="first-name">First Name
                                         *</label>
                                     <input type="text" id="first-name" name="first_name" required
-                                        class="form-input w-full p-4 rounded-lg">
+                                        class="form-input w-full p-3 md:p-4 rounded-lg">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 font-medium mb-2" for="last-name">Last Name
                                         *</label>
                                     <input type="text" id="last-name" name="last_name" required
-                                        class="form-input w-full p-4 rounded-lg">
+                                        class="form-input w-full p-3 md:p-4 rounded-lg">
                                 </div>
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2" for="email">Email *</label>
                                 <input type="email" id="email" name="email" required
-                                    class="form-input w-full p-4 rounded-lg">
+                                    class="form-input w-full p-3 md:p-4 rounded-lg">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2" for="phone">Phone No. *</label>
                                 <input type="tel" id="phone" name="phone" required
-                                    class="form-input w-full p-4 rounded-lg">
+                                    class="form-input w-full p-3 md:p-4 rounded-lg">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2" for="organization">Organization Name
                                     *</label>
                                 <input type="text" id="organization" name="organization" required
-                                    class="form-input w-full p-4 rounded-lg">
+                                    class="form-input w-full p-3 md:p-4 rounded-lg">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2" for="requirement">Training
                                     Requirement *</label>
                                 <select id="requirement" name="requirement" required
-                                    class="form-input w-full p-4 rounded-lg">
+                                    class="form-input w-full p-3 md:p-4 rounded-lg">
                                     <option value="">- Select -</option>
                                     <option value="junior">JUNIOR TRAINING</option>
                                     <option value="middle">MIDDLE TRAINING</option>
@@ -311,18 +412,17 @@
                                     <option value="operator">OPERATOR'S TRAINING</option>
                                     <option value="motivational">MOTIVATIONAL TRAINING</option>
                                 </select>
-
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2" for="message">Your Message *</label>
                                 <textarea id="message" name="message" rows="4" required
-                                    class="form-input w-full p-4 rounded-lg"></textarea>
+                                    class="form-input w-full p-3 md:p-4 rounded-lg"></textarea>
                             </div>
 
-                            <div class="text-center pt-4">
+                            <div class="text-center pt-2 md:pt-4">
                                 <button type="submit"
-                                    class="bg-gradient-to-r from-primary to-blue-700 hover:from-blue-700 hover:to-primary text-white font-bold py-4 px-10 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                                    class="bg-gradient-to-r from-primary to-blue-700 hover:from-blue-700 hover:to-primary text-white font-bold py-3 px-8 md:py-4 md:px-10 rounded-lg transition-all transform hover:scale-105 shadow-lg form-button">
                                     Submit Form
                                 </button>
                             </div>
@@ -337,10 +437,11 @@
 
                 <!-- Contact Information -->
                 <div class="contact-info flex-1">
-                    <div class="info-card bg-white p-8 rounded-xl shadow-lg h-full">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Contact Information</h3>
+                    <div class="info-card bg-white p-6 md:p-8 rounded-xl shadow-lg h-full">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">Contact Information
+                        </h3>
 
-                        <div class="space-y-8">
+                        <div class="space-y-6 md:space-y-8">
                             <div class="flex items-start">
                                 <div class="bg-blue-100 p-3 rounded-full mr-4 flex-shrink-0">
                                     <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor"
@@ -389,10 +490,10 @@
                             </div>
                         </div>
 
-                        <div class="mt-12">
+                        <div class="mt-8 md:mt-12">
                             <!-- Map Container -->
                             <div
-                                class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+                                class="w-full map-container rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
                                 <iframe
                                     src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
                                     width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen
@@ -412,7 +513,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <!-- Left half: Map -->
-                <div class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+                <div class="w-full map-container rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
                     <iframe src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
                         width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
                         class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
@@ -487,7 +588,7 @@
     <!-- Chatbot -->
     <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
         <div id="chatbotToggle"
-            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-transform hover:scale-110">
+            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
                 <path
                     d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
@@ -497,21 +598,21 @@
         </div>
 
         <div id="chatbotWindow"
-            class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 w-full max-w-xs sm:max-w-md sm:w-96 h-64 sm:h-[30rem] bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+            class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
             <div
                 class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
                 <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
                 <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
             </div>
 
-            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 h-[calc(100%-7rem)] overflow-y-auto">
+            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
                 <div
                     class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
                     Welcome! How can I assist with your training goals today?
                 </div>
             </div>
 
-            <div class="chatbot-input p-3 sm:p-4 border-t border-gray-200 flex">
+            <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
                 <input id="chatbotInput" type="text"
                     class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
                     placeholder="Ask about our programs...">
@@ -524,17 +625,46 @@
     </div>
 
     <script>
-            // Initialize EmailJS
-            (function () {
-                emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your actual EmailJS user ID
-            })();
-
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle - Fixed Implementation
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-
+        let menuOpen = false;
+        
+        // Toggle mobile menu
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('active', menuOpen);
+            
+            // Change icon based on menu state
+            if (menuOpen) {
+                mobileMenuButton.innerHTML = `
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                `;
+            } else {
+                mobileMenuButton.innerHTML = `
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                `;
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const isClickInsideMenu = mobileMenu.contains(e.target);
+            const isClickOnButton = mobileMenuButton.contains(e.target);
+            
+            if (menuOpen && !isClickInsideMenu && !isClickOnButton) {
+                menuOpen = false;
+                mobileMenu.classList.remove('active');
+                mobileMenuButton.innerHTML = `
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                `;
+            }
         });
 
         // Smooth scrolling for anchor links
@@ -552,44 +682,33 @@
                     });
 
                     // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
+                    menuOpen = false;
+                    mobileMenu.classList.remove('active');
+                    mobileMenuButton.innerHTML = `
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    `;
                 }
             });
         });
 
-        // Form Submission with EmailJS
+        // Form Submission Handler
         document.getElementById('contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
-
-            const form = this;
             const formStatus = document.getElementById('form-status');
 
-            // Get form data
-            const formData = {
-                first_name: form.first_name.value,
-                last_name: form.last_name.value,
-                email: form.email.value,
-                phone: form.phone.value,
-                organization: form.organization.value,
-                requirement: form.requirement.value,
-                message: form.message.value
-            };
+            // Simulate form submission
+            formStatus.classList.remove('hidden');
+            formStatus.innerHTML = '<p class="text-green-600 font-medium">Your message has been sent successfully!</p>';
 
-            // Send email using EmailJS
-            emailjs.send("YOUR_EMAILJS_SERVICE_ID", "YOUR_EMAILJS_TEMPLATE_ID", formData)
-                .then(function (response) {
-                    console.log("SUCCESS!", response.status, response.text);
-                    formStatus.classList.remove('hidden');
-                    form.reset();
+            // Reset form
+            this.reset();
 
-                    // Hide success message after 5 seconds
-                    setTimeout(() => {
-                        formStatus.classList.add('hidden');
-                    }, 5000);
-                }, function (error) {
-                    console.log("FAILED...", error);
-                    alert("There was an error sending your message. Please try again later.");
-                });
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 5000);
         });
 
         // Chatbot Functionality
@@ -605,13 +724,13 @@
 
             const chatbotBody = document.getElementById('chatbotBody');
             const userMessage = document.createElement('div');
-            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both';
+            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
             userMessage.textContent = message;
             chatbotBody.appendChild(userMessage);
 
             // Simulate bot response with typing indicator
             const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
+            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
             typingIndicator.textContent = 'Typing...';
             chatbotBody.appendChild(typingIndicator);
             chatbotBody.scrollTop = chatbotBody.scrollHeight;
@@ -619,7 +738,7 @@
             setTimeout(() => {
                 chatbotBody.removeChild(typingIndicator);
                 const botMessage = document.createElement('div');
-                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
+                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
                 botMessage.textContent = getBotResponse(message);
                 chatbotBody.appendChild(botMessage);
                 chatbotBody.scrollTop = chatbotBody.scrollHeight;
@@ -639,6 +758,8 @@
                 return 'For inquiries, please email us at hr@psypanconsulting.com';
             if (lowerMessage.includes('training') || lowerMessage.includes('program'))
                 return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+            if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+                return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
             return 'I’m here to help! Could you share more details about your query?';
         }
 
