@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us - Psyche Panacea</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="/images/psypan-logo-transparent.png">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Cloudinary Widget -->
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -164,10 +166,11 @@
     }
 
     /* Client Grid */
-    .client-grid {
+    .client-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 2rem;
+      place-items: center;
     }
 
     .client-card {
@@ -180,6 +183,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
       overflow: hidden;
+      width: 100%;
     }
 
     .client-card:hover {
@@ -213,7 +217,7 @@
         font-size: 0.9rem;
       }
 
-      .client-grid {
+      .client-gallery {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
       }
@@ -243,7 +247,6 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       background-color: #f9fafb;
-      /* Light grey background */
     }
 
     .client-card:hover {
@@ -314,21 +317,17 @@
     #mobile-menu {
       position: fixed;
       top: 63px;
-      /* Adjusted to position below header */
       left: 0;
       right: 0;
       background: white;
       z-index: 1000;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      /* Start hidden */
     }
 
-    /* Mobile menu visible */
     #mobile-menu.active {
       display: block;
     }
 
-    /* Mobile menu links */
     #mobile-menu a {
       display: block;
       padding: 12px 20px;
@@ -342,13 +341,209 @@
       background-color: #f0f7ff;
     }
 
-    /* Active link in mobile menu */
     #mobile-menu a.active {
       background-color: #e6f2ff;
       color: #0052cc;
     }
-  </style>
 
+    /* Cloudinary upload widget styles */
+    .cloudinary-upload-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .doc-url-container {
+      margin-bottom: 1rem;
+    }
+
+    #upload_widget {
+      background: linear-gradient(135deg, #0052cc, #4da8ff);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    #upload_widget:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+    }
+
+    #upload_widget i {
+      margin-right: 8px;
+    }
+
+    .upload-status {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .upload-success {
+      background-color: #f0fff4;
+      color: #38a169;
+      border: 1px solid #c6f6d5;
+    }
+
+    .upload-error {
+      background-color: #fff5f5;
+      color: #e53e3e;
+      border: 1px solid #fed7d7;
+    }
+
+    .upload-preview {
+      margin-top: 15px;
+      max-width: 100%;
+      display: none;
+    }
+
+    .upload-preview img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .doc-url-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      background-color: #f8fafc;
+      color: #4a5568;
+    }
+
+    .loading-indicator {
+      display: none;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #0052cc;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* PDF Viewer */
+    .pdf-viewer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 2000;
+    }
+    
+    .pdf-container {
+      width: 90%;
+      height: 90%;
+      margin: 2% auto;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .pdf-toolbar {
+      background: #0052cc;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .pdf-frame {
+      width: 100%;
+      height: calc(100% - 45px);
+      border: none;
+    }
+    
+    /* Upload source tabs */
+    .upload-source-tabs {
+      display: flex;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    .source-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .source-tab.active {
+      border-bottom: 2px solid #0052cc;
+      color: #0052cc;
+      font-weight: 600;
+    }
+    
+    .source-content {
+      display: none;
+    }
+    
+    .source-content.active {
+      display: block;
+    }
+
+    /* New styles for the solution */
+    .download-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .download-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      background-color: #f0f7ff;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      color: #0052cc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .download-button:hover {
+      background-color: #e6f2ff;
+      transform: translateY(-2px);
+    }
+    
+    .view-button {
+      background-color: #f0fff4;
+      color: #38a169;
+      border-color: #c6f6d5;
+    }
+    
+    .view-button:hover {
+      background-color: #e6ffee;
+    }
+  </style>
 </head>
 
 <body>
@@ -442,16 +637,16 @@
 
         <div class="border-t border-gray-200 pt-8 mb-8"></div>
 
-        <form class="space-y-6">
+        <form id="career-form" class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="first-name">First Name *</label>
-              <input type="text" id="first-name" required
+              <input type="text" id="first-name" name="first_name" required
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="last-name">Last Name</label>
-              <input type="text" id="last-name"
+              <input type="text" id="last-name" name="last_name"
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
           </div>
@@ -459,40 +654,69 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="email">Email *</label>
-              <input type="email" id="email" required
+              <input type="email" id="email" name="email" required
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="phone">Phone</label>
-              <input type="tel" id="phone"
+              <input type="tel" id="phone" name="phone"
                 class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
           </div>
 
           <div>
             <label class="block text-gray-700 font-medium mb-2" for="job">Job Applying For: *</label>
-            <select id="job" required
+            <select id="job" name="job" required
               class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
               <option value="">Select a position</option>
-              <option value="hr">HR Consultant: HR/Psychology</option>
-              <option value="trainer">Corporate Trainer</option>
-              <option value="manager">Program Manager</option>
-              <option value="coordinator">Event Coordinator</option>
+              <option value="HR Consultant: HR/Psychology">HR Consultant: HR/Psychology</option>
+              <option value="Corporate Trainer">Corporate Trainer</option>
+              <option value="Program Manager">Program Manager</option>
+              <option value="Event Coordinator">Event Coordinator</option>
             </select>
           </div>
 
-          <div>
-            <label class="block text-gray-700 font-medium mb-2" for="resume">Upload Resume *</label>
-            <div
-              class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors">
-              <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-              <p class="text-gray-600 mb-2">Click or drag a file to this area to upload</p>
-              <p class="text-gray-500 text-sm">Supported formats: PDF, DOC, DOCX (Max size: 5MB)</p>
+          <!-- DOC URL Field -->
+          <div class="doc-url-container">
+            <label class="block text-gray-700 font-medium mb-2" for="doc-url">DOC URL *</label>
+            <input type="text" id="doc-url" name="doc_url" required readonly
+              class="doc-url-input w-full p-4 focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Document URL will appear here after upload">
+          </div>
+
+          <!-- Cloudinary Upload Widget -->
+          <div class="cloudinary-upload-container">
+            <label class="block text-gray-700 font-medium mb-2">Upload Resume *</label>
+            
+            <!-- Upload Source Tabs -->
+            <div class="upload-source-tabs mb-4">
+              <div class="source-tab active" data-source="upload">Upload File</div>
             </div>
+            
+            <!-- Upload Content -->
+            <div class="source-content active" id="upload-content">
+              <button type="button" id="upload_widget" class="mt-2 w-full">
+                <i class="fas fa-cloud-upload-alt"></i> Select File to Upload
+              </button>
+            </div>
+            
+            <div class="source-content" id="url-content">
+              <div class="flex items-center">
+                <input type="text" id="doc-url-input" placeholder="Enter document URL" 
+                  class="flex-1 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary mr-2">
+                <button id="set-url-btn" class="bg-primary text-white px-4 py-4 rounded-lg">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div id="upload-status" class="upload-status"></div>
+            <div id="upload-preview" class="upload-preview"></div>
+            <p class="text-gray-500 text-sm mt-2">Supported formats: PDF, DOC, DOCX (Max size: 5MB)</p>
           </div>
 
           <div class="text-center pt-6">
-            <button type="submit"
+            <button type="submit" id="submit-btn"
               class="bg-gradient-to-r from-primary to-blue-700 hover:from-blue-700 hover:to-primary text-white font-bold py-4 px-12 rounded-lg transition-all transform hover:scale-105 shadow-lg">
               Submit Application
             </button>
@@ -503,6 +727,19 @@
           <p>Don't find a match with your profile? Do drop a mail at <a href="mailto:hr@psypanconsulting.com"
               class="text-primary font-medium">hr@psypanconsulting.com</a> for future reference!</p>
         </div>
+      </div>
+    </div>
+    
+    <!-- PDF Viewer -->
+    <div class="pdf-viewer">
+      <div class="pdf-container">
+        <div class="pdf-toolbar">
+          <h3 id="pdf-title">Resume Preview</h3>
+          <button id="close-pdf" class="text-white">
+            <i class="fas fa-times"></i> Close
+          </button>
+        </div>
+        <iframe id="pdf-frame" class="pdf-frame"></iframe>
       </div>
     </div>
   </section>
@@ -774,6 +1011,270 @@
   </div>
 
   <script>
+    // Initialize EmailJS
+    emailjs.init("6KRvQp4CW2Wc9Ir-x");
+
+    // Cloudinary Configuration
+    const cloudName = "dhwanw6f7";
+    const apiKey = "944949133978771";
+    const uploadPreset = "psychepan_unsigned";
+
+    // Initialize Cloudinary Upload Widget with PDF optimization
+    const myWidget = cloudinary.createUploadWidget({
+      cloudName: cloudName,
+      apiKey: apiKey,
+      uploadPreset: uploadPreset,
+      sources: ['local'],
+      multiple: false,
+      maxFiles: 1,
+      maxFileSize: 5000000, // 5MB
+      resourceType: 'raw',
+      clientAllowedFormats: ['pdf', 'doc', 'docx'],
+      showAdvancedOptions: false,
+      cropping: false,
+      styles: {
+        palette: {
+          window: "#F5F5F5",
+          windowBorder: "#0052cc",
+          tabIcon: "#0052cc",
+          menuIcons: "#5A616A",
+          textDark: "#000000",
+          textLight: "#FFFFFF",
+          link: "#0052cc",
+          action: "#FF620C",
+          inactiveTabIcon: "#0E2F5A",
+          error: "#F44235",
+          inProgress: "#0078FF",
+          complete: "#20B832",
+          sourceBg: "#E4EBF1"
+        },
+        fonts: {
+          default: null,
+          "'Noto Sans', sans-serif": {
+            url: "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap",
+            active: true
+          }
+        }
+      }
+    }, (error, result) => {
+      if (!error && result && result.event === "success") {
+        console.log('Document uploaded:', result.info);
+        
+        // Create URL without any parameters
+        const docUrl = result.info.secure_url;
+        document.getElementById('doc-url').value = docUrl;
+        
+        // Create download URL with filename
+        const downloadUrl = `${docUrl}?download=resume.pdf`;
+        
+        // Create a safe URL for viewing
+        const safeViewUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(docUrl)}&embedded=true`;
+        
+        // Create download buttons container
+        const downloadContainer = document.createElement('div');
+        downloadContainer.className = 'download-container';
+        downloadContainer.innerHTML = `
+          <a href="${downloadUrl}" target="_blank" class="download-button">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+          <a href="${safeViewUrl}" target="_blank" class="download-button view-button">
+            <i class="fas fa-eye"></i> View Resume Online
+          </a>
+        `;
+        
+        // Insert after the DOC URL field
+        const docUrlContainer = document.querySelector('.doc-url-container');
+        docUrlContainer.parentNode.insertBefore(downloadContainer, docUrlContainer.nextSibling);
+        
+        // Show status
+        document.getElementById('upload-status').innerHTML = `
+          <div class="upload-success">
+            <i class="fas fa-check-circle"></i> Document uploaded successfully!
+          </div>
+        `;
+        document.getElementById('upload-status').style.display = 'block';
+      }
+      
+      if (error) {
+        console.error('Upload error:', error);
+        document.getElementById('upload-status').innerHTML = `
+          <div class="upload-error">
+            <i class="fas fa-exclamation-circle"></i> Error: ${error.message || 'Failed to upload document'}
+          </div>
+        `;
+        document.getElementById('upload-status').style.display = 'block';
+      }
+    });
+
+    document.getElementById("upload_widget").addEventListener("click", function(){
+      myWidget.open();
+    }, false);
+
+    // Form submission handling
+    document.getElementById('career-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Disable submit button
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
+      
+      try {
+        // Get form data
+        const formData = {
+          first_name: document.getElementById('first-name').value,
+          last_name: document.getElementById('last-name').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          job: document.getElementById('job').value,
+          doc_url: document.getElementById('doc-url').value
+        };
+        
+        // Validate DOC URL
+        if (!formData.doc_url) {
+          throw new Error('Please upload your resume before submitting');
+        }
+        
+        // Send email via EmailJS
+        await emailjs.send(
+          'service_wbeo8md',
+          'template_9gj0ctn',
+          formData
+        );
+        
+        // Show success message
+        document.getElementById('upload-status').innerHTML = `
+          <div class="upload-success">
+            <i class="fas fa-check-circle"></i> Application submitted successfully!
+          </div>
+        `;
+        document.getElementById('upload-status').style.display = 'block';
+        
+        // Reset form
+        this.reset();
+        
+      } catch (error) {
+        console.error('Error submitting application:', error);
+        
+        // Enhanced error message
+        let errorMessage = 'Failed to submit application';
+        if (error.text) {
+          try {
+            const errorData = JSON.parse(error.text);
+            errorMessage = errorData.message || error.text;
+          } catch {
+            errorMessage = error.text;
+          }
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
+        document.getElementById('upload-status').innerHTML = `
+          <div class="upload-error">
+            <i class="fas fa-exclamation-circle"></i> Error: ${errorMessage}
+          </div>
+        `;
+        document.getElementById('upload-status').style.display = 'block';
+      } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Application';
+      }
+    });
+
+    // Initialize the upload widget for the file upload button
+    document.getElementById("upload_widget").addEventListener("click", function(){
+      myWidget.open();
+    }, false);
+
+    // Form submission handling
+    document.getElementById('career-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Disable submit button
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
+      
+      try {
+        // Get form data
+        const formData = {
+          first_name: document.getElementById('first-name').value,
+          last_name: document.getElementById('last-name').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          job: document.getElementById('job').value,
+          doc_url: document.getElementById('doc-url').value
+        };
+        
+        // Validate required fields
+        if (!formData.first_name) throw new Error('First name is required');
+        if (!formData.email) throw new Error('Email is required');
+        if (!formData.job) throw new Error('Job selection is required');
+        if (!formData.doc_url) throw new Error('Please upload your resume');
+        
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          throw new Error('Please enter a valid email address');
+        }
+        
+        // Send email via EmailJS
+        const response = await emailjs.send(
+          'service_wbeo8md', 
+          'template_9gj0ctn', // Corrected template ID
+          formData
+        );
+        
+        // Log response for debugging
+        console.log('EmailJS response:', response);
+        
+        // Show success message
+        document.getElementById('upload-status').innerHTML = `
+          <div class="upload-success">
+            <i class="fas fa-check-circle"></i> Application submitted successfully!
+          </div>
+        `;
+        document.getElementById('upload-status').style.display = 'block';
+        
+        // Reset form
+        this.reset();
+        
+      } catch (error) {
+        console.error('Error submitting application:', error);
+        
+        // Enhanced error message
+        let errorMessage = 'Failed to submit application';
+        if (error.text) {
+          try {
+            const errorData = JSON.parse(error.text);
+            errorMessage = errorData.message || error.text;
+          } catch {
+            errorMessage = error.text;
+          }
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
+        document.getElementById('upload-status').innerHTML = `
+          <div class="upload-error">
+            <i class="fas fa-exclamation-circle"></i> Error: ${errorMessage}
+          </div>
+        `;
+        document.getElementById('upload-status').style.display = 'block';
+      } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Application';
+      }
+    });
+
+    // PDF Viewer functionality
+    document.getElementById('close-pdf').addEventListener('click', function() {
+      document.querySelector('.pdf-viewer').style.display = 'none';
+      document.getElementById('pdf-frame').src = '';
+    });
+
     // Chatbot Functionality
     function toggleChatbot() {
       const chatbotWindow = document.getElementById('chatbotWindow');
@@ -1095,5 +1596,4 @@
     });
   </script>
 </body>
-
 </html>
