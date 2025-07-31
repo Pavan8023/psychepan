@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Psyche Panacea - Corporate Training Solutions</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="/images/psypan-logo-transparent.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
@@ -335,31 +336,45 @@
 
 
     /* wrap your card so the overflow is clipped during the slide */
-.testimonial-card {
-  position: relative;
-  overflow: hidden;
-}
+    .testimonial-card {
+      position: relative;
+      overflow: hidden;
+    }
 
-/* slide in from right */
-@keyframes slideInFromRight {
-  from { transform: translateX(100%); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
-}
+    /* slide in from right */
+    @keyframes slideInFromRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
 
-/* slide in from left */
-@keyframes slideInFromLeft {
-  from { transform: translateX(-100%); opacity: 0; }
-  to   { transform: translateX(0);     opacity: 1; }
-}
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
 
-/* utility classes */
-.slide-in-right {
-  animation: slideInFromRight 0.5s ease-out both;
-}
-.slide-in-left {
-  animation: slideInFromLeft 0.5s ease-out both;
-}
+    /* slide in from left */
+    @keyframes slideInFromLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
 
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* utility classes */
+    .slide-in-right {
+      animation: slideInFromRight 0.5s ease-out both;
+    }
+
+    .slide-in-left {
+      animation: slideInFromLeft 0.5s ease-out both;
+    }
   </style>
 </head>
 
@@ -391,8 +406,7 @@
   <!-- Mobile Dropdown Menu -->
   <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a href="index.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Home</a>
+      <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Home</a>
       <a href="services.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
       <a href="flagship-programs.html"
@@ -951,85 +965,85 @@
   </div>
 
   <script>
-  const testimonials = [
-    {
-      photo: '/images/testimonials/vishal-shukla.jpg',
-      name: 'Vishal Shukla',
-      role: 'GM Sales',
-      company: 'True Value',
-      text: 'Associated with Psyche Panacea for last 10 years, Well Experienced Trainers Available In Pan India.',
-      rating: 5
-    },
-    {
-      photo: '/images/testimonials/sunita-pouroush.jpg',
-      name: 'Sunita Pouroush',
-      role: 'Asst Prof',
-      company: 'NCERT',
-      text: 'A long professional association, excellent services, keep doing good work',
-      rating: 5
-    },
-    {
-      photo: '/images/testimonials/neha-goel.jpg',
-      name: 'Neha Goel',
-      role: 'Centre of Innovation',
-      company: 'HMC - Jaipur',
-      text: 'Amazing team…Deepa and team always do great job in giving best experience to employees.',
-      rating: 5
+    const testimonials = [
+      {
+        photo: '/images/testimonials/vishal-shukla.jpg',
+        name: 'Vishal Shukla',
+        role: 'GM Sales',
+        company: 'True Value',
+        text: 'Associated with Psyche Panacea for last 10 years, Well Experienced Trainers Available In Pan India.',
+        rating: 5
+      },
+      {
+        photo: '/images/testimonials/sunita-pouroush.jpg',
+        name: 'Sunita Pouroush',
+        role: 'Asst Prof',
+        company: 'NCERT',
+        text: 'A long professional association, excellent services, keep doing good work',
+        rating: 5
+      },
+      {
+        photo: '/images/testimonials/neha-goel.jpg',
+        name: 'Neha Goel',
+        role: 'Centre of Innovation',
+        company: 'HMC - Jaipur',
+        text: 'Amazing team…Deepa and team always do great job in giving best experience to employees.',
+        rating: 5
+      }
+      // …add more as you like
+    ];
+
+    // 2) Cache DOM nodes
+    const cardEl = document.querySelector('.testimonial-card');
+    const photoEl = document.getElementById('testimonial-photo');
+    const nameEl = document.getElementById('testimonial-name');
+    const roleEl = document.getElementById('testimonial-role');
+    const textEl = document.getElementById('testimonial-text');
+    const starsEl = document.getElementById('testimonial-stars');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    let current = 0;
+
+    // 3) Render + animate
+    function renderTestimonial(idx, direction) {
+      // remove any old animation classes
+      cardEl.classList.remove('slide-in-right', 'slide-in-left');
+      // force reflow so animation restarts
+      void cardEl.offsetWidth;
+      // add the correct slide-in class
+      cardEl.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
+
+      // update content
+      const t = testimonials[idx];
+      photoEl.src = t.photo;
+      photoEl.alt = t.name + ' photo';
+      nameEl.textContent = t.name;
+      roleEl.textContent = `${t.role} • ${t.company}`;
+      textEl.textContent = t.text;
+
+      // rebuild stars
+      starsEl.innerHTML = '';
+      for (let i = 0; i < 5; i++) {
+        const star = document.createElement('i');
+        star.className = i < t.rating ? 'fas fa-star' : 'far fa-star';
+        star.classList.add('mr-1');
+        starsEl.appendChild(star);
+      }
     }
-    // …add more as you like
-  ];
 
-  // 2) Cache DOM nodes
-  const cardEl   = document.querySelector('.testimonial-card');
-  const photoEl  = document.getElementById('testimonial-photo');
-  const nameEl   = document.getElementById('testimonial-name');
-  const roleEl   = document.getElementById('testimonial-role');
-  const textEl   = document.getElementById('testimonial-text');
-  const starsEl  = document.getElementById('testimonial-stars');
-  const prevBtn  = document.getElementById('prev-btn');
-  const nextBtn  = document.getElementById('next-btn');
+    // 4) Wire up buttons
+    prevBtn.addEventListener('click', () => {
+      current = (current - 1 + testimonials.length) % testimonials.length;
+      renderTestimonial(current, 'prev');
+    });
+    nextBtn.addEventListener('click', () => {
+      current = (current + 1) % testimonials.length;
+      renderTestimonial(current, 'next');
+    });
 
-  let current = 0;
-
-  // 3) Render + animate
-  function renderTestimonial(idx, direction) {
-    // remove any old animation classes
-    cardEl.classList.remove('slide-in-right', 'slide-in-left');
-    // force reflow so animation restarts
-    void cardEl.offsetWidth;
-    // add the correct slide-in class
-    cardEl.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
-
-    // update content
-    const t = testimonials[idx];
-    photoEl.src        = t.photo;
-    photoEl.alt        = t.name + ' photo';
-    nameEl.textContent = t.name;
-    roleEl.textContent = `${t.role} • ${t.company}`;
-    textEl.textContent = t.text;
-
-    // rebuild stars
-    starsEl.innerHTML = '';
-    for (let i = 0; i < 5; i++) {
-      const star = document.createElement('i');
-      star.className = i < t.rating ? 'fas fa-star' : 'far fa-star';
-      star.classList.add('mr-1');
-      starsEl.appendChild(star);
-    }
-  }
-
-  // 4) Wire up buttons
-  prevBtn.addEventListener('click', () => {
-    current = (current - 1 + testimonials.length) % testimonials.length;
-    renderTestimonial(current, 'prev');
-  });
-  nextBtn.addEventListener('click', () => {
-    current = (current + 1) % testimonials.length;
+    // 5) Initial render (no animation)
     renderTestimonial(current, 'next');
-  });
-
-  // 5) Initial render (no animation)
-  renderTestimonial(current, 'next');
 
 
 
