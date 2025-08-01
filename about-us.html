@@ -7,8 +7,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Cloudinary Widget -->
-  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+  <!-- Uploadcare Widget -->
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+  <link rel="stylesheet" href="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.css">
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
@@ -346,35 +347,47 @@
       color: #0052cc;
     }
 
-    /* Cloudinary upload widget styles */
-    .cloudinary-upload-container {
-      margin-bottom: 1.5rem;
+    /* Uploadcare widget styles */
+    .uploadcare-widget-button {
+      background: linear-gradient(135deg, #0052cc, #4da8ff) !important;
+      color: white !important;
+      font-weight: 600 !important;
+      padding: 0.75rem 1.5rem !important;
+      border: none !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
     }
 
-    .doc-url-container {
-      margin-bottom: 1rem;
+    .uploadcare-widget-button:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3) !important;
     }
 
-    #upload_widget {
-      background: linear-gradient(135deg, #0052cc, #4da8ff);
-      color: white;
-      font-weight: 600;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
+    .uploadcare-widget-button i {
+      margin-right: 8px !important;
     }
 
-    #upload_widget:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+    .uploadcare-widget-dragndrop-area {
+      border: 2px dashed #cbd5e0 !important;
+      border-radius: 8px !important;
+      padding: 2rem !important;
+      text-align: center !important;
+      background: #f8fafc !important;
     }
 
-    #upload_widget i {
-      margin-right: 8px;
+    .uploadcare-widget-text {
+      font-family: 'Noto Sans', sans-serif !important;
+      color: #4a5568 !important;
+    }
+
+    .uploadcare-widget-status {
+      font-family: 'Noto Sans', sans-serif !important;
+      color: #4a5568 !important;
     }
 
     .upload-status {
@@ -479,34 +492,6 @@
       border: none;
     }
     
-    /* Upload source tabs */
-    .upload-source-tabs {
-      display: flex;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #e2e8f0;
-    }
-    
-    .source-tab {
-      padding: 10px 20px;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all 0.3s ease;
-    }
-    
-    .source-tab.active {
-      border-bottom: 2px solid #0052cc;
-      color: #0052cc;
-      font-weight: 600;
-    }
-    
-    .source-content {
-      display: none;
-    }
-    
-    .source-content.active {
-      display: block;
-    }
-
     /* New styles for the solution */
     .download-container {
       display: flex;
@@ -684,34 +669,25 @@
               placeholder="Document URL will appear here after upload">
           </div>
 
-          <!-- Cloudinary Upload Widget -->
-          <div class="cloudinary-upload-container">
+          <!-- Uploadcare Upload Widget -->
+          <div class="uploadcare-container">
             <label class="block text-gray-700 font-medium mb-2">Upload Resume *</label>
             
-            <!-- Upload Source Tabs -->
-            <div class="upload-source-tabs mb-4">
-              <div class="source-tab active" data-source="upload">Upload File</div>
-            </div>
-            
-            <!-- Upload Content -->
-            <div class="source-content active" id="upload-content">
-              <button type="button" id="upload_widget" class="mt-2 w-full">
-                <i class="fas fa-cloud-upload-alt"></i> Select File to Upload
-              </button>
-            </div>
-            
-            <div class="source-content" id="url-content">
-              <div class="flex items-center">
-                <input type="text" id="doc-url-input" placeholder="Enter document URL" 
-                  class="flex-1 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary mr-2">
-                <button id="set-url-btn" class="bg-primary text-white px-4 py-4 rounded-lg">
-                  <i class="fas fa-check"></i>
-                </button>
-              </div>
+            <div id="uploadcare-widget-container">
+              <input type="hidden" role="uploadcare-uploader" name="resume" 
+                data-public-key="b99b273a0a3e9eb1793e"
+                data-tabs="file"
+                data-multiple="false"
+                data-preview-step="false"
+                data-images-only="false"
+                data-input-accept-types=".pdf,.doc,.docx"
+                data-system-dialog="true"
+                data-clearable="true"
+                data-validators='[["fileSize", {"maxSize": 5242880}], ["fileType", {"allowed": ["pdf", "doc", "docx"]}]'
+              />
             </div>
             
             <div id="upload-status" class="upload-status"></div>
-            <div id="upload-preview" class="upload-preview"></div>
             <p class="text-gray-500 text-sm mt-2">Supported formats: PDF, DOC, DOCX (Max size: 5MB)</p>
           </div>
 
@@ -1014,101 +990,48 @@
     // Initialize EmailJS
     emailjs.init("6KRvQp4CW2Wc9Ir-x");
 
-    // Cloudinary Configuration
-    const cloudName = "dhwanw6f7";
-    const apiKey = "944949133978771";
-    const uploadPreset = "psychepan_unsigned";
-
-    // Initialize Cloudinary Upload Widget with PDF optimization
-    const myWidget = cloudinary.createUploadWidget({
-      cloudName: cloudName,
-      apiKey: apiKey,
-      uploadPreset: uploadPreset,
-      sources: ['local'],
-      multiple: false,
-      maxFiles: 1,
-      maxFileSize: 5000000, // 5MB
-      resourceType: 'raw',
-      clientAllowedFormats: ['pdf', 'doc', 'docx'],
-      showAdvancedOptions: false,
-      cropping: false,
-      styles: {
-        palette: {
-          window: "#F5F5F5",
-          windowBorder: "#0052cc",
-          tabIcon: "#0052cc",
-          menuIcons: "#5A616A",
-          textDark: "#000000",
-          textLight: "#FFFFFF",
-          link: "#0052cc",
-          action: "#FF620C",
-          inactiveTabIcon: "#0E2F5A",
-          error: "#F44235",
-          inProgress: "#0078FF",
-          complete: "#20B832",
-          sourceBg: "#E4EBF1"
-        },
-        fonts: {
-          default: null,
-          "'Noto Sans', sans-serif": {
-            url: "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap",
-            active: true
+    // Initialize Uploadcare widget
+    const widget = uploadcare.SingleWidget('[role="uploadcare-uploader"]');
+    
+    widget.onChange(function(file) {
+      if (file) {
+        file.done(function(fileInfo) {
+          // Set the URL to the input field
+          document.getElementById('doc-url').value = fileInfo.cdnUrl;
+          
+          // Create download URL with filename
+          const downloadUrl = `${fileInfo.cdnUrl}?download=resume.pdf`;
+          
+          // Create a safe URL for viewing
+          const safeViewUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fileInfo.cdnUrl)}&embedded=true`;
+          
+          // Create download buttons container if it doesn't exist
+          let downloadContainer = document.querySelector('.download-container');
+          if (!downloadContainer) {
+            downloadContainer = document.createElement('div');
+            downloadContainer.className = 'download-container';
+            document.querySelector('.doc-url-container').insertAdjacentElement('afterend', downloadContainer);
           }
-        }
-      }
-    }, (error, result) => {
-      if (!error && result && result.event === "success") {
-        console.log('Document uploaded:', result.info);
-        
-        // Create URL without any parameters
-        const docUrl = result.info.secure_url;
-        document.getElementById('doc-url').value = docUrl;
-        
-        // Create download URL with filename
-        const downloadUrl = `${docUrl}?download=resume.pdf`;
-        
-        // Create a safe URL for viewing
-        const safeViewUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(docUrl)}&embedded=true`;
-        
-        // Create download buttons container
-        const downloadContainer = document.createElement('div');
-        downloadContainer.className = 'download-container';
-        downloadContainer.innerHTML = `
-          <a href="${downloadUrl}" target="_blank" class="download-button">
-            <i class="fas fa-download"></i> Download Resume
-          </a>
-          <a href="${safeViewUrl}" target="_blank" class="download-button view-button">
-            <i class="fas fa-eye"></i> View Resume Online
-          </a>
-        `;
-        
-        // Insert after the DOC URL field
-        const docUrlContainer = document.querySelector('.doc-url-container');
-        docUrlContainer.parentNode.insertBefore(downloadContainer, docUrlContainer.nextSibling);
-        
-        // Show status
-        document.getElementById('upload-status').innerHTML = `
-          <div class="upload-success">
-            <i class="fas fa-check-circle"></i> Document uploaded successfully!
-          </div>
-        `;
-        document.getElementById('upload-status').style.display = 'block';
-      }
-      
-      if (error) {
-        console.error('Upload error:', error);
-        document.getElementById('upload-status').innerHTML = `
-          <div class="upload-error">
-            <i class="fas fa-exclamation-circle"></i> Error: ${error.message || 'Failed to upload document'}
-          </div>
-        `;
-        document.getElementById('upload-status').style.display = 'block';
+          
+          downloadContainer.innerHTML = `
+            <a href="${downloadUrl}" target="_blank" class="download-button">
+              <i class="fas fa-download"></i> Download Resume
+            </a>
+            <a href="${safeViewUrl}" target="_blank" class="download-button view-button">
+              <i class="fas fa-eye"></i> View Resume Online
+            </a>
+          `;
+          
+          // Show status
+          document.getElementById('upload-status').innerHTML = `
+            <div class="upload-success">
+              <i class="fas fa-check-circle"></i> Document uploaded successfully!
+            </div>
+          `;
+          document.getElementById('upload-status').style.display = 'block';
+        });
       }
     });
-
-    document.getElementById("upload_widget").addEventListener("click", function(){
-      myWidget.open();
-    }, false);
 
     // Form submission handling
     document.getElementById('career-form').addEventListener('submit', async function(e) {
@@ -1180,99 +1103,6 @@
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Application';
       }
-    });
-
-    // Initialize the upload widget for the file upload button
-    document.getElementById("upload_widget").addEventListener("click", function(){
-      myWidget.open();
-    }, false);
-
-    // Form submission handling
-    document.getElementById('career-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      // Disable submit button
-      const submitBtn = document.getElementById('submit-btn');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Processing...';
-      
-      try {
-        // Get form data
-        const formData = {
-          first_name: document.getElementById('first-name').value,
-          last_name: document.getElementById('last-name').value,
-          email: document.getElementById('email').value,
-          phone: document.getElementById('phone').value,
-          job: document.getElementById('job').value,
-          doc_url: document.getElementById('doc-url').value
-        };
-        
-        // Validate required fields
-        if (!formData.first_name) throw new Error('First name is required');
-        if (!formData.email) throw new Error('Email is required');
-        if (!formData.job) throw new Error('Job selection is required');
-        if (!formData.doc_url) throw new Error('Please upload your resume');
-        
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-          throw new Error('Please enter a valid email address');
-        }
-        
-        // Send email via EmailJS
-        const response = await emailjs.send(
-          'service_wbeo8md', 
-          'template_9gj0ctn', // Corrected template ID
-          formData
-        );
-        
-        // Log response for debugging
-        console.log('EmailJS response:', response);
-        
-        // Show success message
-        document.getElementById('upload-status').innerHTML = `
-          <div class="upload-success">
-            <i class="fas fa-check-circle"></i> Application submitted successfully!
-          </div>
-        `;
-        document.getElementById('upload-status').style.display = 'block';
-        
-        // Reset form
-        this.reset();
-        
-      } catch (error) {
-        console.error('Error submitting application:', error);
-        
-        // Enhanced error message
-        let errorMessage = 'Failed to submit application';
-        if (error.text) {
-          try {
-            const errorData = JSON.parse(error.text);
-            errorMessage = errorData.message || error.text;
-          } catch {
-            errorMessage = error.text;
-          }
-        } else if (error.message) {
-          errorMessage = error.message;
-        }
-        
-        document.getElementById('upload-status').innerHTML = `
-          <div class="upload-error">
-            <i class="fas fa-exclamation-circle"></i> Error: ${errorMessage}
-          </div>
-        `;
-        document.getElementById('upload-status').style.display = 'block';
-      } finally {
-        // Re-enable submit button
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Application';
-      }
-    });
-
-    // PDF Viewer functionality
-    document.getElementById('close-pdf').addEventListener('click', function() {
-      document.querySelector('.pdf-viewer').style.display = 'none';
-      document.getElementById('pdf-frame').src = '';
     });
 
     // Chatbot Functionality
