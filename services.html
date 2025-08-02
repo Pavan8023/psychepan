@@ -4,10 +4,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Psyche Panacea - Services</title>
+  <title>Services - Psyche Panacea</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="/images/psypan-logo-transparent.png">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0052cc',
+            secondary: '#4da8ff',
+            dark: '#1a1a1a',
+            light: '#f8f9fa',
+            accent: '#f59e0b',
+          },
+          fontFamily: {
+            sans: ['Noto Sans', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 1s ease-out',
+            'slide-up': 'slideUp 0.8s ease forwards',
+            'float': 'float 6s ease-in-out infinite',
+            'count-up': 'countUp 2s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              from: { opacity: 0 },
+              to: { opacity: 1 },
+            },
+            slideUp: {
+              from: { transform: 'translateY(30px)', opacity: 0 },
+              to: { transform: 'translateY(0)', opacity: 1 },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            countUp: {
+              from: { content: "'0'" },
+              to: { content: 'attr(data-target)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
     * {
       margin: 0;
@@ -22,12 +64,17 @@
       overflow-x: hidden;
     }
 
-    /* Header */
+    .tab-gradient {
+      background: linear-gradient(135deg, #0052cc, #4da8ff);
+    }
+
+    /* Fixed navbar solution */
     header {
       background-color: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       position: fixed;
+      top: 0;
       width: 100%;
       z-index: 1000;
       padding: 1.2rem 3rem;
@@ -65,45 +112,143 @@
       width: 100%;
     }
 
-    /* Service Cards Animation */
     .service-card {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
     }
 
-    .service-card.visible {
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 82, 204, 0.15);
+    }
+
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: scale(1.05);
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+      perspective: 1000px;
+    }
+
+    .stat-card-inner {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .stat-card:hover .stat-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .stat-card-front,
+    .stat-card-back {
+      backface-visibility: hidden;
+    }
+
+    .stat-card-back {
+      transform: rotateY(180deg);
+    }
+
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .animate-on-scroll.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Chatbot */
-    .chatbot-message {
-      animation: messageFadeIn 0.3s ease;
+    .counter::after {
+      content: attr(data-target);
+      display: inline-block;
+      animation: countUp 2s ease-out forwards;
     }
 
-    @keyframes messageFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
     }
 
-    /* Animation for service cards */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
+    .city-item {
+      transition: all 0.3s ease;
+      background: rgba(0, 82, 204, 0.05);
+      border-radius: 8px;
+      padding: 12px 15px;
+    }
+
+    .city-item:hover {
+      background: rgba(0, 82, 204, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .cta-button {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .cta-button:hover::after {
+      left: 100%;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 82, 204, 0.2);
+    }
+
+    .training-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 1.5rem;
       }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      .training-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .city-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -136,10 +281,9 @@
     /* Mobile menu fixes */
     #mobile-menu {
       position: fixed;
-      top: 63px;
-      /* Adjusted to position below header */
       left: 0;
       right: 0;
+      top: 60px;
       background: white;
       z-index: 1000;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -170,39 +314,211 @@
       background-color: #e6f2ff;
       color: #0052cc;
     }
-  </style>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#0052cc',
-            secondary: '#4da8ff',
-            dark: '#1a1a1a',
-            light: '#f8f9fa',
-            accent: '#f59e0b',
-          },
-          fontFamily: {
-            sans: ['Noto Sans', 'sans-serif'],
-          },
-          animation: {
-            'fade-in': 'fadeIn 1s ease-out',
-            'fade-in-up': 'fadeInUp 0.6s ease forwards',
-          },
-          keyframes: {
-            fadeIn: {
-              from: { opacity: 0 },
-              to: { opacity: 1 },
-            },
-            fadeInUp: {
-              from: { opacity: 0, transform: 'translateY(20px)' },
-              to: { opacity: 1, transform: 'translateY(0)' },
-            }
-          }
-        }
-      }
+
+    /* Flip-card container */
+    .flip-card {
+      perspective: 1000px;
     }
-  </script>
+
+    /* Inner wrapper: handles the 3D flip */
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    /* Flip on hover */
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Front and back faces */
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0.75rem;
+      /* match rounded-xl */
+    }
+
+    /* Front face styling */
+    .flip-card-front {
+      z-index: 2;
+    }
+
+    /* Back face sits "behind" and is rotated */
+    .flip-card-back {
+      transform: rotateY(180deg);
+      z-index: 1;
+    }
+
+    /* Tab styles */
+    .program-tabs {
+      position: sticky;
+      top: 80px;
+      z-index: 900;
+      background: white;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      padding: 0 1rem;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .tab-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-button {
+      flex: 0 0 auto;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #4b5563;
+      background: #f3f4f6;
+      border-radius: 8px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      border: 1px solid #e5e7eb;
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #0052cc, #4da8ff);
+      color: white;
+      border-color: #0052cc;
+      box-shadow: 0 4px 6px rgba(0, 82, 204, 0.2);
+    }
+
+    .tab-button:not(.active):hover {
+      background: #e5e7eb;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .program-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .program-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 82, 204, 0.15);
+    }
+
+    .card-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .program-card:hover .card-image img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #1e293b;
+    }
+
+    .card-content p {
+      color: #4b5563;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .read-more-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      color: #4b5563;
+    }
+
+    .read-more-content.show {
+      max-height: 500px;
+    }
+
+    .read-more-btn {
+      background: none;
+      border: none;
+      color: #0052cc;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+      margin-bottom: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .read-more-btn i {
+      margin-left: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .read-more-btn.active i {
+      transform: rotate(180deg);
+    }
+
+    .card-cta {
+      background: linear-gradient(135deg, #0052cc, #4da8ff);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s ease;
+      margin-top: auto;
+    }
+
+    .card-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 82, 204, 0.3);
+    }
+  </style>
 </head>
 
 <body>
@@ -211,8 +527,7 @@
     <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
     <nav class="hidden md:flex items-center space-x-6">
       <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
-      <a href="services.html"
-        class="text-primary font-semibold transition-colors px-2 py-1 active-nav-link">Services</a>
+      <a href="services.html" class="text-primary font-semibold transition-colors px-2 py-1">Services</a>
       <a href="flagship-programs.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Flagship
         Programs</a>
       <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
@@ -232,12 +547,12 @@
   </header>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+  <div id="mobile-menu" class=" md:hidden bg-white shadow-lg rounded-b-lg hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <a href="index.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
       <a href="services.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-primary font-semibold bg-blue-50">Services</a>
+        class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Services</a>
       <a href="flagship-programs.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship
         Programs</a>
@@ -254,146 +569,897 @@
   </div>
 
   <!-- Hero Section -->
-  <div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white pt-32 pb-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-center">Our Services</h1>
-      <p class="text-xl text-center max-w-3xl mx-auto">
-        Comprehensive solutions to enhance your organization's performance
+  <section class="pt-32 pb-20 bg-gradient-to-r from-primary to-blue-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Professional Training Services</h1>
+      <div class="h-1 w-24 bg-white mx-auto rounded mb-8"></div>
+      <p class="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+        Transform your organization with our result-oriented training programs designed for measurable outcomes
       </p>
+    </div>
+  </section>
+
+  <!-- Program Tabs -->
+  <div class="program-tabs">
+    <div class="tab-container">
+      <button class="tab-button active" data-tab="management">Management Training</button>
+      <button class="tab-button" data-tab="engagement">Employee Engagement</button>
+      <button class="tab-button" data-tab="hr">HR Consulting</button>
+      <button class="tab-button" data-tab="assistance">Employee Assistance</button>
+      <button class="tab-button" data-tab="outbound">Outbound Training</button>
+      <button class="tab-button" data-tab="soft-skills">Soft Skills</button>
     </div>
   </div>
 
-  <!-- Services Grid -->
-  <section class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Professional Development Solutions</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Tailored programs to meet your organization's unique needs
-        </p>
+  <!-- Management Training Program (Default) -->
+  <div id="management" class="tab-content active">
+    <!-- Core Services -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Core Services</h2>
+          <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+          <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+            Experience training that delivers tangible results and measurable outcomes
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Repeat this block for each service -->
+          <div class="service-card flip-card h-80 bg-transparent">
+            <div class="flip-card-inner h-full">
+              <!-- FRONT -->
+              <div class="flip-card-front bg-white shadow-lg flex flex-col items-center justify-center p-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                  <i class="fas fa-bullseye text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900">Result Oriented<br />Trainings</h3>
+              </div>
+
+              <!-- BACK -->
+              <div class="flip-card-back bg-white shadow-lg p-6 overflow-y-auto">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Result Oriented Trainings</h3>
+                <p class="text-gray-700 mb-4">
+                  Experience training that delivers tangible results and measurable outcomes.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-center">
+                    <i class="fas fa-chart-bar text-primary mr-2"></i>
+                    <span>Measurable outcomes</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-tachometer-alt text-primary mr-2"></i>
+                    <span>Performance tracking</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-dollar-sign text-primary mr-2"></i>
+                    <span>ROI-focused approach</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Impact Assessment Program -->
+          <div class="service-card flip-card h-80 bg-transparent">
+            <div class="flip-card-inner h-full">
+              <!-- FRONT -->
+              <div class="flip-card-front bg-white shadow-lg flex flex-col items-center justify-center p-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                  <i class="fas fa-chart-line text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 text-center">Impact Assessment<br />Program</h3>
+              </div>
+
+              <!-- BACK -->
+              <div class="flip-card-back bg-white shadow-lg p-6 overflow-y-auto">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Impact Assessment Program</h3>
+                <p class="text-gray-700 mb-4">
+                  Measure the ripple effects with our comprehensive Impact Assessment.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-center">
+                    <i class="fas fa-search text-primary mr-2"></i>
+                    <span>Comprehensive analytics</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-history text-primary mr-2"></i>
+                    <span>Long-term impact tracking</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-file-alt text-primary mr-2"></i>
+                    <span>Customized reports</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tailormade Program -->
+          <div class="service-card flip-card h-80 bg-transparent">
+            <div class="flip-card-inner h-full">
+              <!-- FRONT -->
+              <div class="flip-card-front bg-white shadow-lg flex flex-col items-center justify-center p-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                  <i class="fas fa-cut text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 text-center">Tailormade<br />Program</h3>
+              </div>
+
+              <!-- BACK -->
+              <div class="flip-card-back bg-white shadow-lg p-6 overflow-y-auto">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Tailormade Program</h3>
+                <p class="text-gray-700 mb-4">
+                  Crafting success with our tailor-made program designed to fit your unique needs.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-center">
+                    <i class="fas fa-cogs text-primary mr-2"></i>
+                    <span>Customized solutions</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-industry text-primary mr-2"></i>
+                    <span>Industry-specific modules</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-clock text-primary mr-2"></i>
+                    <span>Flexible scheduling</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Employee Feedback Analysis -->
+          <div class="service-card flip-card h-80 bg-transparent">
+            <div class="flip-card-inner h-full">
+              <!-- FRONT -->
+              <div class="flip-card-front bg-white shadow-lg flex flex-col items-center justify-center p-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                  <i class="fas fa-comments text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 text-center">Employee<br />Feedback Analysis</h3>
+              </div>
+
+              <!-- BACK -->
+              <div class="flip-card-back bg-white shadow-lg p-6 overflow-y-auto">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Employee Feedback Analysis</h3>
+                <p class="text-gray-700 mb-4">
+                  Unlock insights and growth through meticulous feedback analysis.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-center">
+                    <i class="fas fa-lightbulb text-primary mr-2"></i>
+                    <span>Actionable insights</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-user-secret text-primary mr-2"></i>
+                    <span>Confidential surveys</span>
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-chart-area text-primary mr-2"></i>
+                    <span>Trend identification</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- /repeat -->
+        </div>
       </div>
+    </section>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div
-          class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Result-Oriented Trainings</h3>
-            <p class="text-gray-600 mb-6">Our trainings are designed to deliver measurable results and improve
-              performance.</p>
-            <button class="text-blue-800 font-medium hover:underline">
-              Read More 😊
-            </button>
-          </div>
+
+    <!-- Management Training -->
+    <section class="py-16 bg-gradient-to-br from-blue-50 to-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Employee Management Training</h2>
+          <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+          <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+            Empower your team with skills to lead, motivate, and excel
+          </p>
         </div>
 
-        <div
-          class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">HR Consulting</h3>
-            <p class="text-gray-600 mb-6">Expert HR solutions to transform your organization and workforce.</p>
-            <button class="text-blue-800 font-medium hover:underline">
-              Read More 😊
-            </button>
-          </div>
-        </div>
+        <div class="flex flex-col md:flex-row gap-10 items-stretch min-h-0">
+          <!-- LEFT COLUMN -->
+          <div class="md:w-1/2 flex flex-col h-full min-h-0">
+            <!-- IMAGE (reduced height) -->
+            <div class="group relative h-40 md:h-64 w-full overflow-hidden rounded-xl shadow-lg">
+              <img src="/images/psypan-logo-transparent.png" alt="Management training illustration"
+                style="margin-left: 150px;"
+                class="object-cover h-64 ml-4 max-w-7xl transform transition-transform duration-700 group-hover:scale-110 animate__animated animate__fadeIn" />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              </div>
+            </div>
 
-        <div
-          class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Outbound Trainings</h3>
-            <p class="text-gray-600 mb-6">Experiential learning in outdoor settings to build teamwork and leadership.
-            </p>
-            <button class="text-blue-800 font-medium hover:underline">
-              Read More 😊
-            </button>
+            <!-- TEXT -->
+            <div class="bg-white rounded-xl p-8 shadow-lg mt-8 flex-1 min-h-0" data-aos="fade-up"
+              data-aos-duration="800">
+              <p class="text-gray-700 mb-6">
+                Psyche Panacea's Management Training is a tailor-made program designed to give people in managerial
+                positions the information, skills, and resources they need to effectively guide and oversee others within
+                an organisation. It aims at improving the skills of managers so they can handle their duties more
+                effectively and provide better outcomes.
+              </p>
+              <p class="text-gray-700">
+                Depending on the unique demands of the organisation and the experience level of the managers being
+                trained, management training programmes can cover a wide range of topics.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div
-          class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Employee Engagement</h3>
-            <p class="text-gray-600 mb-6">Strategies to boost employee morale, productivity, and retention.</p>
-            <button class="text-blue-800 font-medium hover:underline">
-              Read More 😊
-            </button>
-          </div>
-        </div>
-
-        <div
-          class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Employee Assistance</h3>
-            <p class="text-gray-600 mb-6">Support programs for employee well-being and work-life balance.</p>
-            <button class="text-blue-800 font-medium hover:underline">
-              Read More 😊
-            </button>
-          </div>
-        </div>
-
-        <div
-          class="service-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Career Counseling</h3>
-            <p class="text-gray-600 mb-6">Guidance for employees to navigate their career paths effectively.</p>
-            <button class="text-blue-800 font-medium hover:underline">
-              Read More 😊
-            </button>
+          <!-- RIGHT COLUMN -->
+          <div class="md:w-1/2 flex flex-col h-full min-h-0">
+            <div class="training-grid grid grid-cols-1 sm:grid-cols-2 gap-6 flex-1 min-h-0">
+              <div class="feature-card bg-white p-6 rounded-xl shadow-md border-l-4 border-primary">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Leadership Skills</h3>
+                <p class="text-gray-700">Developing strong leadership traits including strategic thinking,
+                  problem-solving, and communication.</p>
+              </div>
+              <div class="feature-card bg-white p-6 rounded-xl shadow-md border-l-4 border-secondary">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Team Building</h3>
+                <p class="text-gray-700">Understanding how to create and manage high-performing teams, encouraging
+                  collaboration.</p>
+              </div>
+              <div class="feature-card bg-white p-6 rounded-xl shadow-md border-l-4 border-accent">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Performance Management</h3>
+                <p class="text-gray-700">How to define performance objectives, offer feedback, and inspire staff to
+                  increase output.</p>
+              </div>
+              <div class="feature-card bg-white p-6 rounded-xl shadow-md border-l-4 border-primary">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Effective Communication</h3>
+                <p class="text-gray-700">Ensuring clear and efficient exchange of information with teammates and
+                  stakeholders.</p>
+              </div>
+              <div class="feature-card bg-white p-6 rounded-xl shadow-md border-l-4 border-secondary">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Project Management</h3>
+                <p class="text-gray-700">Giving managers the knowledge to organize, carry out, and track projects
+                  efficiently.</p>
+              </div>
+              <div class="feature-card bg-white p-6 rounded-xl shadow-md border-l-4 border-accent">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Change Management</h3>
+                <p class="text-gray-700">Preparing managers to steer organizational change and promote orderly
+                  transitions.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- What We Do Section -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">What We Do</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Comprehensive solutions for your organizational development
-        </p>
-      </div>
 
-      <div class="bg-white rounded-2xl shadow-xl p-8">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6">Training & Employee Engagement Services</h3>
-        <p class="text-gray-700 mb-6">
-          At Psyche Panacea you will discover apostles of innovative and breakthrough methodologies in Indian
-          consultation arena. Thinking out of the box is our forte, tailor made solutions is our strong suit and
-          outmatching customer expectation is sacrosanct.
-        </p>
-        <p class="text-gray-700">
-          In last decade Psyche Panacea has established itself as preferred training partner and trusted destination for
-          management solutions. Clients have always known us as pioneers of training trends. With our ability to foresee
-          challenges to come, our clients always find us ready to cater when the need arrives.
-        </p>
+    <!-- Benefits -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row gap-10">
+          <div class="md:w-1/2 animate-on-scroll">
+            <div class="bg-gradient-to-br from-primary to-blue-700 text-white rounded-xl p-8 shadow-xl">
+              <h2 class="text-2xl font-bold mb-6">Creating Environment Where Employees Thrive</h2>
+              <div class="space-y-6">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-10 h-10 rounded-full bg-blue-300 bg-opacity-20 flex items-center justify-center">
+                      <i class="fas fa-chart-line"></i>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-xl font-bold">Get Increased Productivity</h3>
+                    <p class="mt-2 opacity-90">Our training programs boost efficiency and output across your
+                      organization.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-10 h-10 rounded-full bg-blue-300 bg-opacity-20 flex items-center justify-center">
+                      <i class="fas fa-smile"></i>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-xl font-bold">Get Improved Employee Satisfaction</h3>
+                    <p class="mt-2 opacity-90">Happy employees lead to better retention and workplace harmony.</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-10 h-10 rounded-full bg-blue-300 bg-opacity-20 flex items-center justify-center">
+                      <i class="fas fa-users"></i>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-xl font-bold">Get Higher Morale</h3>
+                    <p class="mt-2 opacity-90">Boost team spirit and create a positive work environment.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 animate-on-scroll">
+            <div class="bg-white rounded-xl p-8 shadow-lg">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Benefits Of Management Training</h2>
+              <p class="text-gray-700 mb-6">
+                The purpose of management training is to provide managers with the abilities and information required to
+                effectively manage their teams, promote organizational success, and foster a productive workplace.
+                Additionally, it helps with retention, staff engagement, and overall organisational development.
+              </p>
+              <div class="mt-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Key Outcomes:</h3>
+                <ul class="space-y-3">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>Enhanced leadership capabilities</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>Improved decision-making processes</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>Increased employee engagement</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>Better conflict resolution</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>Higher retention rates</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Stats Section -->
-  <section class="py-16 bg-gradient-to-r from-blue-800 to-blue-600 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-        <div class="p-6">
-          <div class="text-4xl font-bold mb-2">350+</div>
-          <div class="text-xl">Satisfied Clients</div>
+    <!-- What Makes Us Special -->
+    <section class="py-16 bg-gradient-to-r from-primary to-blue-600 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold mb-4">What Makes Us So Special?</h2>
+          <div class="h-1 w-20 bg-white mx-auto rounded"></div>
         </div>
-        <div class="p-6">
-          <div class="text-4xl font-bold mb-2">22+</div>
-          <div class="text-xl">Years Experience</div>
-        </div>
-        <div class="p-6">
-          <div class="text-4xl font-bold mb-2">98%</div>
-          <div class="text-xl">Client Retention</div>
-        </div>
-        <div class="p-6">
-          <div class="text-4xl font-bold mb-2">5000+</div>
-          <div class="text-xl">Trained Professionals</div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div class="animate-on-scroll">
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-cut text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-xl font-bold">Our training is tailored to your organization's unique needs</h3>
+                  <p class="mt-2 opacity-90">No generic solutions - we customize every program for your specific
+                    challenges.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-handshake text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-xl font-bold">We focus on developing interpersonal skills</h3>
+                  <p class="mt-2 opacity-90">Building soft skills that transform workplace dynamics and culture.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-user-tie text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-xl font-bold">Industry experts Trainers with years of hands-on experience</h3>
+                  <p class="mt-2 opacity-90">Learn from practitioners who've succeeded in real-world business
+                    environments.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-chart-bar text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-xl font-bold">Our training is designed to deliver measurable outcomes</h3>
+                  <p class="mt-2 opacity-90">We focus on tangible results that impact your bottom line.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="animate-on-scroll">
+            <div class="grid grid-cols-2 gap-6">
+              <div class="stat-card">
+                <div class="stat-card-inner">
+                  <div
+                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <div class="text-4xl font-bold mb-2 counter" data-target="350">0</div>
+                    <div class="text-center">Companies</div>
+                  </div>
+                  <div
+                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <p class="text-center">Served diverse organizations across industries</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-inner">
+                  <div
+                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <div class="text-4xl font-bold mb-2 counter" data-target="22">0</div>
+                    <div class="text-center">Years Experience</div>
+                  </div>
+                  <div
+                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <p class="text-center">Two decades of training excellence</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-inner">
+                  <div
+                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <div class="text-4xl font-bold mb-2 counter" data-target="300">0</div>
+                    <div class="text-center">Training Associates</div>
+                  </div>
+                  <div
+                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <p class="text-center">Certified professionals delivering quality training</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-inner">
+                  <div
+                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <div class="text-4xl font-bold mb-2 counter" data-target="300000">0</div>
+                    <div class="text-center">Participants Trained</div>
+                  </div>
+                  <div
+                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                    <p class="text-center">Transforming careers and organizations</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-xl overflow-hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-2">
+            <div class="p-8 md:p-12 lg:p-16">
+              <h2 class="text-3xl font-bold text-gray-900 mb-4">Request A Callback</h2>
+              <p class="text-gray-700 mb-8">
+                Just fill the form below and our experts will call you back to assist you!
+              </p>
+
+              <div class="mb-10">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">We Offer Training In:</h3>
+                <div class="city-grid">
+                  <div class="city-item">Pune</div>
+                  <div class="city-item">Delhi NCR</div>
+                  <div class="city-item">Mumbai</div>
+                  <div class="city-item">Bangalore</div>
+                  <div class="city-item">Kolkata</div>
+                  <div class="city-item">Ahmedabad</div>
+                  <div class="city-item">Chennai</div>
+                  <div class="city-item">Your City</div>
+                </div>
+              </div>
+
+              <a href="contact.html"
+                class="cta-button inline-block bg-gradient-to-r from-primary to-blue-700 text-white font-bold py-4 px-10 rounded-lg transition-all transform shadow-lg">
+                Contact Us Now
+                <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+            <div class="bg-gradient-to-br from-primary to-blue-700 flex items-center justify-center p-8">
+              <div class="text-center text-white max-w-md">
+                <div class="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-8">
+                  <i class="fas fa-headset text-4xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Ready to Transform Your Organization?</h3>
+                <p class="mb-6 opacity-90">
+                  Our training experts are standing by to discuss your specific needs and create a customized solution for
+                  your team.
+                </p>
+                <div class="flex items-center justify-center space-x-4">
+                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-phone"></i>
+                  </div>
+                  <div>
+                    <div class="font-semibold">Call Us</div>
+                    <div>+91 9810319292</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Employee Engagement Programs -->
+  <div id="engagement" class="tab-content">
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Employee Engagement Programs</h2>
+          <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+          <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+            Foster connection, collaboration, and engagement among employees with our specialized programs
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <!-- Holistic Wellness -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Holistic Wellness">
+            </div>
+            <div class="card-content">
+              <h3>Holistic Wellness</h3>
+              <p>Our holistic approach considers all aspects of wellness - physical, mental, emotional, social, and
+                spiritual - recognizing their interconnectedness.</p>
+              <button class="read-more-btn" data-target="holistic-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="holistic-more" class="read-more-content">
+                <p>This method acknowledges that true well-being is achieved only when all dimensions are cultivated.
+                  We help organizations create comprehensive wellness programs that address every aspect of employee
+                  health, resulting in more balanced, resilient, and productive teams.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Emotional Wellness -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1560421683-2587f1591a30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Emotional Wellness">
+            </div>
+            <div class="card-content">
+              <h3>Emotional Wellness</h3>
+              <p>Essential for a healthy workplace, emotional wellness involves awareness and management of emotions
+                while encouraging constructive interactions.</p>
+              <button class="read-more-btn" data-target="emotional-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="emotional-more" class="read-more-content">
+                <p>We provide programs that help employees develop emotional intelligence, recognize their emotional
+                  patterns, and build healthier relationships with colleagues. When employees feel emotionally supported
+                  and respected, they become more engaged, motivated, and resilient. Neglecting emotional health can
+                  lead to burnout and decreased job satisfaction.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Mental Wellness -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Mental Wellness">
+            </div>
+            <div class="card-content">
+              <h3>Mental Wellness</h3>
+              <p>Psychological well-being helps employees manage stress, emotions, and maintain work-life balance for
+                optimal performance.</p>
+              <button class="read-more-btn" data-target="mental-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="mental-more" class="read-more-content">
+                <p>Our mental wellness initiatives focus on raising awareness about the importance of psychological
+                  health in the workplace. We help organizations implement strategies that support employees' mental
+                  health, which directly impacts performance, team relationships, and organizational outcomes. Our
+                  programs include stress management techniques, mindfulness practices, and resilience training.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Physical Wellness -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Physical Wellness">
+            </div>
+            <div class="card-content">
+              <h3>Physical Wellness</h3>
+              <p>Physical health is foundational for a vibrant organization, directly impacting energy levels and
+                overall well-being.</p>
+              <button class="read-more-btn" data-target="physical-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="physical-more" class="read-more-content">
+                <p>We help organizations implement initiatives to promote and improve employee health through fitness
+                  programs, health screenings, and nutritional guidance. Our programs investigate techniques that
+                  organizations can use to promote and sustain physical well-being, resulting in reduced absenteeism,
+                  lower healthcare costs, and improved employee performance and morale.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HR Consulting Programs -->
+  <div id="hr" class="tab-content">
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">HR Consulting Programs</h2>
+          <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+          <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+            Strategic HR solutions to transform your organization and workforce
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <!-- Social Development -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Social Development">
+            </div>
+            <div class="card-content">
+              <h3>Social Development</h3>
+              <p>Creating positive connections, communication, teamwork, and a supportive atmosphere among employees.
+              </p>
+              <button class="read-more-btn" data-target="social-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="social-more" class="read-more-content">
+                <p>We focus on developing a workplace culture where employees can engage, connect, and collaborate
+                  harmoniously. This boosts morale, productivity, and overall organizational performance. In today's
+                  interconnected work environment, social development is essential for creating a productive workplace
+                  where teams thrive through mutual support and effective communication.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Self Development -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Self Development">
+            </div>
+            <div class="card-content">
+              <h3>Self Development</h3>
+              <p>The ongoing process of enhancing talents, knowledge, skills, and character to improve job performance
+                and career advancement.</p>
+              <button class="read-more-btn" data-target="self-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="self-more" class="read-more-content">
+                <p>Our initiative encourages employees to take control of their progress by providing resources,
+                  encouragement, and opportunities for growth. This deliberate process of self-improvement leads to
+                  increased work satisfaction, productivity, and long-term career success. We help employees identify
+                  their strengths and areas for development, creating personalized growth plans that align with
+                  organizational goals.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Emotional Development -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1569003339405-ea396a5a8a90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Emotional Development">
+            </div>
+            <div class="card-content">
+              <h3>Emotional Development</h3>
+              <p>Developing emotional intelligence, self-awareness, and interpersonal skills to navigate professional
+                contexts effectively.</p>
+              <button class="read-more-btn" data-target="emotional-dev-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="emotional-dev-more" class="read-more-content">
+                <p>Our programs help employees identify and understand their own emotions as well as those of others,
+                  using this awareness to direct behavior and interactions constructively. Emotional development is
+                  increasingly recognized as crucial for workplace success, affecting how individuals interact,
+                  collaborate, and overcome challenges. We provide practical tools for building emotional resilience and
+                  enhancing workplace relationships.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Employee Development -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Employee Development">
+            </div>
+            <div class="card-content">
+              <h3>Employee Development</h3>
+              <p>The continuous process of fostering individuals' growth in skills, knowledge, and talents within an
+                organization.</p>
+              <button class="read-more-btn" data-target="employee-dev-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="employee-dev-more" class="read-more-content">
+                <p>Our tactical strategy helps employees gain new competencies, enhance existing abilities, and realize
+                  their full potential to contribute effectively to their roles and the organization. Employee development
+                  is essential for both individual career advancement and the business's overall success. We create
+                  customized development paths that align with organizational objectives while supporting personal growth
+                  aspirations.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Extra Card: Strategic HR Planning -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Strategic HR Planning">
+            </div>
+            <div class="card-content">
+              <h3>Strategic HR Planning</h3>
+              <p>Aligning HR strategies with business objectives to drive organizational success and workforce
+                optimization.</p>
+              <button class="read-more-btn" data-target="hr-planning-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="hr-planning-more" class="read-more-content">
+                <p>We help organizations develop comprehensive HR strategies that support business goals through effective
+                  talent management, organizational design, and performance optimization. Our approach includes workforce
+                  planning, succession management, and creating HR metrics that align with key business outcomes. By
+                  integrating HR with business strategy, we help organizations build agile, high-performing teams ready
+                  for future challenges.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Employee Assistance Programs -->
+  <div id="assistance" class="tab-content">
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Employee Assistance Programs</h2>
+          <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+          <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+            Comprehensive support systems for employee well-being and work-life balance
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <!-- Family Konnect -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Family Konnect">
+            </div>
+            <div class="card-content">
+              <h3>Family Konnect</h3>
+              <p>Promoting work-life balance by fostering relationships between employees and their families.</p>
+              <button class="read-more-btn" data-target="family-konnect-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="family-konnect-more" class="read-more-content">
+                <p>This well-designed program creates a welcoming workplace that respects and supports workers' family
+                  dynamics. We understand that employees' personal lives significantly influence their professional
+                  performance. Our initiatives include family-friendly policies, events that include family members, and
+                  resources that help employees balance work and family responsibilities effectively.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Kids Konnect -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1523875194681-bedd468c58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Kids Konnect">
+            </div>
+            <div class="card-content">
+              <h3>Kids Konnect</h3>
+              <p>Innovative program that includes and connects children of employees with the workplace environment.</p>
+              <button class="read-more-btn" data-target="kids-konnect-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="kids-konnect-more" class="read-more-content">
+                <p>This unique initiative promotes a sense of community, education, and enjoyment for employees'
+                  children. Kids get to tour their parents' workplace, discover various professions, and socialize with
+                  their parents' coworkers. These experiences help children understand their parents' work life while
+                  fostering a family-friendly workplace culture that enhances employee satisfaction and loyalty.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Lifestyle Management -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Lifestyle Management">
+            </div>
+            <div class="card-content">
+              <h3>Lifestyle Management</h3>
+              <p>Supporting employees in achieving healthy work-life balance and enhancing overall well-being.</p>
+              <button class="read-more-btn" data-target="lifestyle-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="lifestyle-more" class="read-more-content">
+                <p>We provide assistance, tools, and methods to help workers strike a healthy work-life balance, enhance
+                  their general health, and manage many facets of their personal lives. Recognizing that employees' lives
+                  extend beyond the office, we create an atmosphere that promotes physical, mental, and emotional health.
+                  Our programs include time management resources, wellness coaching, and personal development workshops.
+                </p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+
+          <!-- Relationship Management -->
+          <div class="program-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Relationship Management">
+            </div>
+            <div class="card-content">
+              <h3>Relationship Management</h3>
+              <p>Fostering supportive relationships between coworkers, supervisors, and stakeholders within the
+                organization.</p>
+              <button class="read-more-btn" data-target="relationship-more">Read More <i
+                  class="fas fa-chevron-down"></i></button>
+              <div id="relationship-more" class="read-more-content">
+                <p>We focus on creating positive working connections that improve employee happiness and overall job
+                  performance while fostering a collaborative and productive work environment. Our approach includes
+                  communication skills training, conflict resolution strategies, and team-building activities that help
+                  create strong professional relationships. We provide practical tips for managing relationships in the
+                  workplace effectively.</p>
+              </div>
+              <button class="card-cta">Contact Us</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Outbound Training Programs -->
+  <div id="outbound" class="tab-content">
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Outbound Training Programs</h2>
+          <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+          <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+            Transformative experiences that foster growth, innovation, and teamwork beyond the office
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Soft Skills Training -->
+  <div id="soft-skills" class="tab-content">
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Soft Skills Training</h2>
+          <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+          <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+            Developing essential interpersonal skills for professional success and organizational effectiveness
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12">
@@ -471,7 +1537,6 @@
       </div>
     </div>
   </footer>
-
   <!-- Chatbot -->
   <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
     <div id="chatbotToggle"
@@ -512,105 +1577,151 @@
   </div>
 
   <script>
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile Menu Toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-
-          // Close mobile menu if open
-          mobileMenu.classList.add('hidden');
-        }
-      });
-    });
-
-    // Service Card Animation on Scroll
-    const serviceCards = document.querySelectorAll('.service-card');
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
+      // Animation on scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-          }, index * 150); // Staggered animation
-        }
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
       });
-    }, { threshold: 0.2 });
 
-    serviceCards.forEach(card => observer.observe(card));
+      // Counter animation
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16);
+        let current = 0;
 
-    // Chatbot Functionality
-    function toggleChatbot() {
-      const chatbotWindow = document.getElementById('chatbotWindow');
-      chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
-    }
+        const updateCounter = () => {
+          current += increment;
+          if (current < target) {
+            counter.textContent = Math.ceil(current);
+            requestAnimationFrame(updateCounter);
+          } else {
+            counter.textContent = target.toLocaleString();
+          }
+        };
 
-    function sendMessage() {
-      const input = document.getElementById('chatbotInput');
-      const message = input.value.trim();
-      if (!message) return;
+        updateCounter();
+      });
 
-      const chatbotBody = document.getElementById('chatbotBody');
-      const userMessage = document.createElement('div');
-      userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both';
-      userMessage.textContent = message;
-      chatbotBody.appendChild(userMessage);
+      // Tab functionality
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tabId = button.getAttribute('data-tab');
+          
+          // Update active button
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          
+          // Show selected tab content
+          document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+          });
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
 
-      // Simulate bot response with typing indicator
-      const typingIndicator = document.createElement('div');
-      typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
-      typingIndicator.textContent = 'Typing...';
-      chatbotBody.appendChild(typingIndicator);
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      // Read more functionality
+      const readMoreButtons = document.querySelectorAll('.read-more-btn');
+      readMoreButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const targetId = button.getAttribute('data-target');
+          const content = document.getElementById(targetId);
+          
+          // Toggle content visibility
+          content.classList.toggle('show');
+          
+          // Toggle button icon
+          button.classList.toggle('active');
+          
+          // Change button text
+          if (content.classList.contains('show')) {
+            button.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+          } else {
+            button.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+          }
+        });
+      });
 
-      setTimeout(() => {
-        chatbotBody.removeChild(typingIndicator);
-        const botMessage = document.createElement('div');
-        botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
-        botMessage.textContent = getBotResponse(message);
-        chatbotBody.appendChild(botMessage);
+      // Chatbot Functionality - Fixed and enhanced
+      function toggleChatbot() {
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+      }
+
+      function sendMessage() {
+        const input = document.getElementById('chatbotInput');
+        const message = input.value.trim();
+        if (!message) return;
+
+        const chatbotBody = document.getElementById('chatbotBody');
+        const userMessage = document.createElement('div');
+        userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
+        userMessage.textContent = message;
+        chatbotBody.appendChild(userMessage);
+
+        // Simulate bot response with typing indicator
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+        typingIndicator.textContent = 'Typing...';
+        chatbotBody.appendChild(typingIndicator);
         chatbotBody.scrollTop = chatbotBody.scrollHeight;
-      }, 1000);
 
-      input.value = '';
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
-    }
+        setTimeout(() => {
+          chatbotBody.removeChild(typingIndicator);
+          const botMessage = document.createElement('div');
+          botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+          botMessage.textContent = getBotResponse(message);
+          chatbotBody.appendChild(botMessage);
+          chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }, 1000);
 
-    function getBotResponse(message) {
-      const lowerMessage = message.toLowerCase();
-      if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-        return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-      if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
-        return 'You can reach us at +91 9810319292 or +91 9810323292.';
-      if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
-        return 'For inquiries, please email us at hr@psypanconsulting.com';
-      if (lowerMessage.includes('training') || lowerMessage.includes('program'))
-        return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-      return 'I’m here to help! Could you share more details about your query?';
-    }
+        input.value = '';
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }
 
-    // Set up chatbot event listeners
-    document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-    document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-    document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-    document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') sendMessage();
+      function getBotResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+          return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+        if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+          return 'You can reach us at +91 9810319292 or +91 9810323292.';
+        if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+          return 'For inquiries, please email us at hr@psypanconsulting.com';
+        if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+          return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+        if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+          return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+        return 'I’m here to help! Could you share more details about your query?';
+      }
+
+      // Set up chatbot event listeners
+      document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+      document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+      document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+      document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+      });
     });
   </script>
 </body>
