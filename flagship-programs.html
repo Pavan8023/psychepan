@@ -1,987 +1,1158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flagship Programs - Psyche Panacea</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#0052cc',
-            secondary: '#4da8ff',
-            dark: '#1a1a1a',
-            light: '#f8f9fa',
-            accent: '#f59e0b',
-          },
-          fontFamily: {
-            sans: ['Noto Sans', 'sans-serif'],
-          },
-          animation: {
-            'fade-in': 'fadeIn 1s ease-out',
-            'slide': 'slide 25s linear infinite',
-            'popup-fade': 'popupFadeIn 0.5s ease forwards',
-            'slide-up': 'slideUp 0.5s ease forwards',
-            'message-fade': 'messageFadeIn 0.3s ease',
-            'float': 'float 6s ease-in-out infinite',
-          },
-          keyframes: {
-            fadeIn: {
-              from: { opacity: 0 },
-              to: { opacity: 1 },
-            },
-            slide: {
-              '0%': { transform: 'translateX(100%)' },
-              '100%': { transform: 'translateX(-100%)' },
-            },
-            popupFadeIn: {
-              from: { transform: 'scale(0.7)', opacity: 0 },
-              to: { transform: 'scale(1)', opacity: 1 },
-            },
-            slideUp: {
-              from: { transform: 'translateY(30px)', opacity: 0 },
-              to: { transform: 'translateY(0)', opacity: 1 },
-            },
-            messageFadeIn: {
-              from: { opacity: 0, transform: 'translateY(10px)' },
-              to: { opacity: 1, transform: 'translateY(0)' },
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-15px)' },
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flagship Programs - Psyche Panacea</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0052cc',
+                        secondary: '#4da8ff',
+                        dark: '#1a1a1a',
+                        light: '#f8f9fa',
+                        accent: '#f59e0b',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'slide': 'slide 25s linear infinite',
+                        'popup-fade': 'popupFadeIn 0.5s ease forwards',
+                        'slide-up': 'slideUp 0.5s ease forwards',
+                        'message-fade': 'messageFadeIn 0.3s ease',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            from: { opacity: 0 },
+                            to: { opacity: 1 },
+                        },
+                        slide: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        popupFadeIn: {
+                            from: { transform: 'scale(0.7)', opacity: 0 },
+                            to: { transform: 'scale(1)', opacity: 1 },
+                        },
+                        slideUp: {
+                            from: { transform: 'translateY(30px)', opacity: 0 },
+                            to: { transform: 'translateY(0)', opacity: 1 },
+                        },
+                        messageFadeIn: {
+                            from: { opacity: 0, transform: 'translateY(10px)' },
+                            to: { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  </script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Noto Sans', sans-serif;
-      background-color: #ffffff;
-      color: #1a1a1a;
-      overflow-x: hidden;
-    }
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
 
-    .tab-gradient {
-      background: linear-gradient(135deg, #0052cc, #4da8ff);
-    }
+        .tab-gradient {
+            background: linear-gradient(135deg, #0052cc, #4da8ff);
+        }
 
-    /* Header */
-    header {
-      background-color: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      width: 100%;
-      z-index: 1000;
-      padding: 1.2rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    nav a {
-      position: relative;
-      transition: color 0.3s ease;
-    }
+        nav a {
+            position: relative;
+            transition: color 0.3s ease;
+        }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -4px;
-      left: 0;
-      background-color: #0052cc;
-      transition: width 0.3s ease;
-    }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0052cc;
+            transition: width 0.3s ease;
+        }
 
-    nav a:hover::after {
-      width: 100%;
-    }
+        nav a:hover::after {
+            width: 100%;
+        }
 
-    /* Tab Navigation */
-    .tab-nav {
-      display: flex;
-      justify-content: center;
-      margin: 2rem 0;
-      flex-wrap: wrap;
-    }
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
 
-    .tab-btn {
-      padding: 0.8rem 1.2rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      background: white;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
-      color: #555;
-      margin: 0.3rem;
-      border-radius: 4px;
-    }
+        .tab-btn {
+            padding: 0.8rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            color: #555;
+            margin: 0.3rem;
+            border-radius: 4px;
+        }
 
-    .tab-btn.active {
-      color: #0052cc;
-      border-bottom: 3px solid #0052cc;
-      background: rgba(0, 82, 204, 0.05);
-    }
+        .tab-btn.active {
+            color: #0052cc;
+            border-bottom: 3px solid #0052cc;
+            background: rgba(0, 82, 204, 0.05);
+        }
 
-    .tab-btn:hover:not(.active) {
-      background: rgba(0, 82, 204, 0.1);
-    }
+        .tab-btn:hover:not(.active) {
+            background: rgba(0, 82, 204, 0.1);
+        }
 
-    /* Tab Content */
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.5s ease forwards;
-    }
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
 
-    .tab-content.active {
-      display: block;
-    }
-    
-    /* Program Cards */
-    .program-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      animation: slideUp 0.5s ease forwards;
-      animation-delay: calc(var(--delay) * 0.1s);
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    
-    .program-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-    }
-    
-    .program-card img {
-      height: 200px;
-      object-fit: cover;
-      width: 100%;
-    }
-    
-    .program-content {
-      padding: 1.5rem;
-    }
-    
-    .program-content h3 {
-      color: #0052cc;
-      margin-bottom: 0.8rem;
-      font-size: 1.3rem;
-    }
-    
-    .program-content p {
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 1.2rem;
-      position: relative;
-      max-height: 4.8em;
-      overflow: hidden;
-    }
-    
-    .program-content p.expanded {
-      max-height: none;
-    }
-    
-    .program-content .read-more {
-      color: #0052cc;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-block;
-      margin-bottom: 1.2rem;
-    }
-    
-    .program-content .btn {
-      display: inline-block;
-      background: linear-gradient(to right, #0052cc, #4da8ff);
-      color: white;
-      padding: 0.6rem 1.5rem;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .program-content .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 82, 204, 0.3);
-    }
-    
-    .program-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
+        .tab-content.active {
+            display: block;
+        }
 
-      .tab-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
-      }
-      
-      .program-grid {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-      }
-    }
+        /* Program Cards */
+        .program-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease forwards;
+            animation-delay: calc(var(--delay) * 0.1s);
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
 
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .tab-intro {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 3rem;
-      padding: 0 1.5rem;
-    }
-    
-    .tab-intro h2 {
-      font-size: 2.2rem;
-      color: #0052cc;
-      margin-bottom: 1rem;
-    }
-    
-    .tab-intro p {
-      color: #555;
-      line-height: 1.7;
-      font-size: 1.05rem;
-    }
+        .program-card img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
 
-    /* Chatbot */
-    .chatbot {
-      position: fixed;
-      bottom: 8px;
-      right: 8px;
-      z-index: 50;
-    }
+        .program-content {
+            padding: 1.5rem;
+        }
 
-    .chatbot-toggle {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, #0052cc, #4da8ff);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      animation: float 4s ease-in-out infinite;
-    }
+        .program-content h3 {
+            color: #0052cc;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
 
-    .chatbot-toggle svg {
-      width: 28px;
-      height: 28px;
-      fill: white;
-    }
+        .program-content p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            position: relative;
+            max-height: 4.8em;
+            overflow: hidden;
+        }
 
-    .chatbot-window {
-      position: absolute;
-      bottom: 70px;
-      right: 0;
-      width: 350px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      display: none;
-    }
+        .program-content p.expanded {
+            max-height: none;
+        }
 
-    .chatbot-header {
-      background: linear-gradient(135deg, #0052cc, #4da8ff);
-      color: white;
-      padding: 16px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .program-content .read-more {
+            color: #0052cc;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 1.2rem;
+        }
 
-    .chatbot-body {
-      height: 300px;
-      padding: 16px;
-      overflow-y: auto;
-      background-color: #f8f9fa;
-    }
+        .program-content .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #0052cc, #4da8ff);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
 
-    .chatbot-message {
-      margin-bottom: 12px;
-      padding: 10px 14px;
-      border-radius: 18px;
-      max-width: 80%;
-      clear: both;
-      animation: messageFadeIn 0.3s ease;
-    }
+        .program-content .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 82, 204, 0.3);
+        }
 
-    .chatbot-message.bot {
-      background: #e6f0ff;
-      color: #333;
-      float: left;
-      border-bottom-left-radius: 4px;
-    }
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    .chatbot-message.user {
-      background: #0052cc;
-      color: white;
-      float: right;
-      border-bottom-right-radius: 4px;
-    }
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
 
-    .chatbot-input {
-      display: flex;
-      padding: 12px;
-      background: white;
-      border-top: 1px solid #eee;
-    }
+            .tab-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
 
-    .chatbot-input input {
-      flex: 1;
-      padding: 10px 14px;
-      border: 1px solid #ddd;
-      border-radius: 24px;
-      outline: none;
-    }
+            .program-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
 
-    .chatbot-input button {
-      background: #0052cc;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 38px;
-      height: 38px;
-      margin-left: 8px;
-      cursor: pointer;
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
-    .chatbot-close {
-      cursor: pointer;
-      font-size: 24px;
-      line-height: 1;
-    }
+            to {
+                opacity: 1;
+            }
+        }
 
-    .animate-delay-1 {
-      animation-delay: 0.1s !important;
-    }
-    
-    .animate-delay-2 {
-      animation-delay: 0.2s !important;
-    }
-    
-    .animate-delay-3 {
-      animation-delay: 0.3s !important;
-    }
-    
-    .animate-delay-4 {
-      animation-delay: 0.4s !important;
-    }
-    
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, #0052cc, #4da8ff);
-      color: white;
-      padding: 120px 20px 80px;
-      text-align: center;
-    }
-    
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-    }
-    
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
-      opacity: 0.9;
-    }
-    
-    .hero-divider {
-      height: 4px;
-      width: 80px;
-      background: white;
-      margin: 1.5rem auto;
-      border-radius: 2px;
-    }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-    .tab-btn {
-    @apply px-3 py-2 text-sm font-medium text-gray-700 bg-white border rounded hover:bg-blue-100 transition;
-  }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-  .tab-btn.active {
-    @apply bg-blue-500 text-white;
-  }
-  </style>
+        .tab-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 0 1.5rem;
+        }
+
+        .tab-intro h2 {
+            font-size: 2.2rem;
+            color: #0052cc;
+            margin-bottom: 1rem;
+        }
+
+        .tab-intro p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Chatbot */
+        .chatbot {
+            position: fixed;
+            bottom: 8px;
+            right: 8px;
+            z-index: 50;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0052cc, #4da8ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .chatbot-toggle svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: none;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #0052cc, #4da8ff);
+            color: white;
+            padding: 16px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-body {
+            height: 300px;
+            padding: 16px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+        }
+
+        .chatbot-message {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 18px;
+            max-width: 80%;
+            clear: both;
+            animation: messageFadeIn 0.3s ease;
+        }
+
+        .chatbot-message.bot {
+            background: #e6f0ff;
+            color: #333;
+            float: left;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chatbot-message.user {
+            background: #0052cc;
+            color: white;
+            float: right;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 12px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background: #0052cc;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        .chatbot-close {
+            cursor: pointer;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.1s !important;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.2s !important;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.3s !important;
+        }
+
+        .animate-delay-4 {
+            animation-delay: 0.4s !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0052cc, #4da8ff);
+            color: white;
+            padding: 120px 20px 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .hero-divider {
+            height: 4px;
+            width: 80px;
+            background: white;
+            margin: 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        .tab-btn {
+            @apply px-3 py-2 text-sm font-medium text-gray-700 bg-white border rounded hover:bg-blue-100 transition;
+        }
+
+        .tab-btn.active {
+            @apply bg-blue-500 text-white;
+        }
+    </style>
 </head>
+
 <body>
-  <!-- Header -->
-  <header>
-    <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
-    <nav class="hidden md:flex items-center space-x-6">
-      <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
-      <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
-      <a href="flagship-programs.html" class="text-primary font-semibold transition-colors px-2 py-1">Flagship Programs</a>
-      <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
-      <a href="gallery.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Gallery</a>
-      <a href="about-us.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">About Us</a>
-      <a href="contact.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Contact</a>
-    </nav>
+    <!-- Header -->
+    <header>
+        <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
+        <nav class="hidden md:flex items-center space-x-6">
+            <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
+            <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
+            <a href="flagship-programs.html" class="text-primary font-semibold transition-colors px-2 py-1">Flagship
+                Programs</a>
+            <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
+            <a href="gallery.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Gallery</a>
+            <a href="about-us.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">About Us</a>
+            <a href="contact.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Contact</a>
+        </nav>
 
-    <!-- Mobile Menu Button -->
-    <div class="md:hidden flex items-center">
-      <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a href="index.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
-      <a href="services.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
-      <a href="flagship-programs.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Flagship Programs</a>
-      <a href="events.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
-      <a href="gallery.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
-      <a href="about-us.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About Us</a>
-      <a href="contact.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
-    </div>
-  </div>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1 class="text-4xl md:text-5xl font-bold">Flagship Programs</h1>
-    <div class="hero-divider"></div>
-    <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-      Transformative learning experiences designed to elevate leadership, communication, and organizational effectiveness
-    </p>
-  </section>
-
-  <!-- Tab Navigation -->
-<div class="tab-nav grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4 bg-gray-100 rounded-md">
-  <button class="tab-btn active" data-tab="mdp">Managerial Dev. Program</button>
-  <button class="tab-btn" data-tab="ttt">Train The Trainer</button>
-  <button class="tab-btn" data-tab="hdc">Handling Conversation</button>
-  <button class="tab-btn" data-tab="c2c">Campus to Corporate</button>
-  <button class="tab-btn" data-tab="bcs">Business Comm. Skills</button>
-  <button class="tab-btn" data-tab="ms">Mentoring Skills</button>
-  <button class="tab-btn" data-tab="di">Diversity & Inclusion</button>
-  <button class="tab-btn" data-tab="sahyog">Sahyog</button>
-</div>
-
-  <!-- Tab Content -->
-  <!-- Management Development Programs (MDP) -->
-  <div id="mdp" class="tab-content active">
-    <div class="tab-intro">
-      <h2>Management Development Programs</h2>
-      <p>Our MDPs are designed to equip managers with the skills and knowledge required to lead effectively in today's dynamic business environment. Through a blend of theory and practical application, participants develop critical leadership capabilities.</p>
-    </div>
-    <div class="program-grid">
-      <!-- Card 1 -->
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=500&auto=format&fit=crop" alt="Leadership Development">
-        <div class="program-content">
-          <h3>Strategic Leadership</h3>
-          <p>Develop the ability to lead strategically in complex business environments. This program focuses on vision setting, strategic decision-making, and organizational alignment...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-      
-      <!-- Card 2 -->
-      <div class="program-card" style="--delay: 2">
-        <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=500&auto=format&fit=crop" alt="Team Management">
-        <div class="program-content">
-          <h3>High-Performance Teams</h3>
-          <p>Learn how to build, manage, and sustain high-performing teams. This program covers team dynamics, motivation techniques, conflict resolution, and performance management...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-      
-      <!-- Card 3 -->
-      <div class="program-card" style="--delay: 3">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=500&auto=format&fit=crop" alt="Change Management">
-        <div class="program-content">
-          <h3>Leading Organizational Change</h3>
-          <p>Gain the skills to effectively lead and manage organizational change initiatives. This program provides frameworks for change management, stakeholder engagement, and overcoming resistance...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Train the Trainer (TTT) -->
-  <div id="ttt" class="tab-content">
-    <div class="tab-intro">
-      <h2>Train the Trainer</h2>
-      <p>Empower your internal trainers with the skills and methodologies to deliver impactful learning experiences. This program focuses on adult learning principles, facilitation techniques, and content development.</p>
-    </div>
-    <div class="program-grid">
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=500&auto=format&fit=crop" alt="Train the Trainer">
-        <div class="program-content">
-          <h3>Mastering Facilitation Skills</h3>
-          <p>Develop expert facilitation skills to engage learners and maximize knowledge transfer. This program covers presentation techniques, interactive methods, and managing diverse learning groups...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Handling Difficult Conversation (HDC) -->
-  <div id="hdc" class="tab-content">
-    <div class="tab-intro">
-      <h2>Handling Difficult Conversations</h2>
-      <p>Equip your team with the skills to navigate challenging conversations with confidence and empathy. This program focuses on communication strategies, emotional intelligence, and conflict resolution.</p>
-    </div>
-    <div class="program-grid">
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=500&auto=format&fit=crop" alt="Difficult Conversations">
-        <div class="program-content">
-          <h3>Navigating Challenging Dialogues</h3>
-          <p>Learn frameworks for preparing, initiating, and conducting difficult conversations in the workplace. This program covers active listening, empathy, and maintaining professionalism...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Campus to Corporate (C2C) -->
-  <div id="c2c" class="tab-content">
-    <div class="tab-intro">
-      <h2>Campus to Corporate</h2>
-      <p>Smooth the transition for new graduates entering the corporate world. This program helps young professionals develop essential workplace skills, understand corporate culture, and build professional identity.</p>
-    </div>
-    <div class="program-grid">
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=500&auto=format&fit=crop" alt="Campus to Corporate">
-        <div class="program-content">
-          <h3>Professional Transition Program</h3>
-          <p>Equip new graduates with the mindset, skills, and behaviors required for corporate success. This program covers workplace etiquette, communication, time management, and professional networking...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Business Communication Skills (BCS) -->
-  <div id="bcs" class="tab-content">
-    <div class="tab-intro">
-      <h2>Business Communication Skills</h2>
-      <p>Enhance professional communication capabilities across written, verbal, and non-verbal channels. This program focuses on clarity, impact, and effectiveness in business contexts.</p>
-    </div>
-    <div class="program-grid">
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=500&auto=format&fit=crop" alt="Business Communication">
-        <div class="program-content">
-          <h3>Executive Communication Mastery</h3>
-          <p>Develop advanced communication skills for leadership roles. This program covers persuasive presentations, executive writing, cross-cultural communication, and digital communication etiquette...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mentoring Skills (MS) -->
-  <div id="ms" class="tab-content">
-    <div class="tab-intro">
-      <h2>Mentoring Skills</h2>
-      <p>Develop the capabilities to guide and develop talent within your organization. This program focuses on effective mentoring relationships, coaching techniques, and talent development strategies.</p>
-    </div>
-    <div class="program-grid">
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=500&auto=format&fit=crop" alt="Mentoring Skills">
-        <div class="program-content">
-          <h3>Effective Mentoring Program</h3>
-          <p>Learn how to establish and maintain productive mentoring relationships. This program covers mentoring frameworks, goal setting, feedback techniques, and overcoming mentoring challenges...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Diversity & Inclusion (D&I) -->
-  <div id="di" class="tab-content">
-    <div class="tab-intro">
-      <h2>Diversity & Inclusion</h2>
-      <p>Foster an inclusive workplace culture that values diversity and promotes belonging. Our programs help organizations leverage diversity as a competitive advantage while building equitable environments.</p>
-    </div>
-    <div class="program-grid">
-      <!-- Card 1 -->
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=500&auto=format&fit=crop" alt="Inclusive Leadership">
-        <div class="program-content">
-          <h3>Inclusive Leadership</h3>
-          <p>Develop leaders who can create and sustain inclusive work environments. This program covers unconscious bias, inclusive decision-making, and building psychologically safe teams...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-      
-      <!-- Card 2 -->
-      <div class="program-card" style="--delay: 2">
-        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=500&auto=format&fit=crop" alt="Unconscious Bias">
-        <div class="program-content">
-          <h3>Unconscious Bias Awareness</h3>
-          <p>Understand and mitigate unconscious biases in the workplace. This program helps participants recognize bias, understand its impact, and develop strategies for fair decision-making...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-      
-      <!-- Card 3 -->
-      <div class="program-card" style="--delay: 3">
-        <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?q=80&w=500&auto=format&fit=crop" alt="Inclusive Culture">
-        <div class="program-content">
-          <h3>Building Inclusive Cultures</h3>
-          <p>Learn how to create organizational cultures where diversity thrives. This program focuses on systemic inclusion, equitable practices, and measuring inclusion impact...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-      
-      <!-- Card 4 -->
-      <div class="program-card" style="--delay: 4">
-        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=500&auto=format&fit=crop" alt="Diverse Teams">
-        <div class="program-content">
-          <h3>Managing Diverse Teams</h3>
-          <p>Develop skills to effectively lead and leverage diverse teams. This program covers cross-cultural communication, conflict resolution in diverse settings, and maximizing team potential...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sahyog -->
-  <div id="sahyog" class="tab-content">
-    <div class="tab-intro">
-      <h2>Sahyog Wellness Program</h2>
-      <p>Promote employee well-being and mental health through our comprehensive wellness initiatives. Sahyog focuses on holistic wellness, stress management, and creating supportive work environments.</p>
-    </div>
-    <div class="program-grid">
-      <!-- Card 1 -->
-      <div class="program-card" style="--delay: 1">
-        <img src="https://images.unsplash.com/photo-1491841573634-28140fc7ced7?q=80&w=500&auto=format&fit=crop" alt="Mental Wellness">
-        <div class="program-content">
-          <h3>Mental Wellness & Resilience</h3>
-          <p>Develop strategies for maintaining mental health and building resilience. This program covers stress management techniques, mindfulness practices, and emotional intelligence...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-      
-      <!-- Card 2 -->
-      <div class="program-card" style="--delay: 2">
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop" alt="Work-Life Integration">
-        <div class="program-content">
-          <h3>Work-Life Integration</h3>
-          <p>Learn strategies for achieving sustainable work-life integration. This program covers boundary setting, time management, and creating supportive routines for overall well-being...</p>
-          <span class="read-more">Read more</span>
-          <a href="contact.html" class="btn">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        <!-- Left half: Map -->
-        <div class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
-          <iframe src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
-            width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
-            class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
-            gestureHandling="greedy">
-          </iframe>
-        </div>
-
-        <!-- Right half: Content -->
-        <div class="grid grid-cols-1 gap-8">
-          <!-- Company Info -->
-          <div>
-            <div class="flex items-center mb-4">
-              <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-              </div>
-              <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
-            </div>
-            <p class="text-gray-400">
-              Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
-              transforming organizations through strategic HR solutions.
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="index.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+            <a href="services.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
+            <a href="flagship-programs.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Flagship Programs</a>
+            <a href="events.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
+            <a href="gallery.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
+            <a href="about-us.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
+                Us</a>
+            <a href="contact.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="text-4xl md:text-5xl font-bold">Flagship Programs</h1>
+        <div class="hero-divider"></div>
+        <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+            Transformative learning experiences designed to elevate leadership, communication, and organizational
+            effectiveness
+        </p>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="tab-nav grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4 bg-gray-100 rounded-md">
+        <button class="tab-btn active" data-tab="mdp">Managerial Dev. Program</button>
+        <button class="tab-btn" data-tab="ttt">Train The Trainer</button>
+        <button class="tab-btn" data-tab="hdc">Handling Conversation</button>
+        <button class="tab-btn" data-tab="c2c">Campus to Corporate</button>
+        <button class="tab-btn" data-tab="bcs">Business Comm. Skills</button>
+        <button class="tab-btn" data-tab="ms">Mentoring Skills</button>
+        <button class="tab-btn" data-tab="di">Diversity & Inclusion</button>
+        <button class="tab-btn" data-tab="sahyog">Sahyog</button>
+    </div>
+
+    <!-- Tab Content -->
+    <!-- Management Development Programs (MDP) -->
+    <div id="mdp" class="tab-content active">
+        <div class="tab-intro">
+            <h2>Management Development Programs</h2>
+            <p>Unleash Potential with our Management Development Program.
             </p>
-          </div>
-
-          <!-- Contact Info -->
-          <div>
-            <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">Contact Us
-            </h4>
-            <ul class="space-y-4 text-gray-400 text-sm">
-              <li class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
-                  Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
-              </li>
-              <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span>09810323292, 09810319292</span>
-              </li>
-              <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span>hr@psypanconsulting.com</span>
-              </li>
-            </ul>
-          </div>
         </div>
-      </div>
+        <div class="program-grid">
+            <!-- Card 1 -->
+            <div class="program-card" style="--delay: 1">
+                <img src="/images/flagship-programs/mngmt dvp prg.jpg" alt="Management Development Programs">
+                <div class="program-content">
+                    <h3>Management Development Programs</h3>
+                    <p>Psyche Panacea’s management development programme (MDP) is an organised and thorough training
+                        course created to improve the abilities, skills, and knowledge of managers at various
+                        organisational levels. An MDP’s main goal is to create competent, effective managers who can
+                        lead teams, make wise decisions, and accomplish organisational objectives.
 
-      <!-- Footer Bottom -->
-      <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
-        <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
-      </div>
-    </div>
-  </footer>
+                        Key components of a typical management development programme include the following:
 
-  <!-- Chatbot -->
-  <div class="chatbot">
-    <div id="chatbotToggle" class="chatbot-toggle">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
-        <path
-          d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
-        </path>
-        <path d="M9 9h6v6H9z"></path>
-      </svg>
-    </div>
+                        Developing leadership skills, such as effective communication, strategic thinking,
+                        decision-making, problem-solving, and team management, is a key component of MDPs. To motivate
+                        and lead their teams to success, managers need certain abilities.
+                        Functional Knowledge: MDPs give managers in-depth information and insight of the particular
+                        functional fields they oversee, such as finance, marketing, operations, human resources, or
+                        project management. Managers can successfully manage the difficulties and complexities inherent
+                        in their jobs thanks to this understanding.
+                        Business savvy: By offering insights into the general business environment, such as market
+                        dynamics, the competitive landscape, industry trends, and financial analyses, MDPs seek to
+                        improve managers’ business savvy. This larger viewpoint aids managers in coordinating their
+                        choices with the strategic goals of the company.
+                        Personal Development: Personal development elements are frequently included in MDPs, with a
+                        focus on self-awareness, emotional intelligence, resilience, and interpersonal skills. These
+                        elements support managers in developing good connections, resolving disagreements, and adapting
+                        to changing conditions.
+                        Opportunities for networking: MDPs give managers a place to connect and communicate with
+                        colleagues from different departments or organisations. Sharing of information, teamwork, and
+                        the exchange of best practises are all encouraged by this networking.
+                        Case studies and business simulations are frequently included in MDPs to give managers hands-on
+                        experience with real-world situations. These activities help managers put their knowledge to
+                        use, comprehend complicated problems, and create workable solutions.
+                        Coaching and mentorship: Some MDPs provide managers with one-on-one coaching or mentoring
+                        sessions to aid in their professional development. Managers may overcome obstacles, develop
+                        their abilities, and accomplish their career goals with the support of this individualised
+                        guidance.
+                        Continuous Learning: MDPs stress the value of lifetime learning and encourage managers to be
+                        abreast of business developments, cutting-edge technological advancements, and management
+                        techniques. Access to online resources, workshops, conferences, or opportunities for further
+                        education may be provided as part of this.
+                        In general, management development programmes are essential for preparing managers to become
+                        successful leaders who can propel an organisation forward. Organisations can cultivate a
+                        competent pool of managers who are able to handle challenging business problems and achieve
+                        sustainable growth by making development investments in them.</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
 
-    <div id="chatbotWindow" class="chatbot-window">
-      <div class="chatbot-header">
-        <span>Psyche Panacea Assistant</span>
-        <span id="chatbotClose" class="chatbot-close">×</span>
-      </div>
+            <!-- Card 2 -->
+            <div class="program-card" style="--delay: 2">
+                <img src="/images/flagship-programs/supervisory dvp prgm.jpg" alt="SUPERVISORY DEVELOPMENT PROGRAM">
+                <div class="program-content">
+                    <h3>SUPERVISORY DEVELOPMENT PROGRAM</h3>
+                    <p>Psyche Panacea’s supervisory development programme (SDP) is a specialised training initiative
+                        created to improve the competencies and skills of those who hold supervisory positions. In order
+                        to ensure that supervisors have the skills they need to successfully carry out their jobs, SDPs
+                        put a strong emphasis on building the specialised competencies essential to effectively lead and
+                        manage teams.
 
-      <div id="chatbotBody" class="chatbot-body">
-        <div class="chatbot-message bot">
-          Welcome! How can I assist with our flagship programs today?
+                        A supervisory development programme should include the following key components:
+
+                        SDPs are designed to help supervisors improve their leadership and management skills. This
+                        covers things like delegation, dispute resolution, problem solving, communication, and
+                        performance management. Supervisors may effectively lead and inspire their teams to accomplish
+                        organisational goals by using these qualities.
+                        SDPs place a strong emphasis on the value of encouraging teamwork and collaboration. Supervisors
+                        receive training on how to create cohesive teams, advance good communication, promote teamwork,
+                        and settle disputes among their teams. Additionally, they learn how to engage and inspire their
+                        team in order to increase production as a whole.
+                        Performance Management: SDPs give managers the tools and techniques necessary to efficiently
+                        manage workers’ performance. This includes establishing performance standards, carrying out
+                        performance evaluations, offering coaching and feedback, and dealing with performance-related
+                        difficulties. Supervisors gain knowledge on how to foster a culture that is focused on
+                        performance and continual improvement.
+                        Effective interpersonal and communication skills are essential for supervisors. SDPs aid in the
+                        improvement of supervisors’ interpersonal and communication abilities, including active
+                        listening, giving and receiving feedback, delivering precise directions, and handling
+                        challenging talks. These abilities help managers build effective connections with the people of
+                        their teams and other stakeholders.
+                        Time and Priority Management: SDPs emphasise for supervisors the value of time management and
+                        prioritisation. Participants pick up skills for setting priorities, allocating resources
+                        effectively, and effectively managing their time. Due of their ability to manage various
+                        projects, fulfil deadlines, and remain productive in a hectic work environment, supervisors can.
+                        Decision-Making and Problem-Solving: SDPs assist managers in refining their problem-solving and
+                        decision-making abilities. Supervisors acquire the frameworks and methods needed to analyse
+                        issues, weigh options, make wise choices, and put solutions into action. Supervisors can manage
+                        daily problems and support ongoing improvement with the help of these skills.
+                        Self-Development and continual Learning: SDPs place a strong emphasis on the value of continual
+                        learning and self-development. Supervisors are urged to look for chances for personal
+                        development, keep up with business trends, and participate in ongoing learning activities to
+                        advance their knowledge and abilities.
+                        Workshops, seminars, e-learning modules, coaching sessions, and on-the-job training are just a
+                        few of the ways SDPs can be given. Depending on the demands of the organisation specifically and
+                        the level of supervisors being targeted, the program’s content and length may change.
+
+                        Organisations may increase team performance, build their leadership pipeline, and foster a
+                        productive work environment for staff development by investing in supervisory development
+                        programmes.</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="program-card" style="--delay: 3">
+                <img src="/images/flagship-programs/exctv dvp prgm.jpg" alt="Executive Development Program">
+                <div class="program-content">
+                    <h3>Executive Development Program</h3>
+                    <p>Psyche Panacea’s specialised training programme called an executive development programme (EDP)
+                        is created to improve the abilities, skills, and knowledge of senior-level executives, usually
+                        those who hold the most important leadership roles within an organisation. EDPs are intended to
+                        help executives develop their strategic thinking, leadership skills, and business savvy. They
+                        are specifically designed to meet the individual demands and difficulties that executives
+                        confront.
+
+                        The following are some essential components of an executive development programme:
+
+                        Executive leadership skills, including as strategy planning, decision-making, change management,
+                        and stakeholder management, are the main topics of executive development programmes (EDPs). For
+                        CEOs to successfully lead their employees and achieve organisational success, these abilities
+                        are essential.
+                        EDPs give CEOs a thorough understanding of corporate strategy, which includes market trends,
+                        competitive positioning, industry analysis, and upcoming technology. Executives gain the ability
+                        to manoeuvre through complex corporate environments and match their judgements and actions with
+                        the organization’s long-term goals.
+                        EDPs place a major emphasis on the development of executive presence, which involves effective
+                        communication, persuasion techniques, and forging close bonds with stakeholders. Through their
+                        communication, executives develop their leadership skills and enhance their credibility.
+                        Global Perspective: A lot of EDPs speak to the difficulties and possibilities of conducting
+                        business in a globalised world. Executives learn about global leadership, cross-cultural
+                        dynamics, worldwide markets, and managing different teams. Executives may take educated
+                        decisions and promote international growth thanks to this global perspective.
+                        EDPs help executives become more adept at strategic thinking and problem-solving, empowering
+                        them to foresee and address difficult business situations. Executives acquire the frameworks and
+                        instruments needed to analyse issues, spot opportunities, and make data-driven decisions.
+                        EDPs offer executives the chance to network and cooperate with peers from other organisations.
+                        This is known as peer learning. Through networking, professionals can trade best practises,
+                        share expertise, and create a network of supportive peers.
+                        Executive Coaching: A few EDPs give individualised executive coaching to offer guidance and
+                        support. Coaches work directly with CEOs to pinpoint their areas for improvement, offer
+                        feedback, and assist them in resolving leadership issues.
+                        EDPs encourage an environment that is conducive to ongoing learning and personal development.
+                        Executives are urged to stay current on market trends, cutting-edge technologies, and management
+                        techniques through regular training, conferences, workshops, and access to pertinent resources.
+                        EDPs are often created to be extremely immersive, experiential, and application-focused. To
+                        enable executives to apply their learning in a practical setting, they could include case
+                        studies, simulations, role-playing exercises, and real-world projects.
+
+                        Executive development programmes are essential for senior-level leaders to improve their
+                        abilities, extend their perspectives, and maintain their competitiveness in a corporate
+                        environment that is constantly evolving. These programmes help CEOs and the organisations they
+                        lead succeed over the long term.
+                    </p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="chatbot-input">
-        <input id="chatbotInput" type="text" placeholder="Ask about our programs...">
-        <button id="chatbotSend">
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
     </div>
-  </div>
 
-  <script>
-    // Tab Switching Functionality
-    function initTabs() {
-      const tabButtons = document.querySelectorAll('.tab-btn');
-      const tabContents = document.querySelectorAll('.tab-content');
+    <!-- Train the Trainer (TTT) -->
+    <div id="ttt" class="tab-content">
+        <div class="tab-intro">
+            <h2>Train the Trainer</h2>
+            <p>Empower your internal trainers with the skills and methodologies to deliver impactful learning
+                experiences. This program focuses on adult learning principles, facilitation techniques, and content
+                development.</p>
+        </div>
+        <div class="program-grid">
+            <div class="program-card" style="--delay: 1">
+                <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=500&auto=format&fit=crop"
+                    alt="Train the Trainer">
+                <div class="program-content">
+                    <h3>Mastering Facilitation Skills</h3>
+                    <p>Develop expert facilitation skills to engage learners and maximize knowledge transfer. This
+                        program covers presentation techniques, interactive methods, and managing diverse learning
+                        groups...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          // Remove active class from all buttons and contents
-          tabButtons.forEach(btn => btn.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
+    <!-- Handling Difficult Conversation (HDC) -->
+    <div id="hdc" class="tab-content">
+        <div class="tab-intro">
+            <h2>Handling Difficult Conversations</h2>
+            <p>Equip your team with the skills to navigate challenging conversations with confidence and empathy. This
+                program focuses on communication strategies, emotional intelligence, and conflict resolution.</p>
+        </div>
+        <div class="program-grid">
+            <div class="program-card" style="--delay: 1">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=500&auto=format&fit=crop"
+                    alt="Difficult Conversations">
+                <div class="program-content">
+                    <h3>Navigating Challenging Dialogues</h3>
+                    <p>Learn frameworks for preparing, initiating, and conducting difficult conversations in the
+                        workplace. This program covers active listening, empathy, and maintaining professionalism...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-          // Add active class to clicked button
-          button.classList.add('active');
+    <!-- Campus to Corporate (C2C) -->
+    <div id="c2c" class="tab-content">
+        <div class="tab-intro">
+            <h2>Campus to Corporate</h2>
+            <p>Smooth the transition for new graduates entering the corporate world. This program helps young
+                professionals develop essential workplace skills, understand corporate culture, and build professional
+                identity.</p>
+        </div>
+        <div class="program-grid">
+            <div class="program-card" style="--delay: 1">
+                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=500&auto=format&fit=crop"
+                    alt="Campus to Corporate">
+                <div class="program-content">
+                    <h3>Professional Transition Program</h3>
+                    <p>Equip new graduates with the mindset, skills, and behaviors required for corporate success. This
+                        program covers workplace etiquette, communication, time management, and professional
+                        networking...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-          // Show corresponding content
-          const tabId = button.getAttribute('data-tab');
-          document.getElementById(tabId).classList.add('active');
-          
-          // Animate program cards when tab changes
-          animateProgramCards();
+    <!-- Business Communication Skills (BCS) -->
+    <div id="bcs" class="tab-content">
+        <div class="tab-intro">
+            <h2>Business Communication Skills</h2>
+            <p>Enhance professional communication capabilities across written, verbal, and non-verbal channels. This
+                program focuses on clarity, impact, and effectiveness in business contexts.</p>
+        </div>
+        <div class="program-grid">
+            <div class="program-card" style="--delay: 1">
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=500&auto=format&fit=crop"
+                    alt="Business Communication">
+                <div class="program-content">
+                    <h3>Executive Communication Mastery</h3>
+                    <p>Develop advanced communication skills for leadership roles. This program covers persuasive
+                        presentations, executive writing, cross-cultural communication, and digital communication
+                        etiquette...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mentoring Skills (MS) -->
+    <div id="ms" class="tab-content">
+        <div class="tab-intro">
+            <h2>Mentoring Skills</h2>
+            <p>Develop the capabilities to guide and develop talent within your organization. This program focuses on
+                effective mentoring relationships, coaching techniques, and talent development strategies.</p>
+        </div>
+        <div class="program-grid">
+            <div class="program-card" style="--delay: 1">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=500&auto=format&fit=crop"
+                    alt="Mentoring Skills">
+                <div class="program-content">
+                    <h3>Effective Mentoring Program</h3>
+                    <p>Learn how to establish and maintain productive mentoring relationships. This program covers
+                        mentoring frameworks, goal setting, feedback techniques, and overcoming mentoring challenges...
+                    </p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diversity & Inclusion (D&I) -->
+    <div id="di" class="tab-content">
+        <div class="tab-intro">
+            <h2>Diversity & Inclusion</h2>
+            <p>Foster an inclusive workplace culture that values diversity and promotes belonging. Our programs help
+                organizations leverage diversity as a competitive advantage while building equitable environments.</p>
+        </div>
+        <div class="program-grid">
+            <!-- Card 1 -->
+            <div class="program-card" style="--delay: 1">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=500&auto=format&fit=crop"
+                    alt="Inclusive Leadership">
+                <div class="program-content">
+                    <h3>Inclusive Leadership</h3>
+                    <p>Develop leaders who can create and sustain inclusive work environments. This program covers
+                        unconscious bias, inclusive decision-making, and building psychologically safe teams...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="program-card" style="--delay: 2">
+                <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=500&auto=format&fit=crop"
+                    alt="Unconscious Bias">
+                <div class="program-content">
+                    <h3>Unconscious Bias Awareness</h3>
+                    <p>Understand and mitigate unconscious biases in the workplace. This program helps participants
+                        recognize bias, understand its impact, and develop strategies for fair decision-making...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="program-card" style="--delay: 3">
+                <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?q=80&w=500&auto=format&fit=crop"
+                    alt="Inclusive Culture">
+                <div class="program-content">
+                    <h3>Building Inclusive Cultures</h3>
+                    <p>Learn how to create organizational cultures where diversity thrives. This program focuses on
+                        systemic inclusion, equitable practices, and measuring inclusion impact...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="program-card" style="--delay: 4">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=500&auto=format&fit=crop"
+                    alt="Diverse Teams">
+                <div class="program-content">
+                    <h3>Managing Diverse Teams</h3>
+                    <p>Develop skills to effectively lead and leverage diverse teams. This program covers cross-cultural
+                        communication, conflict resolution in diverse settings, and maximizing team potential...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sahyog -->
+    <div id="sahyog" class="tab-content">
+        <div class="tab-intro">
+            <h2>Sahyog Wellness Program</h2>
+            <p>Promote employee well-being and mental health through our comprehensive wellness initiatives. Sahyog
+                focuses on holistic wellness, stress management, and creating supportive work environments.</p>
+        </div>
+        <div class="program-grid">
+            <!-- Card 1 -->
+            <div class="program-card" style="--delay: 1">
+                <img src="https://images.unsplash.com/photo-1491841573634-28140fc7ced7?q=80&w=500&auto=format&fit=crop"
+                    alt="Mental Wellness">
+                <div class="program-content">
+                    <h3>Mental Wellness & Resilience</h3>
+                    <p>Develop strategies for maintaining mental health and building resilience. This program covers
+                        stress management techniques, mindfulness practices, and emotional intelligence...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="program-card" style="--delay: 2">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop"
+                    alt="Work-Life Integration">
+                <div class="program-content">
+                    <h3>Work-Life Integration</h3>
+                    <p>Learn strategies for achieving sustainable work-life integration. This program covers boundary
+                        setting, time management, and creating supportive routines for overall well-being...</p>
+                    <span class="read-more">Read more</span>
+                    <a href="contact.html" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <!-- Left half: Map -->
+                <div class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+                    <iframe src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
+                        width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
+                        class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
+                        gestureHandling="greedy">
+                    </iframe>
+                </div>
+
+                <!-- Right half: Content -->
+                <div class="grid grid-cols-1 gap-8">
+                    <!-- Company Info -->
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
+                        </div>
+                        <p class="text-gray-400">
+                            Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
+                            transforming organizations through strategic HR solutions.
+                        </p>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">Contact Us
+                        </h4>
+                        <ul class="space-y-4 text-gray-400 text-sm">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
+                                    Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                <span>09810323292, 09810319292</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span>hr@psypanconsulting.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <div id="chatbotToggle" class="chatbot-toggle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
+                </path>
+                <path d="M9 9h6v6H9z"></path>
+            </svg>
+        </div>
+
+        <div id="chatbotWindow" class="chatbot-window">
+            <div class="chatbot-header">
+                <span>Psyche Panacea Assistant</span>
+                <span id="chatbotClose" class="chatbot-close">×</span>
+            </div>
+
+            <div id="chatbotBody" class="chatbot-body">
+                <div class="chatbot-message bot">
+                    Welcome! How can I assist with our flagship programs today?
+                </div>
+            </div>
+
+            <div class="chatbot-input">
+                <input id="chatbotInput" type="text" placeholder="Ask about our programs...">
+                <button id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching Functionality
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    // Show corresponding content
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+
+                    // Animate program cards when tab changes
+                    animateProgramCards();
+                });
+            });
+        }
+
+        // Animate program cards on page load and tab change
+        function animateProgramCards() {
+            const cards = document.querySelectorAll('.program-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.animation = 'slideUp 0.5s ease forwards';
+                    card.style.animationDelay = card.style.getPropertyValue('--delay') * 0.1 + 's';
+                }, 50);
+            });
+        }
+
+        // Read More Functionality
+        function initReadMore() {
+            document.querySelectorAll('.read-more').forEach(button => {
+                button.addEventListener('click', function () {
+                    const content = this.previousElementSibling;
+                    if (content.classList.contains('expanded')) {
+                        content.classList.remove('expanded');
+                        this.textContent = 'Read more';
+                    } else {
+                        content.classList.add('expanded');
+                        this.textContent = 'Read less';
+                    }
+                });
+            });
+        }
+
+        // Chatbot Functionality
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatbotBody = document.getElementById('chatbotBody');
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chatbot-message user';
+            userMessage.textContent = message;
+            chatbotBody.appendChild(userMessage);
+
+            // Simulate bot response with typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chatbot-message bot';
+            typingIndicator.textContent = 'Typing...';
+            chatbotBody.appendChild(typingIndicator);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+            setTimeout(() => {
+                chatbotBody.removeChild(typingIndicator);
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chatbot-message bot';
+                botMessage.textContent = getBotResponse(message);
+                chatbotBody.appendChild(botMessage);
+                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+            }, 1000);
+
+            input.value = '';
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            if (lowerMessage.includes('management') || lowerMessage.includes('mdp'))
+                return 'Our Management Development Programs focus on strategic leadership, team management, and organizational change.';
+            if (lowerMessage.includes('train') || lowerMessage.includes('ttt'))
+                return 'Train the Trainer program equips your internal trainers with facilitation skills and content development expertise.';
+            if (lowerMessage.includes('diversity') || lowerMessage.includes('inclusion'))
+                return 'Our D&I programs include Inclusive Leadership, Unconscious Bias Awareness, and Building Inclusive Cultures.';
+            if (lowerMessage.includes('sahyog') || lowerMessage.includes('wellness'))
+                return 'Sahyog is our wellness program focusing on mental health, resilience, and work-life integration.';
+            if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+                return 'Our office is at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+            return 'I\'m here to help with our flagship programs. Could you tell me more about your specific interests?';
+        }
+
+        // Mobile Menu Toggle
+        function initMobileMenu() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initTabs();
+            initReadMore();
+            initMobileMenu();
+            animateProgramCards();
+
+            // Set up chatbot event listeners
+            document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+            document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+            document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+            document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
         });
-      });
-    }
-    
-    // Animate program cards on page load and tab change
-    function animateProgramCards() {
-      const cards = document.querySelectorAll('.program-card');
-      cards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          card.style.animation = 'slideUp 0.5s ease forwards';
-          card.style.animationDelay = card.style.getPropertyValue('--delay') * 0.1 + 's';
-        }, 50);
-      });
-    }
-
-    // Read More Functionality
-    function initReadMore() {
-      document.querySelectorAll('.read-more').forEach(button => {
-        button.addEventListener('click', function() {
-          const content = this.previousElementSibling;
-          if (content.classList.contains('expanded')) {
-            content.classList.remove('expanded');
-            this.textContent = 'Read more';
-          } else {
-            content.classList.add('expanded');
-            this.textContent = 'Read less';
-          }
-        });
-      });
-    }
-
-    // Chatbot Functionality
-    function toggleChatbot() {
-      const chatbotWindow = document.getElementById('chatbotWindow');
-      chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function sendMessage() {
-      const input = document.getElementById('chatbotInput');
-      const message = input.value.trim();
-      if (!message) return;
-
-      const chatbotBody = document.getElementById('chatbotBody');
-      const userMessage = document.createElement('div');
-      userMessage.className = 'chatbot-message user';
-      userMessage.textContent = message;
-      chatbotBody.appendChild(userMessage);
-
-      // Simulate bot response with typing indicator
-      const typingIndicator = document.createElement('div');
-      typingIndicator.className = 'chatbot-message bot';
-      typingIndicator.textContent = 'Typing...';
-      chatbotBody.appendChild(typingIndicator);
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
-
-      setTimeout(() => {
-        chatbotBody.removeChild(typingIndicator);
-        const botMessage = document.createElement('div');
-        botMessage.className = 'chatbot-message bot';
-        botMessage.textContent = getBotResponse(message);
-        chatbotBody.appendChild(botMessage);
-        chatbotBody.scrollTop = chatbotBody.scrollHeight;
-      }, 1000);
-
-      input.value = '';
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
-    }
-
-    function getBotResponse(message) {
-      const lowerMessage = message.toLowerCase();
-      if (lowerMessage.includes('management') || lowerMessage.includes('mdp'))
-        return 'Our Management Development Programs focus on strategic leadership, team management, and organizational change.';
-      if (lowerMessage.includes('train') || lowerMessage.includes('ttt'))
-        return 'Train the Trainer program equips your internal trainers with facilitation skills and content development expertise.';
-      if (lowerMessage.includes('diversity') || lowerMessage.includes('inclusion'))
-        return 'Our D&I programs include Inclusive Leadership, Unconscious Bias Awareness, and Building Inclusive Cultures.';
-      if (lowerMessage.includes('sahyog') || lowerMessage.includes('wellness'))
-        return 'Sahyog is our wellness program focusing on mental health, resilience, and work-life integration.';
-      if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-        return 'Our office is at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-      return 'I\'m here to help with our flagship programs. Could you tell me more about your specific interests?';
-    }
-
-    // Mobile Menu Toggle
-    function initMobileMenu() {
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
-    }
-
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      initTabs();
-      initReadMore();
-      initMobileMenu();
-      animateProgramCards();
-
-      // Set up chatbot event listeners
-      document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-      document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-      document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-      document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-      });
-    });
-  </script>
+    </script>
 </body>
+
 </html>
