@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
     <script>
         // Initialize EmailJS with your User ID
-        (function() {
+        (function () {
             emailjs.init("6KRvQp4CW2Wc9Ir-x"); // Replace with your actual EmailJS User ID
         })();
     </script>
@@ -685,28 +685,28 @@
             });
         });
         // Form Submission Handler with EmailJS
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const formStatus = document.getElementById('form-status');
             const submitButton = this.querySelector('button[type="submit"]');
-            
+
             // Show loading state
             submitButton.disabled = true;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
-            
+
             // EmailJS parameters
             const serviceID = 'service_85jxcp9'; // Replace with your EmailJS service ID
             const templateID = 'template_f0etu1m'; // Replace with your EmailJS template ID
-            
+
             // Send form using EmailJS
             emailjs.sendForm(serviceID, templateID, this)
                 .then(() => {
                     formStatus.classList.remove('hidden');
                     formStatus.innerHTML = '<p class="text-green-600 font-medium">Your message has been sent successfully!</p>';
-                    
+
                     // Reset form
                     this.reset();
-                    
+
                     // Hide success message after 5 seconds
                     setTimeout(() => {
                         formStatus.classList.add('hidden');
@@ -714,7 +714,7 @@
                 }, (error) => {
                     formStatus.classList.remove('hidden');
                     formStatus.innerHTML = `<p class="text-red-600 font-medium">Failed to send message. Error: ${error.text}</p>`;
-                    
+
                     // Hide error message after 5 seconds
                     setTimeout(() => {
                         formStatus.classList.add('hidden');

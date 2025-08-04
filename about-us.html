@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -425,7 +426,7 @@
         transform: rotate(360deg);
       }
     }
-    
+
     /* PDF Viewer */
     .pdf-viewer {
       display: none;
@@ -434,10 +435,10 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0, 0, 0, 0.9);
       z-index: 2000;
     }
-    
+
     .pdf-container {
       width: 90%;
       height: 90%;
@@ -446,7 +447,7 @@
       border-radius: 8px;
       overflow: hidden;
     }
-    
+
     .pdf-toolbar {
       background: #0052cc;
       color: white;
@@ -455,13 +456,13 @@
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .pdf-frame {
       width: 100%;
       height: calc(100% - 45px);
       border: none;
     }
-    
+
     /* New styles for the solution */
     .download-container {
       display: flex;
@@ -469,7 +470,7 @@
       gap: 10px;
       margin-top: 15px;
     }
-    
+
     .download-button {
       display: flex;
       align-items: center;
@@ -483,29 +484,40 @@
       font-weight: 500;
       transition: all 0.3s ease;
     }
-    
+
     .download-button:hover {
       background-color: #e6f2ff;
       transform: translateY(-2px);
     }
-    
+
     .view-button {
       background-color: #f0fff4;
       color: #38a169;
       border-color: #c6f6d5;
     }
-    
+
     .view-button:hover {
       background-color: #e6ffee;
     }
-    
+
     /* Success Animation */
     @keyframes successAnimation {
-      0% { transform: scale(0.5); opacity: 0; }
-      70% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      70% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
-    
+
     .success-animation {
       animation: successAnimation 0.7s ease forwards;
     }
@@ -603,7 +615,8 @@
 
         <div class="border-t border-gray-200 pt-8 mb-8"></div>
 
-        <form id="career-form" method="POST" action="https://usebasin.com/f/04f341d6d131" enctype="multipart/form-data" class="space-y-6">
+        <form id="career-form" method="POST" action="https://usebasin.com/f/04f341d6d131" enctype="multipart/form-data"
+          class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-gray-700 font-medium mb-2" for="first-name">First Name *</label>
@@ -948,7 +961,8 @@
       <p class="text-gray-700 mb-6">
         Thank you for applying to Psyche Panacea. We've received your application and will review it shortly.
       </p>
-      <button id="close-modal" class="bg-primary text-white font-bold py-3 px-8 rounded-lg transition-all hover:bg-blue-700">
+      <button id="close-modal"
+        class="bg-primary text-white font-bold py-3 px-8 rounded-lg transition-all hover:bg-blue-700">
         Continue
       </button>
     </div>
@@ -956,11 +970,11 @@
 
   <script>
     // File upload handling
-    document.getElementById('resume').addEventListener('change', function(e) {
+    document.getElementById('resume').addEventListener('change', function (e) {
       const fileName = this.files[0]?.name || '';
       const fileNameElement = document.getElementById('file-name');
       const fileNameText = document.getElementById('file-name-text');
-      
+
       if (fileName) {
         fileNameText.textContent = fileName;
         fileNameElement.style.display = 'block';
@@ -970,59 +984,59 @@
     });
 
     // Form submission handling
-    document.getElementById('career-form').addEventListener('submit', function(e) {
+    document.getElementById('career-form').addEventListener('submit', function (e) {
       e.preventDefault();
-      
+
       const form = this;
       const submitBtn = document.getElementById('submit-btn');
       const uploadStatus = document.getElementById('upload-status');
-      
+
       // Disable submit button
       submitBtn.disabled = true;
       submitBtn.innerHTML = `
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Processing...
       `;
-      
+
       // Create FormData object
       const formData = new FormData(form);
-      
+
       // Submit form to UseBasin
       fetch(form.action, {
         method: 'POST',
         body: formData
       })
-      .then(response => {
-        if (response.ok) {
-          // Show success modal
-          document.getElementById('success-modal').classList.remove('hidden');
-          document.getElementById('success-modal').classList.add('flex');
-          
-          // Reset form
-          form.reset();
-          document.getElementById('file-name').style.display = 'none';
-        } else {
-          throw new Error('Form submission failed');
-        }
-      })
-      .catch(error => {
-        console.error('Error submitting form:', error);
-        uploadStatus.innerHTML = `
+        .then(response => {
+          if (response.ok) {
+            // Show success modal
+            document.getElementById('success-modal').classList.remove('hidden');
+            document.getElementById('success-modal').classList.add('flex');
+
+            // Reset form
+            form.reset();
+            document.getElementById('file-name').style.display = 'none';
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(error => {
+          console.error('Error submitting form:', error);
+          uploadStatus.innerHTML = `
           <div class="upload-error">
             <i class="fas fa-exclamation-circle"></i> Error: Failed to submit application. Please try again.
           </div>
         `;
-        uploadStatus.style.display = 'block';
-      })
-      .finally(() => {
-        // Re-enable submit button
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Application';
-      });
+          uploadStatus.style.display = 'block';
+        })
+        .finally(() => {
+          // Re-enable submit button
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Application';
+        });
     });
 
     // Close modal
-    document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('close-modal').addEventListener('click', function () {
       document.getElementById('success-modal').classList.add('hidden');
       document.getElementById('success-modal').classList.remove('flex');
     });
@@ -1348,4 +1362,5 @@
     });
   </script>
 </body>
+
 </html>
