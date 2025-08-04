@@ -188,7 +188,7 @@
             font-size: 1.3rem;
         }
 
-        .program-content p {
+        .program-content .program-description {
             color: #555;
             line-height: 1.6;
             margin-bottom: 1.2rem;
@@ -197,7 +197,7 @@
             overflow: hidden;
         }
 
-        .program-content p.expanded {
+        .program-content .program-description.expanded {
             max-height: none;
         }
 
@@ -292,116 +292,7 @@
             font-size: 1.05rem;
         }
 
-        /* Chatbot */
-        .chatbot {
-            position: fixed;
-            bottom: 8px;
-            right: 8px;
-            z-index: 50;
-        }
-
-        .chatbot-toggle {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #0052cc, #4da8ff);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .chatbot-toggle svg {
-            width: 28px;
-            height: 28px;
-            fill: white;
-        }
-
-        .chatbot-window {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            width: 350px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            display: none;
-        }
-
-        .chatbot-header {
-            background: linear-gradient(135deg, #0052cc, #4da8ff);
-            color: white;
-            padding: 16px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chatbot-body {
-            height: 300px;
-            padding: 16px;
-            overflow-y: auto;
-            background-color: #f8f9fa;
-        }
-
-        .chatbot-message {
-            margin-bottom: 12px;
-            padding: 10px 14px;
-            border-radius: 18px;
-            max-width: 80%;
-            clear: both;
-            animation: messageFadeIn 0.3s ease;
-        }
-
-        .chatbot-message.bot {
-            background: #e6f0ff;
-            color: #333;
-            float: left;
-            border-bottom-left-radius: 4px;
-        }
-
-        .chatbot-message.user {
-            background: #0052cc;
-            color: white;
-            float: right;
-            border-bottom-right-radius: 4px;
-        }
-
-        .chatbot-input {
-            display: flex;
-            padding: 12px;
-            background: white;
-            border-top: 1px solid #eee;
-        }
-
-        .chatbot-input input {
-            flex: 1;
-            padding: 10px 14px;
-            border: 1px solid #ddd;
-            border-radius: 24px;
-            outline: none;
-        }
-
-        .chatbot-input button {
-            background: #0052cc;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            margin-left: 8px;
-            cursor: pointer;
-        }
-
-        .chatbot-close {
-            cursor: pointer;
-            font-size: 24px;
-            line-height: 1;
-        }
+        
 
         .animate-delay-1 {
             animation-delay: 0.1s !important;
@@ -454,6 +345,44 @@
         .tab-btn.active {
             @apply bg-blue-500 text-white;
         }
+
+        .program-description ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-description li {
+            margin-bottom: 0.5rem;
+        }
+
+        .program-description strong {
+            font-weight: 700;
+        }
+
+
+        .card-perspective {
+            perspective: 800px;
+        }
+
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-perspective:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 
@@ -486,7 +415,7 @@
     <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="index.html"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+                style="margin-top: 60px;" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
             <a href="services.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
             <a href="flagship-programs.html"
@@ -514,7 +443,8 @@
     </section>
 
     <!-- Tab Navigation -->
-    <div class="tab-nav grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4 bg-gray-100 rounded-md">
+    <div
+        class="tab-nav sticky top-12 z-50 bg-gray-100 rounded-md grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4">
         <button class="tab-btn active" data-tab="mdp">Managerial Dev. Program</button>
         <button class="tab-btn" data-tab="ttt">Train The Trainer</button>
         <button class="tab-btn" data-tab="hdc">Handling Conversation</button>
@@ -525,390 +455,1214 @@
         <button class="tab-btn" data-tab="sahyog">Sahyog</button>
     </div>
 
+
     <!-- Tab Content -->
     <!-- Management Development Programs (MDP) -->
-    <div id="mdp" class="tab-content active">
-        <div class="tab-intro">
-            <h2>Management Development Programs</h2>
-            <p>Unleash Potential with our Management Development Program.
+    <div id="mdp" class="tab-content active space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+        <!-- Intro -->
+        <div class="tab-intro text-center max-w-2xl mx-auto">
+            <h2
+                class="text-3xl font-extrabold text-indigo-600 mb-4 transform transition-transform duration-500 hover:scale-105">
+                Management Development Programs
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Unleash Potential with our Management Development Program.
             </p>
         </div>
-        <div class="program-grid">
+
+        <!-- Cards Grid -->
+        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <!-- Card 1 -->
-            <div class="program-card" style="--delay: 1">
-                <img src="/images/flagship-programs/mngmt dvp prg.jpg" alt="Management Development Programs">
-                <div class="program-content">
-                    <h3>Management Development Programs</h3>
-                    <p>Psyche Panacea’s management development programme (MDP) is an organised and thorough training
-                        course created to improve the abilities, skills, and knowledge of managers at various
-                        organisational levels. An MDP’s main goal is to create competent, effective managers who can
-                        lead teams, make wise decisions, and accomplish organisational objectives.
-
-                        Key components of a typical management development programme include the following:
-
-                        Developing leadership skills, such as effective communication, strategic thinking,
-                        decision-making, problem-solving, and team management, is a key component of MDPs. To motivate
-                        and lead their teams to success, managers need certain abilities.
-                        Functional Knowledge: MDPs give managers in-depth information and insight of the particular
-                        functional fields they oversee, such as finance, marketing, operations, human resources, or
-                        project management. Managers can successfully manage the difficulties and complexities inherent
-                        in their jobs thanks to this understanding.
-                        Business savvy: By offering insights into the general business environment, such as market
-                        dynamics, the competitive landscape, industry trends, and financial analyses, MDPs seek to
-                        improve managers’ business savvy. This larger viewpoint aids managers in coordinating their
-                        choices with the strategic goals of the company.
-                        Personal Development: Personal development elements are frequently included in MDPs, with a
-                        focus on self-awareness, emotional intelligence, resilience, and interpersonal skills. These
-                        elements support managers in developing good connections, resolving disagreements, and adapting
-                        to changing conditions.
-                        Opportunities for networking: MDPs give managers a place to connect and communicate with
-                        colleagues from different departments or organisations. Sharing of information, teamwork, and
-                        the exchange of best practises are all encouraged by this networking.
-                        Case studies and business simulations are frequently included in MDPs to give managers hands-on
-                        experience with real-world situations. These activities help managers put their knowledge to
-                        use, comprehend complicated problems, and create workable solutions.
-                        Coaching and mentorship: Some MDPs provide managers with one-on-one coaching or mentoring
-                        sessions to aid in their professional development. Managers may overcome obstacles, develop
-                        their abilities, and accomplish their career goals with the support of this individualised
-                        guidance.
-                        Continuous Learning: MDPs stress the value of lifetime learning and encourage managers to be
-                        abreast of business developments, cutting-edge technological advancements, and management
-                        techniques. Access to online resources, workshops, conferences, or opportunities for further
-                        education may be provided as part of this.
-                        In general, management development programmes are essential for preparing managers to become
-                        successful leaders who can propel an organisation forward. Organisations can cultivate a
-                        competent pool of managers who are able to handle challenging business problems and achieve
-                        sustainable growth by making development investments in them.</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 100ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/mngmt dvp prg.jpg" alt="Management Development Programs"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
+                        Management Development Programs
+                    </h3>
+                    <div class="program-description">
+                        <p>Psyche Panacea's management development programme (MDP) is an organised and thorough training
+                            course created to improve the abilities, skills, and knowledge of managers at various
+                            organisational levels.</p>
+                        <p><strong>Key components include:</strong></p>
+                        <ul>
+                            <li><strong>Developing leadership skills</strong> such as effective communication, strategic
+                                thinking, decision-making, problem-solving, and team management</li>
+                            <li><strong>Functional Knowledge</strong> in fields like finance, marketing, operations,
+                                human resources, or project management</li>
+                            <li><strong>Business savvy</strong> through insights into market dynamics, competitive
+                                landscape, industry trends, and financial analyses</li>
+                            <li><strong>Personal Development</strong> focusing on self-awareness, emotional
+                                intelligence, resilience, and interpersonal skills</li>
+                            <li><strong>Opportunities for networking</strong> to connect with colleagues from different
+                                departments or organisations</li>
+                            <li><strong>Case studies and business simulations</strong> for hands-on experience with
+                                real-world situations</li>
+                            <li><strong>Coaching and mentorship</strong> for individual professional development</li>
+                            <li><strong>Continuous Learning</strong> through workshops, conferences, and further
+                                education opportunities</li>
+                        </ul>
+                        <p>Management development programmes are essential for preparing managers to become successful
+                            leaders who can propel an organisation forward.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-indigo-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <!-- Card 2 -->
-            <div class="program-card" style="--delay: 2">
-                <img src="/images/flagship-programs/supervisory dvp prgm.jpg" alt="SUPERVISORY DEVELOPMENT PROGRAM">
-                <div class="program-content">
-                    <h3>SUPERVISORY DEVELOPMENT PROGRAM</h3>
-                    <p>Psyche Panacea’s supervisory development programme (SDP) is a specialised training initiative
-                        created to improve the competencies and skills of those who hold supervisory positions. In order
-                        to ensure that supervisors have the skills they need to successfully carry out their jobs, SDPs
-                        put a strong emphasis on building the specialised competencies essential to effectively lead and
-                        manage teams.
-
-                        A supervisory development programme should include the following key components:
-
-                        SDPs are designed to help supervisors improve their leadership and management skills. This
-                        covers things like delegation, dispute resolution, problem solving, communication, and
-                        performance management. Supervisors may effectively lead and inspire their teams to accomplish
-                        organisational goals by using these qualities.
-                        SDPs place a strong emphasis on the value of encouraging teamwork and collaboration. Supervisors
-                        receive training on how to create cohesive teams, advance good communication, promote teamwork,
-                        and settle disputes among their teams. Additionally, they learn how to engage and inspire their
-                        team in order to increase production as a whole.
-                        Performance Management: SDPs give managers the tools and techniques necessary to efficiently
-                        manage workers’ performance. This includes establishing performance standards, carrying out
-                        performance evaluations, offering coaching and feedback, and dealing with performance-related
-                        difficulties. Supervisors gain knowledge on how to foster a culture that is focused on
-                        performance and continual improvement.
-                        Effective interpersonal and communication skills are essential for supervisors. SDPs aid in the
-                        improvement of supervisors’ interpersonal and communication abilities, including active
-                        listening, giving and receiving feedback, delivering precise directions, and handling
-                        challenging talks. These abilities help managers build effective connections with the people of
-                        their teams and other stakeholders.
-                        Time and Priority Management: SDPs emphasise for supervisors the value of time management and
-                        prioritisation. Participants pick up skills for setting priorities, allocating resources
-                        effectively, and effectively managing their time. Due of their ability to manage various
-                        projects, fulfil deadlines, and remain productive in a hectic work environment, supervisors can.
-                        Decision-Making and Problem-Solving: SDPs assist managers in refining their problem-solving and
-                        decision-making abilities. Supervisors acquire the frameworks and methods needed to analyse
-                        issues, weigh options, make wise choices, and put solutions into action. Supervisors can manage
-                        daily problems and support ongoing improvement with the help of these skills.
-                        Self-Development and continual Learning: SDPs place a strong emphasis on the value of continual
-                        learning and self-development. Supervisors are urged to look for chances for personal
-                        development, keep up with business trends, and participate in ongoing learning activities to
-                        advance their knowledge and abilities.
-                        Workshops, seminars, e-learning modules, coaching sessions, and on-the-job training are just a
-                        few of the ways SDPs can be given. Depending on the demands of the organisation specifically and
-                        the level of supervisors being targeted, the program’s content and length may change.
-
-                        Organisations may increase team performance, build their leadership pipeline, and foster a
-                        productive work environment for staff development by investing in supervisory development
-                        programmes.</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 200ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/supervisory dvp prgm.jpg" alt="SUPERVISORY DEVELOPMENT PROGRAM"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
+                        SUPERVISORY DEVELOPMENT PROGRAM
+                    </h3>
+                    <div class="program-description">
+                        <p>Psyche Panacea's supervisory development programme (SDP) is a specialised training initiative
+                            created to enhance the competencies and skills of those in supervisory positions.</p>
+                        <p><strong>Key components include:</strong></p>
+                        <ul>
+                            <li><strong>Leadership and management skills</strong> including delegation, dispute
+                                resolution, problem solving, communication, and performance management</li>
+                            <li><strong>Teamwork and collaboration</strong> to create cohesive teams and promote good
+                                communication</li>
+                            <li><strong>Performance Management</strong> including setting performance standards,
+                                evaluations, coaching, and feedback</li>
+                            <li><strong>Interpersonal and communication skills</strong> with focus on active listening,
+                                feedback delivery, and handling challenging talks</li>
+                            <li><strong>Time and Priority Management</strong> to set priorities, allocate resources
+                                effectively, and manage time</li>
+                            <li><strong>Decision-Making and Problem-Solving</strong> to analyze issues, weigh options,
+                                and implement solutions</li>
+                            <li><strong>Self-Development and continual Learning</strong> to advance knowledge and skills
+                            </li>
+                        </ul>
+                        <p>Organisations may increase team performance, build their leadership pipeline, and foster a
+                            productive work environment for staff development by investing in supervisory development
+                            programmes.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-indigo-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <!-- Card 3 -->
-            <div class="program-card" style="--delay: 3">
-                <img src="/images/flagship-programs/exctv dvp prgm.jpg" alt="Executive Development Program">
-                <div class="program-content">
-                    <h3>Executive Development Program</h3>
-                    <p>Psyche Panacea’s specialised training programme called an executive development programme (EDP)
-                        is created to improve the abilities, skills, and knowledge of senior-level executives, usually
-                        those who hold the most important leadership roles within an organisation. EDPs are intended to
-                        help executives develop their strategic thinking, leadership skills, and business savvy. They
-                        are specifically designed to meet the individual demands and difficulties that executives
-                        confront.
-
-                        The following are some essential components of an executive development programme:
-
-                        Executive leadership skills, including as strategy planning, decision-making, change management,
-                        and stakeholder management, are the main topics of executive development programmes (EDPs). For
-                        CEOs to successfully lead their employees and achieve organisational success, these abilities
-                        are essential.
-                        EDPs give CEOs a thorough understanding of corporate strategy, which includes market trends,
-                        competitive positioning, industry analysis, and upcoming technology. Executives gain the ability
-                        to manoeuvre through complex corporate environments and match their judgements and actions with
-                        the organization’s long-term goals.
-                        EDPs place a major emphasis on the development of executive presence, which involves effective
-                        communication, persuasion techniques, and forging close bonds with stakeholders. Through their
-                        communication, executives develop their leadership skills and enhance their credibility.
-                        Global Perspective: A lot of EDPs speak to the difficulties and possibilities of conducting
-                        business in a globalised world. Executives learn about global leadership, cross-cultural
-                        dynamics, worldwide markets, and managing different teams. Executives may take educated
-                        decisions and promote international growth thanks to this global perspective.
-                        EDPs help executives become more adept at strategic thinking and problem-solving, empowering
-                        them to foresee and address difficult business situations. Executives acquire the frameworks and
-                        instruments needed to analyse issues, spot opportunities, and make data-driven decisions.
-                        EDPs offer executives the chance to network and cooperate with peers from other organisations.
-                        This is known as peer learning. Through networking, professionals can trade best practises,
-                        share expertise, and create a network of supportive peers.
-                        Executive Coaching: A few EDPs give individualised executive coaching to offer guidance and
-                        support. Coaches work directly with CEOs to pinpoint their areas for improvement, offer
-                        feedback, and assist them in resolving leadership issues.
-                        EDPs encourage an environment that is conducive to ongoing learning and personal development.
-                        Executives are urged to stay current on market trends, cutting-edge technologies, and management
-                        techniques through regular training, conferences, workshops, and access to pertinent resources.
-                        EDPs are often created to be extremely immersive, experiential, and application-focused. To
-                        enable executives to apply their learning in a practical setting, they could include case
-                        studies, simulations, role-playing exercises, and real-world projects.
-
-                        Executive development programmes are essential for senior-level leaders to improve their
-                        abilities, extend their perspectives, and maintain their competitiveness in a corporate
-                        environment that is constantly evolving. These programmes help CEOs and the organisations they
-                        lead succeed over the long term.
-                    </p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 300ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/exctv dvp prgm.jpg" alt="Executive Development Program"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
+                        Executive Development Program
+                    </h3>
+                    <div class="program-description">
+                        <p>Psyche Panacea's specialised training programme called an executive development programme
+                            (EDP) is created to enhance the abilities, skills, and knowledge of senior-level executives.
+                        </p>
+                        <p><strong>Key components include:</strong></p>
+                        <ul>
+                            <li><strong>Executive leadership skills</strong> including strategy planning,
+                                decision-making, change management, and stakeholder management</li>
+                            <li><strong>Corporate strategy understanding</strong> including market trends, competitive
+                                positioning, and industry analysis</li>
+                            <li><strong>Executive presence development</strong> with focus on effective communication,
+                                persuasion techniques, and forging bonds with stakeholders</li>
+                            <li><strong>Global Perspective</strong> addressing global leadership, cross-cultural
+                                dynamics, worldwide markets, and diverse teams</li>
+                            <li><strong>Strategic thinking and problem-solving</strong> to foresee and address business
+                                challenges</li>
+                            <li><strong>Peer learning</strong> through networking and collaboration with peers from
+                                other organisations</li>
+                            <li><strong>Executive Coaching</strong> for individualised guidance and support</li>
+                            <li><strong>Continuous Learning</strong> to stay current on market trends and management
+                                techniques</li>
+                        </ul>
+                        <p>Executive development programmes are essential for senior-level leaders to improve their
+                            abilities, extend their perspectives, and maintain competitiveness.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-indigo-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+
     <!-- Train the Trainer (TTT) -->
-    <div id="ttt" class="tab-content">
-        <div class="tab-intro">
-            <h2>Train the Trainer</h2>
-            <p>Empower your internal trainers with the skills and methodologies to deliver impactful learning
+    <div id="ttt" class="tab-content hidden space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg 
+         animate-pulse-once">
+        <div class="tab-intro text-center max-w-2xl mx-auto">
+            <h2
+                class="text-3xl font-extrabold text-blue-600 mb-4 transform transition-transform duration-500 hover:scale-105">
+                Train the Trainer
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Empower your internal trainers with the skills and methodologies to deliver impactful learning
                 experiences. This program focuses on adult learning principles, facilitation techniques, and content
-                development.</p>
+                development.
+            </p>
         </div>
-        <div class="program-grid">
-            <div class="program-card" style="--delay: 1">
-                <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=500&auto=format&fit=crop"
-                    alt="Train the Trainer">
-                <div class="program-content">
-                    <h3>Mastering Facilitation Skills</h3>
-                    <p>Develop expert facilitation skills to engage learners and maximize knowledge transfer. This
-                        program covers presentation techniques, interactive methods, and managing diverse learning
-                        groups...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+
+        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl 
+             transform transition-transform duration-500 hover:-translate-y-2" style="animation-delay: 100ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/trsin the trainee.jpg" alt="Train the Trainer"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+                        Train The Trainer
+                    </h3>
+                    <div class="program-description">
+                        <p>Empowering trainers to become exceptional through 'Train the Trainer' program</p>
+                        <p><strong>Our uniquely designed “Train the Trainer” has been powered and Enriched by NLP tools
+                                and techniques.to provide employees the abilities, information, and methods required to
+                                instruct others successfully. This training strategy recognises that in addition to
+                                subject-matter competence, trainers also need a certain set of facilitation and
+                                instructional abilities in order to effectively transmit information to their students.
+
+                                A “Train the Trainer” program’s main objective is to equip participants to become
+                                competent trainers on their own. This entails not only comprehending the material they
+                                will instruct, but also becoming an expert in a variety of training methods,
+                                communication approaches, and adult learning concepts. The main topics commonly
+                                addressed in a “Train the Trainer” programme are broken down as follows:</strong></p>
+                        <ul>
+                            <li><strong>Learning and styles of learning:</strong> The best ways for adults to learn are
+                                discussed with participants, along with ideas like self-directed learning, relevance,
+                                and past experience. Trainers may design more efficient and interesting learning
+                                sessions by being aware of these concepts.
+                            </li>
+                            <li><strong>Training Needs Analysis :</strong> Identifying training needs for a program is
+                                essential to ensure that the training content and approach are aligned with the
+                                participants’ requirements and expectations.
+                            </li>
+                            <li><strong>Design of training programs:</strong> Our Trainers dive into the process of
+                                creating training materials and courses in the area of instructional design. This
+                                entails organising the information, establishing learning goals, and developing
+                                activities that encourage active learning
+                            </li>
+                            <li><strong>Delivering the Training Program: </strong> Information must be presented in a
+                                way that is clear, interesting, and confident. Trainers receive training in
+                                attention-grabbing strategies that include the use of narrative, visual aids, and
+                                powerful body language.
+                            </li>
+                            <li><strong>Development of Training Material: </strong> Our trainers dive into the process
+                                of making the employees understand their audience , and keeping in mind technological
+                                and cultural integration while developing their material
+                            </li>
+                            <li><strong>Facilitation Skills :</strong> Trainers study many methods for facilitating
+                                learning, such as interactive activities, role-playing, group discussions, and case
+                                studies. These methods promote comprehension and encourage involvement.
+                            </li>
+                            <li><strong>Communication Skills:</strong> The key to successful training is effective
+                                communication. Trainers acquire the skills necessary to communicate information
+                                coherently, engage audiences, pose insightful queries, and moderate debates.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="read-more text-blue-500 text-sm font-medium hover:underline transform 
+                   transition-transform duration-300 hover:translate-x-1">Read more</span>
+                        <a href="contact.html" class="btn inline-block px-4 py-2 text-sm font-medium bg-blue-600 text-white 
+                   rounded hover:bg-blue-700 transform transition-transform duration-300 
+                   hover:scale-105">Contact Us</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Handling Difficult Conversation (HDC) -->
-    <div id="hdc" class="tab-content">
-        <div class="tab-intro">
-            <h2>Handling Difficult Conversations</h2>
-            <p>Equip your team with the skills to navigate challenging conversations with confidence and empathy. This
-                program focuses on communication strategies, emotional intelligence, and conflict resolution.</p>
+    <div id="hdc" class="tab-content hidden space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+        <div class="tab-intro text-center max-w-2xl mx-auto">
+            <h2
+                class="text-3xl font-extrabold text-red-600 mb-4 transform transition-transform duration-500 hover:scale-105">
+                Handling Difficult Conversations
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Equip your team with the skills to navigate challenging conversations with confidence and empathy.
+                This program focuses on communication strategies, emotional intelligence, and conflict resolution.
+            </p>
         </div>
-        <div class="program-grid">
-            <div class="program-card" style="--delay: 1">
-                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=500&auto=format&fit=crop"
-                    alt="Difficult Conversations">
-                <div class="program-content">
-                    <h3>Navigating Challenging Dialogues</h3>
-                    <p>Learn frameworks for preparing, initiating, and conducting difficult conversations in the
-                        workplace. This program covers active listening, empathy, and maintaining professionalism...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+
+        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 200ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/dfclt cnvrsn.jpg" alt="Difficult Conversations"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-red-600 transition-colors">
+                        HANDLING DIFFICULT CONVERSATION
+                    </h3>
+                    <div class="program-description">
+                        <p>Mastering the Art of Handling Difficult Dialogues</p>
+                        <p><strong>Psyche Panacea’s Training for Handling Difficult Conversation is intended to give
+                                staff members the knowledge and tools needed to handle difficult conversations skilfully
+                                and professionally. Giving criticism, addressing performance difficulties, settling
+                                disputes, breaking bad news, or broaching delicate subjects may all be part of these
+                                interactions. The following are some essential topics that are frequently taught in
+                                business training for conducting challenging conversations:
+
+                            </strong></p>
+                        <ul>
+                            <li><strong>Active Listening:</strong> Developing the ability to actively listen can help
+                                you fully comprehend the worries and viewpoints of others. To ensure clear
+                                communication, this entails paying listening, paraphrasing, and clarifying information.
+                            </li>
+                            <li><strong>Emotional Intelligence:</strong> Improving emotional intelligence to recognise
+                                and control one’s own emotions during challenging interactions as well as those of
+                                others. Empathy, self-awareness, and self-control are included in this.
+                            </li>
+                            <li><strong>Planning and preparation: </strong> Teaching participants how to define clear
+                                goals, foresee probable obstacles, and prepare efficient communication tactics in order
+                                to prepare for challenging dialogues.
+                            </li>
+                            <li><strong>Constructive Feedback:</strong> Offering methods for giving constructive
+                                criticism in a kind and non-threatening way. This entails giving particular
+                                illustrations, concentrating on behaviours, and making recommendations for change.
+                            </li>
+                            <li><strong>Diffusing Defensiveness: </strong> Techniques for dealing with resistance and
+                                defensiveness in difficult conversations. This entails establishing a secure and
+                                judgment-free environment, paying attention intently, and reacting coolly.
+                            </li>
+                            <li><strong>Dealing with Strong Emotions: </strong> Techniques for controlling feelings
+                                during challenging interactions, such as maintaining composure, displaying proper body
+                                language, and recognising and validating feelings.
+                            </li>
+                            <li><strong>Role-playing and Practise: </strong> Involving participants in simulations and
+                                role-playing exercises to help them practise having challenging talks in a safe and
+                                encouraging setting. They can do this to improve their communication skills and get
+                                feedback.
+                            </li>
+                            <li>Giving participants the tools, they need to handle conflict, including ways to recognise
+                                its common causes, communicate assertively, and reach win-win compromises.
+                            </li>
+                            <li>Introduce the concepts of peaceful communication, which place an emphasis on speaking
+                                one’s truth while still having empathy for the needs and feelings of others.
+                            </li>
+                            <li>Raising awareness of cultural variations and how they affect expectations and
+                                communication techniques. supplying rules for responsibly managing cross-cultural
+                                interactions and averting misunderstandings.
+                            </li>
+                            <li>Discussing methods for taking further action and achieving resolution following
+                                unpleasant conversations is known as “follow-up and resolution.” This entails
+                                establishing objectives, keeping track of development, and preserving open lines of
+                                communication.
+                            </li>
+                            Workshops, simulations, case studies, role-playing activities, and coaching sessions are
+                            used to give corporate training on how to handle challenging conversations. It helps
+                            participants to equip with real-world methods, equipment, and tactics that they may use
+                            right away in the workplace.
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-red-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-red-600 text-white rounded hover:bg-red-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Campus to Corporate (C2C) -->
-    <div id="c2c" class="tab-content">
-        <div class="tab-intro">
-            <h2>Campus to Corporate</h2>
-            <p>Smooth the transition for new graduates entering the corporate world. This program helps young
+    <div id="c2c" class="tab-content hidden space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+        <div class="tab-intro text-center max-w-2xl mx-auto">
+            <h2
+                class="text-3xl font-extrabold text-green-600 mb-4 transform transition-transform duration-500 hover:scale-105">
+                Campus to Corporate
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Smooth the transition for new graduates entering the corporate world. This program helps young
                 professionals develop essential workplace skills, understand corporate culture, and build professional
-                identity.</p>
+                identity.
+            </p>
         </div>
-        <div class="program-grid">
-            <div class="program-card" style="--delay: 1">
-                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=500&auto=format&fit=crop"
-                    alt="Campus to Corporate">
-                <div class="program-content">
-                    <h3>Professional Transition Program</h3>
-                    <p>Equip new graduates with the mindset, skills, and behaviors required for corporate success. This
-                        program covers workplace etiquette, communication, time management, and professional
-                        networking...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+
+        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 300ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/cmp to cprt.jpg" alt="Campus to Corporate"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-green-600 transition-colors">
+                        Campus To Corporate
+                    </h3>
+                    <div class="program-description">
+                        <p>Bridging the Gap from Campus to Corporate
+                        </p>
+                        <p><strong>Psyche Panacea’s Campus to Corporate training is a tailor-made program designed to
+                                help graduates and new hires in making a smooth transition from the academic setting of
+                                their educational institutions to the professional setting of a corporate job. The
+                                training seeks to provide them the abilities, information, and attitude needed to excel
+                                in their new positions and fit into the business culture. The following are some
+                                essential elements and focus areas that campus to corporate training often
+                                covers:</strong></p>
+                        <ul>
+                            <li><strong>Professionalism and Work Ethics:</strong> Stressing the value of acting in a
+                                professional manner, being on time, having integrity, and abiding by workplace standards
+                                and ethics.
+                            </li>
+                            <li><strong>Interpersonal Skills:</strong> gaining the capacity to cooperate in a team,
+                                settle disputes, and create enduring connections with coworkers.
+                            </li>
+                            <li><strong>Corporate culture and values:</strong> Outlining the company’s core principles,
+                                mission, and vision, as well as assisting staff in comprehending their place within the
+                                hierarchical structure.
+                            </li>
+                            <li><strong>Business etiquette:</strong> advising on appropriate behaviour in a range of
+                                circumstances, such as meetings, presentations, and networking events.
+                            </li>
+                            <li><strong>Technical Competencies:</strong> Providing instruction in a variety of tools,
+                                programmes, or systems frequently utilised in the business setting.
+                            </li>
+                            <li><strong>Customer service:</strong> If necessary, instruct staff members how to manage
+                                client relationships and provide outstanding customer service.
+                            </li>
+                            <li>Enhancing verbal and written communication abilities to interact with coworkers,
+                                managers, and clients in an efficient manner.
+                            </li>
+                            <li>Teaching time management skills that will help students priorities their work, meet
+                                deadlines, and balance their workloads</li>
+                            <li>Giving new hires the problem-solving abilities and frameworks for making decisions they
+                                need to deal with issues at work.
+                            </li>
+                            <li>Encourage a growth mentality and provide staff with the skills necessary to adjust to
+                                changes and bounce back from failure.
+                            </li>
+                            <li>Understanding the organization’s professional development options, feedback processes,
+                                and performance expectations are all part of performance management.
+                            </li>
+                            <li>Stress management is the process of teaching people how to manage their stress at work
+                                and maintain a healthy work-life balance.
+                            </li>
+                            Workshops, seminars, on-the-job training, mentorship programmes, e-learning modules, and
+                            interactive sessions are used by our Master Trainers to deliver campus to corporate training
+                            programmes. These programmes aid new hires to transfer easily and successfully from college
+                            to the workplace by bridging the gap between theoretical knowledge and practical abilities.
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-green-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-green-600 text-white rounded hover:bg-green-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Business Communication Skills (BCS) -->
-    <div id="bcs" class="tab-content">
-        <div class="tab-intro">
-            <h2>Business Communication Skills</h2>
-            <p>Enhance professional communication capabilities across written, verbal, and non-verbal channels. This
-                program focuses on clarity, impact, and effectiveness in business contexts.</p>
+    <div id="bcs" class="tab-content hidden space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+        <div class="tab-intro text-center max-w-2xl mx-auto">
+            <h2
+                class="text-3xl font-extrabold text-blue-600 mb-4 transform transition-transform duration-500 hover:scale-105">
+                Business Communication Skills
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Enhance professional communication capabilities across written, verbal, and non-verbal channels. This
+                program focuses on clarity, impact, and effectiveness in business contexts.
+            </p>
         </div>
-        <div class="program-grid">
-            <div class="program-card" style="--delay: 1">
-                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=500&auto=format&fit=crop"
-                    alt="Business Communication">
-                <div class="program-content">
-                    <h3>Executive Communication Mastery</h3>
-                    <p>Develop advanced communication skills for leadership roles. This program covers persuasive
-                        presentations, executive writing, cross-cultural communication, and digital communication
-                        etiquette...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+
+        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 100ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/business-communication.jpg" alt="Business Communication"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+                        Business Communication Skills
+                    </h3>
+                    <div class="program-description">
+                        <p>Develop advanced communication skills for leadership roles.</p>
+                        <p><strong>Business communication is the interchange of knowledge, concepts, and messages among
+                                members of an organisation as well as with other parties in order to improve operations,
+                                decision-making, and general functioning. Any organisation that wants to succeed must
+                                have effective corporate communication, which helps to transmit important messages,
+                                forge connections, and ensure that everyone is on the same page.</strong></p>
+                        <ul>
+                            <li>Understand the importance of effective communication in a business environment</li>
+                            <li>Mastering different communication forms such as verbal communication, written
+                                & body language.
+                            </li>
+                            <li>Mastering Email writing.
+                            </li>
+                            <li>Importance to create powerful presentations.
+                            </li>
+                            <li>Use the tools in PowerPoint effectively to engage.
+                            </li>
+                            <li> Identify ways to deliver meaningfully in sync with the slides created.
+                            </li>
+                            <li>Develop a greater sense of integrity and strength to accomplish
+                                goals
+                            </li>
+                            <li>Build a healthier self-concept to manage issues and events
+                            </li>
+                            <li>Develop strategy towards a greater time-task productivity
+                            </li>
+                            <li>Manage stress more effectively and efficiently
+                            </li>
+                            <li>Cultivate greater flexibility contributing toward an effective self-managed tea
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-blue-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Mentoring Skills (MS) -->
-    <div id="ms" class="tab-content">
-        <div class="tab-intro">
-            <h2>Mentoring Skills</h2>
-            <p>Develop the capabilities to guide and develop talent within your organization. This program focuses on
-                effective mentoring relationships, coaching techniques, and talent development strategies.</p>
+    <div id="ms" class="tab-content hidden space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+        <div class="tab-intro text-center max-w-2xl mx-auto">
+            <h2
+                class="text-3xl font-extrabold text-purple-600 mb-4 transform transition-transform duration-500 hover:scale-105">
+                Mentoring Skills
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Develop the capabilities to guide and develop talent within your organization. This program focuses on
+                effective mentoring relationships, coaching techniques, and talent development strategies.
+            </p>
         </div>
-        <div class="program-grid">
-            <div class="program-card" style="--delay: 1">
-                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=500&auto=format&fit=crop"
-                    alt="Mentoring Skills">
-                <div class="program-content">
-                    <h3>Effective Mentoring Program</h3>
-                    <p>Learn how to establish and maintain productive mentoring relationships. This program covers
-                        mentoring frameworks, goal setting, feedback techniques, and overcoming mentoring challenges...
-                    </p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+
+        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 100ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/MENTORING-SKILLS.jpg" alt="Mentoring Skills"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-purple-600 transition-colors">
+                        MENTORING SKILLS
+                    </h3>
+                    <div class="program-description">
+                        <p>Elevate Your Impact with Effective Mentoring Skills</p>
+                        <p><strong>The development of the skills and abilities required to effectively mentor and direct
+                                others in their professional growth and development is the main focus of mentoring
+                                skills training for the corporate environment. In order to develop talent, convey
+                                information, and increase employee engagement, mentoring is essential. The following are
+                                important factors to take into account when teaching mentoring skills in a business
+                                setting:</strong></p>
+                        <ul>
+                            <li><strong>Developing rapport and relationships:</strong> Providing methods for forming a
+                                good, encouraging relationship with mentees. emphasising respect and providing a safe
+                                environment for candid and open communication.
+                            </li>
+                            <li><strong>Giving Feedback and Coaching:</strong> Educating mentors on how to give their
+                                mentees constructive criticism and coaching. This covers methods for delivering
+                                criticism in a constructive and encouraging way, for establishing development
+                                objectives, and for keeping track of advancement.
+                            </li>
+                            <li>Clarifying the function, objectives, and obligations of a mentor in the corporate
+                                setting is essential to understanding the mentoring role. investigating the advantages
+                                of mentor-mentee partnerships for both parties.
+                            </li>
+                            <li>Enhancing communication abilities is essential for establishing trust, engaging in
+                                active listening, giving constructive criticism, and preserving open channels of
+                                communication. putting a focus on the value of simple and straightforward communication
+                                in mentoring relationships.</li>
+                            <li>Assisting mentors in assisting mentees with the process of identifying specific, doable
+                                goals and developing action plans to achieve them. highlighting the significance of
+                                responsibility and concrete goals.
+                            </li>
+                            <li>Considering the value of diversity and inclusiveness in mentoring relationships is what
+                                is meant by “mentoring across diversity.” giving advice on how to mentor people from
+                                different origins while taking cultural sensitivity and unconscious prejudices into
+                                account.
+                            </li>
+                            <li>Enhancing mentors’ emotional intelligence will help them recognise and control their
+                                emotions more effectively during the mentoring interaction. encouraging self-awareness,
+                                self-regulation, and empathy in relationships between mentors and mentees.
+                            </li>
+                            <li>Preparing mentors to assist mentees during times of change, challenges, and transitions
+                                is known as mentoring through change and challenges. providing advice on how to overcome
+                                challenges and be resilient.
+                            </li>
+                            <li>Providing mentors with tools and procedures for analysing and evaluating the efficacy of
+                                the mentoring relationship is referred to as “assessing and evaluating mentoring
+                                relationships.” This includes getting feedback, evaluating how things are going, and
+                                changing the mentoring strategy as necessary.
+                            </li>
+                            Workshops, interactive sessions, case studies, role-playing activities, and mentor-mentee
+                            pairing programmes can all be used to teach mentoring skills. It is crucial to offer mentors
+                            continual assistance, materials, and chances for introspection and education. Effective
+                            mentoring relationships help people, teams, and organisations as a whole develop and
+                            succeed.
+
+
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-purple-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-purple-600 text-white rounded hover:bg-purple-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Diversity & Inclusion (D&I) -->
-    <div id="di" class="tab-content">
-        <div class="tab-intro">
-            <h2>Diversity & Inclusion</h2>
-            <p>Foster an inclusive workplace culture that values diversity and promotes belonging. Our programs help
-                organizations leverage diversity as a competitive advantage while building equitable environments.</p>
+    <div id="di" class="tab-content hidden space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+        <div class="tab-intro text-center max-w-2xl mx-auto">
+            <h2
+                class="text-3xl font-extrabold text-teal-600 mb-4 transform transition-transform duration-500 hover:scale-105">
+                Diversity & Inclusion
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Foster an inclusive workplace culture that values diversity and promotes belonging. Our programs help
+                organizations leverage diversity as a competitive advantage while building equitable environments.
+            </p>
         </div>
-        <div class="program-grid">
-            <!-- Card 1 -->
-            <div class="program-card" style="--delay: 1">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=500&auto=format&fit=crop"
-                    alt="Inclusive Leadership">
-                <div class="program-content">
-                    <h3>Inclusive Leadership</h3>
-                    <p>Develop leaders who can create and sustain inclusive work environments. This program covers
-                        unconscious bias, inclusive decision-making, and building psychologically safe teams...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+
+        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 100ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/POSHTTT.jpg" alt="Inclusive Leadership"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-teal-600 transition-colors">
+                        POSH (Prevention of Sexual Harassment)
+                    </h3>
+                    <div class="program-description">
+                        <p>Creating Respectful Workspaces: Preventing Sexual Harassment for a Safer Future.</p>
+                        <p><strong>Establishing a secure and respectful workplace that is free from all forms of sexual
+                                harassment requires corporate training in prevention of sexual harassment (POSH).
+                                Employees will learn about the idea of sexual harassment, how it affects people and the
+                                organisation, and how to prevent and deal with such events. The following are
+                                significant topics that POSH corporate training often covers:
+
+                            </strong></p>
+                        <ul>
+                            <li><strong>Understanding Sexual Harassment:</strong> Outlining what sexual harassment is
+                                and what constitutes unprofessional conduct in the workplace. recognising the difference
+                                between overt and covert harassment.
+                            </li>
+                            <li><strong>Legal System and Guidelines:</strong> Employee education about sexual harassment
+                                laws and regulations, including local legislation and the organization’s own policies
+                                and procedures. describing the effects of not complying.
+                            </li>
+                            <li><strong>Creating Awareness:</strong>Spreading knowledge about how sexual harassment
+                                affects victims, the workplace, and total output. teaching workers the value of a
+                                courteous, inclusive workplace atmosphere.
+                            </li>
+                            <li><strong>Privacy and Confidentiality:</strong> Stressing the significance of upholding
+                                privacy and confidentiality throughout the reporting and inquiry process. ensuring that
+                                staff members are aware of their legal rights and the organization’s dedication to
+                                upholding those rights.
+                            </li>
+                            <li><strong>Encouraging Respectful Communication:</strong> Promoting respectful interactions
+                                at work by teaching good communication techniques. putting a focus on the value of
+                                consent, limits, and cultural awareness in business partnerships.
+                            </li>
+                            <li><strong>Procedures for Investigation and Disciplinary Action:</strong> Outlining the
+                                steps taken to investigate claims of sexual harassment and the potential sanctions that
+                                may be imposed on offenders</li>
+                            <li><strong>Regular Refresher Training:</strong> Recognising that POSH training should be a
+                                continuous process, regularly informing staff on any changes to laws or regulations and
+                                reinforcing the important principles through refresher training sessions.
+                            </li>
+                            <li>Identifying many forms of sexual harassment, including verbal, nonverbal, visual, and
+                                physical harassment. Using case studies and examples to assist staff in identifying and
+                                reporting issues.
+                            </li>
+                            <li>Informing staff members of the reporting processes and resources available for sexual
+                                harassment events. urging them to report immediately and without worry of punishment.
+                            </li>
+                            <li>Encourage employees to engage as active bystanders and take action when they see sexual
+                                harassment taking place. presenting methods and plans for securely intervening and
+                                aiding the victim.
+                            </li>
+                            <li>Offering techniques and resources to stop sexual harassment, such as advancing gender
+                                equality, enforcing a zero-tolerance rule, and cultivating an inclusive and respectful
+                                culture.
+                            </li>
+                            Delivering POSH training by knowledgeable instructors with experience who are sensitive to
+                            the needs and concerns of participants is crucial. The instruction ought to be
+                            participatory, allowing for queries, conversations, and experience sharing.
+                            <br>
+                            Organisations should promote a respectful and safe work environment, reduce the incidence of
+                            sexual harassment, and make sure that all employees are informed of their rights and
+                            obligations by offering thorough POSH training.
+
+
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="program-card" style="--delay: 2">
-                <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=500&auto=format&fit=crop"
-                    alt="Unconscious Bias">
-                <div class="program-content">
-                    <h3>Unconscious Bias Awareness</h3>
-                    <p>Understand and mitigate unconscious biases in the workplace. This program helps participants
-                        recognize bias, understand its impact, and develop strategies for fair decision-making...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 200ms">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=500&auto=format&fit=crop"
+                        alt="Unconscious Bias"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-teal-600 transition-colors">
+                        GENDER SENSITIZATION
+                    </h3>
+                    <div class="program-description">
+                        <p>Promoting Understanding: Embracing Gender Sensitization for Inclusive Progress</p>
+                        <p><strong>Psyche Panacea’s GENDER SENSITIZATION program, sometimes referred to as gender
+                                awareness training or gender sensitivity training, aims to increase understanding of
+                                gender-related issues, stereotypes, prejudices, and discrimination. This programme aims
+                                to promote an inclusive and equitable workplace where everyone feels appreciated,
+                                valued, and treated fairly regardless of their gender identification. The following
+                                significant topics are frequently covered in gender sensitization training:
+
+                            </strong></p>
+                        <ul>
+                            <li><strong>Gender-Based Discrimination and Harassment:</strong> Informing participants on
+                                the various types of gender-based discrimination, such as sexual harassment, and
+                                offering advice on how to stop, report, and handle such incidents.
+                            </li>
+                            <li><strong>Organisational Policies and Practises:</strong> Examining current guidelines for
+                                diversity, inclusion, and gender equality. identifying areas for development and talking
+                                about how to make policies and practises more inclusive.
+                            </li>
+                            <li><strong>Building Support:</strong> Motivating participants to support and act as allies
+                                for gender equality. looking at ways to empower people and build a network of support to
+                                handle gender-related difficulties at work.
+                            </li>
+                            <li><strong>Case Studies and Group Discussions:</strong> Case studies, scenarios, and group
+                                discussions are used to promote learning, the sharing of personal experiences, and
+                                conversation about the opportunities and problems specific to gender.
+                            </li>
+                            <li>Investigating the impact of society and cultural norms on gender stereotypes and
+                                prejudices is key to understanding them. demonstrating how these prejudices might
+                                restrict opportunity and support discrimination.
+                            </li>
+                            <li>Raising awareness of unconscious biases and how they may affect communications,
+                                professional interactions, and decision-making. assisting participants in recognising
+                                and overcoming their own biases.
+                            </li>
+                            <li>Promoting the use of inclusive language and considerate communication that recognises
+                                and respects the variety of gender identities and expressions. discussing the use of
+                                pronouns and other issues.
+                            </li>
+                            <li>Realising how gender and other social identities, such as race, ethnicity, disability,
+                                and socioeconomic status, are intertwined. recognising the particular difficulties that
+                                people who have numerous identities encounter.
+                            </li>
+                            The training encourages open discussions and sharing of viewpoints, it is crucial to include
+                            participants through interactive techniques, offer real-world examples, and make sure the
+                            training is applicable to the context of their workplaces. Our training is tailor-made to
+                            suit a company’s need and requirement, in accordance with the varied workplace culture, the
+                            training offers an opportunity for all employees to grow and contribute to their full
+                            potential by implementing gender sensitization training.
+
+
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div class="program-card" style="--delay: 3">
-                <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?q=80&w=500&auto=format&fit=crop"
-                    alt="Inclusive Culture">
-                <div class="program-content">
-                    <h3>Building Inclusive Cultures</h3>
-                    <p>Learn how to create organizational cultures where diversity thrives. This program focuses on
-                        systemic inclusion, equitable practices, and measuring inclusion impact...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 300ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/POSHTTT.jpg" alt="Inclusive Culture"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-teal-600 transition-colors">
+                        POSH TTT
+                    </h3>
+                    <div class="program-description">
+                        <p>Learn how to create organizational cultures where diversity thrives.</p>
+                        <p><strong>POSH, which stands for &quot;Prevention of Sexual Harassment,&quot; is a legal and
+                                organizational framework designed to prevent and address sexual harassment in the
+                                workplace. To conduct effective POSH training within an organization, it is often
+                                necessary to have a &quot;Train the Trainer&quot; program POSH TTT program is designed
+                                to provide employees the skills, resources, and tactics they need to become a skilled
+                                trainer in sexual harassment prevention and response in the workplace. By mastering this
+                                essential skill, employees will contribute to creating safe and respectful work
+                                environments for all.
+                            </strong></p>
+                        <ul>
+                            <li>Employees, supervisors, and other staff members can get training from our expert POSH
+                                trainers on sexual harassment prevention, reporting, and how to handle complaints.
+                                Through a lot of interactive sessions, mock and role plays, and case study discussions,
+                                our expert Trainers train the employees
+                                who can then train other employees on various topics, such as:
+
+                            </li>
+                            <li><strong>Posh background and significance
+                                </strong></li>
+                            <li><strong>Policies</strong></li>
+                            <li><strong>Laws</strong></li>
+                            <li><strong>Processes & Protocols
+                                </strong></li>
+                            <li><strong>TTT fundamentals and principles</strong></li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Card 4 -->
-            <div class="program-card" style="--delay: 4">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=500&auto=format&fit=crop"
-                    alt="Diverse Teams">
-                <div class="program-content">
-                    <h3>Managing Diverse Teams</h3>
-                    <p>Develop skills to effectively lead and leverage diverse teams. This program covers cross-cultural
-                        communication, conflict resolution in diverse settings, and maximizing team potential...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+            <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                style="--delay: 400ms">
+                <div class="overflow-hidden">
+                    <img src="/images/flagship-programs/herizons.jpg" alt="HERizons"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-teal-600 transition-colors">
+                        HERizons
+                    </h3>
+                    <div class="program-description">
+                        <p>STRONGER TOGETHER: WOMEN'S EMPOWERMENTJOURNEY</p>
+                        <p>Our “HERizons ” workshop series is designed to provide a platform for women to enhance their
+                            skills, confidence, and leadership abilities. The series will consist of engaging sessions
+                            led by industry experts and thought leaders, covering a wide range of topics that are
+                            crucial for personal and professional development.
+
+                            These different workshop series is an opportunity to connect, learn, and collaborate with
+                            fellow women professionals, sharing experiences and insights that can inspire and empower
+                            one another. Whether you’re just starting your career journey or aiming to reach new
+                            heights, these workshops will equip you with valuable tools and perspectives.
+
+                            <strong>The following are significant topics that Herizons covers are:</strong>
+                        </p>
+                        <ul>
+                            <li><strong>Understanding Resilience:
+
+                                </strong> Resilience is the ability to overcome adversity and successfully deal with
+                                challenging situations. It’s important to approach obstacles with an attitude that
+                                promotes learning and progress rather than trying to avoid them. Understanding that
+                                setbacks are a normal part of life and that they can present worthwhile chances for
+                                personal growth is essential to developing resilience.
+
+                            </li>
+                            <li><strong>Developing Emotional Intelligence:
+
+                                </strong> In order to comprehend and control our own emotions as well as to recognise
+                                and regulate the emotions of others, emotional intelligence (EI) is crucial. Enhancing
+                                abilities like self-awareness, self-regulation, empathy, and social skills are all part
+                                of developing emotional intelligence.
+
+                            </li>
+                            <li><strong>Building Resilience: Coping with Adversity:
+
+                                </strong> includes methods and tactics that may be used to overcome obstacles more
+                                successfully. This may entail rephrasing troubling circumstances, asking loved ones for
+                                assistance, making achievable goals, and putting more emphasis on problem-solving than
+                                problem-dwelling.
+
+                            </li>
+                            <li><strong>Cultivating Emotional Intelligence: Empathy and Self-Awareness:
+
+                                </strong>They are crucial for effectively controlling strong emotions. Deep breathing,
+                                mindfulness, and cognitive reframing are some of the methods used in this process to
+                                curb impulsive behaviour and foster intelligent decision-making.
+
+                            </li>
+                            <li><strong>Developing Positive Relationships:
+
+                                </strong>Highlights the value of strong relationships in both our personal and
+                                professional life. This entails fostering empathy within relationships and engaging in
+                                effective communication.
+
+                            </li>
+                            <li><strong>Practicing Mindfulness and Self-Compassion:
+
+                                </strong>Encourages treating oneself kindly and compassionately as well as living in the
+                                present moment. This can aid in stress management and the development of inner serenity.
+
+                            </li>
+                            <li><strong>Overcoming Obstacles and Building Resilience Muscle:
+
+                                </strong>Focuses on overcoming obstacles to flourish, encouraging an attitude of
+                                flexibility and tenacity.
+
+                            </li>
+                            <li><strong>Emotional Intelligence in Leadership and Teamwork:
+
+                                </strong>Demonstrates how emotional intelligence improves team performance, leadership
+                                effectiveness, and overall organisational success.
+
+                            </li>
+                            <li><strong>Compassionate Communication:
+
+                                </strong>Involves expressing our views and opinions clearly but also taking into account
+                                the needs and sentiments of others. It emphasises empathy, open-mindedness, and active
+                                listening. We may promote understanding, settle disputes, and create enduring
+                                connections by engaging in compassionate communication. As it fosters cooperation,
+                                mutual respect, and trust, this talent is especially important in leadership and
+                                workgroup contexts.
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Sahyog -->
-    <div id="sahyog" class="tab-content">
-        <div class="tab-intro">
-            <h2>Sahyog Wellness Program</h2>
-            <p>Promote employee well-being and mental health through our comprehensive wellness initiatives. Sahyog
-                focuses on holistic wellness, stress management, and creating supportive work environments.</p>
-        </div>
-        <div class="program-grid">
-            <!-- Card 1 -->
-            <div class="program-card" style="--delay: 1">
-                <img src="https://images.unsplash.com/photo-1491841573634-28140fc7ced7?q=80&w=500&auto=format&fit=crop"
-                    alt="Mental Wellness">
-                <div class="program-content">
-                    <h3>Mental Wellness & Resilience</h3>
-                    <p>Develop strategies for maintaining mental health and building resilience. This program covers
-                        stress management techniques, mindfulness practices, and emotional intelligence...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+    <!-- Sahyog Wellness Program -->
+    <div id="sahyog" class="tab-content hidden space-y-12 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+        <!-- Enlarged Flip‐Card Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Card #1 -->
+            <div class="card-perspective group">
+                <div
+                    class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                    <!-- Front Face -->
+                    <div
+                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-lg flex flex-col items-center justify-center p-6">
+                        <img src="/images/flagship-programs/wellness-report-psypan-1.jpg"
+                            alt="Workplace/Mental Health Counselling" class="w-16 h-16 mb-4" />
+                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            Workplace/Mental Health Counselling
+                        </h3>
+                    </div>
+
+                    <!-- Back Face -->
+                    <div
+                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-xl p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">
+                            Workplace/Mental Health Counselling
+                        </h3>
+                        <img src="/images/flagship-programs/wellness-report-psypan-1.jpg"
+                            alt="Workplace/Mental Health Counselling" class="w-24 h-24 mb-4 mx-auto rounded-full" />
+                        <p class="text-gray-700 leading-relaxed">
+                            Nurturing growth and well-being through tailored workspace counseling.
+                        </p>
+                        <p class="text-gray-700 mt-2">
+                            Workplace counselling is a proactive strategy, confidential, and supportive service offered
+                            within an organisation to assist workers in addressing personal, emotional, and
+                            psychological difficulties that might affect their well-being, productivity, and general
+                            sense of satisfaction. It involves qualified therapists or counsellors who provide a
+                            private, judgment-free setting for staff members to voice their worries and get advice.
+                            Workplace counselling seeks to enhance productivity, foster mental wellness, and foster a
+                            more positive work atmosphere.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="program-card" style="--delay: 2">
-                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop"
-                    alt="Work-Life Integration">
-                <div class="program-content">
-                    <h3>Work-Life Integration</h3>
-                    <p>Learn strategies for achieving sustainable work-life integration. This program covers boundary
-                        setting, time management, and creating supportive routines for overall well-being...</p>
-                    <span class="read-more">Read more</span>
-                    <a href="contact.html" class="btn">Contact Us</a>
+            <!-- Card #2 -->
+            <div class="card-perspective group">
+                <div
+                    class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                    <!-- Front Face -->
+                    <div
+                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-lg flex flex-col items-center justify-center p-6">
+                        <img src="/images/flagship-programs/Employee-Assessment-Psypan.jpg" alt="Wellness Assessment"
+                            class="w-16 h-16 mb-4" />
+                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            Wellness Assessment
+                        </h3>
+                    </div>
+
+                    <!-- Back Face -->
+                    <div
+                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-xl p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-green-600 mb-2">
+                            Wellness Assessment
+                        </h3>
+                        <img src="/images/flagship-programs/Employee-Assessment-Psypan.jpg" alt="Wellness Assessment"
+                            class="w-24 h-24 mb-4 mx-auto rounded-full" />
+                        <p class="text-gray-700 leading-relaxed">
+                            Fostering well-being through thorough wellness assessments.
+                        </p>
+                        <p class="text-gray-700 mt-2">
+                            A wellness assessment at work is a methodical procedure that analyses workers’ general
+                            health and wellbeing, identifies areas for development, and offers guidance for putting
+                            wellness programmes into practise. To develop a comprehensive knowledge of employees’
+                            wellbeing state, data regarding their physical health, mental health, and lifestyle aspects
+                            are collected. This evaluation is the basis for developing targeted wellness initiatives and
+                            tactics that support a more productive and healthy staff.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card #3 -->
+            <div class="card-perspective group">
+                <div
+                    class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                    <!-- Front Face -->
+                    <div
+                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-lg flex flex-col items-center justify-center p-6">
+                        <img src="/images/flagship-programs/Employee-Wellness-survey.jpg"
+                            alt="Wellness Survey of Employee" class="w-16 h-16 mb-4" />
+                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            Wellness Survey of Employee
+                        </h3>
+                    </div>
+
+                    <!-- Back Face -->
+                    <div
+                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-xl p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-blue-600 mb-2">
+                            Wellness Survey of Employee
+                        </h3>
+                        <img src="/images/flagship-programs/Employee-Wellness-survey.jpg"
+                            alt="Wellness Survey of Employee" class="w-24 h-24 mb-4 mx-auto rounded-full" />
+                        <p class="text-gray-700 leading-relaxed">
+                            Exploring well-being through a comprehensive wellness survey.
+                        </p>
+                        <p class="text-gray-700 mt-2">
+                            Wellness Assessment Team Psyche Panacea with their expert psychologist to understand pain
+                            areas of employees administers psychometric tools used for different pain areas and concerns
+                            which varies depending upon employees, here are some of the tools used:
+                        </p>
+                        <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+                            <li>Depression Inventory (individual/group setting)</li>
+                            <li>Anxiety Inventory (individual/group setting)</li>
+                            <li>Rorschach Inkblot Test</li>
+                            <li>Thematic Apperception Test</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card #4 -->
+            <div class="card-perspective group">
+                <div
+                    class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                    <!-- Front Face -->
+                    <div
+                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-lg flex flex-col items-center justify-center p-6">
+                        <img src="/images/flagship-programs/employee-wellness-report-3.jpg"
+                            alt="Employee Wellness Report" class="w-16 h-16 mb-4" />
+                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            Employee Wellness Report
+                        </h3>
+                    </div>
+
+                    <!-- Back Face -->
+                    <div
+                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-xl p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-purple-600 mb-2">
+                            Employee Wellness Report
+                        </h3>
+                        <img src="/images/flagship-programs/employee-wellness-report-3.jpg"
+                            alt="Employee Wellness Report" class="w-24 h-24 mb-4 mx-auto rounded-full" />
+                        <p class="text-gray-700 leading-relaxed">
+                            Nurturing Success: Empowering insights through employee wellness reports.
+                        </p>
+                        <p class="text-gray-700 mt-2">
+                            A wellness report is a thorough document that summarises the conclusions, research, and
+                            suggestions from a wellness assessment or survey carried out inside an organisation.
+                            Employers and other stakeholders may use this report as a useful tool to learn more about
+                            the health, happiness, and lifestyle habits of their employees. It offers perceptions into
+                            areas for improvement, recognises patterns, and suggests tactics to improve the general
+                            well-being of the workforce.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 2) “Why our EAP stands out” section (Screenshot 2) -->
+        <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="space-y-4">
+                <span class="inline-block bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    👍 why our EAP stands out
+                </span>
+                <h3 class="text-2xl font-bold text-gray-900">
+                    Our Employee Assistance Program (EAP) goes beyond the ordinary, offering comprehensive support to
+                    ensure your employees' well-being, productivity, and overall satisfaction.
+                </h3>
+                <p class="text-gray-700">
+                    Employee assistance services provide resources and support to employees to improve their physical
+                    and emotional well-being, such as stress management and counseling services. Reduced absenteeism,
+                    increased productivity, enhanced employee retention, and a beneficial influence on the general
+                    health and well-being of the workforce are all advantages of these trainings. We assist employee
+                    grievances such as stress, burnout, anxiety, depression, workplace discord, personal problems like
+                    marital issues, parenting, boss–subordinate relationships, work pressure, extra-marital etc.
+                </p>
+                <p class="text-gray-700">
+                    Statistics show that nearly half of the employees in India are suffering from mental health
+                    problems, some of the major ones being depression and stress. This affects their work performance
+                    negatively and greatly reduces their productivity and happiness. Our program focuses on this problem
+                    and helps companies tackle it in a time-efficient and constructive manner.
+                </p>
+                <p class="text-gray-700">
+                    Team Psyche Panacea <strong>offers SAHYOG : An EAP Initiative</strong> in corporate to cater to
+                    Employee’s Grievances pertaining to Personal as well as Professional issues, which leads to Mental
+                    Health Problems. Employee Assistance Programs (EAPs) provide a range of services that can be
+                    effective in addressing mental health problems. These programs typically include confidential
+                    counseling and support to help employees deal with personal and work-related concerns, including
+                    mental health issues and more.
+                </p>
+            </div>
+            <div class="overflow-hidden rounded-lg shadow-lg animate-fade-in-right">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop"
+                    alt="Creating Environment Where Employees Thrive" class="w-full h-full object-cover" />
+            </div>
+        </div>
+
+        <!-- 3) The two Sahyog program‐cards with subtle entrance animation -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="program-card group bg-pink-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-all duration-700 hover:-translate-y-2 animate-fade-in-up"
+                style="animation-delay: 100ms">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1491841573634-28140fc7ced7?q=80&w=500&auto=format&fit=crop"
+                        alt="Mental Wellness"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-pink-600 transition-colors">
+                        Mental Wellness & Resilience
+                    </h3>
+                    <p class="text-gray-600 text-sm leading-snug">
+                        Develop strategies for maintaining mental health and building resilience. This program covers
+                        stress management techniques, mindfulness practices, emotional intelligence development, and
+                        building resilience in challenging situations.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <span class="read-more text-pink-500 text-sm font-medium hover:underline">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-pink-600 text-white rounded hover:bg-pink-700">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card group bg-pink-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-all duration-700 hover:-translate-y-2 animate-fade-in-up"
+                style="animation-delay: 200ms">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop"
+                        alt="Work-Life Integration"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="program-content p-5 space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-pink-600 transition-colors">
+                        Work-Life Integration
+                    </h3>
+                    <p class="text-gray-600 text-sm leading-snug">
+                        Learn strategies for achieving sustainable work-life integration through boundary setting, time
+                        management, and supportive routines to prevent burnout.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <span class="read-more text-pink-500 text-sm font-medium hover:underline">
+                            Read more
+                        </span>
+                        <a href="contact.html"
+                            class="btn inline-block px-4 py-2 text-sm font-medium bg-pink-600 text-white rounded hover:bg-pink-700">
+                            Contact Us
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
@@ -988,8 +1742,9 @@
     </footer>
 
     <!-- Chatbot -->
-    <div class="chatbot">
-        <div id="chatbotToggle" class="chatbot-toggle">
+    <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
+        <div id="chatbotToggle"
+            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
                 <path
                     d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
@@ -998,22 +1753,28 @@
             </svg>
         </div>
 
-        <div id="chatbotWindow" class="chatbot-window">
-            <div class="chatbot-header">
-                <span>Psyche Panacea Assistant</span>
-                <span id="chatbotClose" class="chatbot-close">×</span>
+        <div id="chatbotWindow"
+            class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+            <div
+                class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+                <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
+                <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
             </div>
 
-            <div id="chatbotBody" class="chatbot-body">
-                <div class="chatbot-message bot">
-                    Welcome! How can I assist with our flagship programs today?
+            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
+                <div
+                    class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
+                    Welcome! How can I assist with your training goals today?
                 </div>
             </div>
 
-            <div class="chatbot-input">
-                <input id="chatbotInput" type="text" placeholder="Ask about our programs...">
-                <button id="chatbotSend">
-                    <i class="fas fa-paper-plane"></i>
+            <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
+                <input id="chatbotInput" type="text"
+                    class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
+                    placeholder="Ask about our programs...">
+                <button id="chatbotSend"
+                    class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
+                    Send
                 </button>
             </div>
         </div>
@@ -1061,19 +1822,23 @@
         function initReadMore() {
             document.querySelectorAll('.read-more').forEach(button => {
                 button.addEventListener('click', function () {
-                    const content = this.previousElementSibling;
-                    if (content.classList.contains('expanded')) {
-                        content.classList.remove('expanded');
-                        this.textContent = 'Read more';
-                    } else {
-                        content.classList.add('expanded');
+                    const card = this.closest('.program-card');
+                    const description = card.querySelector('.program-description');
+
+                    // Toggle expanded class for this specific description
+                    description.classList.toggle('expanded');
+
+                    // Update text based on current state
+                    if (description.classList.contains('expanded')) {
                         this.textContent = 'Read less';
+                    } else {
+                        this.textContent = 'Read more';
                     }
                 });
             });
         }
 
-        // Chatbot Functionality
+        // Chatbot Functionality - Fixed and enhanced
         function toggleChatbot() {
             const chatbotWindow = document.getElementById('chatbotWindow');
             chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
@@ -1086,13 +1851,13 @@
 
             const chatbotBody = document.getElementById('chatbotBody');
             const userMessage = document.createElement('div');
-            userMessage.className = 'chatbot-message user';
+            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
             userMessage.textContent = message;
             chatbotBody.appendChild(userMessage);
 
             // Simulate bot response with typing indicator
             const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'chatbot-message bot';
+            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
             typingIndicator.textContent = 'Typing...';
             chatbotBody.appendChild(typingIndicator);
             chatbotBody.scrollTop = chatbotBody.scrollHeight;
@@ -1100,7 +1865,7 @@
             setTimeout(() => {
                 chatbotBody.removeChild(typingIndicator);
                 const botMessage = document.createElement('div');
-                botMessage.className = 'chatbot-message bot';
+                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
                 botMessage.textContent = getBotResponse(message);
                 chatbotBody.appendChild(botMessage);
                 chatbotBody.scrollTop = chatbotBody.scrollHeight;
@@ -1112,18 +1877,26 @@
 
         function getBotResponse(message) {
             const lowerMessage = message.toLowerCase();
-            if (lowerMessage.includes('management') || lowerMessage.includes('mdp'))
-                return 'Our Management Development Programs focus on strategic leadership, team management, and organizational change.';
-            if (lowerMessage.includes('train') || lowerMessage.includes('ttt'))
-                return 'Train the Trainer program equips your internal trainers with facilitation skills and content development expertise.';
-            if (lowerMessage.includes('diversity') || lowerMessage.includes('inclusion'))
-                return 'Our D&I programs include Inclusive Leadership, Unconscious Bias Awareness, and Building Inclusive Cultures.';
-            if (lowerMessage.includes('sahyog') || lowerMessage.includes('wellness'))
-                return 'Sahyog is our wellness program focusing on mental health, resilience, and work-life integration.';
             if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-                return 'Our office is at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-            return 'I\'m here to help with our flagship programs. Could you tell me more about your specific interests?';
+                return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+            if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+                return 'You can reach us at +91 9810319292 or +91 9810323292.';
+            if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+                return 'For inquiries, please email us at hr@psypanconsulting.com';
+            if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+                return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+            if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+                return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+            return 'I’m here to help! Could you share more details about your query?';
         }
+
+        // Set up chatbot event listeners
+        document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+        document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+        document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+        document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
 
         // Mobile Menu Toggle
         function initMobileMenu() {
