@@ -1007,7 +1007,7 @@
                 <div class="stat-card-inner">
                   <div
                     class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter" data-target="350">0</div>
+                    <div class="text-4xl font-bold mb-2 counter">350+</div>
                     <div class="text-center">Companies</div>
                   </div>
                   <div
@@ -1020,7 +1020,7 @@
                 <div class="stat-card-inner">
                   <div
                     class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter" data-target="22">0</div>
+                    <div class="text-4xl font-bold mb-2 counter">24+</div>
                     <div class="text-center">Years Experience</div>
                   </div>
                   <div
@@ -1033,7 +1033,7 @@
                 <div class="stat-card-inner">
                   <div
                     class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter" data-target="300">0</div>
+                    <div class="text-4xl font-bold mb-2 counter">300+</div>
                     <div class="text-center">Training Associates</div>
                   </div>
                   <div
@@ -1046,7 +1046,7 @@
                 <div class="stat-card-inner">
                   <div
                     class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter" data-target="300000">0</div>
+                    <div class="text-4xl font-bold mb-2 counter">300000+</div>
                     <div class="text-center">Participants Trained</div>
                   </div>
                   <div
@@ -1991,26 +1991,7 @@
         observer.observe(el);
       });
 
-      // Counter animation
-      const counters = document.querySelectorAll('.counter');
-      counters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16);
-        let current = 0;
-
-        const updateCounter = () => {
-          current += increment;
-          if (current < target) {
-            counter.textContent = Math.ceil(current);
-            requestAnimationFrame(updateCounter);
-          } else {
-            counter.textContent = target.toLocaleString();
-          }
-        };
-
-        updateCounter();
-      });
+      
 
       // Tab functionality
       const tabButtons = document.querySelectorAll('.tab-button');

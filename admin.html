@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Psyche Panacea</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0052cc',
+            secondary: '#4da8ff',
+            dark: '#1a1a1a',
+            light: '#f8f9fa',
+            accent: '#f59e0b',
+            admin: '#0d1530',
+            adminLight: '#1a2a5a'
+          },
+          fontFamily: {
+            sans: ['Noto Sans', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 1s ease-out',
+            'slide': 'slide 25s linear infinite',
+            'popup-fade': 'popupFadeIn 0.5s ease forwards',
+            'slide-up': 'slideUp 0.5s ease forwards',
+            'message-fade': 'messageFadeIn 0.3s ease',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              from: { opacity: 0 },
+              to: { opacity: 1 },
+            },
+            slide: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(-100%)' },
+            },
+            popupFadeIn: {
+              from: { transform: 'scale(0.7)', opacity: 0 },
+              to: { transform: 'scale(1)', opacity: 1 },
+            },
+            slideUp: {
+              from: { transform: 'translateY(30px)', opacity: 0 },
+              to: { transform: 'translateY(0)', opacity: 1 },
+            },
+            messageFadeIn: {
+              from: { opacity: 0, transform: 'translateY(10px)' },
+              to: { opacity: 1, transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            }
+          }
+        }
+      }
+    }
+    
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+      authDomain: "psypanweb-7747a.firebaseapp.com",
+      projectId: "psypanweb-7747a",
+      storageBucket: "psypanweb-7747a.firebasestorage.app",
+      messagingSenderId: "441049264188",
+      appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+      measurementId: "G-C1CTMX729Z"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #0d1530;
+      color: #f8f9fa;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .admin-container {
+      background: linear-gradient(135deg, #0d1530 0%, #1a2a5a 100%);
+    }
+
+    .admin-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .admin-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 82, 204, 0.2);
+    }
+
+    .tab-gradient {
+      background: linear-gradient(135deg, #0052cc, #4da8ff);
+    }
+
+    /* Tab Navigation */
+    .tab-nav {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .tab-btn {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+      color: #aaa;
+    }
+
+    .tab-btn.active {
+      color: #4da8ff;
+      border-bottom: 3px solid #4da8ff;
+      background: rgba(0, 82, 204, 0.1);
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: rgba(0, 82, 204, 0.2);
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #0d1f3d, #1a2a5a);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 82, 204, 0.3);
+    }
+
+    .form-input {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .form-input:focus {
+      border-color: #4da8ff;
+      box-shadow: 0 0 0 3px rgba(77, 168, 255, 0.2);
+    }
+
+    .blog-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .blog-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0052cc, #4da8ff);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 82, 204, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #cc0000, #ff4d4d);
+      transition: all 0.3s ease;
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .locked-out {
+      animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translateX(-1px); }
+      20%, 80% { transform: translateX(2px); }
+      30%, 50%, 70% { transform: translateX(-4px); }
+      40%, 60% { transform: translateX(4px); }
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateX(100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .notification.success {
+      background: linear-gradient(135deg, #00b09b, #96c93d);
+    }
+    
+    .notification.error {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    }
+    
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="admin-container min-h-screen flex flex-col">
+  <!-- Notification System -->
+  <div id="notification" class="notification hidden">
+    <span id="notification-message"></span>
+  </div>
+  
+  <!-- Admin Login Section -->
+  <section id="login-section" class="flex-grow flex items-center justify-center p-4">
+    <div class="admin-card max-w-md w-full p-8 rounded-2xl shadow-xl">
+      <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+          <div class="bg-gradient-to-r from-primary to-blue-600 p-3 rounded-xl">
+            <i class="fas fa-lock text-white text-3xl"></i>
+          </div>
+        </div>
+        <h2 class="text-3xl font-bold text-white mb-2">Admin Panel</h2>
+        <p class="text-blue-300">Psyche Panacea Content Management</p>
+      </div>
+      
+      <form id="login-form" class="space-y-6">
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-300 mb-1">Username</label>
+          <input type="text" id="username" name="username" class="form-input w-full p-3 rounded-lg" placeholder="Enter username" required>
+        </div>
+        
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+          <input type="password" id="password" name="password" class="form-input w-full p-3 rounded-lg" placeholder="Enter password" required>
+        </div>
+        
+        <div class="text-red-400 text-sm h-5" id="login-error"></div>
+        
+        <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-white flex items-center justify-center">
+          <span id="login-btn-text">Login</span>
+          <span id="login-spinner" class="ml-2 hidden"><i class="fas fa-spinner spinner"></i></span>
+        </button>
+        
+        <div class="text-center text-sm text-gray-400 mt-4">
+          <p id="attempts-info">Login attempts remaining: 3</p>
+          <p id="lockout-info" class="text-red-400 hidden">Account locked for 1 hour</p>
+        </div>
+      </form>
+    </div>
+  </section>
+  
+  <!-- Admin Panel (Initially Hidden) -->
+  <section id="admin-panel" class="hidden flex-grow p-4 max-w-6xl mx-auto w-full">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold text-white mb-4">Psyche Panacea Admin</h1>
+      <div class="h-1 w-24 bg-gradient-to-r from-primary to-blue-600 mx-auto rounded mb-4"></div>
+      <p class="text-blue-300 max-w-2xl mx-auto">Manage your website content, blogs, and statistics with this secure admin panel</p>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="blogs">Blogs Management</button>
+      <button class="tab-btn" data-tab="statistics">Website Statistics</button>
+    </div>
+    
+    <!-- Blogs Tab Content -->
+    <div id="blogs" class="tab-content active">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Add Blog Form -->
+        <div class="admin-card p-6">
+          <h3 class="text-xl font-bold text-white mb-4">Add New Blog</h3>
+          <form id="blog-form" class="space-y-4">
+            <input type="hidden" id="blog-id">
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Title</label>
+              <input type="text" id="blog-title" class="form-input w-full p-3 rounded-lg" placeholder="Blog title" required>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Image</label>
+              <div class="flex space-x-2">
+                <input type="text" id="blog-image" class="form-input w-full p-3 rounded-lg" placeholder="Image URL" required>
+                <button type="button" id="upload-image" class="btn-secondary px-4 rounded-lg">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                </button>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">Upload an image or paste a direct URL</p>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Content</label>
+              <textarea id="blog-content" rows="6" class="form-input w-full p-3 rounded-lg" placeholder="Blog content..." required></textarea>
+            </div>
+            
+            <div class="flex space-x-3 pt-2">
+              <button type="submit" id="save-blog" class="btn-primary flex-1 py-3 rounded-lg font-bold flex items-center justify-center">
+                <span id="save-btn-text">Save Blog</span>
+                <span id="save-spinner" class="ml-2 hidden"><i class="fas fa-spinner spinner"></i></span>
+              </button>
+              <button type="button" id="cancel-edit" class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Blog List -->
+        <div class="admin-card p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-white">Blog Posts</h3>
+            <div class="text-sm text-gray-400" id="blog-count">0 blogs</div>
+          </div>
+          
+          <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2" id="blogs-list">
+            <!-- Blogs will be loaded here -->
+            <div class="text-center py-10 text-gray-500">
+              <i class="fas fa-file-alt text-4xl mb-3"></i>
+              <p>No blog posts found</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Statistics Tab Content -->
+    <div id="statistics" class="tab-content">
+      <div class="admin-card p-6">
+        <h3 class="text-xl font-bold text-white mb-6">Website Statistics</h3>
+        <p class="text-gray-400 mb-6">Update the statistics displayed on the website homepage.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Companies -->
+          <div class="stat-card p-6 text-center">
+            <div class="text-5xl font-bold text-primary mb-3" id="companies-value">350+</div>
+            <h4 class="text-lg font-semibold text-white mb-2">Companies</h4>
+            <button class="btn-secondary w-full py-2 rounded-lg edit-stat" data-id="companies">Edit</button>
+          </div>
+          
+          <!-- Experience -->
+          <div class="stat-card p-6 text-center">
+            <div class="text-5xl font-bold text-primary mb-3" id="experience-value">24+</div>
+            <h4 class="text-lg font-semibold text-white mb-2">Years Experience</h4>
+            <button class="btn-secondary w-full py-2 rounded-lg edit-stat" data-id="experience">Edit</button>
+          </div>
+          
+          <!-- Associates -->
+          <div class="stat-card p-6 text-center">
+            <div class="text-5xl font-bold text-primary mb-3" id="associates-value">300+</div>
+            <h4 class="text-lg font-semibold text-white mb-2">Training Associates</h4>
+            <button class="btn-secondary w-full py-2 rounded-lg edit-stat" data-id="associates">Edit</button>
+          </div>
+          
+          <!-- Participants -->
+          <div class="stat-card p-6 text-center">
+            <div class="text-5xl font-bold text-primary mb-3" id="participants-value">3,00,000+</div>
+            <h4 class="text-lg font-semibold text-white mb-2">Participants Trained</h4>
+            <button class="btn-secondary w-full py-2 rounded-lg edit-stat" data-id="participants">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Logout Button -->
+    <div class="text-center mt-10">
+      <button id="logout-btn" class="btn-danger px-6 py-3 rounded-lg font-bold">
+        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+      </button>
+    </div>
+  </section>
+  
+  <!-- Edit Stat Modal -->
+  <div id="edit-stat-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
+    <div class="admin-card max-w-md w-full p-6 rounded-2xl">
+      <h3 class="text-xl font-bold text-white mb-4">Edit Statistic</h3>
+      <div class="mb-4">
+        <label id="stat-label" class="block text-sm font-medium text-gray-300 mb-1"></label>
+        <input type="text" id="stat-value" class="form-input w-full p-3 rounded-lg" placeholder="Enter value">
+      </div>
+      <div class="flex space-x-3">
+        <button id="cancel-edit-stat" class="btn-secondary flex-1 py-3 rounded-lg font-bold">Cancel</button>
+        <button id="save-stat" class="btn-primary flex-1 py-3 rounded-lg font-bold flex items-center justify-center">
+          <span id="save-stat-text">Save</span>
+          <span id="save-stat-spinner" class="ml-2 hidden"><i class="fas fa-spinner spinner"></i></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Admin credentials (hashed with CryptoJS)
+    const ADMIN_USERNAME = CryptoJS.SHA256("admin123").toString();
+    const ADMIN_PASSWORD = CryptoJS.SHA256("admin@123").toString();
+    
+    // Login state management
+    let loginAttempts = 3;
+    let isLocked = false;
+    let lockTimeout = null;
+    let currentStatEditing = null;
+    
+    // DOM Elements
+    const loginSection = document.getElementById('login-section');
+    const adminPanel = document.getElementById('admin-panel');
+    const loginForm = document.getElementById('login-form');
+    const logoutBtn = document.getElementById('logout-btn');
+    const loginError = document.getElementById('login-error');
+    const attemptsInfo = document.getElementById('attempts-info');
+    const lockoutInfo = document.getElementById('lockout-info');
+    const notification = document.getElementById('notification');
+    const notificationMessage = document.getElementById('notification-message');
+    
+    // Notification system
+    function showNotification(message, isSuccess = true) {
+      notificationMessage.textContent = message;
+      notification.className = 'notification';
+      notification.classList.add(isSuccess ? 'success' : 'error', 'show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Initialize Cloudinary with provided settings
+    const cloudinaryWidget = cloudinary.createUploadWidget({
+      cloudName: 'dhwanw6f7',
+      uploadPreset: 'psychepan_unsigned'
+    }, (error, result) => {
+      if (!error && result && result.event === "success") {
+        document.getElementById('blog-image').value = result.info.secure_url;
+        showNotification('Image uploaded successfully!');
+      } else if (error) {
+        showNotification('Error uploading image: ' + error.message, false);
+      }
+    });
+    
+    // Initialize Firebase Firestore
+    const blogsCollection = db.collection("blogs");
+    const statsCollection = db.collection("numdata");
+    
+    // Login functionality
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (isLocked) {
+        loginError.textContent = "Account locked. Try again later.";
+        return;
+      }
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // Show loading spinner
+      document.getElementById('login-spinner').classList.remove('hidden');
+      document.getElementById('login-btn-text').textContent = 'Authenticating...';
+      
+      // Hash inputs for comparison
+      const hashedUsername = CryptoJS.SHA256(username).toString();
+      const hashedPassword = CryptoJS.SHA256(password).toString();
+      
+      // Simulate delay for security
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      if (hashedUsername === ADMIN_USERNAME && hashedPassword === ADMIN_PASSWORD) {
+        // Authenticate with Firebase anonymously to get permissions
+        try {
+          await auth.signInAnonymously();
+          // Successful login
+          loginSection.classList.add('hidden');
+          adminPanel.classList.remove('hidden');
+          loadBlogs();
+          loadStats();
+          showNotification('Login successful!');
+        } catch (authError) {
+          console.error("Firebase auth error: ", authError);
+          showNotification('Authentication error: ' + authError.message, false);
+        }
+      } else {
+        // Failed login
+        loginAttempts--;
+        attemptsInfo.textContent = `Login attempts remaining: ${loginAttempts}`;
+        
+        if (loginAttempts <= 0) {
+          isLocked = true;
+          lockoutInfo.classList.remove('hidden');
+          loginForm.classList.add('locked-out');
+          
+          // Lock account for 1 hour
+          lockTimeout = setTimeout(() => {
+            isLocked = false;
+            loginAttempts = 3;
+            lockoutInfo.classList.add('hidden');
+            attemptsInfo.textContent = `Login attempts remaining: 3`;
+            loginForm.classList.remove('locked-out');
+          }, 3600000); // 1 hour
+        }
+        
+        loginError.textContent = "Invalid username or password";
+        showNotification('Invalid username or password', false);
+      }
+      
+      // Hide loading spinner
+      document.getElementById('login-spinner').classList.add('hidden');
+      document.getElementById('login-btn-text').textContent = 'Login';
+    });
+    
+    // Logout functionality
+    logoutBtn.addEventListener('click', () => {
+      // Sign out from Firebase
+      auth.signOut();
+      
+      adminPanel.classList.add('hidden');
+      loginSection.classList.remove('hidden');
+      // Clear form
+      loginForm.reset();
+      loginError.textContent = "";
+      showNotification('You have been logged out');
+    });
+    
+    // Cloudinary upload trigger
+    document.getElementById('upload-image').addEventListener('click', () => {
+      cloudinaryWidget.open();
+    });
+    
+    // Tab functionality
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        // Hide all tab content
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        // Show target tab content
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+    
+    // Load blogs from Firestore
+    async function loadBlogs() {
+      try {
+        const querySnapshot = await blogsCollection.orderBy('createdAt', 'desc').get();
+        const blogsList = document.getElementById('blogs-list');
+        blogsList.innerHTML = '';
+        
+        if (querySnapshot.empty) {
+          blogsList.innerHTML = `
+            <div class="text-center py-10 text-gray-500">
+              <i class="fas fa-file-alt text-4xl mb-3"></i>
+              <p>No blog posts found</p>
+            </div>
+          `;
+          document.getElementById('blog-count').textContent = `0 blogs`;
+          return;
+        }
+        
+        querySnapshot.forEach(doc => {
+          const blog = doc.data();
+          // Convert Firestore Timestamp to JavaScript Date
+          const createdAt = blog.createdAt ? blog.createdAt.toDate() : new Date();
+          blogsList.innerHTML += createBlogElement(doc.id, blog, createdAt);
+        });
+        
+        document.getElementById('blog-count').textContent = `${querySnapshot.size} blog${querySnapshot.size !== 1 ? 's' : ''}`;
+      } catch (error) {
+        console.error("Error loading blogs: ", error);
+        showNotification('Error loading blogs: ' + error.message, false);
+      }
+    }
+    
+    // Create HTML for a blog element
+    function createBlogElement(id, blog, createdAt) {
+      return `
+        <div class="blog-card rounded-xl p-4" id="blog-${id}">
+          <div class="flex">
+            <img src="${blog.image}" alt="${blog.title}" class="w-16 h-16 rounded-lg object-cover">
+            <div class="ml-4 flex-1">
+              <h4 class="font-bold text-white truncate">${blog.title}</h4>
+              <p class="text-sm text-gray-400 mt-1">${createdAt.toLocaleDateString()}</p>
+            </div>
+          </div>
+          <div class="flex space-x-2 mt-3">
+            <button class="edit-blog btn-secondary flex-1 py-2" data-id="${id}">
+              <i class="fas fa-edit mr-1"></i> Edit
+            </button>
+            <button class="delete-blog btn-danger flex-1 py-2" data-id="${id}">
+              <i class="fas fa-trash mr-1"></i> Delete
+            </button>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Load statistics from Firestore
+    async function loadStats() {
+      try {
+        const doc = await statsCollection.doc('stats').get();
+        if (doc.exists) {
+          const stats = doc.data();
+          document.getElementById('companies-value').textContent = stats.companies || "350+";
+          document.getElementById('experience-value').textContent = stats.experience || "24+";
+          document.getElementById('associates-value').textContent = stats.associates || "300+";
+          document.getElementById('participants-value').textContent = stats.participants || "3,00,000+";
+        } else {
+          // Initialize stats if they don't exist
+          await statsCollection.doc('stats').set({
+            companies: "350+",
+            experience: "24+",
+            associates: "300+",
+            participants: "3,00,000+"
+          });
+        }
+      } catch (error) {
+        console.error("Error loading stats: ", error);
+        showNotification('Error loading statistics: ' + error.message, false);
+      }
+    }
+    
+    // Save/Update blog
+    document.getElementById('blog-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const blogId = document.getElementById('blog-id').value;
+      const title = document.getElementById('blog-title').value.trim();
+      const image = document.getElementById('blog-image').value.trim();
+      const content = document.getElementById('blog-content').value.trim();
+      
+      // Basic validation
+      if (!title) {
+        showNotification('Please enter a blog title', false);
+        return;
+      }
+      if (!image) {
+        showNotification('Please add a blog image', false);
+        return;
+      }
+      if (!content) {
+        showNotification('Please add blog content', false);
+        return;
+      }
+      
+      const blogData = {
+        title,
+        image,
+        content,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      
+      const saveBtn = document.getElementById('save-blog');
+      saveBtn.disabled = true;
+      document.getElementById('save-btn-text').textContent = blogId ? 'Updating...' : 'Saving...';
+      document.getElementById('save-spinner').classList.remove('hidden');
+      
+      try {
+        if (blogId) {
+          // Update existing blog
+          await blogsCollection.doc(blogId).update(blogData);
+          resetBlogForm();
+          loadBlogs();
+          showNotification('Blog updated successfully!');
+        } else {
+          // Add new blog
+          await blogsCollection.add(blogData);
+          resetBlogForm();
+          loadBlogs();
+          showNotification('Blog added successfully!');
+        }
+      } catch (error) {
+        console.error("Error saving blog: ", error);
+        showNotification('Error saving blog: ' + error.message, false);
+      } finally {
+        saveBtn.disabled = false;
+        document.getElementById('save-btn-text').textContent = 'Save Blog';
+        document.getElementById('save-spinner').classList.add('hidden');
+      }
+    });
+    
+    // Edit blog
+    document.addEventListener('click', async (e) => {
+      if (e.target.classList.contains('edit-blog') || e.target.closest('.edit-blog')) {
+        const blogId = e.target.closest('.edit-blog').dataset.id;
+        
+        try {
+          const doc = await blogsCollection.doc(blogId).get();
+          if (doc.exists) {
+            const blog = doc.data();
+            document.getElementById('blog-id').value = blogId;
+            document.getElementById('blog-title').value = blog.title;
+            document.getElementById('blog-image').value = blog.image;
+            document.getElementById('blog-content').value = blog.content;
+            
+            document.getElementById('save-blog').textContent = 'Update Blog';
+            document.getElementById('cancel-edit').classList.remove('hidden');
+            
+            // Scroll to form
+            document.getElementById('blog-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        } catch (error) {
+          console.error("Error loading blog: ", error);
+          showNotification('Error loading blog: ' + error.message, false);
+        }
+      }
+      
+      // Delete blog
+      if (e.target.classList.contains('delete-blog') || e.target.closest('.delete-blog')) {
+        const blogId = e.target.closest('.delete-blog').dataset.id;
+        
+        if (confirm('Are you sure you want to delete this blog?')) {
+          try {
+            await blogsCollection.doc(blogId).delete();
+            loadBlogs();
+            showNotification('Blog deleted successfully!');
+          } catch (error) {
+            console.error("Error deleting blog: ", error);
+            showNotification('Error deleting blog: ' + error.message, false);
+          }
+        }
+      }
+      
+      // Edit statistic
+      if (e.target.classList.contains('edit-stat') || e.target.closest('.edit-stat')) {
+        const statId = e.target.closest('.edit-stat').dataset.id;
+        const modal = document.getElementById('edit-stat-modal');
+        const label = document.getElementById('stat-label');
+        const currentValue = document.getElementById(`${statId}-value`).textContent;
+        
+        currentStatEditing = statId;
+        label.textContent = statId.charAt(0).toUpperCase() + statId.slice(1);
+        document.getElementById('stat-value').value = currentValue;
+        modal.classList.remove('hidden');
+      }
+    });
+    
+    // Cancel blog edit
+    document.getElementById('cancel-edit').addEventListener('click', resetBlogForm);
+    
+    // Reset blog form
+    function resetBlogForm() {
+      document.getElementById('blog-form').reset();
+      document.getElementById('blog-id').value = '';
+      document.getElementById('save-blog').textContent = 'Save Blog';
+      document.getElementById('cancel-edit').classList.add('hidden');
+    }
+    
+    // Save statistic
+    document.getElementById('save-stat').addEventListener('click', async () => {
+      const value = document.getElementById('stat-value').value.trim();
+      
+      if (!value) {
+        showNotification('Please enter a value', false);
+        return;
+      }
+      
+      const saveBtn = document.getElementById('save-stat');
+      saveBtn.disabled = true;
+      document.getElementById('save-stat-text').textContent = 'Saving...';
+      document.getElementById('save-stat-spinner').classList.remove('hidden');
+      
+      try {
+        const updateData = {};
+        updateData[currentStatEditing] = value;
+        
+        await statsCollection.doc('stats').set(updateData, { merge: true });
+        document.getElementById(`${currentStatEditing}-value`).textContent = value;
+        document.getElementById('edit-stat-modal').classList.add('hidden');
+        showNotification('Statistic updated successfully!');
+      } catch (error) {
+        console.error("Error saving stat: ", error);
+        showNotification('Error saving statistic: ' + error.message, false);
+      } finally {
+        saveBtn.disabled = false;
+        document.getElementById('save-stat-text').textContent = 'Save';
+        document.getElementById('save-stat-spinner').classList.add('hidden');
+      }
+    });
+    
+    // Cancel statistic edit
+    document.getElementById('cancel-edit-stat').addEventListener('click', () => {
+      document.getElementById('edit-stat-modal').classList.add('hidden');
+    });
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if user was already logged in (in session)
+      if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        loginSection.classList.add('hidden');
+        adminPanel.classList.remove('hidden');
+        loadBlogs();
+        loadStats();
+      }
+      
+      // Save login state on logout
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('adminLoggedIn');
+      });
+      
+      // Save login state on successful login
+      loginForm.addEventListener('submit', () => {
+        sessionStorage.setItem('adminLoggedIn', 'true');
+      });
+    });
+  </script>
+</body>
+</html>
