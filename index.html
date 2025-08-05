@@ -375,6 +375,15 @@
     .slide-in-left {
       animation: slideInFromLeft 0.5s ease-out both;
     }
+
+    @keyframes pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  .pop {
+    animation: pop 2s ease-in-out;
+  }
   </style>
 </head>
 
@@ -455,34 +464,60 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div class="animate-on-scroll">
-          <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Welcome To <br>
-            <span class="text-primary">Psyche Panacea</span>
+  <div class="flex items-center">
+    
+    <!-- ← Arrows -->
+    <div class="flex flex-col items-center space-y-4 mr-8">
+      <button id="arrow-up"
+        class="w-12 h-12 bg-white rounded-full shadow flex items-center justify-center transform transition duration-200 hover:scale-110 hover:bg-secondary">
+        ▲
+      </button>
+      <button id="arrow-down"
+        class="w-12 h-12 bg-white rounded-full shadow flex items-center justify-center transform transition duration-200 hover:scale-110 hover:bg-secondary">
+        ▼
+      </button>
+    </div>
+
+    <!-- → Text & CTAs -->
+    <div class="overflow-hidden">
+      <div id="slide-container"
+           class="space-y-6 transform transition-all duration-700 ease-in-out opacity-100">
+        
+        <!-- Title + bar -->
+        <div class="flex items-center space-x-4">
+          <div class="w-1 h-12 bg-primary"></div>
+          <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
+            Welcome To<br>
+            <span class="text-white">Psyche Panacea</span>
           </h1>
-          <p class="text-xl text-gray-200 mb-8 max-w-lg">
-            Pioneers in innovative and transformative corporate training solutions since 2001
-          </p>
-          <div class="bg-primary text-white inline-block px-6 py-3 rounded-lg font-medium mb-8">
-            Management Trainings
-          </div>
-          <p class="text-lg text-gray-200 mb-8">
-            Served <span class="font-bold text-primary">350+</span> Clients Since 2001
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="#contact"
-              class="bg-primary hover:bg-secondary text-white px-6 py-3 rounded-lg font-medium transition duration-300">
-              Call Us
-            </a>
-            <a href="#services"
-              class="bg-white text-primary border-2 border-primary hover:bg-gray-100 px-6 py-3 rounded-lg font-medium transition duration-300">
-              Know More
-            </a>
-          </div>
+        </div>
+
+        <!-- Dynamic service line -->
+        <div id="service-label"
+             class="text-xl text-gray-200 font-medium">
+          HR Consulting
+        </div>
+
+        <!-- Static subtitle -->
+        <p class="text-lg text-gray-200">
+          Served <span class="font-bold text-primary">350+</span> Clients Since 2001
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact"
+             class="bg-primary hover:bg-secondary text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+            Call Us
+          </a>
+          <a href="#services"
+             class="bg-white text-primary border-2 border-primary hover:bg-gray-100 px-6 py-3 rounded-lg font-medium transition duration-300">
+            Know More
+          </a>
         </div>
       </div>
     </div>
+  </div>
+</div>
   </section>
 
   <!-- Stats Section -->
@@ -897,6 +932,70 @@
   </div>
 
   <script>
+
+    ;(function() {
+    const services = [
+      'HR Consulting',
+      'Employee Assistance Program',
+      'Employee Engagement Services',
+      'Management Trainings'
+    ];
+    let idx = 0;
+
+    const wrapper = document.getElementById('slide-container');
+    const label   = document.getElementById('service-label');
+    const up      = document.getElementById('arrow-up');
+    const down    = document.getElementById('arrow-down');
+
+    function slide(direction, nextIdx) {
+      // slide out
+      wrapper.style.transform = direction === 'up'
+        ? 'translateY(-100%)'
+        : 'translateY(100%)';
+      wrapper.style.opacity = '0';
+
+      wrapper.addEventListener('transitionend', function handler() {
+        wrapper.removeEventListener('transitionend', handler);
+
+        // update service text
+        label.textContent = services[nextIdx];
+
+        // trigger pop animation
+        label.classList.add('pop');
+        label.addEventListener('animationend', () => {
+          label.classList.remove('pop');
+        }, { once: true });
+
+        // jump in from opposite
+        wrapper.style.transition = 'none';
+        wrapper.style.transform  = direction === 'up'
+          ? 'translateY(100%)'
+          : 'translateY(-100%)';
+        wrapper.style.opacity    = '0';
+
+        // animate in
+        requestAnimationFrame(() => {
+          wrapper.style.transition = 'transform 0.7s ease-in-out, opacity 0.7s ease-in-out';
+          wrapper.style.transform  = 'translateY(0)';
+          wrapper.style.opacity    = '1';
+        });
+      });
+    }
+
+    up.addEventListener('click', () => {
+      const next = (idx + 1) % services.length;
+      slide('up', next);
+      idx = next;
+    });
+
+    down.addEventListener('click', () => {
+      const next = (idx - 1 + services.length) % services.length;
+      slide('down', next);
+      idx = next;
+    });
+  })();
+
+  
     const testimonials = [
       {
         photo: '/images/testimonials/vishal-shukla.jpg',
