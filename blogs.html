@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs - Psyche Panacea</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0052cc',
+            secondary: '#4da8ff',
+            dark: '#1a1a1a',
+            light: '#f8f9fa',
+            accent: '#f59e0b',
+            insta: '#E1306C',
+          },
+          fontFamily: {
+            sans: ['Noto Sans', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.3s ease-out',
+            'slide': 'slide 25s linear infinite',
+            'popup-fade': 'popupFadeIn 0.3s ease forwards',
+            'slide-up': 'slideUp 0.3s ease forwards',
+            'message-fade': 'messageFadeIn 0.3s ease',
+          },
+          keyframes: {
+            fadeIn: {
+              from: { opacity: 0 },
+              to: { opacity: 1 },
+            },
+            slide: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(-100%)' },
+            },
+            popupFadeIn: {
+              from: { transform: 'scale(0.95)', opacity: 0 },
+              to: { transform: 'scale(1)', opacity: 1 },
+            },
+            slideUp: {
+              from: { transform: 'translateY(20px)', opacity: 0 },
+              to: { transform: 'translateY(0)', opacity: 1 },
+            },
+            messageFadeIn: {
+              from: { opacity: 0, transform: 'translateY(10px)' },
+              to: { opacity: 1, transform: 'translateY(0)' },
+            },
+          }
+        }
+      }
+    }
+    
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+      authDomain: "psypanweb-7747a.firebaseapp.com",
+      projectId: "psypanweb-7747a",
+      storageBucket: "psypanweb-7747a.appspot.com",
+      messagingSenderId: "441049264188",
+      appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+      measurementId: "G-C1CTMX729Z"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #fafafa;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    .tab-gradient {
+      background: linear-gradient(135deg, #0052cc, #4da8ff);
+    }
+
+    /* Header */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #0052cc;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Instagram Style Blog Card */
+    .blog-card {
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background: white;
+      border: 1px solid #efefef;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .blog-card:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .blog-image {
+      height: 280px;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .blog-card:hover .blog-image {
+      transform: scale(1.02);
+    }
+    
+    .content-preview {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .read-more-btn {
+      color: #0052cc;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .read-more-btn:hover {
+      color: #4da8ff;
+    }
+    
+    .social-btn {
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .like-btn:hover {
+      background-color: rgba(255, 0, 85, 0.1);
+      color: #ff0055;
+    }
+    
+    .comment-btn:hover {
+      background-color: rgba(0, 184, 124, 0.1);
+      color: #00b87c;
+    }
+    
+    .share-btn:hover {
+      background-color: rgba(0, 119, 255, 0.1);
+      color: #0077ff;
+    }
+    
+    /* Instagram Style Modal */
+    .blog-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .blog-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    
+    .blog-modal.active .modal-content {
+      transform: scale(1);
+    }
+    
+    /* Instagram-like modal */
+    .modal-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #efefef;
+    }
+    
+    .modal-username {
+      font-weight: 600;
+      margin-left: 12px;
+      font-size: 14px;
+    }
+    
+    .modal-image-container {
+      position: relative;
+      background: #000;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .modal-actions {
+      padding: 12px 16px;
+      border-bottom: 1px solid #efefef;
+    }
+    
+    .action-icons {
+      display: flex;
+      gap: 16px;
+    }
+    
+    .like-count {
+      font-weight: 600;
+      padding: 8px 16px 4px;
+      font-size: 14px;
+    }
+    
+    .modal-caption {
+      padding: 0 16px 12px;
+      font-size: 14px;
+    }
+    
+    .caption-username {
+      font-weight: 600;
+      margin-right: 8px;
+      font-size: 14px;
+    }
+    
+    .post-time {
+      color: #8e8e8e;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      padding: 0 16px 12px;
+      text-transform: uppercase;
+    }
+    
+    .comment-section {
+      border-top: 1px solid #efefef;
+      padding: 16px;
+      flex-grow: 1;
+      overflow-y: auto;
+      max-height: 200px;
+    }
+    
+    .comment-card {
+      display: flex;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    
+    .comment-user {
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    
+    .comment-input-container {
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #efefef;
+      padding: 14px 16px;
+    }
+    
+    .comment-input {
+      flex-grow: 1;
+      border: none;
+      padding: 8px 12px;
+      outline: none;
+      font-size: 14px;
+    }
+    
+    .post-comment-btn {
+      color: #0095f6;
+      font-weight: 600;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .blog-item {
+      animation: slideUp 0.5s ease forwards;
+      opacity: 0;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+      
+      .hero-section {
+        padding-top: 100px;
+      }
+      
+      .modal-content {
+        width: 95%;
+        max-height: 85vh;
+      }
+      
+      .modal-image-container {
+        height: 300px;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .modal-content {
+        height: 90vh;
+      }
+    }
+    
+    /* Chatbot */
+    .chatbot-window {
+      transition: all 0.2s ease;
+    }
+    
+    .chatbot-window.active {
+      opacity: 1;
+    }
+    
+    /* Instagram-like blog card styling */
+    .blog-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid #efefef;
+    }
+    
+    .blog-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .blog-footer {
+      padding: 12px 16px;
+      border-top: 1px solid #efefef;
+    }
+    
+    .blog-actions {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    
+    .blog-likes {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    
+    .blog-comments-count {
+      color: #8e8e8e;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    .blog-date {
+      color: #8e8e8e;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Instagram gradient heart */
+    .liked {
+      color: transparent;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
+    <nav class="hidden md:flex items-center space-x-6">
+      <a href="index.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Home</a>
+      <a href="services.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Services</a>
+      <a href="flagship-programs.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Flagship Programs</a>
+      <a href="events.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Events</a>
+      <a href="gallery.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Gallery</a>
+      <a href="about-us.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">About Us</a>
+      <a href="blogs.html" class="text-primary font-semibold transition-colors px-2 py-1">Blogs</a>
+      <a href="contact.html" class="text-gray-700 hover:text-primary transition-colors px-2 py-1">Contact</a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden flex items-center">
+      <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+      <a href="services.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
+      <a href="flagship-programs.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship Programs</a>
+      <a href="events.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
+      <a href="gallery.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
+      <a href="about-us.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About Us</a>
+      <a href="blogs.html" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Blogs</a>
+      <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section pt-32 pb-20 bg-gradient-to-r from-primary to-blue-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Psyche Panacea Blogs</h1>
+      <div class="h-1 w-24 bg-white mx-auto rounded mb-8"></div>
+      <p class="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+        Insights, stories, and perspectives from our team of experts
+      </p>
+    </div>
+  </section>
+
+  <!-- Blogs Section -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Latest Articles</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Explore our collection of thought-provoking articles on mental health, workplace wellness, and personal development.</p>
+      </div>
+      
+      <!-- Blog Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogs-container">
+        <!-- Blogs will be loaded here dynamically -->
+        <div class="text-center py-10">
+          <div class="inline-block mb-4">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          </div>
+          <p class="text-gray-500">Loading blogs...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Blog Modal -->
+  <div class="blog-modal" id="blog-modal">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="blog-avatar">PP</div>
+        <div class="modal-username">psyche_panacea</div>
+        <button class="ml-auto text-2xl text-gray-500" id="close-modal">&times;</button>
+      </div>
+      
+      <!-- Modal Image -->
+      <div class="modal-image-container">
+        <img id="modal-image" src="" alt="" class="modal-image">
+      </div>
+      
+      <!-- Modal Actions -->
+      <div class="modal-actions">
+        <div class="action-icons">
+          <button class="like-btn social-btn" id="modal-like-btn">
+            <i class="far fa-heart text-xl"></i>
+          </button>
+          <button class="comment-btn social-btn">
+            <i class="far fa-comment text-xl"></i>
+          </button>
+          <button class="share-btn social-btn" id="share-btn">
+            <i class="fas fa-share-alt text-xl"></i>
+          </button>
+          <button class="ml-auto social-btn">
+            <i class="far fa-bookmark text-xl"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Like Count -->
+      <div class="like-count">
+        <span id="like-count">0</span> likes
+      </div>
+      
+      <!-- Caption -->
+      <div class="modal-caption">
+        <span class="caption-username">psyche_panacea</span>
+        <span id="modal-caption"></span>
+      </div>
+      
+      <!-- Post Time -->
+      <div class="post-time" id="modal-date"></div>
+      
+      <!-- Comments Section -->
+      <div class="comment-section" id="comments-container">
+        <!-- Comments will be loaded here -->
+        <div class="text-center py-6 text-gray-500">
+          <i class="fas fa-comment-alt text-2xl mb-2"></i>
+          <p>No comments yet</p>
+        </div>
+      </div>
+      
+      <!-- Comment Input -->
+      <div class="comment-input-container">
+        <input type="text" id="comment-input" placeholder="Add a comment..." class="comment-input">
+        <button id="submit-comment" class="post-comment-btn">Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <!-- Left half: Map -->
+        <div class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+          <iframe src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
+            width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
+            class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
+            gestureHandling="greedy">
+          </iframe>
+        </div>
+
+        <!-- Right half: Content -->
+        <div class="grid grid-cols-1 gap-8">
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center mb-4">
+              <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
+            </div>
+            <p class="text-gray-400">
+              Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
+              transforming organizations through strategic HR solutions.
+            </p>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">Contact Us
+            </h4>
+            <ul class="space-y-4 text-gray-400 text-sm">
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
+                  Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span>09810323292, 09810319292</span>
+              </li>
+              <li class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>hr@psypanconsulting.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+        <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot -->
+  <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
+    <div id="chatbotToggle"
+      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+        <path
+          d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
+        </path>
+        <path d="M9 9h6v6H9z"></path>
+      </svg>
+    </div>
+
+    <div id="chatbotWindow"
+      class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+      <div
+        class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+        <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
+        <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
+      </div>
+
+      <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
+        <div
+          class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
+          Welcome! How can I assist with your training goals today?
+        </div>
+      </div>
+
+      <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
+        <input id="chatbotInput" type="text"
+          class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
+          placeholder="Ask about our programs...">
+        <button id="chatbotSend"
+          class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Firebase Firestore references
+    const blogsCollection = db.collection("blogs");
+    const commentsCollection = db.collection("comments");
+    
+    // DOM elements
+    const blogsContainer = document.getElementById('blogs-container');
+    const blogModal = document.getElementById('blog-modal');
+    const closeModal = document.getElementById('close-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalCaption = document.getElementById('modal-caption');
+    const modalDate = document.getElementById('modal-date');
+    const likeBtn = document.getElementById('modal-like-btn');
+    const likeCount = document.getElementById('like-count');
+    const shareBtn = document.getElementById('share-btn');
+    const commentsContainer = document.getElementById('comments-container');
+    const commentInput = document.getElementById('comment-input');
+    const submitComment = document.getElementById('submit-comment');
+    
+    // Current blog ID for modal
+    let currentBlogId = null;
+    let currentBlogData = null;
+    
+    // Load blogs from Firestore
+    function loadBlogs() {
+      blogsContainer.innerHTML = '<div class="text-center py-10 col-span-full"><div class="inline-block mb-4"><div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div></div><p class="text-gray-500">Loading blogs...</p></div>';
+      
+      blogsCollection.orderBy("createdAt", "desc").get().then(querySnapshot => {
+        blogsContainer.innerHTML = '';
+        
+        if (querySnapshot.empty) {
+          blogsContainer.innerHTML = `
+            <div class="text-center py-10 col-span-full">
+              <div class="inline-block mb-4">
+                <i class="fas fa-file-alt text-4xl text-gray-400"></i>
+              </div>
+              <p class="text-gray-500">No blog posts found</p>
+            </div>
+          `;
+          return;
+        }
+        
+        let delay = 0;
+        querySnapshot.forEach(doc => {
+          const blog = doc.data();
+          const blogId = doc.id;
+          
+          // Convert Firestore timestamp to JavaScript Date
+          const createdAt = blog.createdAt ? blog.createdAt.toDate() : new Date();
+          const formattedDate = createdAt.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          
+          const blogElement = document.createElement('div');
+          blogElement.className = 'blog-item blog-card bg-white';
+          blogElement.style.animationDelay = `${delay}ms`;
+          delay += 150;
+          
+          // Truncate content for preview
+          const truncatedContent = blog.content.length > 120 ? 
+            blog.content.substring(0, 120) + '...' : blog.content;
+          
+          blogElement.innerHTML = `
+            <div class="blog-header">
+              <div class="blog-avatar">PP</div>
+              <div class="modal-username">psyche_panacea</div>
+            </div>
+            <div class="overflow-hidden">
+              <img src="${blog.image}" alt="${blog.title}" class="blog-image w-full">
+            </div>
+            <div class="blog-footer">
+              <div class="blog-actions">
+                <button class="like-btn social-btn" data-id="${blogId}">
+                  <i class="far fa-heart text-xl"></i>
+                </button>
+                <button class="comment-btn social-btn" data-id="${blogId}">
+                  <i class="far fa-comment text-xl"></i>
+                </button>
+                <button class="share-btn social-btn" data-id="${blogId}">
+                  <i class="fas fa-share-alt text-xl"></i>
+                </button>
+                <button class="ml-auto social-btn">
+                  <i class="far fa-bookmark text-xl"></i>
+                </button>
+              </div>
+              <div class="blog-likes">
+                <span id="like-count-${blogId}">${blog.likes || 0}</span> likes
+              </div>
+              <div class="content-preview text-gray-800 text-sm mb-2">
+                <span class="font-semibold">psyche_panacea</span> ${truncatedContent}
+              </div>
+              <div class="blog-comments-count">
+                View all <span id="comment-count-${blogId}">${blog.comments || 0}</span> comments
+              </div>
+              <div class="blog-date">
+                ${formattedDate}
+              </div>
+            </div>
+          `;
+          
+          blogsContainer.appendChild(blogElement);
+          
+          // Add event listeners to buttons
+          blogElement.querySelector(`.like-btn[data-id="${blogId}"]`).addEventListener('click', () => {
+            toggleLike(blogId);
+          });
+          
+          blogElement.querySelector(`.comment-btn[data-id="${blogId}"]`).addEventListener('click', () => {
+            openBlogModal(blogId, blog);
+          });
+          
+          blogElement.querySelector(`.share-btn[data-id="${blogId}"]`).addEventListener('click', () => {
+            shareBlog(blog);
+          });
+        });
+      }).catch(error => {
+        console.error("Error loading blogs: ", error);
+        blogsContainer.innerHTML = `
+          <div class="text-center py-10 col-span-full">
+            <div class="inline-block mb-4">
+              <i class="fas fa-exclamation-triangle text-4xl text-red-500"></i>
+            </div>
+            <p class="text-gray-500">Error loading blogs. Please try again later.</p>
+          </div>
+        `;
+      });
+    }
+    
+    // Toggle like for a blog
+    function toggleLike(blogId) {
+      const likeKey = `liked_${blogId}`;
+      const hasLiked = localStorage.getItem(likeKey);
+      const likeCountElement = document.getElementById(`like-count-${blogId}`);
+      const currentCount = parseInt(likeCountElement.textContent);
+      
+      // Update UI immediately
+      if (hasLiked) {
+        // Undo like
+        likeCountElement.textContent = currentCount - 1;
+        localStorage.removeItem(likeKey);
+      } else {
+        // Like
+        likeCountElement.textContent = currentCount + 1;
+        localStorage.setItem(likeKey, 'true');
+      }
+      
+      // Update Firestore
+      const blogRef = blogsCollection.doc(blogId);
+      const increment = hasLiked ? -1 : 1;
+      
+      blogRef.update({
+        likes: firebase.firestore.FieldValue.increment(increment)
+      })
+      .catch(error => {
+        console.error("Error updating like: ", error);
+        // Revert UI if update fails
+        likeCountElement.textContent = currentCount;
+        if (hasLiked) {
+          localStorage.setItem(likeKey, 'true');
+        } else {
+          localStorage.removeItem(likeKey);
+        }
+      });
+    }
+    
+    // Open blog modal
+    function openBlogModal(blogId, blog) {
+      currentBlogId = blogId;
+      currentBlogData = blog;
+      
+      // Set blog data in modal
+      modalImage.src = blog.image;
+      modalImage.alt = blog.title;
+      modalCaption.textContent = blog.content.substring(0, 200) + (blog.content.length > 200 ? '...' : '');
+      
+      // Set formatted date
+      const createdAt = blog.createdAt ? blog.createdAt.toDate() : new Date();
+      const timeDiff = Date.now() - createdAt;
+      const daysAgo = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      
+      let timeText;
+      if (daysAgo === 0) {
+        timeText = 'TODAY';
+      } else if (daysAgo === 1) {
+        timeText = '1 DAY AGO';
+      } else {
+        timeText = `${daysAgo} DAYS AGO`;
+      }
+      
+      modalDate.textContent = timeText;
+      
+      // Set like count
+      likeCount.textContent = blog.likes || 0;
+      
+      // Check if user has liked this blog
+      const hasLiked = localStorage.getItem(`liked_${blogId}`);
+      if (hasLiked) {
+        likeBtn.innerHTML = '<i class="fas fa-heart text-xl liked"></i>';
+      } else {
+        likeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
+      }
+      
+      // Load comments
+      loadComments(blogId);
+      
+      // Open modal
+      blogModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Close blog modal
+    function closeBlogModal() {
+      blogModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Load comments for a blog
+    function loadComments(blogId) {
+      commentsContainer.innerHTML = '<p class="text-center text-gray-500 py-4">Loading comments...</p>';
+      
+      commentsCollection.where("blogId", "==", blogId)
+        .orderBy("timestamp", "desc")
+        .get()
+        .then(querySnapshot => {
+          commentsContainer.innerHTML = '';
+          
+          if (querySnapshot.empty) {
+            commentsContainer.innerHTML = '<p class="text-center text-gray-500 py-4">No comments yet. Be the first to comment!</p>';
+            return;
+          }
+          
+          querySnapshot.forEach(doc => {
+            const comment = doc.data();
+            const commentDate = comment.timestamp ? comment.timestamp.toDate() : new Date();
+            const timeDiff = Date.now() - commentDate;
+            const hoursAgo = Math.floor(timeDiff / (1000 * 60 * 60));
+            
+            let timeText;
+            if (hoursAgo === 0) {
+              timeText = 'just now';
+            } else if (hoursAgo === 1) {
+              timeText = '1 hour ago';
+            } else {
+              timeText = `${hoursAgo} hours ago`;
+            }
+            
+            const commentElement = document.createElement('div');
+            commentElement.className = 'comment-card';
+            commentElement.innerHTML = `
+              <div class="flex-shrink-0 mr-3">
+                <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center">
+                  <span class="text-xs font-bold text-gray-600">U</span>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="comment-user font-semibold">${comment.author || 'Anonymous'}</span>
+                  <span class="text-xs text-gray-500">${timeText}</span>
+                </div>
+                <p class="text-gray-800">${comment.content}</p>
+              </div>
+            `;
+            
+            commentsContainer.appendChild(commentElement);
+          });
+        })
+        .catch(error => {
+          console.error("Error loading comments: ", error);
+          commentsContainer.innerHTML = '<p class="text-center text-red-500 py-4">Error loading comments</p>';
+        });
+    }
+    
+    // Like a blog from modal
+    function likeBlogModal() {
+      if (!currentBlogId) return;
+      
+      const likeKey = `liked_${currentBlogId}`;
+      const hasLiked = localStorage.getItem(likeKey);
+      const currentCount = parseInt(likeCount.textContent);
+      
+      // Update UI immediately
+      if (hasLiked) {
+        // Undo like
+        likeCount.textContent = currentCount - 1;
+        likeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
+        localStorage.removeItem(likeKey);
+      } else {
+        // Like
+        likeCount.textContent = currentCount + 1;
+        likeBtn.innerHTML = '<i class="fas fa-heart text-xl liked"></i>';
+        localStorage.setItem(likeKey, 'true');
+      }
+      
+      // Update Firestore
+      const blogRef = blogsCollection.doc(currentBlogId);
+      const increment = hasLiked ? -1 : 1;
+      
+      blogRef.update({
+        likes: firebase.firestore.FieldValue.increment(increment)
+      })
+      .catch(error => {
+        console.error("Error updating like: ", error);
+        // Revert UI if update fails
+        likeCount.textContent = currentCount;
+        if (hasLiked) {
+          likeBtn.innerHTML = '<i class="fas fa-heart text-xl liked"></i>';
+          localStorage.setItem(likeKey, 'true');
+        } else {
+          likeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
+          localStorage.removeItem(likeKey);
+        }
+      });
+    }
+    
+    // Share a blog
+    function shareBlog(blog) {
+      if (navigator.share) {
+        navigator.share({
+          title: blog.title,
+          text: blog.content.substring(0, 100) + '...',
+          url: window.location.href
+        })
+        .then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing:', error));
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        const shareUrl = window.location.href;
+        const tempInput = document.createElement('input');
+        document.body.appendChild(tempInput);
+        tempInput.value = shareUrl;
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        alert('Link copied to clipboard!');
+      }
+    }
+    
+    // Add a comment
+    function addComment() {
+      if (!currentBlogId) return;
+      
+      const content = commentInput.value.trim();
+      
+      if (!content) {
+        alert('Please enter a comment');
+        return;
+      }
+      
+      // Add comment to Firestore
+      commentsCollection.add({
+        blogId: currentBlogId,
+        content: content,
+        author: "Anonymous",
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        // Update blog comment count
+        const blogRef = blogsCollection.doc(currentBlogId);
+        blogRef.update({
+          comments: firebase.firestore.FieldValue.increment(1)
+        });
+        
+        // Clear input
+        commentInput.value = '';
+        
+        // Reload comments
+        loadComments(currentBlogId);
+      })
+      .catch(error => {
+        console.error("Error adding comment: ", error);
+        alert('Error adding comment. Please try again.');
+      });
+    }
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load blogs
+      loadBlogs();
+      
+      // Event listeners
+      closeModal.addEventListener('click', closeBlogModal);
+      likeBtn.addEventListener('click', likeBlogModal);
+      
+      shareBtn.addEventListener('click', () => {
+        if (currentBlogData) {
+          shareBlog(currentBlogData);
+        }
+      });
+      
+      submitComment.addEventListener('click', addComment);
+      
+      // Press Enter to submit comment
+      commentInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          addComment();
+        }
+      });
+      
+      // Close modal when clicking outside
+      blogModal.addEventListener('click', (e) => {
+        if (e.target === blogModal) {
+          closeBlogModal();
+        }
+      });
+      
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+      
+      // Chatbot functionality
+      const chatbotToggle = document.getElementById('chatbotToggle');
+      const chatbotWindow = document.getElementById('chatbotWindow');
+      const chatbotClose = document.getElementById('chatbotClose');
+      const chatbotSend = document.getElementById('chatbotSend');
+      const chatbotInput = document.getElementById('chatbotInput');
+      const chatbotBody = document.getElementById('chatbotBody');
+      
+      chatbotToggle.addEventListener('click', () => {
+        chatbotWindow.classList.toggle('hidden');
+        chatbotWindow.classList.toggle('active');
+      });
+      
+      chatbotClose.addEventListener('click', () => {
+        chatbotWindow.classList.remove('active');
+        setTimeout(() => {
+          chatbotWindow.classList.add('hidden');
+        }, 300);
+      });
+      
+      function sendMessage() {
+        const input = chatbotInput;
+        const message = input.value.trim();
+        if (!message) return;
+
+        // Add user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both';
+        userMessage.textContent = message;
+        chatbotBody.appendChild(userMessage);
+
+        // Clear input
+        input.value = '';
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+        // Simulate bot response
+        setTimeout(() => {
+          const botMessage = document.createElement('div');
+          botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both';
+          botMessage.textContent = getBotResponse(message);
+          chatbotBody.appendChild(botMessage);
+          chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }, 1000);
+      }
+
+      function getBotResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+          return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+        if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+          return 'You can reach us at +91 9810319292 or +91 9810323292.';
+        if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+          return 'For inquiries, please email us at hr@psypanconsulting.com';
+        if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+          return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+        return 'I\'m here to help! Could you share more details about your query?';
+      }
+      
+      chatbotSend.addEventListener('click', sendMessage);
+      chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+      });
+    });
+  </script>
+</body>
+</html>
