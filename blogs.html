@@ -538,7 +538,7 @@
   <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <a href="index.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+        class="mt-14 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
       <a href="services.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
       <a href="flagship-programs.html"
@@ -624,9 +624,6 @@
             </button>
             <button class="share-btn social-btn" id="share-btn">
               <i class="fas fa-share-alt text-xl hover:text-green-500 transition"></i>
-            </button>
-            <button class="ml-auto social-btn">
-              <i class="far fa-bookmark text-xl hover:text-yellow-500 transition"></i>
             </button>
           </div>
         </div>
@@ -805,6 +802,57 @@
     // Current blog ID for modal
     let currentBlogId = null;
     let currentBlogData = null;
+    
+    // Track comment timers for real-time updates
+    const commentTimers = {};
+
+    // Format relative time for comments
+    function formatRelativeTime(timestamp) {
+      const now = new Date();
+      const diff = now - timestamp; // in milliseconds
+      
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      
+      if (seconds < 60) {
+        return 'just now';
+      } else if (minutes < 60) {
+        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      } else if (hours < 24) {
+        return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      } else if (days < 30) {
+        return `${days} day${days > 1 ? 's' : ''} ago`;
+      } else {
+        return timestamp.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    }
+
+    // Update relative time for a comment element
+    function updateRelativeTime(element, timestamp) {
+      element.textContent = formatRelativeTime(timestamp);
+    }
+
+    // Start a timer to update relative time for a comment
+    function startRelativeTimeUpdater(element, timestamp) {
+      // Clear any existing interval for this element
+      if (commentTimers[element.id]) {
+        clearInterval(commentTimers[element.id]);
+      }
+      
+      // Update immediately
+      updateRelativeTime(element, timestamp);
+      
+      // If the comment is less than 60 minutes old, update every minute
+      const now = new Date();
+      const diff = now - timestamp;
+      if (diff < 60 * 60 * 1000) {
+        commentTimers[element.id] = setInterval(() => {
+          updateRelativeTime(element, timestamp);
+        }, 60000); // Update every minute
+      }
+    }
 
     // Load blogs from Firestore
     function loadBlogs() {
@@ -838,6 +886,10 @@
             day: 'numeric'
           });
 
+          // Check if user has liked this blog in current session
+          const hasLiked = sessionStorage.getItem(`liked_${blogId}`) === 'true';
+          const heartIcon = hasLiked ? 'fas fa-heart text-xl liked' : 'far fa-heart text-xl';
+
           const blogElement = document.createElement('div');
           blogElement.className = 'blog-item blog-card bg-white';
           blogElement.style.animationDelay = `${delay}ms`;
@@ -858,16 +910,13 @@
             <div class="blog-footer">
               <div class="blog-actions">
                 <button class="like-btn social-btn" data-id="${blogId}">
-                  <i class="far fa-heart text-xl"></i>
+                  <i class="${heartIcon}"></i>
                 </button>
                 <button class="comment-btn social-btn" data-id="${blogId}">
                   <i class="far fa-comment text-xl"></i>
                 </button>
                 <button class="share-btn social-btn" data-id="${blogId}">
                   <i class="fas fa-share-alt text-xl"></i>
-                </button>
-                <button class="ml-auto social-btn">
-                  <i class="far fa-bookmark text-xl"></i>
                 </button>
               </div>
               <div class="blog-likes">
@@ -915,28 +964,34 @@
 
     // Toggle like for a blog
     function toggleLike(blogId) {
-      const likeKey = `liked_${blogId}`;
-      const hasLiked = localStorage.getItem(likeKey);
+      // Check if user has already liked in this session
+      const hasLiked = sessionStorage.getItem(`liked_${blogId}`) === 'true';
+      let increment = 1;
+      
+      if (hasLiked) {
+        // User is unliking
+        increment = -1;
+        sessionStorage.setItem(`liked_${blogId}`, 'false');
+      } else {
+        // User is liking
+        sessionStorage.setItem(`liked_${blogId}`, 'true');
+      }
+      
       const likeCountElement = document.getElementById(`like-count-${blogId}`);
       const currentCount = parseInt(likeCountElement.textContent);
       const likeButtonIcon = document.querySelector(`.like-btn[data-id="${blogId}"] i`);
 
       // Update UI immediately
+      likeCountElement.textContent = currentCount + increment;
+      
       if (hasLiked) {
-        // Undo like
-        likeCountElement.textContent = currentCount - 1;
-        localStorage.removeItem(likeKey);
         likeButtonIcon.className = "far fa-heart text-xl";
       } else {
-        // Like
-        likeCountElement.textContent = currentCount + 1;
-        localStorage.setItem(likeKey, 'true');
         likeButtonIcon.className = "fas fa-heart text-xl liked";
       }
 
       // Update Firestore
       const blogRef = blogsCollection.doc(blogId);
-      const increment = hasLiked ? -1 : 1;
 
       blogRef.update({
         likes: firebase.firestore.FieldValue.increment(increment)
@@ -946,13 +1001,28 @@
           // Revert UI if update fails
           likeCountElement.textContent = currentCount;
           if (hasLiked) {
-            localStorage.setItem(likeKey, 'true');
             likeButtonIcon.className = "fas fa-heart text-xl liked";
+            sessionStorage.setItem(`liked_${blogId}`, 'true');
           } else {
-            localStorage.removeItem(likeKey);
             likeButtonIcon.className = "far fa-heart text-xl";
+            sessionStorage.setItem(`liked_${blogId}`, 'false');
           }
         });
+        
+      // If modal is open for this blog, update modal UI
+      if (currentBlogId === blogId) {
+        const modalLikeBtn = document.getElementById('modal-like-btn');
+        const modalLikeCount = document.getElementById('like-count');
+        const modalCurrentCount = parseInt(modalLikeCount.textContent);
+        
+        modalLikeCount.textContent = modalCurrentCount + increment;
+        
+        if (hasLiked) {
+          modalLikeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
+        } else {
+          modalLikeBtn.innerHTML = '<i class="fas fa-heart text-xl liked"></i>';
+        }
+      }
     }
 
     // Open blog modal
@@ -997,8 +1067,8 @@
         // Set like count
         likeCount.textContent = blog.likes || 0;
 
-        // Check if user has liked this blog
-        const hasLiked = localStorage.getItem(`liked_${blogId}`);
+        // Check if user has liked this blog in current session
+        const hasLiked = sessionStorage.getItem(`liked_${blogId}`) === 'true';
         if (hasLiked) {
           likeBtn.innerHTML = '<i class="fas fa-heart text-xl liked"></i>';
         } else {
@@ -1022,6 +1092,12 @@
     function closeBlogModal() {
       blogModal.classList.remove('active');
       document.body.style.overflow = 'auto';
+      
+      // Clear any comment timers
+      for (const timerId in commentTimers) {
+        clearInterval(commentTimers[timerId]);
+        delete commentTimers[timerId];
+      }
     }
 
     // Load comments for a blog
@@ -1044,7 +1120,9 @@
             // Convert to array and sort by timestamp
             const comments = [];
             querySnapshot.forEach(doc => {
-              comments.push(doc.data());
+              const commentData = doc.data();
+              commentData.id = doc.id;
+              comments.push(commentData);
             });
 
             // Sort by timestamp descending
@@ -1057,18 +1135,7 @@
             // Display sorted comments
             comments.forEach(comment => {
               const commentDate = comment.timestamp ? comment.timestamp.toDate() : new Date();
-              const timeDiff = Date.now() - commentDate;
-              const hoursAgo = Math.floor(timeDiff / (1000 * 60 * 60));
-
-              let timeText;
-              if (hoursAgo === 0) {
-                timeText = 'just now';
-              } else if (hoursAgo === 1) {
-                timeText = '1 hour ago';
-              } else {
-                timeText = `${hoursAgo} hours ago`;
-              }
-
+              
               const commentElement = document.createElement('div');
               commentElement.className = 'comment-card';
               commentElement.innerHTML = `
@@ -1080,13 +1147,20 @@
                 <div class="flex-1">
                   <div class="flex justify-between items-center mb-1">
                     <span class="comment-user font-semibold">${comment.author || 'Anonymous'}</span>
-                    <span class="text-xs text-gray-500">${timeText}</span>
+                    <span class="text-xs text-gray-500" id="comment-time-${comment.id}"></span>
                   </div>
                   <p class="text-gray-800">${comment.content}</p>
                 </div>
               `;
 
               commentsContainer.appendChild(commentElement);
+              
+              // Set and update relative time
+              const timeElement = document.getElementById(`comment-time-${comment.id}`);
+              if (timeElement) {
+                updateRelativeTime(timeElement, commentDate);
+                startRelativeTimeUpdater(timeElement, commentDate);
+              }
             });
           })
           .catch(error => {
@@ -1103,42 +1177,45 @@
     function likeBlogModal() {
       if (!currentBlogId) return;
 
-      const likeKey = `liked_${currentBlogId}`;
-      const hasLiked = localStorage.getItem(likeKey);
+      // Check if user has already liked in this session
+      const hasLiked = sessionStorage.getItem(`liked_${currentBlogId}`) === 'true';
+      let increment = 1;
+      
+      if (hasLiked) {
+        // User is unliking
+        increment = -1;
+        sessionStorage.setItem(`liked_${currentBlogId}`, 'false');
+      } else {
+        // User is liking
+        sessionStorage.setItem(`liked_${currentBlogId}`, 'true');
+      }
+      
       const currentCount = parseInt(likeCount.textContent);
       const likeCountElement = document.getElementById(`like-count-${currentBlogId}`);
       const likeButtonIcon = document.querySelector(`.like-btn[data-id="${currentBlogId}"] i`);
 
       // Update UI immediately
+      likeCount.textContent = currentCount + increment;
+      
       if (hasLiked) {
-        // Undo like
-        likeCount.textContent = currentCount - 1;
         likeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
-        localStorage.removeItem(likeKey);
-
-        if (likeCountElement) {
-          likeCountElement.textContent = currentCount - 1;
-        }
-        if (likeButtonIcon) {
-          likeButtonIcon.className = "far fa-heart text-xl";
-        }
       } else {
-        // Like
-        likeCount.textContent = currentCount + 1;
         likeBtn.innerHTML = '<i class="fas fa-heart text-xl liked"></i>';
-        localStorage.setItem(likeKey, 'true');
+      }
 
-        if (likeCountElement) {
-          likeCountElement.textContent = currentCount + 1;
-        }
-        if (likeButtonIcon) {
+      if (likeCountElement) {
+        likeCountElement.textContent = parseInt(likeCountElement.textContent) + increment;
+      }
+      if (likeButtonIcon) {
+        if (hasLiked) {
+          likeButtonIcon.className = "far fa-heart text-xl";
+        } else {
           likeButtonIcon.className = "fas fa-heart text-xl liked";
         }
       }
 
       // Update Firestore
       const blogRef = blogsCollection.doc(currentBlogId);
-      const increment = hasLiked ? -1 : 1;
 
       blogRef.update({
         likes: firebase.firestore.FieldValue.increment(increment)
@@ -1149,14 +1226,18 @@
           likeCount.textContent = currentCount;
           if (hasLiked) {
             likeBtn.innerHTML = '<i class="fas fa-heart text-xl liked"></i>';
-            localStorage.setItem(likeKey, 'true');
-            if (likeCountElement) likeCountElement.textContent = currentCount;
-            if (likeButtonIcon) likeButtonIcon.className = "fas fa-heart text-xl liked";
+            sessionStorage.setItem(`liked_${currentBlogId}`, 'true');
           } else {
             likeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
-            localStorage.removeItem(likeKey);
-            if (likeCountElement) likeCountElement.textContent = currentCount;
-            if (likeButtonIcon) likeButtonIcon.className = "far fa-heart text-xl";
+            sessionStorage.setItem(`liked_${currentBlogId}`, 'false');
+          }
+          if (likeCountElement) likeCountElement.textContent = currentCount;
+          if (likeButtonIcon) {
+            if (hasLiked) {
+              likeButtonIcon.className = "fas fa-heart text-xl liked";
+            } else {
+              likeButtonIcon.className = "far fa-heart text-xl";
+            }
           }
         });
     }
@@ -1202,7 +1283,7 @@
         author: "Anonymous",
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
-        .then(() => {
+        .then((docRef) => {
           // Update blog comment count
           const blogRef = blogsCollection.doc(currentBlogId);
           blogRef.update({
@@ -1219,20 +1300,21 @@
               // Add the new comment to the UI immediately
               const commentElement = document.createElement('div');
               commentElement.className = 'comment-card';
+              const commentId = `comment-${Date.now()}`;
               commentElement.innerHTML = `
-            <div class="flex-shrink-0 mr-3">
-              <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center">
-                <span class="text-xs font-bold text-gray-600">U</span>
-              </div>
-            </div>
-            <div class="flex-1">
-              <div class="flex justify-between items-center mb-1">
-                <span class="comment-user font-semibold">Anonymous</span>
-                <span class="text-xs text-gray-500">just now</span>
-              </div>
-              <p class="text-gray-800">${content}</p>
-            </div>
-          `;
+                <div class="flex-shrink-0 mr-3">
+                  <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center">
+                    <span class="text-xs font-bold text-gray-600">U</span>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <div class="flex justify-between items-center mb-1">
+                    <span class="comment-user font-semibold">Anonymous</span>
+                    <span class="text-xs text-gray-500" id="${commentId}-time"></span>
+                  </div>
+                  <p class="text-gray-800">${content}</p>
+                </div>
+              `;
 
               // If the "no comments" message is present, remove it
               if (commentsContainer.querySelector('.text-center')) {
@@ -1241,6 +1323,14 @@
 
               // Add the new comment at the top
               commentsContainer.insertBefore(commentElement, commentsContainer.firstChild);
+              
+              // Set and update relative time for new comment
+              const commentDate = new Date();
+              const timeElement = document.getElementById(`${commentId}-time`);
+              if (timeElement) {
+                updateRelativeTime(timeElement, commentDate);
+                startRelativeTimeUpdater(timeElement, commentDate);
+              }
 
               // Clear input
               commentInput.value = '';
