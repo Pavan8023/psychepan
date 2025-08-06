@@ -802,7 +802,7 @@
     // Current blog ID for modal
     let currentBlogId = null;
     let currentBlogData = null;
-    
+
     // Track comment timers for real-time updates
     const commentTimers = {};
 
@@ -810,12 +810,12 @@
     function formatRelativeTime(timestamp) {
       const now = new Date();
       const diff = now - timestamp; // in milliseconds
-      
+
       const seconds = Math.floor(diff / 1000);
       const minutes = Math.floor(seconds / 60);
       const hours = Math.floor(minutes / 60);
       const days = Math.floor(hours / 24);
-      
+
       if (seconds < 60) {
         return 'just now';
       } else if (minutes < 60) {
@@ -840,10 +840,10 @@
       if (commentTimers[element.id]) {
         clearInterval(commentTimers[element.id]);
       }
-      
+
       // Update immediately
       updateRelativeTime(element, timestamp);
-      
+
       // If the comment is less than 60 minutes old, update every minute
       const now = new Date();
       const diff = now - timestamp;
@@ -967,7 +967,7 @@
       // Check if user has already liked in this session
       const hasLiked = sessionStorage.getItem(`liked_${blogId}`) === 'true';
       let increment = 1;
-      
+
       if (hasLiked) {
         // User is unliking
         increment = -1;
@@ -976,14 +976,14 @@
         // User is liking
         sessionStorage.setItem(`liked_${blogId}`, 'true');
       }
-      
+
       const likeCountElement = document.getElementById(`like-count-${blogId}`);
       const currentCount = parseInt(likeCountElement.textContent);
       const likeButtonIcon = document.querySelector(`.like-btn[data-id="${blogId}"] i`);
 
       // Update UI immediately
       likeCountElement.textContent = currentCount + increment;
-      
+
       if (hasLiked) {
         likeButtonIcon.className = "far fa-heart text-xl";
       } else {
@@ -1008,15 +1008,15 @@
             sessionStorage.setItem(`liked_${blogId}`, 'false');
           }
         });
-        
+
       // If modal is open for this blog, update modal UI
       if (currentBlogId === blogId) {
         const modalLikeBtn = document.getElementById('modal-like-btn');
         const modalLikeCount = document.getElementById('like-count');
         const modalCurrentCount = parseInt(modalLikeCount.textContent);
-        
+
         modalLikeCount.textContent = modalCurrentCount + increment;
-        
+
         if (hasLiked) {
           modalLikeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
         } else {
@@ -1092,7 +1092,7 @@
     function closeBlogModal() {
       blogModal.classList.remove('active');
       document.body.style.overflow = 'auto';
-      
+
       // Clear any comment timers
       for (const timerId in commentTimers) {
         clearInterval(commentTimers[timerId]);
@@ -1135,7 +1135,7 @@
             // Display sorted comments
             comments.forEach(comment => {
               const commentDate = comment.timestamp ? comment.timestamp.toDate() : new Date();
-              
+
               const commentElement = document.createElement('div');
               commentElement.className = 'comment-card';
               commentElement.innerHTML = `
@@ -1154,7 +1154,7 @@
               `;
 
               commentsContainer.appendChild(commentElement);
-              
+
               // Set and update relative time
               const timeElement = document.getElementById(`comment-time-${comment.id}`);
               if (timeElement) {
@@ -1180,7 +1180,7 @@
       // Check if user has already liked in this session
       const hasLiked = sessionStorage.getItem(`liked_${currentBlogId}`) === 'true';
       let increment = 1;
-      
+
       if (hasLiked) {
         // User is unliking
         increment = -1;
@@ -1189,14 +1189,14 @@
         // User is liking
         sessionStorage.setItem(`liked_${currentBlogId}`, 'true');
       }
-      
+
       const currentCount = parseInt(likeCount.textContent);
       const likeCountElement = document.getElementById(`like-count-${currentBlogId}`);
       const likeButtonIcon = document.querySelector(`.like-btn[data-id="${currentBlogId}"] i`);
 
       // Update UI immediately
       likeCount.textContent = currentCount + increment;
-      
+
       if (hasLiked) {
         likeBtn.innerHTML = '<i class="far fa-heart text-xl"></i>';
       } else {
@@ -1323,7 +1323,7 @@
 
               // Add the new comment at the top
               commentsContainer.insertBefore(commentElement, commentsContainer.firstChild);
-              
+
               // Set and update relative time for new comment
               const commentDate = new Date();
               const timeElement = document.getElementById(`${commentId}-time`);
