@@ -7,6 +7,8 @@
   <title>Services - Psyche Panacea</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="/images/psypan-logo-transparent.png">
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
@@ -945,123 +947,165 @@
     </section>
 
     <!-- What Makes Us Special -->
-    <section class="py-16 bg-gradient-to-r from-primary to-blue-600 text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl font-bold mb-4">What Makes Us So Special?</h2>
-          <div class="h-1 w-20 bg-white mx-auto rounded"></div>
-        </div>
+<section class="py-16 bg-gradient-to-r from-primary to-blue-600 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-bold mb-4">What Makes Us So Special?</h2>
+      <div class="h-1 w-20 bg-white mx-auto rounded"></div>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div class="animate-on-scroll">
-            <div class="space-y-6">
-              <div class="flex items-start">
-                <div class="flex-shrink-0 mt-1">
-                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                    <i class="fas fa-cut text-xl"></i>
-                  </div>
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-xl font-bold">Our training is tailored to your organization's unique needs</h3>
-                  <p class="mt-2 opacity-90">No generic solutions - we customize every program for your specific
-                    challenges.</p>
-                </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div class="animate-on-scroll">
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                <i class="fas fa-cut text-xl"></i>
               </div>
-              <div class="flex items-start">
-                <div class="flex-shrink-0 mt-1">
-                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                    <i class="fas fa-handshake text-xl"></i>
-                  </div>
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-xl font-bold">We focus on developing interpersonal skills</h3>
-                  <p class="mt-2 opacity-90">Building soft skills that transform workplace dynamics and culture.</p>
-                </div>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold">Our training is tailored to your organization's unique needs</h3>
+              <p class="mt-2 opacity-90">No generic solutions - we customize every program for your specific
+                challenges.</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                <i class="fas fa-handshake text-xl"></i>
               </div>
-              <div class="flex items-start">
-                <div class="flex-shrink-0 mt-1">
-                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                    <i class="fas fa-user-tie text-xl"></i>
-                  </div>
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-xl font-bold">Industry experts Trainers with years of hands-on experience</h3>
-                  <p class="mt-2 opacity-90">Learn from practitioners who've succeeded in real-world business
-                    environments.</p>
-                </div>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold">We focus on developing interpersonal skills</h3>
+              <p class="mt-2 opacity-90">Building soft skills that transform workplace dynamics and culture.</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                <i class="fas fa-user-tie text-xl"></i>
               </div>
-              <div class="flex items-start">
-                <div class="flex-shrink-0 mt-1">
-                  <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                    <i class="fas fa-chart-bar text-xl"></i>
-                  </div>
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-xl font-bold">Our training is designed to deliver measurable outcomes</h3>
-                  <p class="mt-2 opacity-90">We focus on tangible results that impact your bottom line.</p>
-                </div>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold">Industry experts Trainers with years of hands-on experience</h3>
+              <p class="mt-2 opacity-90">Learn from practitioners who've succeeded in real-world business
+                environments.</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                <i class="fas fa-chart-bar text-xl"></i>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold">Our training is designed to deliver measurable outcomes</h3>
+              <p class="mt-2 opacity-90">We focus on tangible results that impact your bottom line.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="animate-on-scroll">
+        <div class="grid grid-cols-2 gap-6">
+          <div class="stat-card">
+            <div class="stat-card-inner">
+              <div
+                class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <div class="text-4xl font-bold mb-2 counter" id="companies-stat">350+</div>
+                <div class="text-center">Companies</div>
+              </div>
+              <div
+                class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <p class="text-center">Served diverse organizations across industries</p>
               </div>
             </div>
           </div>
-          <div class="animate-on-scroll">
-            <div class="grid grid-cols-2 gap-6">
-              <div class="stat-card">
-                <div class="stat-card-inner">
-                  <div
-                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter">350+</div>
-                    <div class="text-center">Companies</div>
-                  </div>
-                  <div
-                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <p class="text-center">Served diverse organizations across industries</p>
-                  </div>
-                </div>
+          <div class="stat-card">
+            <div class="stat-card-inner">
+              <div
+                class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <div class="text-4xl font-bold mb-2 counter" id="experience-stat">24+</div>
+                <div class="text-center">Years Experience</div>
               </div>
-              <div class="stat-card">
-                <div class="stat-card-inner">
-                  <div
-                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter">24+</div>
-                    <div class="text-center">Years Experience</div>
-                  </div>
-                  <div
-                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <p class="text-center">Two decades of training excellence</p>
-                  </div>
-                </div>
+              <div
+                class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <p class="text-center">Two decades of training excellence</p>
               </div>
-              <div class="stat-card">
-                <div class="stat-card-inner">
-                  <div
-                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter">300+</div>
-                    <div class="text-center">Training Associates</div>
-                  </div>
-                  <div
-                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <p class="text-center">Certified professionals delivering quality training</p>
-                  </div>
-                </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-inner">
+              <div
+                class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <div class="text-4xl font-bold mb-2 counter" id="associates-stat">300+</div>
+                <div class="text-center">Training Associates</div>
               </div>
-              <div class="stat-card">
-                <div class="stat-card-inner">
-                  <div
-                    class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <div class="text-4xl font-bold mb-2 counter">300000+</div>
-                    <div class="text-center">Participants Trained</div>
-                  </div>
-                  <div
-                    class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
-                    <p class="text-center">Transforming careers and organizations</p>
-                  </div>
-                </div>
+              <div
+                class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <p class="text-center">Certified professionals delivering quality training</p>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-inner">
+              <div
+                class="stat-card-front bg-white bg-opacity-20 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <div class="text-4xl font-bold mb-2 counter" id="participants-stat">300000+</div>
+                <div class="text-center">Participants Trained</div>
+              </div>
+              <div
+                class="stat-card-back bg-white bg-opacity-30 rounded-xl p-6 flex flex-col items-center justify-center h-full">
+                <p class="text-center">Transforming careers and organizations</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+  
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+      authDomain: "psypanweb-7747a.firebaseapp.com",
+      projectId: "psypanweb-7747a",
+      storageBucket: "psypanweb-7747a.firebasestorage.app",
+      messagingSenderId: "441049264188",
+      appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+      measurementId: "G-C1CTMX729Z"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    // Wait for Firebase to be initialized
+    document.addEventListener('DOMContentLoaded', function() {
+      // Reference to Firestore
+      const db = firebase.firestore();
+      
+      // Reference to the numdata collection
+      const numdataRef = db.collection('numdata');
+      
+      // Get the stats document
+      numdataRef.doc('stats').get().then(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          
+          // Update the counters with the fetched data
+          document.getElementById('companies-stat').textContent = data.companies;
+          document.getElementById('experience-stat').textContent = data.experience;
+          document.getElementById('associates-stat').textContent = data.associates;
+          document.getElementById('participants-stat').textContent = data.participants;
+        } else {
+          console.log('No such document!');
+        }
+      }).catch(error => {
+        console.log('Error getting document:', error);
+      });
+    });
+  </script>
+</section>
 
     <!-- Call to Action -->
     <section class="py-16 bg-white">
