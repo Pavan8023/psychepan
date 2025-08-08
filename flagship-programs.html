@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flagship Programs - Psyche Panacea</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init('6KRvQp4CW2Wc9Ir-x');
+    </script>
     <link rel="icon" href="/images/psypan-logo-transparent.png">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,6 +23,7 @@
                         dark: '#1a1a1a',
                         light: '#f8f9fa',
                         accent: '#f59e0b',
+                        hero: '#1e3a8a',
                     },
                     fontFamily: {
                         poppins: ['Poppins', 'sans-serif']
@@ -293,60 +298,6 @@
             font-size: 1.05rem;
         }
 
-
-
-        .animate-delay-1 {
-            animation-delay: 0.1s !important;
-        }
-
-        .animate-delay-2 {
-            animation-delay: 0.2s !important;
-        }
-
-        .animate-delay-3 {
-            animation-delay: 0.3s !important;
-        }
-
-        .animate-delay-4 {
-            animation-delay: 0.4s !important;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #0052cc, #4da8ff);
-            color: white;
-            padding: 120px 20px 80px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        .hero-divider {
-            height: 4px;
-            width: 80px;
-            background: white;
-            margin: 1.5rem auto;
-            border-radius: 2px;
-        }
-
-        .tab-btn {
-            @apply px-3 py-2 text-sm font-medium text-gray-700 bg-white border rounded hover:bg-blue-100 transition;
-        }
-
-        .tab-btn.active {
-            @apply bg-blue-500 text-white;
-        }
-
         .program-description ul {
             list-style-type: disc;
             padding-left: 1.5rem;
@@ -383,6 +334,290 @@
 
         .card-back {
             transform: rotateY(180deg);
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .form-container {
+            padding: 2rem;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #10B981;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0052cc;
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(to right, #0052cc, #4da8ff);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 82, 204, 0.3);
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .btn-close:hover {
+            background: #e9ecef;
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(to right, #0052cc, #4da8ff);
+            color: white;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .category-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 9rem 1.5rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 4px;
+            background: white;
+            margin: 0 auto 1.5rem;
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.15;
+        }
+
+        /* Sticky Tab Navigation */
+        .sticky-tabs {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 0;
+        }
+
+
+        /* Keep modal hidden by default; your JS toggles .active to show */
+        .modal-overlay {
+            display: none;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        /* Smooth content entrance */
+        .modal-content {
+            transform: translateY(12px) scale(.995);
+            transition: transform 280ms cubic-bezier(.2, .9, .3, 1), opacity 220ms ease;
+            opacity: 0;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* subtle card gradient and glass */
+        .modal-content {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 250, 250, 0.98));
+            backdrop-filter: blur(4px);
+        }
+
+        /* nice focus ring for inputs */
+        .modal-content input:focus,
+        .modal-content textarea:focus,
+        .modal-content button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.10);
+        }
+
+        /* Success icon animation */
+        .success-icon {
+            animation: popIn 420ms cubic-bezier(.2, .9, .3, 1);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(.8);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.06);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* SlideUp used by program cards animation (keeps consistent with your scripts) */
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* small screens - keep modal full height with scrollable content */
+        @media (max-width: 640px) {
+            .modal-content {
+                max-height: 92vh;
+                overflow-y: auto;
+            }
         }
     </style>
 </head>
@@ -449,17 +684,151 @@
         </p>
     </section>
 
-    <!-- Tab Navigation -->
-    <div
-        class="tab-nav sticky top-12 z-50 bg-gray-100 rounded-md grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4">
-        <button class="tab-btn active" data-tab="mdp">Managerial Dev. Program</button>
-        <button class="tab-btn" data-tab="ttt">Train The Trainer</button>
-        <button class="tab-btn" data-tab="hdc">Handling Conversation</button>
-        <button class="tab-btn" data-tab="c2c">Campus to Corporate</button>
-        <button class="tab-btn" data-tab="bcs">Business Comm. Skills</button>
-        <button class="tab-btn" data-tab="ms">Mentoring Skills</button>
-        <button class="tab-btn" data-tab="di">Diversity & Inclusion</button>
-        <button class="tab-btn" data-tab="sahyog">Sahyog</button>
+    <!-- Sticky Tab Navigation -->
+    <div class="sticky-tabs">
+        <div
+            class="tab-nav bg-gray-100 rounded-md grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4">
+            <button class="tab-btn active" data-tab="mdp">Managerial Dev. Program</button>
+            <button class="tab-btn" data-tab="ttt">Train The Trainer</button>
+            <button class="tab-btn" data-tab="hdc">Handling Conversation</button>
+            <button class="tab-btn" data-tab="c2c">Campus to Corporate</button>
+            <button class="tab-btn" data-tab="bcs">Business Comm. Skills</button>
+            <button class="tab-btn" data-tab="ms">Mentoring Skills</button>
+            <button class="tab-btn" data-tab="di">Diversity & Inclusion</button>
+            <button class="tab-btn" data-tab="sahyog">Sahyog</button>
+        </div>
+    </div>
+
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay fixed inset-0 z-50 items-center justify-center p-4 sm:p-6" id="bookingModal" style="z-index: 2000;"
+        aria-hidden="true">
+        <div
+            class="modal-content w-full max-w-3xl md:max-w-2xl lg:max-w-3xl mx-auto rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+            <!-- Header -->
+            <div class="modal-header px-6 py-4 flex items-start sm:items-center gap-4 border-b bg-white">
+                <div class="flex-1 min-w-0">
+                    <div class="modal-title text-lg font-semibold text-gray-800">Book Your Program</div>
+                    <div class="category-badge mt-1 inline-block text-sm text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full font-medium"
+                        id="categoryBadge">
+                        Managerial Development Program
+                    </div>
+                </div>
+
+                <!-- Close -->
+                <button id="closeModal"
+                    class="btn-close ml-auto text-gray-500 hover:text-gray-700 p-2 rounded-full transition-colors"
+                    aria-label="Close">
+                    <!-- SVG close icon -->
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Form Container -->
+            <div id="formContainer" class="form-container px-6 py-6 bg-gradient-to-b from-white to-gray-50">
+                <form id="contactForm" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">First name</label>
+                            <input required name="first_name" type="text" placeholder="John"
+                                class="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg bg-white placeholder-gray-400 shadow-sm transition" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Last name</label>
+                            <input required name="last_name" type="text" placeholder="Doe"
+                                class="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg bg-white placeholder-gray-400 shadow-sm transition" />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input required name="email" type="email" placeholder="you@example.com"
+                                class="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg bg-white placeholder-gray-400 shadow-sm transition" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input required name="phone" type="tel" placeholder="+91 99XXXXXXXX"
+                                class="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg bg-white placeholder-gray-400 shadow-sm transition" />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Program (Category)</label>
+                            <!-- keep same id/class; add nicer look -->
+                            <input name="services" id="services" type="text"
+                                placeholder="Managerial Development Program"
+                                class="mt-1 block w-full px-4 py-3 border border-indigo-100 rounded-lg bg-indigo-50 text-indigo-800 font-medium"
+                                readonly />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Program (Subcategory)</label>
+                            <input name="subcategory" id="subcategory" type="text"
+                                placeholder="Supervisory Development Program"
+                                class="mt-1 block w-full px-4 py-3 border border-indigo-100 rounded-lg bg-indigo-50 text-indigo-800 font-medium"
+                                readonly />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea name="message" rows="5" placeholder="Write your message..."
+                            class="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg bg-white placeholder-gray-400 shadow-sm transition"></textarea>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button type="submit"
+                            class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 rounded-lg font-semibold transition-shadow shadow-md">
+                            <!-- Send icon -->
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 19l9 2-7-9 7-9-9 2-9-2 9 9-9 9 9-2z"></path>
+                            </svg>
+                            Send Request
+                        </button>
+
+                        <button type="button" id="successClose"
+                            class="hidden sm:inline-block px-4 py-3 bg-gray-100 text-gray-700 rounded-lg border border-gray-200 hover:bg-gray-200 transition"
+                            aria-hidden="true">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message hidden px-6 py-8 text-center bg-white">
+                <div
+                    class="success-icon inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-50 text-green-600 mx-auto mb-4">
+                    <!-- check icon -->
+                    <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Thank You for Your Booking!</h3>
+                <p class="text-gray-600 mb-4">
+                    We've received your request and will contact you shortly with payment details.
+                </p>
+                <p class="text-gray-600 mb-6">You'll receive a confirmation email with program details shortly.</p>
+
+                <div class="flex items-center justify-center gap-3">
+                    <button id="successClose"
+                        class="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition">
+                        Close
+                    </button>
+                    <button type="button" id="bookAnother"
+                        class="px-4 py-2 bg-white text-indigo-600 rounded-lg border border-indigo-100 hover:bg-indigo-50 transition">Book
+                        another</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -520,10 +889,12 @@
                             class="read-more text-indigo-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105"
+                            data-category="Managerial Development Program"
+                            data-subcategory="Management Development Programs">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -568,10 +939,12 @@
                             class="read-more text-indigo-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105"
+                            data-category="Managerial Development Program"
+                            data-subcategory="Supervisory Development Program">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -617,10 +990,12 @@
                             class="read-more text-indigo-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700 transform transition-transform duration-300 hover:scale-105"
+                            data-category="Managerial Development Program"
+                            data-subcategory="Executive Development Program">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -704,9 +1079,9 @@
                     <div class="flex items-center justify-between">
                         <span class="read-more text-blue-500 text-sm font-medium hover:underline transform 
                    transition-transform duration-300 hover:translate-x-1">Read more</span>
-                        <a href="contact-career.html" class="btn inline-block px-4 py-2 text-sm font-medium bg-blue-600 text-white 
+                        <button class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-blue-600 text-white 
                    rounded hover:bg-blue-700 transform transition-transform duration-300 
-                   hover:scale-105">Contact Us</a>
+                   hover:scale-105">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -781,7 +1156,7 @@
                                 its common causes, communicate assertively, and reach win-win compromises.
                             </li>
                             <li>Introduce the concepts of peaceful communication, which place an emphasis on speaking
-                                one’s truth while still having empathy for the needs and feelings of others.
+                                one’s truth while still having empathy for the needs and sentiments of others.
                             </li>
                             <li>Raising awareness of cultural variations and how they affect expectations and
                                 communication techniques. supplying rules for responsibly managing cross-cultural
@@ -803,10 +1178,10 @@
                             class="read-more text-red-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-red-600 text-white rounded hover:bg-red-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-red-600 text-white rounded hover:bg-red-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -827,7 +1202,7 @@
             </p>
         </div>
 
-        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+        <div class="program-grid grid gap-6 md:grid-cs-2 lg:grid-cols-1">
             <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
                 style="--delay: 300ms">
                 <div class="overflow-hidden">
@@ -897,10 +1272,10 @@
                             class="read-more text-green-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-green-600 text-white rounded hover:bg-green-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-green-600 text-white rounded hover:bg-green-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -969,10 +1344,10 @@
                             class="read-more text-blue-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1065,10 +1440,10 @@
                             class="read-more text-purple-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-purple-600 text-white rounded hover:bg-purple-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-purple-600 text-white rounded hover:bg-purple-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1168,10 +1543,10 @@
                             class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1245,10 +1620,10 @@
                             class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1296,10 +1671,10 @@
                             class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1403,10 +1778,10 @@
                             class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                             Read more
                         </span>
-                        <a href="contact-career.html"
-                            class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
-                            Contact Us
-                        </a>
+                        <button
+                            class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                            Book Now
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1663,18 +2038,15 @@
                         class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
                         Read more
                     </span>
-                    <a href="contact-career.html"
-                        class="btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
-                        Contact Us
-                    </a>
+                    <button
+                        class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
+                        Book Now
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -1745,197 +2117,517 @@
             </div>
 
             <!-- Footer Bottom -->
-            <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
-                <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
-            </div>
-        </div>
-    </footer>
+            <footer class="bg-gray-900 text-white py-12">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                        <!-- Left half: Map -->
+                        <div
+                            class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+                            <iframe
+                                src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
+                                width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen
+                                loading="lazy"
+                                class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
+                                gestureHandling="greedy">
+                            </iframe>
+                        </div>
 
-    <!-- Chatbot -->
-    <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
-        <div id="chatbotToggle"
-            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
-                <path
-                    d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
-                </path>
-                <path d="M9 9h6v6H9z"></path>
-            </svg>
-        </div>
+                        <!-- Right half: Content -->
+                        <div class="grid grid-cols-1 gap-8">
+                            <!-- Company Info -->
+                            <div>
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
+                                </div>
+                                <p class="text-gray-400">
+                                    Pioneers of innovative and breakthrough methodologies in the Indian consultation
+                                    arena,
+                                    transforming organizations through strategic HR solutions.
+                                </p>
+                            </div>
 
-        <div id="chatbotWindow"
-            class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
-            <div
-                class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
-                <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
-                <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
-            </div>
+                            <!-- Contact Info -->
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">
+                                    Contact Us
+                                </h4>
+                                <ul class="space-y-4 text-gray-400 text-sm">
+                                    <li class="flex items-start">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
+                                            Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                        <span>09810323292, 09810319292</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        <span>hr@psypanconsulting.com</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
-                <div
-                    class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
-                    Welcome! How can I assist with your training goals today?
+                    <!-- Footer Bottom -->
+                    <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+                        <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- Chatbot -->
+            <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
+                <div id="chatbotToggle"
+                    class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
+                        </path>
+                        <path d="M9 9h6v6H9z"></path>
+                    </svg>
+                </div>
+
+                <div id="chatbotWindow"
+                    class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+                    <div
+                        class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+                        <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
+                        <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
+                    </div>
+
+                    <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
+                        <div
+                            class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
+                            Welcome! How can I assist with your training goals today?
+                        </div>
+                    </div>
+
+                    <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
+                        <input id="chatbotInput" type="text"
+                            class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
+                            placeholder="Ask about our programs...">
+                        <button id="chatbotSend"
+                            class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
+                            Send
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
-                <input id="chatbotInput" type="text"
-                    class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
-                    placeholder="Ask about our programs...">
-                <button id="chatbotSend"
-                    class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
-                    Send
-                </button>
-            </div>
-        </div>
-    </div>
+            <!-- EmailJS Template -->
+            <script type="text/template" id="email-template">
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Program Booking Request</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+            </head>
 
-    <script>
-        // Tab Switching Functionality
-        function initTabs() {
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
+            <body class="bg-gray-100">
+                <div class="max-w-2xl mx-auto bg-white p-8 my-8 rounded-lg shadow-lg">
+                    <div class="text-center mb-8">
+                        <img src="/images/psypan-logo-transparent.png" alt="Psyche Panacea" class="w-24 mx-auto mb-4">
+                        <h1 class="text-2xl font-bold text-primary">New Program Booking Request</h1>
+                    </div>
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons and contents
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
+                    <div class="border-t border-b border-gray-200 py-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h2 class="text-lg font-semibold text-gray-700 mb-2">Client Information</h2>
+                                <p class="text-gray-600"><span class="font-medium">Name:</span> {{firstName}}
+                                    {{lastName}}</p>
+                                <p class="text-gray-600"><span class="font-medium">Email:</span> {{email}}</p>
+                                <p class="text-gray-600"><span class="font-medium">Phone:</span> {{phone}}</p>
+                            </div>
 
-                    // Add active class to clicked button
-                    button.classList.add('active');
+                            <div>
+                                <h2 class="text-lg font-semibold text-gray-700 mb-2">Program Details</h2>
+                                <p class="text-gray-600"><span class="font-medium">Category:</span> {{category}}</p>
+                                <p class="text-gray-600"><span class="font-medium">Subcategory:</span> {{subcategory}}
+                                </p>
+                            </div>
+                        </div>
 
-                    // Show corresponding content
-                    const tabId = button.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+                        <div class="mt-6">
+                            <h2 class="text-lg font-semibold text-gray-700 mb-2">Message</h2>
+                            <p class="text-gray-600 bg-gray-50 p-4 rounded">{{message}}</p>
+                        </div>
+                    </div>
 
-                    // Animate program cards when tab changes
-                    animateProgramCards();
-                });
-            });
+                    <div class="mt-8 text-center">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-blue-700">This request was submitted from the Flagship Programs page on our
+                                website.</p>
+                            <p class="text-sm text-gray-500 mt-2">Submitted on: {{date}}</p>
+                        </div>
+                    </div>
+                </div>
+            </body>
+
+</html>
+</script>
+
+<script>
+    /* ---------- Utility Helpers ---------- */
+function parseCssDelayToSeconds(delayStr) {
+    if (!delayStr) return 0;
+    delayStr = delayStr.trim();
+    if (delayStr.endsWith('ms')) {
+        const n = parseFloat(delayStr.replace('ms', '')) || 0;
+        return n / 1000;
+    }
+    if (delayStr.endsWith('s')) {
+        return parseFloat(delayStr.replace('s', '')) || 0;
+    }
+    // fallback assume milliseconds numeric
+    const n = parseFloat(delayStr) || 0;
+    return n / 1000;
+}
+
+/* ---------- Tabs ---------- */
+function initTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function activateTab(button) {
+        // remove active
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // add active to clicked
+        button.classList.add('active');
+
+        // show corresponding content (safe guard in case id missing)
+        const tabId = button.getAttribute('data-tab');
+        if (tabId) {
+            const el = document.getElementById(tabId);
+            if (el) el.classList.add('active');
         }
 
-        // Animate program cards on page load and tab change
-        function animateProgramCards() {
-            const cards = document.querySelectorAll('.program-card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.animation = 'slideUp 0.5s ease forwards';
-                    card.style.animationDelay = card.style.getPropertyValue('--delay') * 0.1 + 's';
-                }, 50);
-            });
+        // animate cards of the shown tab
+        animateProgramCards();
+    }
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => activateTab(button));
+    });
+
+    // set initial active if any (if HTML already set)
+    const initialBtn = document.querySelector('.tab-btn.active') || tabButtons[0];
+    if (initialBtn) activateTab(initialBtn);
+}
+
+/* ---------- Animate Program Cards ---------- */
+function animateProgramCards() {
+    const cards = document.querySelectorAll('.program-card');
+    cards.forEach(card => {
+        // reset any previous animation
+        card.style.animation = 'none';
+        // initial styles
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+
+        // get css variable --delay either inline or computed
+        let delayVar = card.style.getPropertyValue('--delay');
+        if (!delayVar) {
+            // try computed style (in case defined in stylesheet)
+            delayVar = window.getComputedStyle(card).getPropertyValue('--delay');
         }
+        const delaySeconds = parseCssDelayToSeconds(delayVar) || 0;
 
-        // Read More Functionality
-        function initReadMore() {
-            document.querySelectorAll('.read-more').forEach(button => {
-                button.addEventListener('click', function () {
-                    const card = this.closest('.program-card');
-                    const description = card.querySelector('.program-description');
+        // force reflow to reset animation
+        void card.offsetWidth;
 
-                    // Toggle expanded class for this specific description
-                    description.classList.toggle('expanded');
+        // apply animation after a tiny tick so the reset takes effect
+        setTimeout(() => {
+            card.style.animation = 'slideUp 0.5s ease forwards';
+            card.style.animationDelay = `${delaySeconds}s`;
+        }, 50);
+    });
+}
 
-                    // Update text based on current state
-                    if (description.classList.contains('expanded')) {
-                        this.textContent = 'Read less';
-                    } else {
-                        this.textContent = 'Read more';
-                    }
-                });
-            });
-        }
+/* ---------- Read More ---------- */
+function initReadMore() {
+    document.querySelectorAll('.read-more').forEach(button => {
+        button.addEventListener('click', function () {
+            const card = this.closest('.program-card');
+            if (!card) return;
+            const description = card.querySelector('.program-description');
+            if (!description) return;
 
-        // Chatbot Functionality - Fixed and enhanced
-        function toggleChatbot() {
-            const chatbotWindow = document.getElementById('chatbotWindow');
-            chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
-        }
+            description.classList.toggle('expanded');
 
-        function sendMessage() {
-            const input = document.getElementById('chatbotInput');
-            const message = input.value.trim();
-            if (!message) return;
-
-            const chatbotBody = document.getElementById('chatbotBody');
-            const userMessage = document.createElement('div');
-            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
-            userMessage.textContent = message;
-            chatbotBody.appendChild(userMessage);
-
-            // Simulate bot response with typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-            typingIndicator.textContent = 'Typing...';
-            chatbotBody.appendChild(typingIndicator);
-            chatbotBody.scrollTop = chatbotBody.scrollHeight;
-
-            setTimeout(() => {
-                chatbotBody.removeChild(typingIndicator);
-                const botMessage = document.createElement('div');
-                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-                botMessage.textContent = getBotResponse(message);
-                chatbotBody.appendChild(botMessage);
-                chatbotBody.scrollTop = chatbotBody.scrollHeight;
-            }, 1000);
-
-            input.value = '';
-            chatbotBody.scrollTop = chatbotBody.scrollHeight;
-        }
-
-        function getBotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-                return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-            if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
-                return 'You can reach us at +91 9810319292 or +91 9810323292.';
-            if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
-                return 'For inquiries, please email us at hr@psypanconsulting.com';
-            if (lowerMessage.includes('training') || lowerMessage.includes('program'))
-                return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-            if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
-                return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-            return 'I’m here to help! Could you share more details about your query?';
-        }
-
-        // Set up chatbot event listeners
-        document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-        document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-        document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-        document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
+            this.textContent = description.classList.contains('expanded') ? 'Read less' : 'Read more';
         });
+    });
+}
 
-        // Mobile Menu Toggle
-        function initMobileMenu() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
+/* ---------- Chatbot ---------- */
+function toggleChatbot() {
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    if (!chatbotWindow) return;
+    chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+}
 
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
+function sendMessage() {
+    const input = document.getElementById('chatbotInput');
+    if (!input) return;
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatbotBody = document.getElementById('chatbotBody');
+    if (!chatbotBody) return;
+
+    const userMessage = document.createElement('div');
+    userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
+    userMessage.textContent = message;
+    chatbotBody.appendChild(userMessage);
+
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+    typingIndicator.textContent = 'Typing...';
+    chatbotBody.appendChild(typingIndicator);
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+    setTimeout(() => {
+        chatbotBody.removeChild(typingIndicator);
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+        botMessage.textContent = getBotResponse(message);
+        chatbotBody.appendChild(botMessage);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }, 1000);
+
+    input.value = '';
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+}
+
+function getBotResponse(message) {
+    const lowerMessage = message.toLowerCase();
+    if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+        return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+    if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+        return 'You can reach us at +91 9810319292 or +91 9810323292.';
+    if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+        return 'For inquiries, please email us at hr@psypanconsulting.com';
+    if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+        return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+    if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+        return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+    return 'I’m here to help! Could you share more details about your query?';
+}
+
+/* ---------- Mobile Menu ---------- */
+function initMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+}
+
+/* ---------- Booking Modal (updated, preserves original function names) ---------- */
+function initBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    const closeModal = document.getElementById('closeModal');
+    // there may be multiple successClose elements in markup; collect both by id or class
+    const successCloseElems = document.querySelectorAll('#successClose');
+    // Try to find bookingForm by common ids used in your project (backward-compatible)
+    const bookingForm = document.getElementById('bookingForm') || document.getElementById('contactForm') || document.querySelector('form');
+    const formContainer = document.getElementById('formContainer');
+    const successMessage = document.getElementById('successMessage');
+
+    // category/subcategory fields - support both "category"/"subcategory" ids and "services"/"subcategory" variants
+    const categoryField = document.getElementById('category') || document.getElementById('services') || document.querySelector('[name="services"]');
+    const subcategoryField = document.getElementById('subcategory') || document.querySelector('[name="subcategory"]');
+    const categoryBadge = document.getElementById('categoryBadge');
+
+    // utility: get active tab label (category)
+    function getActiveTabText() {
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if (activeBtn) return activeBtn.textContent.trim();
+        // fallback: read heading from active content panel
+        const activePanel = document.querySelector('.tab-content.active, .tab-panel.active');
+        if (activePanel) {
+            const h2 = activePanel.querySelector('h2, .tab-intro h2');
+            if (h2) return h2.textContent.trim();
+        }
+        return '';
+    }
+
+    // store last selected values so "book another" or reopen keeps them
+    let lastCategory = '';
+    let lastSubcategory = '';
+
+    // Delegated click for Book Now buttons
+    document.addEventListener('click', (e) => {
+        const button = e.target.closest && e.target.closest('.book-now-btn');
+        if (!button) return;
+
+        // find nearest program card and its title (h3 preferred)
+        const card = button.closest('.program-card') || button.closest('article') || button.parentElement;
+        let subCategory = '';
+        if (card) {
+            const title = card.querySelector('h3, h2, h4, .program-title');
+            if (title) subCategory = title.textContent.trim();
+        }
+        // fallback to data-subcategory attribute
+        if (!subCategory && button.dataset && button.dataset.subcategory) {
+            subCategory = button.dataset.subcategory.trim();
+        }
+
+        // get main category from active tab, fallback to data-category attribute on button
+        let mainCategory = getActiveTabText();
+        if (!mainCategory && button.dataset && button.dataset.category) {
+            mainCategory = button.dataset.category.trim();
+        }
+
+        // update stored values
+        if (mainCategory) lastCategory = mainCategory;
+        if (subCategory) lastSubcategory = subCategory;
+
+        // Reset form state: remove any date field, then reset form
+        if (bookingForm) {
+            const prevDate = bookingForm.querySelector('input[name="date"]');
+            if (prevDate) prevDate.remove();
+            // reset only if bookingForm supports reset
+            if (typeof bookingForm.reset === 'function') bookingForm.reset();
+        }
+
+        // Fill the readonly fields AFTER reset
+        if (categoryField) categoryField.value = lastCategory || '';
+        if (subcategoryField) subcategoryField.value = lastSubcategory || '';
+        if (categoryBadge) categoryBadge.textContent = lastCategory || 'Program';
+
+        if (formContainer) formContainer.classList.remove('hidden');
+        if (successMessage) successMessage.classList.add('hidden');
+
+        // Show modal
+        if (modal) {
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        // Focus first input for accessibility
+        if (bookingForm) {
+            const firstInput = bookingForm.querySelector('input:not([type=hidden]), textarea, button');
+            if (firstInput) firstInput.focus();
+        }
+    });
+
+    // Close modal function
+    function closeModalFn() {
+        if (!modal) return;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (closeModal) closeModal.addEventListener('click', closeModalFn);
+    if (successCloseElems && successCloseElems.length) {
+        successCloseElems.forEach(el => el.addEventListener('click', closeModalFn));
+    }
+
+    // Close when clicking outside modal-content
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModalFn();
+        });
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModalFn();
+    });
+
+    // Form submit handling
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // remove old date input if any
+            const oldDate = bookingForm.querySelector('input[name="date"]');
+            if (oldDate) oldDate.remove();
+
+            // Add current date hidden field (ISO)
+            const now = new Date();
+            const dateField = document.createElement('input');
+            dateField.type = 'hidden';
+            dateField.name = 'date';
+            dateField.value = now.toISOString();
+            bookingForm.appendChild(dateField);
+
+            // Ensure readonly fields (in case reset cleared them)
+            if (categoryField && !categoryField.value) categoryField.value = lastCategory || '';
+            if (subcategoryField && !subcategoryField.value) subcategoryField.value = lastSubcategory || '';
+
+            // Send with EmailJS if available
+            if (typeof emailjs !== 'undefined' && typeof emailjs.sendForm === 'function') {
+                // Use your existing service & template IDs (unchanged)
+                emailjs.sendForm('service_wbeo8md', 'template_9gj0ctn', bookingForm)
+                    .then(() => {
+                        if (formContainer) formContainer.classList.add('hidden');
+                        if (successMessage) successMessage.classList.remove('hidden');
+                    })
+                    .catch((error) => {
+                        alert('Failed to send booking request. Please try again.');
+                        console.error('EmailJS Error:', error);
+                    });
+            } else {
+                // Fallback for dev/testing — show success locally
+                console.warn('EmailJS not initialized — skipping send (dev mode).');
+                if (formContainer) formContainer.classList.add('hidden');
+                if (successMessage) successMessage.classList.remove('hidden');
             }
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            initTabs();
-            initReadMore();
-            initMobileMenu();
-            animateProgramCards();
-
-            // Set up chatbot event listeners
-            document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-            document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-            document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-            document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') sendMessage();
-            });
         });
-    </script>
+    }
+}
+
+/* ---------- Init on DOMContentLoaded ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+    initTabs();
+    initReadMore();
+    initMobileMenu();
+    initBookingModal();
+    animateProgramCards();
+
+    // Chatbot wiring (if elements exist)
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotSend = document.getElementById('chatbotSend');
+    const chatbotInput = document.getElementById('chatbotInput');
+
+    if (chatbotToggle) chatbotToggle.addEventListener('click', toggleChatbot);
+    if (chatbotClose) chatbotClose.addEventListener('click', toggleChatbot);
+    if (chatbotSend) chatbotSend.addEventListener('click', sendMessage);
+    if (chatbotInput) chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+});
+</script>
 </body>
 
 </html>
