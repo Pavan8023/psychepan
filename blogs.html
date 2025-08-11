@@ -142,14 +142,16 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .blog-image {
+    .blog-image,
+    .blog-video {
       height: 280px;
       width: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
 
-    .blog-card:hover .blog-image {
+    .blog-card:hover .blog-image,
+    .blog-card:hover .blog-video {
       transform: scale(1.02);
     }
 
@@ -263,7 +265,8 @@
       justify-content: center;
     }
 
-    .modal-image {
+    .modal-image,
+    .modal-video {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
@@ -334,6 +337,18 @@
       border-top: 1px solid #efefef;
       padding: 14px 16px;
       background-color: #f0f2f5;
+      flex-direction: column;
+    }
+
+    .commenter-name-container {
+      width: 100%;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .commenter-name-container.active {
+      display: flex;
+      align-items: center;
     }
 
     .comment-input {
@@ -344,6 +359,7 @@
       font-size: 14px;
       background: white;
       border-radius: 20px;
+      width: 100%;
     }
 
     .post-comment-btn {
@@ -354,6 +370,12 @@
       cursor: pointer;
       font-size: 14px;
       margin-left: 10px;
+      padding: 8px 16px;
+    }
+
+    .comment-input-row {
+      display: flex;
+      width: 100%;
     }
 
     /* Animation */
@@ -505,6 +527,26 @@
       padding: 10px;
       font-size: 14px;
     }
+
+    .video-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 5px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .media-container {
+      position: relative;
+    }
   </style>
 </head>
 
@@ -605,9 +647,10 @@
         <button class="ml-auto text-2xl text-gray-600 hover:text-black" id="close-modal">&times;</button>
       </div>
 
-      <!-- Modal Image -->
+      <!-- Modal Media -->
       <div class="modal-image-container h-64 md:h-80 w-full">
-        <img id="modal-image" src="" alt="" class="modal-image w-full h-full object-cover">
+        <img id="modal-image" src="" alt="" class="modal-image w-full h-full object-cover hidden">
+        <video id="modal-video" class="modal-video w-full h-full" controls style="display: none;"></video>
       </div>
 
       <!-- Scrollable Body -->
@@ -653,11 +696,22 @@
       </div>
 
       <!-- Comment Input (Sticky Footer) -->
-      <div class="comment-input-container border-t border-gray-200 bg-white p-3 flex items-center gap-3">
-        <input type="text" id="comment-input" placeholder="Add a comment..."
-          class="comment-input flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-primary">
-        <button id="submit-comment"
-          class="post-comment-btn text-primary font-semibold text-sm hover:underline">Post</button>
+      <div class="comment-input-container border-t border-gray-200 bg-white p-3">
+        <!-- Commenter Name Input -->
+        <div class="commenter-name-container" id="commenter-name-container">
+          <input type="text" id="commenter-name" placeholder="Your Name"
+            class="comment-input flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+          <button id="save-name-btn"
+            class="post-comment-btn text-primary font-semibold text-sm hover:underline ml-2">Save</button>
+        </div>
+
+        <!-- Comment Input -->
+        <div class="comment-input-row">
+          <input type="text" id="comment-input" placeholder="Add a comment..."
+            class="comment-input flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+          <button id="submit-comment"
+            class="post-comment-btn text-primary font-semibold text-sm hover:underline">Post</button>
+        </div>
       </div>
 
     </div>
@@ -790,6 +844,7 @@
     const blogModal = document.getElementById('blog-modal');
     const closeModal = document.getElementById('close-modal');
     const modalImage = document.getElementById('modal-image');
+    const modalVideo = document.getElementById('modal-video');
     const modalCaption = document.getElementById('modal-caption');
     const modalDate = document.getElementById('modal-date');
     const likeBtn = document.getElementById('modal-like-btn');
@@ -798,10 +853,14 @@
     const commentsContainer = document.getElementById('comments-container');
     const commentInput = document.getElementById('comment-input');
     const submitComment = document.getElementById('submit-comment');
+    const commenterNameInput = document.getElementById('commenter-name');
+    const saveNameBtn = document.getElementById('save-name-btn');
+    const commenterNameContainer = document.getElementById('commenter-name-container');
 
     // Current blog ID for modal
     let currentBlogId = null;
     let currentBlogData = null;
+    let currentCommenterName = localStorage.getItem('commenterName') || '';
 
     // Track comment timers for real-time updates
     const commentTimers = {};
@@ -854,6 +913,12 @@
       }
     }
 
+    // Check if URL is a video
+    function isVideo(url) {
+      const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov'];
+      return videoExtensions.some(ext => url.toLowerCase().includes(ext));
+    }
+
     // Load blogs from Firestore
     function loadBlogs() {
       blogsContainer.innerHTML = '<div class="text-center py-10 col-span-full"><div class="inline-block mb-4"><span class="loader"></span></div><p class="text-gray-500">Loading blogs...</p></div>';
@@ -899,14 +964,35 @@
           const truncatedContent = blog.content.length > 120 ?
             blog.content.substring(0, 120) + '...' : blog.content;
 
+          // Determine if media is image or video
+          const mediaUrl = blog.image || '';
+          const isVideoMedia = isVideo(mediaUrl);
+
           blogElement.innerHTML = `
             <div class="blog-header">
               <div class="blog-avatar">PP</div>
               <div class="modal-username">psyche_panacea</div>
             </div>
-            <div class="overflow-hidden">
-              <img src="${blog.image}" alt="${blog.title}" class="blog-image w-full">
-            </div>
+            <div class="media-container relative">
+            ${isVideoMedia ?
+              `<video id="blog-video-${blog.id}" 
+            class="blog-video w-full" 
+            poster="${blog.thumbnail || ''}" 
+            autoplay muted controls controlsList="nodownload"
+            style="object-fit: cover;">
+      <source src="${mediaUrl}" type="video/mp4">
+    </video>
+
+    <!-- Play Icon Overlay -->
+    <div id="play-icon-${blog.id}" 
+         class="video-icon absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer">
+      
+    </div>`
+              :
+              `<img src="${mediaUrl}" alt="${blog.title}" class="blog-image w-full">`
+            }
+</div>
+
             <div class="blog-footer">
               <div class="blog-actions">
                 <button class="like-btn social-btn" data-id="${blogId}">
@@ -948,6 +1034,21 @@
           blogElement.querySelector(`.share-btn[data-id="${blogId}"]`).addEventListener('click', () => {
             shareBlog(blog);
           });
+
+          // Add play button functionality for videos
+          if (isVideoMedia) {
+            const videoElement = blogElement.querySelector('video');
+            const playButton = blogElement.querySelector('.video-icon');
+
+            playButton.addEventListener('click', () => {
+              videoElement.play();
+              playButton.style.display = 'none';
+            });
+
+            videoElement.addEventListener('pause', () => {
+              playButton.style.display = 'flex';
+            });
+          }
         });
       }).catch(error => {
         console.error("Error loading blogs: ", error);
@@ -1044,8 +1145,22 @@
         currentBlogData = blog;
 
         // Set blog data in modal
-        modalImage.src = blog.image;
-        modalImage.alt = blog.title;
+        const mediaUrl = blog.image || '';
+        const isVideoMedia = isVideo(mediaUrl);
+
+        if (isVideoMedia) {
+          modalImage.style.display = 'none';
+          modalVideo.style.display = 'block';
+          modalVideo.src = mediaUrl;
+          modalVideo.poster = blog.thumbnail || '';
+          modalVideo.controls = true;
+        } else {
+          modalVideo.style.display = 'none';
+          modalImage.style.display = 'block';
+          modalImage.src = mediaUrl;
+          modalImage.alt = blog.title;
+        }
+
         modalCaption.textContent = blog.content.substring(0, 200) + (blog.content.length > 200 ? '...' : '');
 
         // Set formatted date
@@ -1098,6 +1213,11 @@
         clearInterval(commentTimers[timerId]);
         delete commentTimers[timerId];
       }
+
+      // Pause any playing video
+      if (modalVideo) {
+        modalVideo.pause();
+      }
     }
 
     // Load comments for a blog
@@ -1141,7 +1261,7 @@
               commentElement.innerHTML = `
                 <div class="flex-shrink-0 mr-3">
                   <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center">
-                    <span class="text-xs font-bold text-gray-600">U</span>
+                    <span class="text-xs font-bold text-gray-600">${comment.author.charAt(0).toUpperCase() || 'U'}</span>
                   </div>
                 </div>
                 <div class="flex-1">
@@ -1265,6 +1385,16 @@
       }
     }
 
+    // Save commenter name
+    function saveCommenterName() {
+      const name = commenterNameInput.value.trim();
+      if (name) {
+        currentCommenterName = name;
+        localStorage.setItem('commenterName', name);
+        commenterNameContainer.classList.remove('active');
+      }
+    }
+
     // Add a comment
     function addComment() {
       if (!currentBlogId) return;
@@ -1276,11 +1406,14 @@
         return;
       }
 
+      // Use saved name or "Anonymous" if not set
+      const author = currentCommenterName || 'Anonymous';
+
       // Add comment to Firestore
       commentsCollection.add({
         blogId: currentBlogId,
         content: content,
-        author: "Anonymous",
+        author: author,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
         .then((docRef) => {
@@ -1304,12 +1437,12 @@
               commentElement.innerHTML = `
                 <div class="flex-shrink-0 mr-3">
                   <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center">
-                    <span class="text-xs font-bold text-gray-600">U</span>
+                    <span class="text-xs font-bold text-gray-600">${author.charAt(0).toUpperCase() || 'U'}</span>
                   </div>
                 </div>
                 <div class="flex-1">
                   <div class="flex justify-between items-center mb-1">
-                    <span class="comment-user font-semibold">Anonymous</span>
+                    <span class="comment-user font-semibold">${author}</span>
                     <span class="text-xs text-gray-500" id="${commentId}-time"></span>
                   </div>
                   <p class="text-gray-800">${content}</p>
@@ -1358,11 +1491,26 @@
       });
 
       submitComment.addEventListener('click', addComment);
+      saveNameBtn.addEventListener('click', saveCommenterName);
 
       // Press Enter to submit comment
       commentInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
           addComment();
+        }
+      });
+
+      // Press Enter to save name
+      commenterNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          saveCommenterName();
+        }
+      });
+
+      // Show name input when comment input is focused and name not set
+      commentInput.addEventListener('focus', () => {
+        if (!currentCommenterName) {
+          commenterNameContainer.classList.add('active');
         }
       });
 
