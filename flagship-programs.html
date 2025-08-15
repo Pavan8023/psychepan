@@ -2122,346 +2122,346 @@
                     </div>
                 </div>
             </div>
-            </script>
+        </div>
+    </footer>
+    <script>
+        /* ---------- Utility Helpers ---------- */
+        function parseCssDelayToSeconds(delayStr) {
+            if (!delayStr) return 0;
+            delayStr = delayStr.trim();
+            if (delayStr.endsWith('ms')) {
+                const n = parseFloat(delayStr.replace('ms', '')) || 0;
+                return n / 1000;
+            }
+            if (delayStr.endsWith('s')) {
+                return parseFloat(delayStr.replace('s', '')) || 0;
+            }
+            // fallback assume milliseconds numeric
+            const n = parseFloat(delayStr) || 0;
+            return n / 1000;
+        }
 
-            <script>
-                /* ---------- Utility Helpers ---------- */
-                function parseCssDelayToSeconds(delayStr) {
-                    if (!delayStr) return 0;
-                    delayStr = delayStr.trim();
-                    if (delayStr.endsWith('ms')) {
-                        const n = parseFloat(delayStr.replace('ms', '')) || 0;
-                        return n / 1000;
-                    }
-                    if (delayStr.endsWith('s')) {
-                        return parseFloat(delayStr.replace('s', '')) || 0;
-                    }
-                    // fallback assume milliseconds numeric
-                    const n = parseFloat(delayStr) || 0;
-                    return n / 1000;
+        /* ---------- Tabs ---------- */
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            function activateTab(button) {
+                // remove active
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // add active to clicked
+                button.classList.add('active');
+
+                // show corresponding content (safe guard in case id missing)
+                const tabId = button.getAttribute('data-tab');
+                if (tabId) {
+                    const el = document.getElementById(tabId);
+                    if (el) el.classList.add('active');
                 }
 
-                /* ---------- Tabs ---------- */
-                function initTabs() {
-                    const tabButtons = document.querySelectorAll('.tab-btn');
-                    const tabContents = document.querySelectorAll('.tab-content');
+                // animate cards of the shown tab
+                animateProgramCards();
+            }
 
-                    function activateTab(button) {
-                        // remove active
-                        tabButtons.forEach(btn => btn.classList.remove('active'));
-                        tabContents.forEach(content => content.classList.remove('active'));
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => activateTab(button));
+            });
 
-                        // add active to clicked
-                        button.classList.add('active');
+            // set initial active if any (if HTML already set)
+            const initialBtn = document.querySelector('.tab-btn.active') || tabButtons[0];
+            if (initialBtn) activateTab(initialBtn);
+        }
 
-                        // show corresponding content (safe guard in case id missing)
-                        const tabId = button.getAttribute('data-tab');
-                        if (tabId) {
-                            const el = document.getElementById(tabId);
-                            if (el) el.classList.add('active');
-                        }
+        /* ---------- Animate Program Cards ---------- */
+        function animateProgramCards() {
+            const cards = document.querySelectorAll('.program-card');
+            cards.forEach(card => {
+                // reset any previous animation
+                card.style.animation = 'none';
+                // initial styles
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
 
-                        // animate cards of the shown tab
-                        animateProgramCards();
-                    }
+                // get css variable --delay either inline or computed
+                let delayVar = card.style.getPropertyValue('--delay');
+                if (!delayVar) {
+                    // try computed style (in case defined in stylesheet)
+                    delayVar = window.getComputedStyle(card).getPropertyValue('--delay');
+                }
+                const delaySeconds = parseCssDelayToSeconds(delayVar) || 0;
 
-                    tabButtons.forEach(button => {
-                        button.addEventListener('click', () => activateTab(button));
-                    });
+                // force reflow to reset animation
+                void card.offsetWidth;
 
-                    // set initial active if any (if HTML already set)
-                    const initialBtn = document.querySelector('.tab-btn.active') || tabButtons[0];
-                    if (initialBtn) activateTab(initialBtn);
+                // apply animation after a tiny tick so the reset takes effect
+                setTimeout(() => {
+                    card.style.animation = 'slideUp 0.5s ease forwards';
+                    card.style.animationDelay = `${delaySeconds}s`;
+                }, 50);
+            });
+        }
+
+        /* ---------- Read More ---------- */
+        function initReadMore() {
+            document.querySelectorAll('.read-more').forEach(button => {
+                button.addEventListener('click', function () {
+                    const card = this.closest('.program-card');
+                    if (!card) return;
+                    const description = card.querySelector('.program-description');
+                    if (!description) return;
+
+                    description.classList.toggle('expanded');
+
+                    this.textContent = description.classList.contains('expanded') ? 'Read less' : 'Read more';
+                });
+            });
+        }
+
+        /* ---------- Chatbot ---------- */
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            if (!chatbotWindow) return;
+            chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            if (!input) return;
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatbotBody = document.getElementById('chatbotBody');
+            if (!chatbotBody) return;
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
+            userMessage.textContent = message;
+            chatbotBody.appendChild(userMessage);
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+            typingIndicator.textContent = 'Typing...';
+            chatbotBody.appendChild(typingIndicator);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+            setTimeout(() => {
+                chatbotBody.removeChild(typingIndicator);
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+                botMessage.textContent = getBotResponse(message);
+                chatbotBody.appendChild(botMessage);
+                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+            }, 1000);
+
+            input.value = '';
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+                return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+            if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+                return 'You can reach us at +91 9810319292 or +91 9810323292.';
+            if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+                return 'For inquiries, please email us at hr@psypanconsulting.com';
+            if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+                return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+            if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+                return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+            return 'I’m here to help! Could you share more details about your query?';
+        }
+
+        /* ---------- Mobile Menu ---------- */
+        function initMobileMenu() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        /* ---------- Booking Modal (updated, preserves original function names) ---------- */
+        function initBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            const closeModal = document.getElementById('closeModal');
+            // there may be multiple successClose elements in markup; collect both by id or class
+            const successCloseElems = document.querySelectorAll('#successClose');
+            // Try to find bookingForm by common ids used in your project (backward-compatible)
+            const bookingForm = document.getElementById('bookingForm') || document.getElementById('contactForm') || document.querySelector('form');
+            const formContainer = document.getElementById('formContainer');
+            const successMessage = document.getElementById('successMessage');
+
+            // category/subcategory fields - support both "category"/"subcategory" ids and "services"/"subcategory" variants
+            const categoryField = document.getElementById('category') || document.getElementById('services') || document.querySelector('[name="services"]');
+            const subcategoryField = document.getElementById('subcategory') || document.querySelector('[name="subcategory"]');
+            const categoryBadge = document.getElementById('categoryBadge');
+
+            // utility: get active tab label (category)
+            function getActiveTabText() {
+                const activeBtn = document.querySelector('.tab-btn.active');
+                if (activeBtn) return activeBtn.textContent.trim();
+                // fallback: read heading from active content panel
+                const activePanel = document.querySelector('.tab-content.active, .tab-panel.active');
+                if (activePanel) {
+                    const h2 = activePanel.querySelector('h2, .tab-intro h2');
+                    if (h2) return h2.textContent.trim();
+                }
+                return '';
+            }
+
+            // store last selected values so "book another" or reopen keeps them
+            let lastCategory = '';
+            let lastSubcategory = '';
+
+            // Delegated click for Book Now buttons
+            document.addEventListener('click', (e) => {
+                const button = e.target.closest && e.target.closest('.book-now-btn');
+                if (!button) return;
+
+                // find nearest program card and its title (h3 preferred)
+                const card = button.closest('.program-card') || button.closest('article') || button.parentElement;
+                let subCategory = '';
+                if (card) {
+                    const title = card.querySelector('h3, h2, h4, .program-title');
+                    if (title) subCategory = title.textContent.trim();
+                }
+                // fallback to data-subcategory attribute
+                if (!subCategory && button.dataset && button.dataset.subcategory) {
+                    subCategory = button.dataset.subcategory.trim();
                 }
 
-                /* ---------- Animate Program Cards ---------- */
-                function animateProgramCards() {
-                    const cards = document.querySelectorAll('.program-card');
-                    cards.forEach(card => {
-                        // reset any previous animation
-                        card.style.animation = 'none';
-                        // initial styles
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-
-                        // get css variable --delay either inline or computed
-                        let delayVar = card.style.getPropertyValue('--delay');
-                        if (!delayVar) {
-                            // try computed style (in case defined in stylesheet)
-                            delayVar = window.getComputedStyle(card).getPropertyValue('--delay');
-                        }
-                        const delaySeconds = parseCssDelayToSeconds(delayVar) || 0;
-
-                        // force reflow to reset animation
-                        void card.offsetWidth;
-
-                        // apply animation after a tiny tick so the reset takes effect
-                        setTimeout(() => {
-                            card.style.animation = 'slideUp 0.5s ease forwards';
-                            card.style.animationDelay = `${delaySeconds}s`;
-                        }, 50);
-                    });
+                // get main category from active tab, fallback to data-category attribute on button
+                let mainCategory = getActiveTabText();
+                if (!mainCategory && button.dataset && button.dataset.category) {
+                    mainCategory = button.dataset.category.trim();
                 }
 
-                /* ---------- Read More ---------- */
-                function initReadMore() {
-                    document.querySelectorAll('.read-more').forEach(button => {
-                        button.addEventListener('click', function () {
-                            const card = this.closest('.program-card');
-                            if (!card) return;
-                            const description = card.querySelector('.program-description');
-                            if (!description) return;
+                // update stored values
+                if (mainCategory) lastCategory = mainCategory;
+                if (subCategory) lastSubcategory = subCategory;
 
-                            description.classList.toggle('expanded');
-
-                            this.textContent = description.classList.contains('expanded') ? 'Read less' : 'Read more';
-                        });
-                    });
+                // Reset form state: remove any date field, then reset form
+                if (bookingForm) {
+                    const prevDate = bookingForm.querySelector('input[name="date"]');
+                    if (prevDate) prevDate.remove();
+                    // reset only if bookingForm supports reset
+                    if (typeof bookingForm.reset === 'function') bookingForm.reset();
                 }
 
-                /* ---------- Chatbot ---------- */
-                function toggleChatbot() {
-                    const chatbotWindow = document.getElementById('chatbotWindow');
-                    if (!chatbotWindow) return;
-                    chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+                // Fill the readonly fields AFTER reset
+                if (categoryField) categoryField.value = lastCategory || '';
+                if (subcategoryField) subcategoryField.value = lastSubcategory || '';
+                if (categoryBadge) categoryBadge.textContent = lastCategory || 'Program';
+
+                if (formContainer) formContainer.classList.remove('hidden');
+                if (successMessage) successMessage.classList.add('hidden');
+
+                // Show modal
+                if (modal) {
+                    modal.classList.add('active');
+                    modal.setAttribute('aria-hidden', 'false');
                 }
 
-                function sendMessage() {
-                    const input = document.getElementById('chatbotInput');
-                    if (!input) return;
-                    const message = input.value.trim();
-                    if (!message) return;
-
-                    const chatbotBody = document.getElementById('chatbotBody');
-                    if (!chatbotBody) return;
-
-                    const userMessage = document.createElement('div');
-                    userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
-                    userMessage.textContent = message;
-                    chatbotBody.appendChild(userMessage);
-
-                    const typingIndicator = document.createElement('div');
-                    typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-                    typingIndicator.textContent = 'Typing...';
-                    chatbotBody.appendChild(typingIndicator);
-                    chatbotBody.scrollTop = chatbotBody.scrollHeight;
-
-                    setTimeout(() => {
-                        chatbotBody.removeChild(typingIndicator);
-                        const botMessage = document.createElement('div');
-                        botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-                        botMessage.textContent = getBotResponse(message);
-                        chatbotBody.appendChild(botMessage);
-                        chatbotBody.scrollTop = chatbotBody.scrollHeight;
-                    }, 1000);
-
-                    input.value = '';
-                    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+                // Focus first input for accessibility
+                if (bookingForm) {
+                    const firstInput = bookingForm.querySelector('input:not([type=hidden]), textarea, button');
+                    if (firstInput) firstInput.focus();
                 }
+            });
 
-                function getBotResponse(message) {
-                    const lowerMessage = message.toLowerCase();
-                    if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-                        return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-                    if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
-                        return 'You can reach us at +91 9810319292 or +91 9810323292.';
-                    if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
-                        return 'For inquiries, please email us at hr@psypanconsulting.com';
-                    if (lowerMessage.includes('training') || lowerMessage.includes('program'))
-                        return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-                    if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
-                        return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-                    return 'I’m here to help! Could you share more details about your query?';
-                }
+            // Close modal function
+            function closeModalFn() {
+                if (!modal) return;
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
 
-                /* ---------- Mobile Menu ---------- */
-                function initMobileMenu() {
-                    const mobileMenuButton = document.getElementById('mobile-menu-button');
-                    const mobileMenu = document.getElementById('mobile-menu');
+            if (closeModal) closeModal.addEventListener('click', closeModalFn);
+            if (successCloseElems && successCloseElems.length) {
+                successCloseElems.forEach(el => el.addEventListener('click', closeModalFn));
+            }
 
-                    if (mobileMenuButton && mobileMenu) {
-                        mobileMenuButton.addEventListener('click', () => {
-                            mobileMenu.classList.toggle('hidden');
-                        });
-                    }
-                }
+            // Close when clicking outside modal-content
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModalFn();
+                });
+            }
 
-                /* ---------- Booking Modal (updated, preserves original function names) ---------- */
-                function initBookingModal() {
-                    const modal = document.getElementById('bookingModal');
-                    const closeModal = document.getElementById('closeModal');
-                    // there may be multiple successClose elements in markup; collect both by id or class
-                    const successCloseElems = document.querySelectorAll('#successClose');
-                    // Try to find bookingForm by common ids used in your project (backward-compatible)
-                    const bookingForm = document.getElementById('bookingForm') || document.getElementById('contactForm') || document.querySelector('form');
-                    const formContainer = document.getElementById('formContainer');
-                    const successMessage = document.getElementById('successMessage');
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModalFn();
+            });
 
-                    // category/subcategory fields - support both "category"/"subcategory" ids and "services"/"subcategory" variants
-                    const categoryField = document.getElementById('category') || document.getElementById('services') || document.querySelector('[name="services"]');
-                    const subcategoryField = document.getElementById('subcategory') || document.querySelector('[name="subcategory"]');
-                    const categoryBadge = document.getElementById('categoryBadge');
+            // Form submit handling
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
 
-                    // utility: get active tab label (category)
-                    function getActiveTabText() {
-                        const activeBtn = document.querySelector('.tab-btn.active');
-                        if (activeBtn) return activeBtn.textContent.trim();
-                        // fallback: read heading from active content panel
-                        const activePanel = document.querySelector('.tab-content.active, .tab-panel.active');
-                        if (activePanel) {
-                            const h2 = activePanel.querySelector('h2, .tab-intro h2');
-                            if (h2) return h2.textContent.trim();
-                        }
-                        return '';
-                    }
+                    // remove old date input if any
+                    const oldDate = bookingForm.querySelector('input[name="date"]');
+                    if (oldDate) oldDate.remove();
 
-                    // store last selected values so "book another" or reopen keeps them
-                    let lastCategory = '';
-                    let lastSubcategory = '';
+                    // Add current date hidden field (ISO)
+                    const now = new Date();
+                    const dateField = document.createElement('input');
+                    dateField.type = 'hidden';
+                    dateField.name = 'date';
+                    dateField.value = now.toISOString();
+                    bookingForm.appendChild(dateField);
 
-                    // Delegated click for Book Now buttons
-                    document.addEventListener('click', (e) => {
-                        const button = e.target.closest && e.target.closest('.book-now-btn');
-                        if (!button) return;
+                    // Ensure readonly fields (in case reset cleared them)
+                    if (categoryField && !categoryField.value) categoryField.value = lastCategory || '';
+                    if (subcategoryField && !subcategoryField.value) subcategoryField.value = lastSubcategory || '';
 
-                        // find nearest program card and its title (h3 preferred)
-                        const card = button.closest('.program-card') || button.closest('article') || button.parentElement;
-                        let subCategory = '';
-                        if (card) {
-                            const title = card.querySelector('h3, h2, h4, .program-title');
-                            if (title) subCategory = title.textContent.trim();
-                        }
-                        // fallback to data-subcategory attribute
-                        if (!subCategory && button.dataset && button.dataset.subcategory) {
-                            subCategory = button.dataset.subcategory.trim();
-                        }
-
-                        // get main category from active tab, fallback to data-category attribute on button
-                        let mainCategory = getActiveTabText();
-                        if (!mainCategory && button.dataset && button.dataset.category) {
-                            mainCategory = button.dataset.category.trim();
-                        }
-
-                        // update stored values
-                        if (mainCategory) lastCategory = mainCategory;
-                        if (subCategory) lastSubcategory = subCategory;
-
-                        // Reset form state: remove any date field, then reset form
-                        if (bookingForm) {
-                            const prevDate = bookingForm.querySelector('input[name="date"]');
-                            if (prevDate) prevDate.remove();
-                            // reset only if bookingForm supports reset
-                            if (typeof bookingForm.reset === 'function') bookingForm.reset();
-                        }
-
-                        // Fill the readonly fields AFTER reset
-                        if (categoryField) categoryField.value = lastCategory || '';
-                        if (subcategoryField) subcategoryField.value = lastSubcategory || '';
-                        if (categoryBadge) categoryBadge.textContent = lastCategory || 'Program';
-
-                        if (formContainer) formContainer.classList.remove('hidden');
-                        if (successMessage) successMessage.classList.add('hidden');
-
-                        // Show modal
-                        if (modal) {
-                            modal.classList.add('active');
-                            modal.setAttribute('aria-hidden', 'false');
-                        }
-
-                        // Focus first input for accessibility
-                        if (bookingForm) {
-                            const firstInput = bookingForm.querySelector('input:not([type=hidden]), textarea, button');
-                            if (firstInput) firstInput.focus();
-                        }
-                    });
-
-                    // Close modal function
-                    function closeModalFn() {
-                        if (!modal) return;
-                        modal.classList.remove('active');
-                        modal.setAttribute('aria-hidden', 'true');
-                    }
-
-                    if (closeModal) closeModal.addEventListener('click', closeModalFn);
-                    if (successCloseElems && successCloseElems.length) {
-                        successCloseElems.forEach(el => el.addEventListener('click', closeModalFn));
-                    }
-
-                    // Close when clicking outside modal-content
-                    if (modal) {
-                        modal.addEventListener('click', (e) => {
-                            if (e.target === modal) closeModalFn();
-                        });
-                    }
-
-                    // Close on Escape
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'Escape') closeModalFn();
-                    });
-
-                    // Form submit handling
-                    if (bookingForm) {
-                        bookingForm.addEventListener('submit', (e) => {
-                            e.preventDefault();
-
-                            // remove old date input if any
-                            const oldDate = bookingForm.querySelector('input[name="date"]');
-                            if (oldDate) oldDate.remove();
-
-                            // Add current date hidden field (ISO)
-                            const now = new Date();
-                            const dateField = document.createElement('input');
-                            dateField.type = 'hidden';
-                            dateField.name = 'date';
-                            dateField.value = now.toISOString();
-                            bookingForm.appendChild(dateField);
-
-                            // Ensure readonly fields (in case reset cleared them)
-                            if (categoryField && !categoryField.value) categoryField.value = lastCategory || '';
-                            if (subcategoryField && !subcategoryField.value) subcategoryField.value = lastSubcategory || '';
-
-                            // Send with EmailJS if available
-                            if (typeof emailjs !== 'undefined' && typeof emailjs.sendForm === 'function') {
-                                // Use your existing service & template IDs (unchanged)
-                                emailjs.sendForm('service_wbeo8md', 'template_9gj0ctn', bookingForm)
-                                    .then(() => {
-                                        if (formContainer) formContainer.classList.add('hidden');
-                                        if (successMessage) successMessage.classList.remove('hidden');
-                                    })
-                                    .catch((error) => {
-                                        alert('Failed to send booking request. Please try again.');
-                                        console.error('EmailJS Error:', error);
-                                    });
-                            } else {
-                                // Fallback for dev/testing — show success locally
-                                console.warn('EmailJS not initialized — skipping send (dev mode).');
+                    // Send with EmailJS if available
+                    if (typeof emailjs !== 'undefined' && typeof emailjs.sendForm === 'function') {
+                        // Use your existing service & template IDs (unchanged)
+                        emailjs.sendForm('service_wbeo8md', 'template_9gj0ctn', bookingForm)
+                            .then(() => {
                                 if (formContainer) formContainer.classList.add('hidden');
                                 if (successMessage) successMessage.classList.remove('hidden');
-                            }
-                        });
+                            })
+                            .catch((error) => {
+                                alert('Failed to send booking request. Please try again.');
+                                console.error('EmailJS Error:', error);
+                            });
+                    } else {
+                        // Fallback for dev/testing — show success locally
+                        console.warn('EmailJS not initialized — skipping send (dev mode).');
+                        if (formContainer) formContainer.classList.add('hidden');
+                        if (successMessage) successMessage.classList.remove('hidden');
                     }
-                }
-
-                /* ---------- Init on DOMContentLoaded ---------- */
-                document.addEventListener('DOMContentLoaded', () => {
-                    initTabs();
-                    initReadMore();
-                    initMobileMenu();
-                    initBookingModal();
-                    animateProgramCards();
-
-                    // Chatbot wiring (if elements exist)
-                    const chatbotToggle = document.getElementById('chatbotToggle');
-                    const chatbotClose = document.getElementById('chatbotClose');
-                    const chatbotSend = document.getElementById('chatbotSend');
-                    const chatbotInput = document.getElementById('chatbotInput');
-
-                    if (chatbotToggle) chatbotToggle.addEventListener('click', toggleChatbot);
-                    if (chatbotClose) chatbotClose.addEventListener('click', toggleChatbot);
-                    if (chatbotSend) chatbotSend.addEventListener('click', sendMessage);
-                    if (chatbotInput) chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
                 });
-            </script>
+            }
+        }
+
+        /* ---------- Init on DOMContentLoaded ---------- */
+        document.addEventListener('DOMContentLoaded', () => {
+            initTabs();
+            initReadMore();
+            initMobileMenu();
+            initBookingModal();
+            animateProgramCards();
+
+            // Chatbot wiring (if elements exist)
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const chatbotClose = document.getElementById('chatbotClose');
+            const chatbotSend = document.getElementById('chatbotSend');
+            const chatbotInput = document.getElementById('chatbotInput');
+
+            if (chatbotToggle) chatbotToggle.addEventListener('click', toggleChatbot);
+            if (chatbotClose) chatbotClose.addEventListener('click', toggleChatbot);
+            if (chatbotSend) chatbotSend.addEventListener('click', sendMessage);
+            if (chatbotInput) chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+        });
+    </script>
 </body>
 
 </html>
