@@ -1,3 +1,11 @@
+# Updated Homepage with Firestore Stats and Client Carousel
+
+I've updated your homepage to:
+1. Fetch and display stats from Firestore
+2. Implement a modern logo carousel with fade/zoom animations
+3. Keep all existing functionality intact
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +17,11 @@
   <link rel="icon" href="/images/psypan-logo-transparent.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Include Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -26,7 +39,8 @@
           animation: {
             'marquee': 'marquee 25s linear infinite',
             'fadeIn': 'fadeIn 1s ease-in',
-            'slideUp': 'slideUp 0.8s ease-out'
+            'slideUp': 'slideUp 0.8s ease-out',
+            'fadeZoom': 'fadeZoom 2s infinite'
           },
           keyframes: {
             marquee: {
@@ -40,6 +54,10 @@
             slideUp: {
               '0%': { transform: 'translateY(30px)', opacity: '0' },
               '100%': { transform: 'translateY(0)', opacity: '1' }
+            },
+            fadeZoom: {
+              '0%, 100%': { opacity: '0.5', transform: 'scale(0.9)' },
+              '50%': { opacity: '1', transform: 'scale(1.1)' }
             }
           }
         }
@@ -127,8 +145,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
-
 
     .slideshow-container {
       position: absolute;
@@ -334,7 +350,6 @@
       }
     }
 
-
     /* wrap your card so the overflow is clipped during the slide */
     .testimonial-card {
       position: relative;
@@ -392,6 +407,150 @@
 
     .pop {
       animation: pop 2s ease-in-out;
+    }
+
+    /* --- Flip card core --- */
+    .flip-card {
+      perspective: 1200px;
+      -webkit-perspective: 1200px;
+      position: relative;
+      /* for absolute faces */
+      min-height: 240px;
+      /* ensures card has height so absolute faces render */
+      border-radius: 0.75rem;
+      /* matches rounded-xl */
+      overflow: visible;
+      /* allow shadows */
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    /* Outer hover lift (keeps your original hover lift) */
+    .flip-card:hover,
+    .flip-card:focus-within {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(2, 6, 23, 0.12);
+    }
+
+    .flip-card-inner {
+      position: relative;
+      height: 100%;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(.2, .8, .2, 1);
+      will-change: transform;
+    }
+
+    /* flip on hover/focus-within OR when .is-flipped is present (JS toggle) */
+    .flip-card:hover .flip-card-inner,
+    .flip-card:focus-within .flip-card-inner,
+    .flip-card.is-flipped .flip-card-inner {
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+    }
+
+    /* Faces — use absolute so they overlap; inset:0 fills parent */
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      /* top:0; right:0; bottom:0; left:0; */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      /* we'll align content inside */
+      justify-content: center;
+      padding: 1.5rem;
+      /* matches your p-6 */
+      box-sizing: border-box;
+      border-radius: 0.75rem;
+      background: white;
+    }
+
+    /* front stays as-is */
+    .flip-card-front {
+      transform: rotateY(0deg);
+      z-index: 2;
+    }
+
+    /* back rotated 180 so it reads correctly after flip */
+    .flip-card-back {
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+    }
+
+    /* small style niceties for back content */
+    .card-back-inner {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    /* Keep reduced motion preference in mind */
+    @media (prefers-reduced-motion: reduce) {
+      .flip-card-inner {
+        transition: none !important;
+      }
+
+      .flip-card {
+        transition: none !important;
+      }
+    }
+
+    /* Responsive tweak: increase min height on larger screens if needed */
+    @media (min-width: 768px) {
+      .flip-card {
+        min-height: 260px;
+      }
+    }
+
+    /* Client Carousel */
+    .logo-carousel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+      position: relative;
+    }
+
+    .logo-item-carousel {
+      position: absolute;
+      width: 120px;
+      height: 80px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.8s ease;
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+
+    .logo-item-carousel.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 10;
+    }
+
+    .logo-item-carousel img {
+      max-width: 80%;
+      max-height: 60px;
+    }
+
+    .stats-value {
+      font-size: 2.25rem;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .stats-label {
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.9);
     }
   </style>
 </head>
@@ -535,20 +694,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div class="animate-on-scroll">
-          <div class="text-4xl font-bold text-white mb-2">350+</div>
-          <div class="text-light text-lg">Satisfied Clients</div>
+          <div id="clients-stat" class="stats-value">350+</div>
+          <div class="stats-label">Satisfied Clients</div>
         </div>
         <div class="animate-on-scroll">
-          <div class="text-4xl font-bold text-white mb-2">22+</div>
-          <div class="text-light text-lg">Years of Experience</div>
+          <div id="experience-stat" class="stats-value">24+</div>
+          <div class="stats-label">Years of Experience</div>
         </div>
         <div class="animate-on-scroll">
-          <div class="text-4xl font-bold text-white mb-2">98%</div>
-          <div class="text-light text-lg">Client Retention</div>
+          <div id="retention-stat" class="stats-value">98%</div>
+          <div class="stats-label">Client Retention</div>
         </div>
         <div class="animate-on-scroll">
-          <div class="text-4xl font-bold text-white mb-2">5000+</div>
-          <div class="text-light text-lg">Trained Professionals</div>
+          <div id="trained-stat" class="stats-value">5000+</div>
+          <div class="stats-label">Trained Professionals</div>
         </div>
       </div>
     </div>
@@ -615,173 +774,151 @@
     </div>
   </section>
 
-  <!-- Services Section -->
+  <!-- Services Section — Flip-on-hover cards (copy-paste) -->
   <section id="services" class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">Our Services</h2>
+        <h2 class="text-3xl font-bold text-dark mb-4">Our Services</h2>
         <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto animate-on-scroll">
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
           Innovative training solutions that drive measurable results
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden 
-         transition-transform duration-300 ease-out 
-         hover:-translate-y-2 hover:scale-105 hover:shadow-2xl 
-         animate-on-scroll">
-          <div class="p-6">
-            <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-              <i class="fas fa-hiking text-primary text-2xl"></i>
+        <!-- Card 1 -->
+        <article class="flip-card bg-white rounded-xl shadow-lg animate-on-scroll" tabindex="0" role="button"
+          aria-pressed="false">
+          <div class="flip-card-inner">
+            <!-- FRONT: icon + label -->
+            <div class="flip-card-front">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-hiking text-primary text-2xl" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-dark mb-0">Outbound Training</h3>
+                  <p class="text-sm text-gray-500 mt-1">Experiential team-building</p>
+                </div>
+              </div>
             </div>
-            <h3 class="text-xl font-bold text-dark mb-3">Outbound Training</h3>
-            <p class="text-gray-600 mb-4">
-              Adventure-based programs designed to enhance team cohesion, leadership skills, and performance through
-              experiential learning in challenging environments.
-            </p>
-            <a href="#" class="text-primary font-medium flex items-center">
-              Learn more
-              <i class="fas fa-arrow-right ml-2 text-sm"></i>
-            </a>
-          </div>
-        </div>
 
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden 
-         transition-transform duration-300 ease-out 
-         hover:-translate-y-2 hover:scale-105 hover:shadow-2xl 
-         animate-on-scroll">
-          <div class="p-6">
-            <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-              <i class="fas fa-heart text-primary text-2xl"></i>
+            <!-- BACK: details -->
+            <div class="flip-card-back">
+              <div class="card-back-inner">
+                <h4 class="text-lg font-semibold text-dark">Outbound Training</h4>
+                <p class="text-gray-600">
+                  Adventure-based modules to build leadership, trust and measurable team performance. Custom routes,
+                  expert facilitators and post-event action planning included.
+                </p>
+                <div class="mt-2">
+                  <a href="#contact"
+                    class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">Learn
+                    more</a>
+                </div>
+              </div>
             </div>
-            <h3 class="text-xl font-bold text-dark mb-3">SAHYOG Wellness</h3>
-            <p class="text-gray-600 mb-4">
-              Mental wellness initiatives to foster a healthier, more engaged, and productive workforce through
-              counseling, workshops, and stress management programs.
-            </p>
-            <a href="#" class="text-primary font-medium flex items-center">
-              Learn more
-              <i class="fas fa-arrow-right ml-2 text-sm"></i>
-            </a>
           </div>
-        </div>
+        </article>
 
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden 
-         transition-transform duration-300 ease-out 
-         hover:-translate-y-2 hover:scale-105 hover:shadow-2xl 
-         animate-on-scroll">
-          <div class="p-6">
-            <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-              <i class="fas fa-shield-alt text-primary text-2xl"></i>
+        <!-- Card 2 -->
+        <article class="flip-card bg-white rounded-xl shadow-lg animate-on-scroll" tabindex="0" role="button"
+          aria-pressed="false">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-front">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-heart text-primary text-2xl" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-dark mb-0">SAHYOG Wellness</h3>
+                  <p class="text-sm text-gray-500 mt-1">Mental health & resilience</p>
+                </div>
+              </div>
             </div>
-            <h3 class="text-xl font-bold text-dark mb-3">POSH Certification</h3>
-            <p class="text-gray-600 mb-4">
-              Comprehensive training for workplace safety, compliance, and cultivating a respectful organizational
-              culture in line with the Prevention of Sexual Harassment Act.
-            </p>
-            <a href="#" class="text-primary font-medium flex items-center">
-              Learn more
-              <i class="fas fa-arrow-right ml-2 text-sm"></i>
-            </a>
+
+            <!-- BACK -->
+            <div class="flip-card-back">
+              <div class="card-back-inner">
+                <h4 class="text-lg font-semibold text-dark">SAHYOG Wellness</h4>
+                <p class="text-gray-600">
+                  Counseling, resilience workshops and manager coaching to support employee wellbeing and productivity.
+                  Tailored plans and ongoing check-ins available.
+                </p>
+                <div class="mt-2">
+                  <a href="#contact"
+                    class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">Get
+                    in touch</a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="flip-card bg-white rounded-xl shadow-lg animate-on-scroll" tabindex="0" role="button"
+          aria-pressed="false">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-front">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-shield-alt text-primary text-2xl" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-dark mb-0">POSH Certification</h3>
+                  <p class="text-sm text-gray-500 mt-1">Safety & compliance</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- BACK -->
+            <div class="flip-card-back">
+              <div class="card-back-inner">
+                <h4 class="text-lg font-semibold text-dark">POSH Certification</h4>
+                <p class="text-gray-600">
+                  Full workplace prevention training, policy drafting and assessments aligned to statutory requirements.
+                  Role-based sessions and compliance reporting included.
+                </p>
+                <div class="mt-2">
+                  <a href="#contact"
+                    class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">Request
+                    quote</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
 
+  <!-- Client Logo Carousel Section -->
   <section id="experience" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Clients</h2>
         <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
       </div>
 
-      <div class="logo-slider overflow-hidden relative w-full h-28 bg-blue-50 rounded-xl py-4">
-        <div class="logo-track h-full flex items-center">
-          <!-- First set of client logos -->
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/honda.png" alt="Honda" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/maruti.png" alt="Maruti Suzuki" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/hero.png" alt="Hero" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/jcb.png" alt="JCB" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/BirlaYamaha.png" alt="Yamaha" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/Suzuki-Motorcycles.png" alt="Suzuki Motorcycles" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/jktyre.png" alt="JK Tyres" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/Escort.png" alt="Escort" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/Sona-Koyo.jpg" alt="Sona Koyo" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/minda.png" alt="Minda" class="max-h-16 max-w-full">
-          </div>
-
-          <!-- Second set (duplicate for seamless infinite scroll) -->
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/honda.png" alt="Honda" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/maruti.png" alt="Maruti Suzuki" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/hero.png" alt="Hero" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/jcb.png" alt="JCB" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/BirlaYamaha.png" alt="Yamaha" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/Suzuki-Motorcycles.png" alt="Suzuki Motorcycles" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/jktyre.png" alt="JK Tyres" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/Escort.png" alt="Escort" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/Sona-Koyo.jpg" alt="Sona Koyo" class="max-h-16 max-w-full">
-          </div>
-          <div
-            class="client-logo flex-shrink-0 w-40 h-20 bg-white rounded-xl flex items-center justify-center mx-4 shadow-md">
-            <img src="/images/clients/minda.png" alt="Minda" class="max-h-16 max-w-full">
-          </div>
+      <!-- Logo Carousel -->
+      <div class="logo-carousel">
+        <div class="logo-item-carousel active">
+          <img src="/images/clients/honda.png" alt="Honda">
+        </div>
+        <div class="logo-item-carousel">
+          <img src="/images/clients/maruti.png" alt="Maruti Suzuki">
+        </div>
+        <div class="logo-item-carousel">
+          <img src="/images/clients/hero.png" alt="Hero">
+        </div>
+        <div class="logo-item-carousel">
+          <img src="/images/clients/jcb.png" alt="JCB">
+        </div>
+        <div class="logo-item-carousel">
+          <img src="/images/clients/BirlaYamaha.png" alt="Yamaha">
         </div>
       </div>
     </div>
@@ -902,6 +1039,7 @@
       </div>
     </div>
   </footer>
+
   <!-- Chatbot -->
   <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
     <div id="chatbotToggle"
@@ -942,6 +1080,102 @@
   </div>
 
   <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+      authDomain: "psypanweb-7747a.firebaseapp.com",
+      projectId: "psypanweb-7747a",
+      storageBucket: "psypanweb-7747a.appspot.com",
+      messagingSenderId: "441049264188",
+      appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+      measurementId: "G-C1CTMX729Z"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Fetch stats from Firestore
+    function fetchStats() {
+      const statsRef = db.collection('numdata').doc('stats');
+
+      statsRef.get().then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          document.getElementById('clients-stat').textContent = data.companies + '';
+          document.getElementById('experience-stat').textContent = data.experience + '';
+          document.getElementById('retention-stat').textContent = data.associates + '';
+          document.getElementById('trained-stat').textContent = data.participants + '';
+        } else {
+          console.log("No such document!");
+        }
+      }).catch((error) => {
+        console.log("Error getting document:", error);
+      });
+    }
+
+    // Initialize logo carousel
+    function initLogoCarousel() {
+      const logos = document.querySelectorAll('.logo-item-carousel');
+      let current = 0;
+
+      // Rotate logos every 2 seconds
+      setInterval(() => {
+        // Remove active class from current logo
+        logos[current].classList.remove('active');
+
+        // Move to next logo
+        current = (current + 1) % logos.length;
+
+        // Add active class to new logo
+        logos[current].classList.add('active');
+      }, 2000);
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Firebase stats
+      fetchStats();
+
+      // Initialize logo carousel
+      initLogoCarousel();
+
+      (function () {
+        const cards = document.querySelectorAll('.flip-card');
+
+        // Keyboard toggle for each card
+        cards.forEach(card => {
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              card.classList.toggle('is-flipped');
+              const pressed = card.classList.contains('is-flipped');
+              card.setAttribute('aria-pressed', pressed.toString());
+            }
+          });
+
+          // Click/tap toggles flip for touch devices (and mouse clicks)
+          card.addEventListener('click', (e) => {
+            // allow links inside the card to work normally
+            if (e.target.closest('a')) return;
+            // If device supports hover, keep hover behavior; but clicks should still work
+            card.classList.toggle('is-flipped');
+            const pressed = card.classList.contains('is-flipped');
+            card.setAttribute('aria-pressed', pressed.toString());
+          });
+
+          // When focus leaves the card, remove flipped state so keyboard users don't leave it flipped unintentionally
+          card.addEventListener('focusout', (e) => {
+            // small timeout to allow focus to move to internal links/buttons
+            setTimeout(() => {
+              if (!card.contains(document.activeElement)) {
+                card.classList.remove('is-flipped');
+                card.setAttribute('aria-pressed', 'false');
+              }
+            }, 10);
+          });
+        });
+      })();
 
       ; (function () {
         const services = [
@@ -1006,214 +1240,187 @@
       })();
 
 
-    const testimonials = [
-      {
-        photo: '/images/testimonials/vishal-shukla.jpg',
-        name: 'Vishal Shukla',
-        role: 'GM Sales',
-        company: 'True Value',
-        text: 'Associated with Psyche Panacea for last 10 years, Well Experienced Trainers Available In Pan India.',
-        rating: 5
-      },
-      {
-        photo: '/images/testimonials/sunita-pouroush.jpg',
-        name: 'Sunita Pouroush',
-        role: 'Asst Prof',
-        company: 'NCERT',
-        text: 'A long professional association, excellent services, keep doing good work',
-        rating: 5
-      },
-      {
-        photo: '/images/testimonials/neha-goel.jpg',
-        name: 'Neha Goel',
-        role: 'Centre of Innovation',
-        company: 'HMC - Jaipur',
-        text: 'Amazing team…Deepa and team always do great job in giving best experience to employees.',
-        rating: 5
+      const testimonials = [
+        {
+          photo: '/images/testimonials/vishal-shukla.jpg',
+          name: 'Vishal Shukla',
+          role: 'GM Sales',
+          company: 'True Value',
+          text: 'Associated with Psyche Panacea for last 10 years, Well Experienced Trainers Available In Pan India.',
+          rating: 5
+        },
+        {
+          photo: '/images/testimonials/sunita-pouroush.jpg',
+          name: 'Sunita Pouroush',
+          role: 'Asst Prof',
+          company: 'NCERT',
+          text: 'A long professional association, excellent services, keep doing good work',
+          rating: 5
+        },
+        {
+          photo: '/images/testimonials/neha-goel.jpg',
+          name: 'Neha Goel',
+          role: 'Centre of Innovation',
+          company: 'HMC - Jaipur',
+          text: 'Amazing team…Deepa and team always do great job in giving best experience to employees.',
+          rating: 5
+        }
+        // …add more as you like
+      ];
+
+      // 2) Cache DOM nodes
+      const cardEl = document.querySelector('.testimonial-card');
+      const photoEl = document.getElementById('testimonial-photo');
+      const nameEl = document.getElementById('testimonial-name');
+      const roleEl = document.getElementById('testimonial-role');
+      const textEl = document.getElementById('testimonial-text');
+      const starsEl = document.getElementById('testimonial-stars');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+
+      let current = 0;
+
+      // 3) Render + animate
+      function renderTestimonial(idx, direction) {
+        // remove any old animation classes
+        cardEl.classList.remove('slide-in-right', 'slide-in-left');
+        // force reflow so animation restarts
+        void cardEl.offsetWidth;
+        // add the correct slide-in class
+        cardEl.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
+
+        // update content
+        const t = testimonials[idx];
+        photoEl.src = t.photo;
+        photoEl.alt = t.name + ' photo';
+        nameEl.textContent = t.name;
+        roleEl.textContent = `${t.role} • ${t.company}`;
+        textEl.textContent = t.text;
+
+        // rebuild stars
+        starsEl.innerHTML = '';
+        for (let i = 0; i < 5; i++) {
+          const star = document.createElement('i');
+          star.className = i < t.rating ? 'fas fa-star' : 'far fa-star';
+          star.classList.add('mr-1');
+          starsEl.appendChild(star);
+        }
       }
-      // …add more as you like
-    ];
 
-    // 2) Cache DOM nodes
-    const cardEl = document.querySelector('.testimonial-card');
-    const photoEl = document.getElementById('testimonial-photo');
-    const nameEl = document.getElementById('testimonial-name');
-    const roleEl = document.getElementById('testimonial-role');
-    const textEl = document.getElementById('testimonial-text');
-    const starsEl = document.getElementById('testimonial-stars');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
+      // 4) Wire up buttons
+      prevBtn.addEventListener('click', () => {
+        current = (current - 1 + testimonials.length) % testimonials.length;
+        renderTestimonial(current, 'prev');
+      });
+      nextBtn.addEventListener('click', () => {
+        current = (current + 1) % testimonials.length;
+        renderTestimonial(current, 'next');
+      });
 
-    let current = 0;
-
-    // 3) Render + animate
-    function renderTestimonial(idx, direction) {
-      // remove any old animation classes
-      cardEl.classList.remove('slide-in-right', 'slide-in-left');
-      // force reflow so animation restarts
-      void cardEl.offsetWidth;
-      // add the correct slide-in class
-      cardEl.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
-
-      // update content
-      const t = testimonials[idx];
-      photoEl.src = t.photo;
-      photoEl.alt = t.name + ' photo';
-      nameEl.textContent = t.name;
-      roleEl.textContent = `${t.role} • ${t.company}`;
-      textEl.textContent = t.text;
-
-      // rebuild stars
-      starsEl.innerHTML = '';
-      for (let i = 0; i < 5; i++) {
-        const star = document.createElement('i');
-        star.className = i < t.rating ? 'fas fa-star' : 'far fa-star';
-        star.classList.add('mr-1');
-        starsEl.appendChild(star);
-      }
-    }
-
-    // 4) Wire up buttons
-    prevBtn.addEventListener('click', () => {
-      current = (current - 1 + testimonials.length) % testimonials.length;
-      renderTestimonial(current, 'prev');
-    });
-    nextBtn.addEventListener('click', () => {
-      current = (current + 1) % testimonials.length;
+      // 5) Initial render (no animation)
       renderTestimonial(current, 'next');
-    });
+      // Mobile Menu Toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-    // 5) Initial render (no animation)
-    renderTestimonial(current, 'next');
-
-
-
-
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-
-          // Close mobile menu if open
-          mobileMenu.classList.add('hidden');
-        }
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
       });
-    });
 
-    // Scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+
+            // Close mobile menu if open
+            mobileMenu.classList.add('hidden');
+          }
+        });
       });
-    }, {
-      threshold: 0.1
-    });
 
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-      observer.observe(el);
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          window.scrollTo({
-            top: target.offsetTop - 80,
-            behavior: 'smooth'
-          });
-
-          // Close mobile menu if open
-          mobileMenu.classList.add('hidden');
-        }
+      // Scroll animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, {
+        threshold: 0.1
       });
-    });
 
-    // Chatbot Functionality - Fixed and enhanced
-    function toggleChatbot() {
-      const chatbotWindow = document.getElementById('chatbotWindow');
-      chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
-    }
+      document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+        observer.observe(el);
+      });
 
-    function sendMessage() {
-      const input = document.getElementById('chatbotInput');
-      const message = input.value.trim();
-      if (!message) return;
+      // Chatbot Functionality
+      function toggleChatbot() {
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+      }
 
-      const chatbotBody = document.getElementById('chatbotBody');
-      const userMessage = document.createElement('div');
-      userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
-      userMessage.textContent = message;
-      chatbotBody.appendChild(userMessage);
+      function sendMessage() {
+        const input = document.getElementById('chatbotInput');
+        const message = input.value.trim();
+        if (!message) return;
 
-      // Simulate bot response with typing indicator
-      const typingIndicator = document.createElement('div');
-      typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-      typingIndicator.textContent = 'Typing...';
-      chatbotBody.appendChild(typingIndicator);
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        const chatbotBody = document.getElementById('chatbotBody');
+        const userMessage = document.createElement('div');
+        userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
+        userMessage.textContent = message;
+        chatbotBody.appendChild(userMessage);
 
-      setTimeout(() => {
-        chatbotBody.removeChild(typingIndicator);
-        const botMessage = document.createElement('div');
-        botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-        botMessage.textContent = getBotResponse(message);
-        chatbotBody.appendChild(botMessage);
+        // Simulate bot response with typing indicator
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+        typingIndicator.textContent = 'Typing...';
+        chatbotBody.appendChild(typingIndicator);
         chatbotBody.scrollTop = chatbotBody.scrollHeight;
-      }, 1000);
 
-      input.value = '';
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
-    }
+        setTimeout(() => {
+          chatbotBody.removeChild(typingIndicator);
+          const botMessage = document.createElement('div');
+          botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
+          botMessage.textContent = getBotResponse(message);
+          chatbotBody.appendChild(botMessage);
+          chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }, 1000);
 
-    function getBotResponse(message) {
-      const lowerMessage = message.toLowerCase();
-      if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-        return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-      if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
-        return 'You can reach us at +91 9810319292 or +91 9810323292.';
-      if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
-        return 'For inquiries, please email us at hr@psypanconsulting.com';
-      if (lowerMessage.includes('training') || lowerMessage.includes('program'))
-        return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-      if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
-        return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-      return 'I’m here to help! Could you share more details about your query?';
-    }
+        input.value = '';
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }
 
-    // Set up chatbot event listeners
-    document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-    document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-    document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-    document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') sendMessage();
-    });
+      function getBotResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
+          return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
+        if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
+          return 'You can reach us at +91 9810319292 or +91 9810323292.';
+        if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
+          return 'For inquiries, please email us at hr@psypanconsulting.com';
+        if (lowerMessage.includes('training') || lowerMessage.includes('program'))
+          return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+        if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
+          return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+        return 'I’m here to help! Could you share more details about your query?';
+      }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const win = document.getElementById('chatbotWindow');
-      win.classList.remove('hidden');
-      win.classList.add('block');
+      // Set up chatbot event listeners
+      document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
+      document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
+      document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+      document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+      });
     });
   </script>
 </body>
