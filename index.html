@@ -506,51 +506,61 @@ I've updated your homepage to:
       }
     }
 
-    /* Client Carousel */
-    .logo-carousel {
-      display: flex;
-      justify-content: center;
+    /* Custom styles for the animated carousel */
+    .logo-slider { --gap: 1rem; } /* control spacing */
+    .logo-track {
+      gap: var(--gap);
+      will-change: transform;
+      transition: transform 600ms cubic-bezier(.22,.9,.35,1);
       align-items: center;
-      height: 150px;
-      position: relative;
+      display: flex;
+      padding: 0 1rem;
     }
 
-    .logo-item-carousel {
-      position: absolute;
-      width: 120px;
-      height: 80px;
+    .client-logo {
+      flex-shrink: 0;
+      width: 10rem;    /* matches w-40 from Tailwind */
+      height: 5rem;    /* matches h-20 from Tailwind */
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: white;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      transition: all 0.8s ease;
-      opacity: 0.4;
-      transform: scale(0.85);
+      box-shadow: 0 8px 22px rgba(2,6,23,0.06);
+      margin: 0 .5rem; /* small horizontal gap (mx-4 ~ 1rem total) */
+      transform-origin: center;
+      transition: transform 420ms cubic-bezier(.22,.9,.35,1), opacity 300ms;
     }
 
-    .logo-item-carousel.active {
+    /* Centered item scale + prominence */
+    .client-logo.is-center {
+      transform: scale(1.12);
+      z-index: 5;
       opacity: 1;
-      transform: scale(1);
-      z-index: 10;
     }
 
-    .logo-item-carousel img {
-      max-width: 80%;
-      max-height: 60px;
+    /* Non-centered logos slightly dimmed */
+    .client-logo.dimmed {
+      opacity: 0.55;
+      transform: scale(0.98);
+      z-index: 1;
     }
 
-    .stats-value {
-      font-size: 2.25rem;
-      font-weight: bold;
-      color: white;
-      margin-bottom: 0.5rem;
+    /* smooth image fit */
+    .client-logo img {
+      max-height: 3.75rem; /* ~max-h-16 */
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
     }
 
-    .stats-label {
-      font-size: 1.125rem;
-      color: rgba(255, 255, 255, 0.9);
+    /* Prevent text selection while dragging or clicking */
+    .logo-slider, .logo-track, .client-logo { user-select: none; -webkit-user-select: none; -ms-user-select: none; }
+
+    /* Small responsive tweak */
+    @media (max-width: 640px) {
+      .client-logo { width: 7.5rem; height: 4rem; }
+      .client-logo img { max-height: 3rem; }
     }
   </style>
 </head>
@@ -895,30 +905,39 @@ I've updated your homepage to:
     </div>
   </section>
 
-  <!-- Client Logo Carousel Section -->
   <section id="experience" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Clients</h2>
-        <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+      <div class="text-center mb-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Trusted by Industry Leaders</h2>
+        <div class="h-1 w-20 bg-indigo-600 mx-auto rounded"></div>
       </div>
 
-      <!-- Logo Carousel -->
-      <div class="logo-carousel">
-        <div class="logo-item-carousel active">
-          <img src="/images/clients/honda.png" alt="Honda">
-        </div>
-        <div class="logo-item-carousel">
-          <img src="/images/clients/maruti.png" alt="Maruti Suzuki">
-        </div>
-        <div class="logo-item-carousel">
-          <img src="/images/clients/hero.png" alt="Hero">
-        </div>
-        <div class="logo-item-carousel">
-          <img src="/images/clients/jcb.png" alt="JCB">
-        </div>
-        <div class="logo-item-carousel">
-          <img src="/images/clients/BirlaYamaha.png" alt="Yamaha">
+      <!-- Carousel container -->
+      <div class="logo-slider overflow-hidden relative w-full h-28 bg-blue-50 rounded-xl py-4">
+        <div class="logo-track" id="logoTrack">
+          <!-- ORIGINAL SET -->
+          <div class="client-logo"><img src="/images/clients/honda.png" alt="Honda"></div>
+          <div class="client-logo"><img src="/images/clients/maruti.png" alt="Maruti Suzuki"></div>
+          <div class="client-logo"><img src="/images/clients/hero.png" alt="Hero"></div>
+          <div class="client-logo"><img src="/images/clients/jcb.png" alt="JCB"></div>
+          <div class="client-logo"><img src="/images/clients/BirlaYamaha.png" alt="Yamaha"></div>
+          <div class="client-logo"><img src="/images/clients/Suzuki-Motorcycles.png" alt="Suzuki Motorcycles"></div>
+          <div class="client-logo"><img src="/images/clients/jktyre.png" alt="JK Tyres"></div>
+          <div class="client-logo"><img src="/images/clients/Escort.png" alt="Escort"></div>
+          <div class="client-logo"><img src="/images/clients/Sona-Koyo.jpg" alt="Sona Koyo"></div>
+          <div class="client-logo"><img src="/images/clients/minda.png" alt="Minda"></div>
+
+          <!-- DUPLICATE SET for seamless infinite loop -->
+          <div class="client-logo"><img src="/images/clients/honda.png" alt="Honda"></div>
+          <div class="client-logo"><img src="/images/clients/maruti.png" alt="Maruti Suzuki"></div>
+          <div class="client-logo"><img src="/images/clients/hero.png" alt="Hero"></div>
+          <div class="client-logo"><img src="/images/clients/jcb.png" alt="JCB"></div>
+          <div class="client-logo"><img src="/images/clients/BirlaYamaha.png" alt="Yamaha"></div>
+          <div class="client-logo"><img src="/images/clients/Suzuki-Motorcycles.png" alt="Suzuki Motorcycles"></div>
+          <div class="client-logo"><img src="/images/clients/jktyre.png" alt="JK Tyres"></div>
+          <div class="client-logo"><img src="/images/clients/Escort.png" alt="Escort"></div>
+          <div class="client-logo"><img src="/images/clients/Sona-Koyo.jpg" alt="Sona Koyo"></div>
+          <div class="client-logo"><img src="/images/clients/minda.png" alt="Minda"></div>
         </div>
       </div>
     </div>
@@ -1114,31 +1133,155 @@ I've updated your homepage to:
       });
     }
 
-    // Initialize logo carousel
-    function initLogoCarousel() {
-      const logos = document.querySelectorAll('.logo-item-carousel');
-      let current = 0;
+    (function () {
+      const track = document.getElementById('logoTrack');
+      const container = track.parentElement;
+      let items = Array.from(track.children);
+      const originalCount = items.length / 2; // first half is original
+      let index = 0; // index of centered item within original set (0 .. originalCount-1)
+      const pauseDuration = 1800; // pause while center is scaled (ms)
+      const stepDelay = 2200;    // time between step starts (ms)
+      const moveDuration = 600;  // must match CSS transition for transform
+      let timer = null;
+      let locked = false; // avoid concurrent actions
 
-      // Rotate logos every 2 seconds
-      setInterval(() => {
-        // Remove active class from current logo
-        logos[current].classList.remove('active');
+      // Utility to compute and apply transform so item at items[i] is centered
+      function centerItemByAbsoluteIndex(absIndex, animate = true) {
+        const item = items[absIndex];
+        if (!item) return;
+        const itemCenter = item.offsetLeft + (item.offsetWidth / 2);
+        const containerCenter = container.clientWidth / 2;
+        const translateX = containerCenter - itemCenter;
+        if (!animate) track.style.transition = 'none';
+        else track.style.transition = `transform ${moveDuration}ms cubic-bezier(.22,.9,.35,1)`;
+        track.style.transform = `translateX(${translateX}px)`;
+        // re-enable transition after applying non-animated transform
+        if (!animate) requestAnimationFrame(() => { track.style.transition = ''; });
+      }
 
-        // Move to next logo
-        current = (current + 1) % logos.length;
+      // Update classes (scale center, dim others)
+      function updateClasses(absIndex) {
+        items.forEach((el, i) => {
+          el.classList.remove('is-center', 'dimmed');
+          // Because we have duplicate elements, we want the focused absolute index to be shown as center.
+        });
+        // mark center
+        const centerEl = items[absIndex];
+        if (centerEl) centerEl.classList.add('is-center');
+        // dim other visible ones
+        items.forEach((el, i) => {
+          if (i !== absIndex) el.classList.add('dimmed');
+        });
+      }
 
-        // Add active class to new logo
-        logos[current].classList.add('active');
-      }, 2000);
-    }
+      // Advance to next index (step movement)
+      async function stepForward() {
+        if (locked) return;
+        locked = true;
+        // absolute index in the track (0..items.length-1)
+        // current absolute index corresponds to index (original set) plus offset
+        // We'll keep track in terms of an absolute center index `absCenter`.
+        let absCenter = currentAbsoluteCenter();
+        // first ensure center is applied (scale up + pause)
+        updateClasses(absCenter);
 
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      // Initialize Firebase stats
-      fetchStats();
+        // pause while center is scaled
+        await wait(pauseDuration);
 
-      // Initialize logo carousel
-      initLogoCarousel();
+        // increment center to next
+        absCenter++;
+        index++;
+        // move transform to new center
+        centerItemByAbsoluteIndex(absCenter, true);
+
+        // after the move transition ends, update classes
+        await wait(moveDuration + 30);
+        updateClasses(absCenter);
+
+        // handle seamless looping: if index reached originalCount, jump back
+        if (index >= originalCount) {
+          // compute new absolute index equivalent after removing originalCount offset
+          index = index - originalCount;
+          // absCenter currently points into second half (>= originalCount)
+          const newAbsCenter = absCenter - originalCount;
+          // disable transition and jump immediately to newAbsCenter
+          centerItemByAbsoluteIndex(newAbsCenter, false);
+          // refresh items references and classes
+          updateClasses(newAbsCenter);
+        }
+
+        locked = false;
+      }
+
+      // helper: compute currently centered absolute index from index variable:
+      // We will define that the currently centered absolute index equals index (0..originalCount-1)
+      // plus the currentOffsetBlock (we always start in the first block at init).
+      // But to allow continuous movement to the second block and smooth resets, we track absolute center by reading transform and matching closest item center to container center.
+      function currentAbsoluteCenter() {
+        // find the item whose center is closest to the container center visually
+        const containerCenterX = container.getBoundingClientRect().left + container.clientWidth / 2;
+        let closestIndex = 0;
+        let closestDist = Infinity;
+        items.forEach((it, i) => {
+          const rect = it.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const dist = Math.abs(centerX - containerCenterX);
+          if (dist < closestDist) { closestDist = dist; closestIndex = i; }
+        });
+        return closestIndex;
+      }
+
+      // small promise-based wait
+      function wait(ms) { return new Promise(res => setTimeout(res, ms)); }
+
+      // init: wait until images load so sizes are correct
+      function whenImagesLoaded() {
+        const imgs = track.querySelectorAll('img');
+        const promises = Array.from(imgs).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((res) => img.addEventListener('load', res, { once: true }));
+        });
+        return Promise.all(promises);
+      }
+
+      // Start the carousel
+      async function init() {
+        await whenImagesLoaded();
+        // refresh items array (in case)
+        items = Array.from(track.children);
+
+        // Center the very first item (abs index 0)
+        const initialAbsIndex = 0;
+        centerItemByAbsoluteIndex(initialAbsIndex, false);
+        updateClasses(initialAbsIndex);
+
+        // Start auto stepping
+        timer = setInterval(() => {
+          stepForward().catch(console.error);
+        }, stepDelay);
+      }
+
+      // Pause on hover for better UX
+      container.addEventListener('mouseenter', () => {
+        clearInterval(timer); timer = null;
+      });
+      container.addEventListener('mouseleave', () => {
+        if (!timer) timer = setInterval(() => { stepForward().catch(console.error); }, stepDelay);
+      });
+
+      // On window resize, re-center the current item so layout stays centered
+      window.addEventListener('resize', () => {
+        // small debounce
+        clearTimeout(window._logoResizeTimeout);
+        window._logoResizeTimeout = setTimeout(() => {
+          const absCenter = currentAbsoluteCenter();
+          centerItemByAbsoluteIndex(absCenter, false);
+        }, 120);
+      });
+
+      // kick off
+      init().catch(console.error);
+    })();
 
       (function () {
         const cards = document.querySelectorAll('.flip-card');
