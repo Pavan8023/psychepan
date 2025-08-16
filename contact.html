@@ -602,41 +602,55 @@
         </div>
     </footer>
 
-    <!-- Chatbot -->
-    <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
-        <div id="chatbotToggle"
-            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+    <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
+    <div class="chatbot fixed bottom-6 right-4 z-50">
+        <!-- Toggle / Floating Button -->
+        <button id="chatbotToggle"
+            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
+            aria-label="Open chat">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                class="opacity-95">
                 <path
-                    d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
-                </path>
-                <path d="M9 9h6v6H9z"></path>
+                    d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z" />
+                <path d="M9 9h6v6H9z" />
             </svg>
-        </div>
+        </button>
 
+        <!-- Chat window -->
         <div id="chatbotWindow"
-            class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+            class="chatbot-window w-80 sm:w-96 max-h-[540px] absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 flex flex-col overflow-hidden">
+            <!-- Header -->
             <div
                 class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
-                <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
-                <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
-            </div>
-
-            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
-                <div
-                    class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
-                    Welcome! How can I assist with your training goals today?
+                <div>
+                    <div class="font-bold text-sm sm:text-base">Psyche Panacea Assistant</div>
+                    <div class="text-xs opacity-90">Corporate Training & HR Support</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="chatClear" title="Clear chat"
+                        class="text-xs bg-white/10 px-2 py-1 rounded-md hover:bg-white/20">Clear</button>
+                    <button id="chatbotClose" class="chatbot-close text-2xl leading-none">×</button>
                 </div>
             </div>
 
-            <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
+            <!-- Body -->
+            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto flex-1 space-y-3 bg-white">
+                <div
+                    class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-1 max-w-[86%] float-left clear-both text-sm sm:text-base">
+                    Welcome! Choose an option below or type your question. 👇
+                </div>
+
+                <!-- quick options container -->
+                <div id="chatOptions" class="w-full flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Input area -->
+            <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex gap-2 items-center">
                 <input id="chatbotInput" type="text"
-                    class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
-                    placeholder="Ask about our programs...">
+                    class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none"
+                    placeholder="Ask about our programs or click an option...">
                 <button id="chatbotSend"
-                    class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
-                    Send
-                </button>
+                    class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">Send</button>
             </div>
         </div>
     </div>
@@ -734,65 +748,349 @@
                 });
         });
 
-        // Chatbot Functionality
-        function toggleChatbot() {
-            const chatbotWindow = document.getElementById('chatbotWindow');
-            chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
-        }
+        (function () {
+            // --- configuration / content (edit as needed) ---
+            const contactInfo = {
+                address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
+                phones: ['+91 9810319292', '+91 9810323292'],
+                email: 'hr@psypanconsulting.com',
+            };
 
-        function sendMessage() {
-            const input = document.getElementById('chatbotInput');
-            const message = input.value.trim();
-            if (!message) return;
+            // PAGE URL map: clicking goto/learn-more opens these pages in the same tab
+            const pageUrlMap = {
+                'Services': 'services.html',
+                'Flagship Programs': 'flagship-programs.html',
+                'Blogs': 'blogs.html',
+                'Events': 'events.html',
+                'Contact': 'contact.html',
+                'About Us': 'about-us.html',
+                // keep Gallery as optional (if desired, add a page)
+                'Gallery': 'gallery.html'
+            };
 
-            const chatbotBody = document.getElementById('chatbotBody');
-            const userMessage = document.createElement('div');
-            userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
-            userMessage.textContent = message;
-            chatbotBody.appendChild(userMessage);
+            const servicesList = [
+                'Management Training',
+                'Employee Engagement',
+                'HR Consulting',
+                'Employee Assistance',
+                'Outbound Training',
+                'Soft Skills'
+            ];
 
-            // Simulate bot response with typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-            typingIndicator.textContent = 'Typing...';
-            chatbotBody.appendChild(typingIndicator);
-            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+            const flagshipPrograms = [
+                'Managerial Dev. Program',
+                'Train The Trainer',
+                'Handling Conversation',
+                'Campus to Corporate',
+                'Business Comm. Skills',
+                'Mentoring Skills',
+                'Diversity & Inclusion',
+                'Sahyog'
+            ];
 
-            setTimeout(() => {
-                chatbotBody.removeChild(typingIndicator);
-                const botMessage = document.createElement('div');
-                botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-                botMessage.textContent = getBotResponse(message);
-                chatbotBody.appendChild(botMessage);
-                chatbotBody.scrollTop = chatbotBody.scrollHeight;
-            }, 1000);
+            // Keyword responses (typed input fallback)
+            function getBotResponse(message) {
+                const lower = message.toLowerCase();
+                if (lower.includes('contact') || lower.includes('address')) {
+                    return `Our office is located at ${contactInfo.address}`;
+                }
+                if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number')) {
+                    return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
+                }
+                if (lower.includes('email') || lower.includes('mail')) {
+                    return `For inquiries, please email us at ${contactInfo.email}`;
+                }
+                if (lower.includes('training') || lower.includes('program')) {
+                    return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+                }
+                if (lower.includes('service') || lower.includes('offer')) {
+                    return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+                }
+                // fallback
+                return 'I’m here to help! You can click one of the options below or tell me what you need.';
+            }
 
-            input.value = '';
-            chatbotBody.scrollTop = chatbotBody.scrollHeight;
-        }
+            // --- DOM references ---
+            const toggleBtn = document.getElementById('chatbotToggle');
+            const windowEl = document.getElementById('chatbotWindow');
+            const closeBtn = document.getElementById('chatbotClose');
+            const sendBtn = document.getElementById('chatbotSend');
+            const inputEl = document.getElementById('chatbotInput');
+            const bodyEl = document.getElementById('chatbotBody');
+            const optionsContainer = document.getElementById('chatOptions');
+            const clearBtn = document.getElementById('chatClear');
 
-        function getBotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-                return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-            if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
-                return 'You can reach us at +91 9810319292 or +91 9810323292.';
-            if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
-                return 'For inquiries, please email us at hr@psypanconsulting.com';
-            if (lowerMessage.includes('training') || lowerMessage.includes('program'))
-                return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-            if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
-                return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-            return 'I’m here to help! Could you share more details about your query?';
-        }
+            // --- helpers ---
+            function scrollChatToBottom() {
+                bodyEl.scrollTop = bodyEl.scrollHeight;
+            }
 
-        // Set up chatbot event listeners
-        document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-        document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-        document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-        document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+            function createMessage({ text, who = 'bot', html = false }) {
+                const wrapper = document.createElement('div');
+                wrapper.className =
+                    'chatbot-message ' +
+                    (who === 'user'
+                        ? 'user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base'
+                        : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base');
+                if (html) wrapper.innerHTML = text;
+                else wrapper.textContent = text;
+                bodyEl.appendChild(wrapper);
+                scrollChatToBottom();
+                return wrapper;
+            }
+
+            function createTypingIndicator() {
+                return createMessage({ text: 'Typing...', who: 'bot' });
+            }
+
+            // Show quick options and prompt "How may I help you?"
+            function showOptionsPrompt(delay = 500) {
+                setTimeout(() => {
+                    createMessage({ text: 'How may I help you?', who: 'bot' });
+                    renderQuickOptions();
+                }, delay);
+            }
+
+            // Create clickable quick options
+            function renderQuickOptions() {
+                optionsContainer.innerHTML = '';
+
+                const mainOptions = [
+                    { label: 'Services', action: 'services' },
+                    { label: 'Flagship Programs', action: 'programs' },
+                    { label: 'Contact', action: 'contact' },
+                    { label: 'Phone', action: 'phone' },
+                    { label: 'Email', action: 'email' },
+                    { label: 'Events', action: 'goto', target: 'Events' },
+                    { label: 'Gallery', action: 'goto', target: 'Gallery' },
+                    { label: 'Blogs', action: 'goto', target: 'Blogs' },
+                    { label: 'About Us', action: 'goto', target: 'About Us' }
+                ];
+
+                mainOptions.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 hover:bg-slate-50';
+                    btn.textContent = opt.label;
+                    btn.dataset.action = opt.action;
+                    if (opt.target) btn.dataset.target = opt.target;
+                    optionsContainer.appendChild(btn);
+                });
+
+                scrollChatToBottom();
+            }
+
+            // Show service details then show options again
+            function showServiceDetails(serviceName) {
+                const description = `${serviceName} — a tailored solution to address corporate needs. Click Learn more to visit the Services page.`;
+                const typing = createTypingIndicator();
+                setTimeout(() => {
+                    typing.remove();
+                    createMessage({ text: description, who: 'bot' });
+                    const html = `<div class="mt-2"><button data-action="goto" data-target="Services" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Learn more</button></div>`;
+                    createMessage({ text: html, who: 'bot', html: true });
+                    // show options again
+                    showOptionsPrompt(700);
+                }, 700);
+            }
+
+            // Show program details then show options again
+            function showProgramDetails(programName) {
+                const description = `${programName} — structured program designed to build competencies and measurable outcomes. Click Go to Flagship Programs to know more.`;
+                const typing = createTypingIndicator();
+                setTimeout(() => {
+                    typing.remove();
+                    createMessage({ text: description, who: 'bot' });
+                    const html = `<div class="mt-2"><button data-action="goto" data-target="Flagship Programs" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Go to Flagship Programs</button></div>`;
+                    createMessage({ text: html, who: 'bot', html: true });
+                    // show options again
+                    showOptionsPrompt(700);
+                }, 700);
+            }
+
+            // Navigate to the mapped page (same tab). If no mapping, fallback to hash navigation.
+            function goToPage(name) {
+                const normalized = name.trim();
+                const url = pageUrlMap[normalized];
+                if (url) {
+                    // give a small confirmation message then navigate
+                    createMessage({ text: `Opening ${normalized}...`, who: 'bot' });
+                    // navigate in same tab
+                    window.location.href = url;
+                } else {
+                    // fallback: attempt scroll to element id
+                    const id = normalized.toLowerCase().replace(/\s+/g, '-');
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        createMessage({ text: `Taking you to ${normalized} section.`, who: 'bot' });
+                        // show options afterwards
+                        showOptionsPrompt(700);
+                    } else {
+                        createMessage({ text: `Couldn't find a page or section for "${normalized}".`, who: 'bot' });
+                        showOptionsPrompt(600);
+                    }
+                }
+            }
+
+            // --- main event handlers ---
+            function handleOptionClick(target) {
+                const action = target.dataset.action;
+                const t = target.dataset.target || target.textContent;
+
+                if (action === 'services') {
+                    const typing = createTypingIndicator();
+                    setTimeout(() => {
+                        typing.remove();
+                        createMessage({ text: 'Here are our Services:', who: 'bot' });
+                        const html = servicesList.map(s => `<button data-action="service" data-name="${s}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${s}</button>`).join('');
+                        createMessage({ text: html, who: 'bot', html: true });
+                        // show options again under the list
+                        showOptionsPrompt(600);
+                    }, 500);
+                    return;
+                }
+
+                if (action === 'programs') {
+                    const typing = createTypingIndicator();
+                    setTimeout(() => {
+                        typing.remove();
+                        createMessage({ text: 'Our Flagship Programs:', who: 'bot' });
+                        const html = flagshipPrograms.map(p => `<button data-action="program" data-name="${p}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${p}</button>`).join('');
+                        createMessage({ text: html, who: 'bot', html: true });
+                        showOptionsPrompt(600);
+                    }, 500);
+                    return;
+                }
+
+                if (action === 'contact') {
+                    createMessage({ text: `Address: ${contactInfo.address}`, who: 'bot' });
+                    createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
+                    createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
+                    showOptionsPrompt(600);
+                    return;
+                }
+
+                if (action === 'phone') {
+                    createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
+                    showOptionsPrompt(600);
+                    return;
+                }
+
+                if (action === 'email') {
+                    createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
+                    showOptionsPrompt(600);
+                    return;
+                }
+
+                if (action === 'goto') {
+                    // Open mapped page in same tab
+                    const targetLabel = target.dataset.target || target.textContent;
+                    goToPage(targetLabel);
+                    return;
+                }
+
+                if (action === 'service') {
+                    const name = target.dataset.name;
+                    showServiceDetails(name);
+                    return;
+                }
+                if (action === 'program') {
+                    const name = target.dataset.name;
+                    showProgramDetails(name);
+                    return;
+                }
+
+                // fallback: treat as typed content
+                const typedText = target.textContent || '';
+                createMessage({ text: typedText, who: 'user' });
+                const response = getBotResponse(typedText);
+                const typing = createTypingIndicator();
+                setTimeout(() => {
+                    typing.remove();
+                    createMessage({ text: response, who: 'bot' });
+                    showOptionsPrompt(600);
+                }, 800);
+            }
+
+            // Delegate clicks inside chat body (for dynamic buttons)
+            bodyEl.addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const action = btn.dataset.action;
+                if (!action) return;
+                // small user bubble showing clicked option
+                const label = btn.textContent;
+                createMessage({ text: label, who: 'user' });
+                handleOptionClick(btn);
+            });
+
+            // Top-level quick options click
+            optionsContainer.addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                handleOptionClick(btn);
+            });
+
+            // send typed message
+            function sendMessage() {
+                const message = inputEl.value.trim();
+                if (!message) return;
+                createMessage({ text: message, who: 'user' });
+                inputEl.value = '';
+                const typing = createTypingIndicator();
+                setTimeout(() => {
+                    typing.remove();
+                    // If user typed exact name of a service or program, prefer direct show
+                    const normalized = message.toLowerCase();
+                    const serviceMatch = servicesList.find(s => normalized === s.toLowerCase());
+                    const progMatch = flagshipPrograms.find(p => normalized === p.toLowerCase());
+                    if (serviceMatch) {
+                        showServiceDetails(serviceMatch);
+                        return;
+                    }
+                    if (progMatch) {
+                        showProgramDetails(progMatch);
+                        return;
+                    }
+                    // If they typed a page name like 'services' or 'blogs', open page
+                    const pageKey = Object.keys(pageUrlMap).find(k => k.toLowerCase() === message.toLowerCase());
+                    if (pageKey) {
+                        goToPage(pageKey);
+                        return;
+                    }
+                    const response = getBotResponse(message);
+                    createMessage({ text: response, who: 'bot' });
+                    showOptionsPrompt(600);
+                }, 900);
+            }
+
+            // Toggle open/close
+            function toggleChatbot() {
+                const isHidden = windowEl.classList.contains('hidden');
+                if (isHidden) {
+                    windowEl.classList.remove('hidden');
+                    // render quick options each time to ensure fresh buttons
+                    renderQuickOptions();
+                } else {
+                    windowEl.classList.add('hidden');
+                }
+            }
+
+            // Clear chat
+            function clearChat() {
+                bodyEl.innerHTML = '';
+                createMessage({ text: 'Welcome! Choose an option below or type your question. 👇', who: 'bot' });
+                renderQuickOptions();
+            }
+
+            // --- wire up events ---
+            toggleBtn.addEventListener('click', toggleChatbot);
+            closeBtn.addEventListener('click', toggleChatbot);
+            sendBtn.addEventListener('click', sendMessage);
+            inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+            clearBtn.addEventListener('click', clearChat);
+
+        })();
     </script>
 </body>
 
