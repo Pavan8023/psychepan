@@ -1,11 +1,3 @@
-# Updated Homepage with Firestore Stats and Client Carousel
-
-I've updated your homepage to:
-1. Fetch and display stats from Firestore
-2. Implement a modern logo carousel with fade/zoom animations
-3. Keep all existing functionality intact
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +6,7 @@ I've updated your homepage to:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Psyche Panacea - Corporate Training Solutions</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="/images/psypan-logo-transparent.png">
+  <link rel="icon" href="/images/psypan-logo-transparent.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -507,11 +499,15 @@ I've updated your homepage to:
     }
 
     /* Custom styles for the animated carousel */
-    .logo-slider { --gap: 1rem; } /* control spacing */
+    .logo-slider {
+      --gap: 1rem;
+    }
+
+    /* control spacing */
     .logo-track {
       gap: var(--gap);
       will-change: transform;
-      transition: transform 600ms cubic-bezier(.22,.9,.35,1);
+      transition: transform 600ms cubic-bezier(.22, .9, .35, 1);
       align-items: center;
       display: flex;
       padding: 0 1rem;
@@ -519,17 +515,20 @@ I've updated your homepage to:
 
     .client-logo {
       flex-shrink: 0;
-      width: 10rem;    /* matches w-40 from Tailwind */
-      height: 5rem;    /* matches h-20 from Tailwind */
+      width: 10rem;
+      /* matches w-40 from Tailwind */
+      height: 5rem;
+      /* matches h-20 from Tailwind */
       border-radius: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
       background: white;
-      box-shadow: 0 8px 22px rgba(2,6,23,0.06);
-      margin: 0 .5rem; /* small horizontal gap (mx-4 ~ 1rem total) */
+      box-shadow: 0 8px 22px rgba(2, 6, 23, 0.06);
+      margin: 0 .5rem;
+      /* small horizontal gap (mx-4 ~ 1rem total) */
       transform-origin: center;
-      transition: transform 420ms cubic-bezier(.22,.9,.35,1), opacity 300ms;
+      transition: transform 420ms cubic-bezier(.22, .9, .35, 1), opacity 300ms;
     }
 
     /* Centered item scale + prominence */
@@ -548,19 +547,32 @@ I've updated your homepage to:
 
     /* smooth image fit */
     .client-logo img {
-      max-height: 3.75rem; /* ~max-h-16 */
+      max-height: 3.75rem;
+      /* ~max-h-16 */
       max-width: 100%;
       object-fit: contain;
       display: block;
     }
 
     /* Prevent text selection while dragging or clicking */
-    .logo-slider, .logo-track, .client-logo { user-select: none; -webkit-user-select: none; -ms-user-select: none; }
+    .logo-slider,
+    .logo-track,
+    .client-logo {
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
 
     /* Small responsive tweak */
     @media (max-width: 640px) {
-      .client-logo { width: 7.5rem; height: 4rem; }
-      .client-logo img { max-height: 3rem; }
+      .client-logo {
+        width: 7.5rem;
+        height: 4rem;
+      }
+
+      .client-logo img {
+        max-height: 3rem;
+      }
     }
 
     .stats-value {
@@ -569,7 +581,7 @@ I've updated your homepage to:
       color: white;
       margin-bottom: 0.5rem;
     }
-    
+
     .stats-label {
       font-size: 1.125rem;
       color: rgba(255, 255, 255, 0.9);
@@ -710,7 +722,7 @@ I've updated your homepage to:
       </div>
     </div>
   </section>
- 
+
   <!-- Stats Section -->
   <section class="bg-primary py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -956,40 +968,111 @@ I've updated your homepage to:
   </section>
 
   <!-- Testimonials Section -->
-  <section id="testimonials" class="py-16">
+  <section id="testimonials" class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-8">
         <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">What Our Clients Say</h2>
         <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+        <p class="text-gray-600 max-w-2xl mx-auto">Real feedback from organisations and participants who attended our
+          programs.</p>
       </div>
 
-      <div class="max-w-4xl mx-auto testimonial-card rounded-2xl p-8 shadow-lg">
-        <!-- Photo + Name/Role -->
+      <!-- Main testimonial display card -->
+      <div class="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-lg relative">
+        <!-- Add Review button -->
+        <div class="absolute top-6 right-6">
+          <button id="addReviewBtn" class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:opacity-95">
+            + Add Review
+          </button>
+        </div>
+
         <div class="flex items-center mb-6">
-          <img id="testimonial-photo" src="" alt="Client photo" class="w-16 h-16 rounded-full object-cover" />
+          <img id="testimonial-photo" src="" alt="Client photo"
+            class="w-20 h-20 rounded-full object-cover border-2 border-indigo-50 shadow-sm" />
           <div class="ml-4">
-            <div id="testimonial-name" class="font-bold text-lg">Name Here</div>
-            <div id="testimonial-role" class="text-primary">Role • Company</div>
+            <div id="testimonial-name" class="font-bold text-xl">Name Here</div>
+            <div id="testimonial-role" class="text-primary text-sm">Role • Company</div>
           </div>
         </div>
 
-        <!-- Text -->
-        <p id="testimonial-text" class="text-gray-700 text-xl italic mb-6">
+        <p id="testimonial-text" class="text-gray-700 text-lg italic mb-6">
           “Testimonial text goes here.”
         </p>
 
-        <!-- Stars -->
-        <div id="testimonial-stars" class="flex mb-6"></div>
+        <div id="testimonial-stars" class="flex items-center mb-6"></div>
 
-        <!-- Controls -->
-        <div class="flex justify-between">
-          <button id="prev-btn" class="text-gray-500 hover:text-primary">
-            <i class="fas fa-chevron-left"></i> Prev
-          </button>
-          <button id="next-btn" class="text-gray-500 hover:text-primary">
-            Next <i class="fas fa-chevron-right"></i>
-          </button>
+        <div class="flex items-center justify-between">
+          <div>
+            <button id="prev-btn" class="px-3 py-2 rounded-md border border-gray-200 hover:bg-slate-50 text-sm">
+              ← Prev
+            </button>
+            <button id="next-btn" class="ml-3 px-3 py-2 rounded-md border border-gray-200 hover:bg-slate-50 text-sm">
+              Next →
+            </button>
+          </div>
+
+          <div id="testimonial-counter" class="text-sm text-gray-500">0 of 0</div>
         </div>
+      </div>
+
+      <!-- Live grid of recent testimonials -->
+      <div class="mt-10 max-w-7xl mx-auto">
+        <h3 class="text-lg font-semibold mb-4">Recent Reviews</h3>
+        <div id="testimonials-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </div>
+
+    <!-- Add Review Modal -->
+    <div id="reviewModal" style="z-index: 1000;"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+      <div class="bg-white rounded-xl w-full max-w-xl p-6 shadow-lg relative">
+        <button id="modalClose" class="absolute top-4 right-4 text-gray-500 text-2xl">×</button>
+        <h4 class="text-xl font-bold mb-3">Add a Review</h4>
+
+        <form id="reviewForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Full name</label>
+            <input id="r-name" required class="mt-1 block w-full border border-gray-200 rounded-md p-2"
+              placeholder="e.g. Priya Sharma" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Role / Company</label>
+            <input id="r-role" class="mt-1 block w-full border border-gray-200 rounded-md p-2"
+              placeholder="e.g. HR Manager • ACME Corp" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Photo URL (optional)</label>
+            <input id="r-photo" class="mt-1 block w-full border border-gray-200 rounded-md p-2"
+              placeholder="https://..." />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Rating</label>
+            <select id="r-rating" required class="mt-1 block w-36 border border-gray-200 rounded-md p-2">
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Very Good</option>
+              <option value="3">3 — Good</option>
+              <option value="2">2 — Fair</option>
+              <option value="1">1 — Poor</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Review</label>
+            <textarea id="r-text" rows="4" required class="mt-1 block w-full border border-gray-200 rounded-md p-2"
+              placeholder="Write your experience..."></textarea>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button type="button" id="modalCancel" class="px-4 py-2 rounded-md border border-gray-200">Cancel</button>
+            <button type="submit" id="modalSubmit" class="px-4 py-2 bg-primary text-white rounded-md">Submit
+              Review</button>
+          </div>
+
+          <div id="formMsg" class="text-sm text-green-600 mt-2 hidden"></div>
+        </form>
       </div>
     </div>
   </section>
@@ -1071,46 +1154,406 @@ I've updated your homepage to:
     </div>
   </footer>
 
-  <!-- Chatbot -->
-  <div class="chatbot fixed bottom-8 right-2 sm:right-8 z-50">
-    <div id="chatbotToggle"
-      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+  <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
+  <div class="chatbot fixed bottom-6 right-4 z-50">
+    <!-- Toggle / Floating Button -->
+    <button id="chatbotToggle"
+      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
+      aria-label="Open chat">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        class="opacity-95">
         <path
-          d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z">
-        </path>
-        <path d="M9 9h6v6H9z"></path>
+          d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z" />
+        <path d="M9 9h6v6H9z" />
       </svg>
-    </div>
+    </button>
 
+    <!-- Chat window -->
     <div id="chatbotWindow"
-      class="chatbot-window absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 overflow-hidden">
+      class="chatbot-window w-80 sm:w-96 max-h-[540px] absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 flex flex-col overflow-hidden">
+      <!-- Header -->
       <div
         class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
-        <span class="font-bold text-base sm:text-lg">Psyche Panacea Assistant</span>
-        <span id="chatbotClose" class="chatbot-close cursor-pointer text-2xl leading-none">×</span>
-      </div>
-
-      <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto">
-        <div
-          class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base">
-          Welcome! How can I assist with your training goals today?
+        <div>
+          <div class="font-bold text-sm sm:text-base">Psyche Panacea Assistant</div>
+          <div class="text-xs opacity-90">Corporate Training & HR Support</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="chatClear" title="Clear chat"
+            class="text-xs bg-white/10 px-2 py-1 rounded-md hover:bg-white/20">Clear</button>
+          <button id="chatbotClose" class="chatbot-close text-2xl leading-none">×</button>
         </div>
       </div>
 
-      <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex">
+      <!-- Body -->
+      <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto flex-1 space-y-3 bg-white">
+        <div
+          class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-1 max-w-[86%] float-left clear-both text-sm sm:text-base">
+          Welcome! Choose an option below or type your question. 👇
+        </div>
+
+        <!-- quick options container -->
+        <div id="chatOptions" class="w-full flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- Input area -->
+      <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex gap-2 items-center">
         <input id="chatbotInput" type="text"
-          class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base mr-2"
-          placeholder="Ask about our programs...">
+          class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none"
+          placeholder="Ask about our programs or click an option...">
         <button id="chatbotSend"
-          class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">
-          Send
-        </button>
+          class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">Send</button>
       </div>
     </div>
   </div>
 
+  <!-- ====== Chatbot script (place before </body>) ====== -->
   <script>
+      (function () {
+        // --- configuration / content (edit as needed) ---
+        const contactInfo = {
+          address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
+          phones: ['+91 9810319292', '+91 9810323292'],
+          email: 'hr@psypanconsulting.com',
+        };
+
+        // PAGE URL map: clicking goto/learn-more opens these pages in the same tab
+        const pageUrlMap = {
+          'Services': 'services.html',
+          'Flagship Programs': 'flagship-programs.html',
+          'Blogs': 'blogs.html',
+          'Events': 'events.html',
+          'Contact': 'contact.html',
+          'About Us': 'about-us.html',
+          // keep Gallery as optional (if desired, add a page)
+          'Gallery': 'gallery.html'
+        };
+
+        const servicesList = [
+          'Management Training',
+          'Employee Engagement',
+          'HR Consulting',
+          'Employee Assistance',
+          'Outbound Training',
+          'Soft Skills'
+        ];
+
+        const flagshipPrograms = [
+          'Managerial Dev. Program',
+          'Train The Trainer',
+          'Handling Conversation',
+          'Campus to Corporate',
+          'Business Comm. Skills',
+          'Mentoring Skills',
+          'Diversity & Inclusion',
+          'Sahyog'
+        ];
+
+        // Keyword responses (typed input fallback)
+        function getBotResponse(message) {
+          const lower = message.toLowerCase();
+          if (lower.includes('contact') || lower.includes('address')) {
+            return `Our office is located at ${contactInfo.address}`;
+          }
+          if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number')) {
+            return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
+          }
+          if (lower.includes('email') || lower.includes('mail')) {
+            return `For inquiries, please email us at ${contactInfo.email}`;
+          }
+          if (lower.includes('training') || lower.includes('program')) {
+            return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+          }
+          if (lower.includes('service') || lower.includes('offer')) {
+            return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+          }
+          // fallback
+          return 'I’m here to help! You can click one of the options below or tell me what you need.';
+        }
+
+        // --- DOM references ---
+        const toggleBtn = document.getElementById('chatbotToggle');
+        const windowEl = document.getElementById('chatbotWindow');
+        const closeBtn = document.getElementById('chatbotClose');
+        const sendBtn = document.getElementById('chatbotSend');
+        const inputEl = document.getElementById('chatbotInput');
+        const bodyEl = document.getElementById('chatbotBody');
+        const optionsContainer = document.getElementById('chatOptions');
+        const clearBtn = document.getElementById('chatClear');
+
+        // --- helpers ---
+        function scrollChatToBottom() {
+          bodyEl.scrollTop = bodyEl.scrollHeight;
+        }
+
+        function createMessage({ text, who = 'bot', html = false }) {
+          const wrapper = document.createElement('div');
+          wrapper.className =
+            'chatbot-message ' +
+            (who === 'user'
+              ? 'user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base'
+              : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base');
+          if (html) wrapper.innerHTML = text;
+          else wrapper.textContent = text;
+          bodyEl.appendChild(wrapper);
+          scrollChatToBottom();
+          return wrapper;
+        }
+
+        function createTypingIndicator() {
+          return createMessage({ text: 'Typing...', who: 'bot' });
+        }
+
+        // Show quick options and prompt "How may I help you?"
+        function showOptionsPrompt(delay = 500) {
+          setTimeout(() => {
+            createMessage({ text: 'How may I help you?', who: 'bot' });
+            renderQuickOptions();
+          }, delay);
+        }
+
+        // Create clickable quick options
+        function renderQuickOptions() {
+          optionsContainer.innerHTML = '';
+
+          const mainOptions = [
+            { label: 'Services', action: 'services' },
+            { label: 'Flagship Programs', action: 'programs' },
+            { label: 'Contact', action: 'contact' },
+            { label: 'Phone', action: 'phone' },
+            { label: 'Email', action: 'email' },
+            { label: 'Events', action: 'goto', target: 'Events' },
+            { label: 'Gallery', action: 'goto', target: 'Gallery' },
+            { label: 'Blogs', action: 'goto', target: 'Blogs' },
+            { label: 'About Us', action: 'goto', target: 'About Us' }
+          ];
+
+          mainOptions.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 hover:bg-slate-50';
+            btn.textContent = opt.label;
+            btn.dataset.action = opt.action;
+            if (opt.target) btn.dataset.target = opt.target;
+            optionsContainer.appendChild(btn);
+          });
+
+          scrollChatToBottom();
+        }
+
+        // Show service details then show options again
+        function showServiceDetails(serviceName) {
+          const description = `${serviceName} — a tailored solution to address corporate needs. Click Learn more to visit the Services page.`;
+          const typing = createTypingIndicator();
+          setTimeout(() => {
+            typing.remove();
+            createMessage({ text: description, who: 'bot' });
+            const html = `<div class="mt-2"><button data-action="goto" data-target="Services" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Learn more</button></div>`;
+            createMessage({ text: html, who: 'bot', html: true });
+            // show options again
+            showOptionsPrompt(700);
+          }, 700);
+        }
+
+        // Show program details then show options again
+        function showProgramDetails(programName) {
+          const description = `${programName} — structured program designed to build competencies and measurable outcomes. Click Go to Flagship Programs to know more.`;
+          const typing = createTypingIndicator();
+          setTimeout(() => {
+            typing.remove();
+            createMessage({ text: description, who: 'bot' });
+            const html = `<div class="mt-2"><button data-action="goto" data-target="Flagship Programs" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Go to Flagship Programs</button></div>`;
+            createMessage({ text: html, who: 'bot', html: true });
+            // show options again
+            showOptionsPrompt(700);
+          }, 700);
+        }
+
+        // Navigate to the mapped page (same tab). If no mapping, fallback to hash navigation.
+        function goToPage(name) {
+          const normalized = name.trim();
+          const url = pageUrlMap[normalized];
+          if (url) {
+            // give a small confirmation message then navigate
+            createMessage({ text: `Opening ${normalized}...`, who: 'bot' });
+            // navigate in same tab
+            window.location.href = url;
+          } else {
+            // fallback: attempt scroll to element id
+            const id = normalized.toLowerCase().replace(/\s+/g, '-');
+            const el = document.getElementById(id);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              createMessage({ text: `Taking you to ${normalized} section.`, who: 'bot' });
+              // show options afterwards
+              showOptionsPrompt(700);
+            } else {
+              createMessage({ text: `Couldn't find a page or section for "${normalized}".`, who: 'bot' });
+              showOptionsPrompt(600);
+            }
+          }
+        }
+
+        // --- main event handlers ---
+        function handleOptionClick(target) {
+          const action = target.dataset.action;
+          const t = target.dataset.target || target.textContent;
+
+          if (action === 'services') {
+            const typing = createTypingIndicator();
+            setTimeout(() => {
+              typing.remove();
+              createMessage({ text: 'Here are our Services:', who: 'bot' });
+              const html = servicesList.map(s => `<button data-action="service" data-name="${s}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${s}</button>`).join('');
+              createMessage({ text: html, who: 'bot', html: true });
+              // show options again under the list
+              showOptionsPrompt(600);
+            }, 500);
+            return;
+          }
+
+          if (action === 'programs') {
+            const typing = createTypingIndicator();
+            setTimeout(() => {
+              typing.remove();
+              createMessage({ text: 'Our Flagship Programs:', who: 'bot' });
+              const html = flagshipPrograms.map(p => `<button data-action="program" data-name="${p}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${p}</button>`).join('');
+              createMessage({ text: html, who: 'bot', html: true });
+              showOptionsPrompt(600);
+            }, 500);
+            return;
+          }
+
+          if (action === 'contact') {
+            createMessage({ text: `Address: ${contactInfo.address}`, who: 'bot' });
+            createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
+            createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
+            showOptionsPrompt(600);
+            return;
+          }
+
+          if (action === 'phone') {
+            createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
+            showOptionsPrompt(600);
+            return;
+          }
+
+          if (action === 'email') {
+            createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
+            showOptionsPrompt(600);
+            return;
+          }
+
+          if (action === 'goto') {
+            // Open mapped page in same tab
+            const targetLabel = target.dataset.target || target.textContent;
+            goToPage(targetLabel);
+            return;
+          }
+
+          if (action === 'service') {
+            const name = target.dataset.name;
+            showServiceDetails(name);
+            return;
+          }
+          if (action === 'program') {
+            const name = target.dataset.name;
+            showProgramDetails(name);
+            return;
+          }
+
+          // fallback: treat as typed content
+          const typedText = target.textContent || '';
+          createMessage({ text: typedText, who: 'user' });
+          const response = getBotResponse(typedText);
+          const typing = createTypingIndicator();
+          setTimeout(() => {
+            typing.remove();
+            createMessage({ text: response, who: 'bot' });
+            showOptionsPrompt(600);
+          }, 800);
+        }
+
+        // Delegate clicks inside chat body (for dynamic buttons)
+        bodyEl.addEventListener('click', (e) => {
+          const btn = e.target.closest('button');
+          if (!btn) return;
+          const action = btn.dataset.action;
+          if (!action) return;
+          // small user bubble showing clicked option
+          const label = btn.textContent;
+          createMessage({ text: label, who: 'user' });
+          handleOptionClick(btn);
+        });
+
+        // Top-level quick options click
+        optionsContainer.addEventListener('click', (e) => {
+          const btn = e.target.closest('button');
+          if (!btn) return;
+          handleOptionClick(btn);
+        });
+
+        // send typed message
+        function sendMessage() {
+          const message = inputEl.value.trim();
+          if (!message) return;
+          createMessage({ text: message, who: 'user' });
+          inputEl.value = '';
+          const typing = createTypingIndicator();
+          setTimeout(() => {
+            typing.remove();
+            // If user typed exact name of a service or program, prefer direct show
+            const normalized = message.toLowerCase();
+            const serviceMatch = servicesList.find(s => normalized === s.toLowerCase());
+            const progMatch = flagshipPrograms.find(p => normalized === p.toLowerCase());
+            if (serviceMatch) {
+              showServiceDetails(serviceMatch);
+              return;
+            }
+            if (progMatch) {
+              showProgramDetails(progMatch);
+              return;
+            }
+            // If they typed a page name like 'services' or 'blogs', open page
+            const pageKey = Object.keys(pageUrlMap).find(k => k.toLowerCase() === message.toLowerCase());
+            if (pageKey) {
+              goToPage(pageKey);
+              return;
+            }
+            const response = getBotResponse(message);
+            createMessage({ text: response, who: 'bot' });
+            showOptionsPrompt(600);
+          }, 900);
+        }
+
+        // Toggle open/close
+        function toggleChatbot() {
+          const isHidden = windowEl.classList.contains('hidden');
+          if (isHidden) {
+            windowEl.classList.remove('hidden');
+            // render quick options each time to ensure fresh buttons
+            renderQuickOptions();
+          } else {
+            windowEl.classList.add('hidden');
+          }
+        }
+
+        // Clear chat
+        function clearChat() {
+          bodyEl.innerHTML = '';
+          createMessage({ text: 'Welcome! Choose an option below or type your question. 👇', who: 'bot' });
+          renderQuickOptions();
+        }
+
+        // --- wire up events ---
+        toggleBtn.addEventListener('click', toggleChatbot);
+        closeBtn.addEventListener('click', toggleChatbot);
+        sendBtn.addEventListener('click', sendMessage);
+        inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+        clearBtn.addEventListener('click', clearChat);
+
+      })();
+
+
     // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
@@ -1271,85 +1714,6 @@ I've updated your homepage to:
       })();
 
 
-      const testimonials = [
-        {
-          photo: '/images/testimonials/vishal-shukla.jpg',
-          name: 'Vishal Shukla',
-          role: 'GM Sales',
-          company: 'True Value',
-          text: 'Associated with Psyche Panacea for last 10 years, Well Experienced Trainers Available In Pan India.',
-          rating: 5
-        },
-        {
-          photo: '/images/testimonials/sunita-pouroush.jpg',
-          name: 'Sunita Pouroush',
-          role: 'Asst Prof',
-          company: 'NCERT',
-          text: 'A long professional association, excellent services, keep doing good work',
-          rating: 5
-        },
-        {
-          photo: '/images/testimonials/neha-goel.jpg',
-          name: 'Neha Goel',
-          role: 'Centre of Innovation',
-          company: 'HMC - Jaipur',
-          text: 'Amazing team…Deepa and team always do great job in giving best experience to employees.',
-          rating: 5
-        }
-        // …add more as you like
-      ];
-
-      // 2) Cache DOM nodes
-      const cardEl = document.querySelector('.testimonial-card');
-      const photoEl = document.getElementById('testimonial-photo');
-      const nameEl = document.getElementById('testimonial-name');
-      const roleEl = document.getElementById('testimonial-role');
-      const textEl = document.getElementById('testimonial-text');
-      const starsEl = document.getElementById('testimonial-stars');
-      const prevBtn = document.getElementById('prev-btn');
-      const nextBtn = document.getElementById('next-btn');
-
-      let current = 0;
-
-      // 3) Render + animate
-      function renderTestimonial(idx, direction) {
-        // remove any old animation classes
-        cardEl.classList.remove('slide-in-right', 'slide-in-left');
-        // force reflow so animation restarts
-        void cardEl.offsetWidth;
-        // add the correct slide-in class
-        cardEl.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
-
-        // update content
-        const t = testimonials[idx];
-        photoEl.src = t.photo;
-        photoEl.alt = t.name + ' photo';
-        nameEl.textContent = t.name;
-        roleEl.textContent = `${t.role} • ${t.company}`;
-        textEl.textContent = t.text;
-
-        // rebuild stars
-        starsEl.innerHTML = '';
-        for (let i = 0; i < 5; i++) {
-          const star = document.createElement('i');
-          star.className = i < t.rating ? 'fas fa-star' : 'far fa-star';
-          star.classList.add('mr-1');
-          starsEl.appendChild(star);
-        }
-      }
-
-      // 4) Wire up buttons
-      prevBtn.addEventListener('click', () => {
-        current = (current - 1 + testimonials.length) % testimonials.length;
-        renderTestimonial(current, 'prev');
-      });
-      nextBtn.addEventListener('click', () => {
-        current = (current + 1) % testimonials.length;
-        renderTestimonial(current, 'next');
-      });
-
-      // 5) Initial render (no animation)
-      renderTestimonial(current, 'next');
       // Mobile Menu Toggle
       const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
@@ -1393,67 +1757,248 @@ I've updated your homepage to:
         observer.observe(el);
       });
 
-      // Chatbot Functionality
-      function toggleChatbot() {
-        const chatbotWindow = document.getElementById('chatbotWindow');
-        chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
-      }
-
-      function sendMessage() {
-        const input = document.getElementById('chatbotInput');
-        const message = input.value.trim();
-        if (!message) return;
-
-        const chatbotBody = document.getElementById('chatbotBody');
-        const userMessage = document.createElement('div');
-        userMessage.className = 'chatbot-message user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base';
-        userMessage.textContent = message;
-        chatbotBody.appendChild(userMessage);
-
-        // Simulate bot response with typing indicator
-        const typingIndicator = document.createElement('div');
-        typingIndicator.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-        typingIndicator.textContent = 'Typing...';
-        chatbotBody.appendChild(typingIndicator);
-        chatbotBody.scrollTop = chatbotBody.scrollHeight;
-
-        setTimeout(() => {
-          chatbotBody.removeChild(typingIndicator);
-          const botMessage = document.createElement('div');
-          botMessage.className = 'chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base';
-          botMessage.textContent = getBotResponse(message);
-          chatbotBody.appendChild(botMessage);
-          chatbotBody.scrollTop = chatbotBody.scrollHeight;
-        }, 1000);
-
-        input.value = '';
-        chatbotBody.scrollTop = chatbotBody.scrollHeight;
-      }
-
-      function getBotResponse(message) {
-        const lowerMessage = message.toLowerCase();
-        if (lowerMessage.includes('contact') || lowerMessage.includes('address'))
-          return 'Our office is located at 308/2, Old Delhi Road, Near Country Inn Hotel, Sector 12 A, Gurgaon 122001.';
-        if (lowerMessage.includes('phone') || lowerMessage.includes('call'))
-          return 'You can reach us at +91 9810319292 or +91 9810323292.';
-        if (lowerMessage.includes('email') || lowerMessage.includes('mail'))
-          return 'For inquiries, please email us at hr@psypanconsulting.com';
-        if (lowerMessage.includes('training') || lowerMessage.includes('program'))
-          return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-        if (lowerMessage.includes('service') || lowerMessage.includes('offer'))
-          return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-        return 'I’m here to help! Could you share more details about your query?';
-      }
-
-      // Set up chatbot event listeners
-      document.getElementById('chatbotToggle').addEventListener('click', toggleChatbot);
-      document.getElementById('chatbotClose').addEventListener('click', toggleChatbot);
-      document.getElementById('chatbotSend').addEventListener('click', sendMessage);
-      document.getElementById('chatbotInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-      });
     });
+
+    <!-- Put this script after Firebase is already initialized on the page -->
+
+    (function () {
+      // Ensure Firestore is available (compat). If not, warn in console.
+      if (!(window.firebase && firebase.firestore)) {
+        console.error('Firebase Firestore (compat) not found. Ensure you included Firebase and initialized it on the page before this script.');
+        return;
+      }
+
+      const testimonialsRef = firebase.firestore().collection('testimonials');
+
+      // DOM refs
+      const photoEl = document.getElementById('testimonial-photo');
+      const nameEl = document.getElementById('testimonial-name');
+      const roleEl = document.getElementById('testimonial-role');
+      const textEl = document.getElementById('testimonial-text');
+      const starsEl = document.getElementById('testimonial-stars');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const counterEl = document.getElementById('testimonial-counter');
+      const gridEl = document.getElementById('testimonials-grid');
+
+      const addBtn = document.getElementById('addReviewBtn');
+      const modal = document.getElementById('reviewModal');
+      const modalClose = document.getElementById('modalClose');
+      const modalCancel = document.getElementById('modalCancel');
+      const reviewForm = document.getElementById('reviewForm');
+      const formMsg = document.getElementById('formMsg');
+
+      const rName = document.getElementById('r-name');
+      const rRole = document.getElementById('r-role');
+      const rPhoto = document.getElementById('r-photo');
+      const rRating = document.getElementById('r-rating');
+      const rText = document.getElementById('r-text');
+
+      let testimonials = [];
+      let currentIndex = 0;
+
+      // Utility to render stars (filled/unfilled) using unicode characters
+      function renderStars(container, rating) {
+        container.innerHTML = '';
+        rating = Math.max(0, Math.min(5, parseInt(rating || 0)));
+        for (let i = 1; i <= 5; i++) {
+          const span = document.createElement('span');
+          span.className = 'text-lg mr-1';
+          span.textContent = i <= rating ? '★' : '☆';
+          container.appendChild(span);
+        }
+      }
+
+      // Main render of large testimonial card
+      function renderMain(i) {
+        if (!testimonials.length) {
+          photoEl.src = '';
+          photoEl.alt = 'No reviews';
+          nameEl.textContent = 'No reviews yet';
+          roleEl.textContent = '';
+          textEl.textContent = 'Be the first to add a review.';
+          starsEl.innerHTML = '';
+          counterEl.textContent = '0 of 0';
+          return;
+        }
+        i = ((i % testimonials.length) + testimonials.length) % testimonials.length; // wrap
+        currentIndex = i;
+        const t = testimonials[i];
+
+        photoEl.src = t.photoURL || 'https://via.placeholder.com/160x160.png?text=Photo';
+        photoEl.alt = t.name || 'Client photo';
+        nameEl.textContent = t.name || 'Anonymous';
+        roleEl.textContent = t.role || '';
+        textEl.textContent = t.text || '';
+        renderStars(starsEl, t.rating || 0);
+
+        counterEl.textContent = `${i + 1} of ${testimonials.length}`;
+      }
+
+      // Render the grid of recent reviews
+      function renderGrid() {
+        gridEl.innerHTML = '';
+        testimonials.forEach(t => {
+          const card = document.createElement('div');
+          card.className = 'bg-white p-4 rounded-lg shadow-sm border border-gray-100';
+          card.innerHTML = `
+        <div class="flex items-center gap-3 mb-3">
+          <img src="${t.photoURL || 'https://via.placeholder.com/80x80.png?text=Photo'}" class="w-12 h-12 rounded-full object-cover" alt="${(t.name || '').replace(/"/g, '')}" />
+          <div>
+            <div class="font-semibold text-sm">${escapeHtml(t.name || 'Anonymous')}</div>
+            <div class="text-xs text-gray-500">${escapeHtml(t.role || '')}</div>
+          </div>
+        </div>
+        <div class="text-sm text-gray-700 mb-2 italic">"${escapeHtml(t.text || '')}"</div>
+        <div class="text-sm text-yellow-500">${'★'.repeat(t.rating || 0)}${'☆'.repeat(5 - (t.rating || 0))}</div>
+      `;
+          gridEl.appendChild(card);
+        });
+      }
+
+      // Simple HTML escape for user input when rendering
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+      }
+
+      // Firestore live listener
+      function subscribeToTestimonials() {
+        testimonialsRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+          const docs = [];
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            docs.push({
+              id: doc.id,
+              name: data.name || '',
+              role: data.role || '',
+              photoURL: data.photoURL || '',
+              rating: data.rating || 0,
+              text: data.text || '',
+              createdAt: data.createdAt ? data.createdAt.toMillis ? data.createdAt.toMillis() : (data.createdAt.seconds ? data.createdAt.seconds * 1000 : null) : null
+            });
+          });
+
+          testimonials = docs;
+          // re-render
+          if (testimonials.length === 0) {
+            renderMain(0);
+            renderGrid();
+          } else {
+            // if currentIndex now out of bounds, reset to 0
+            if (currentIndex >= testimonials.length) currentIndex = 0;
+            renderMain(currentIndex);
+            renderGrid();
+          }
+        }, err => {
+          console.error('Error listening to testimonials:', err);
+        });
+      }
+
+      // Add new testimonial
+      function addTestimonial(payload) {
+        // Add server timestamp
+        const doc = {
+          name: payload.name || '',
+          role: payload.role || '',
+          photoURL: payload.photoURL || '',
+          rating: parseInt(payload.rating || 0),
+          text: payload.text || '',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        return testimonialsRef.add(doc);
+      }
+
+      // Modal helpers
+      function openModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        rName.focus();
+      }
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        formMsg.classList.add('hidden');
+        formMsg.textContent = '';
+        reviewForm.reset();
+      }
+
+      // Handle prev/next
+      prevBtn.addEventListener('click', (e) => {
+        if (!testimonials.length) return;
+        renderMain(currentIndex - 1);
+      });
+      nextBtn.addEventListener('click', (e) => {
+        if (!testimonials.length) return;
+        renderMain(currentIndex + 1);
+      });
+
+      // Open modal
+      addBtn.addEventListener('click', openModal);
+      modalClose.addEventListener('click', closeModal);
+      modalCancel.addEventListener('click', closeModal);
+      // close modal on outside click
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // submit handler
+      reviewForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const payload = {
+          name: (rName.value || '').trim(),
+          role: (rRole.value || '').trim(),
+          photoURL: (rPhoto.value || '').trim(),
+          rating: parseInt(rRating.value || '5', 10),
+          text: (rText.value || '').trim()
+        };
+
+        // basic client-side validation
+        if (!payload.name || !payload.text) {
+          formMsg.classList.remove('hidden');
+          formMsg.classList.add('text-red-600');
+          formMsg.textContent = 'Please add your name and review text.';
+          return;
+        }
+
+        // disable submit while processing
+        const submitBtn = document.getElementById('modalSubmit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        addTestimonial(payload)
+          .then(() => {
+            formMsg.classList.remove('text-red-600');
+            formMsg.classList.add('text-green-600');
+            formMsg.classList.remove('hidden');
+            formMsg.textContent = 'Thanks — your review has been submitted!';
+            // clear and close after short delay
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Submit Review';
+              closeModal();
+              // optionally show newly added testimonial as main item (handled by onSnapshot)
+            }, 900);
+          })
+          .catch(err => {
+            console.error('Error adding testimonial:', err);
+            formMsg.classList.remove('hidden');
+            formMsg.classList.add('text-red-600');
+            formMsg.textContent = 'Failed to submit — please try again later.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Review';
+          });
+      });
+
+      // Initialize
+      renderMain(0);
+      renderGrid();
+      subscribeToTestimonials();
+
+    })();
   </script>
+
 </body>
 
 </html>
