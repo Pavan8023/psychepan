@@ -586,6 +586,301 @@
       font-size: 1.125rem;
       color: rgba(255, 255, 255, 0.9);
     }
+
+    /* ---------------------------
+  Review form — visual design
+  --------------------------- */
+
+    /* color tokens (override to match your theme) */
+    :root {
+      --bg-card: #ffffff;
+      --muted: #6b7280;
+      --primary: #0ea5a4;
+      /* adjust to match .bg-primary */
+      --primary-dark: #089090;
+      --accent: #06b6d4;
+      --success: #16a34a;
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+      --glass: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Form card */
+    #reviewForm {
+      max-width: 720px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(250, 250, 250, 0.82));
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(16, 24, 40, 0.04);
+      backdrop-filter: blur(6px);
+      transition: transform .22s ease, box-shadow .22s ease;
+      will-change: transform;
+    }
+
+    /* Lift on hover for pointer devices */
+    @media (hover: hover) {
+      #reviewForm:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 60px rgba(2, 6, 23, 0.12);
+      }
+    }
+
+    /* Form fields layout: keep vertical, but arrange some side-by-side on larger screens */
+    #reviewForm>div {
+      position: relative;
+    }
+
+    /* Labels */
+    #reviewForm label {
+      display: inline-block;
+      font-weight: 600;
+      color: #0f172a;
+      /* dark */
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    /* Inputs & textarea base */
+    #reviewForm input[type="text"],
+    #reviewForm input[type="email"],
+    #reviewForm input[type="tel"],
+    #reviewForm input[type="url"],
+    #reviewForm textarea,
+    #reviewForm select,
+    #reviewForm input[type="file"] {
+      width: 100%;
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      padding: 10px 12px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.04) inset;
+      font-size: 14px;
+      color: #0f172a;
+      transition: box-shadow .18s ease, transform .12s ease, border-color .12s ease;
+      outline: none;
+    }
+
+    /* Focus states */
+    #reviewForm input:focus,
+    #reviewForm textarea:focus,
+    #reviewForm select:focus {
+      box-shadow: 0 8px 26px rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.28);
+      transform: translateY(-1px);
+    }
+
+    /* Textarea */
+    #reviewForm textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* Two-column grouping for Name + Role + Rating on wider screens */
+    @media (min-width: 720px) {
+      #reviewForm {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px 24px;
+        align-items: start;
+      }
+
+      /* make submit row span across both columns */
+      #reviewForm>.full-row {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        align-items: center;
+      }
+    }
+
+    /* File input — nicer native file button */
+    #r-photo-file {
+      padding: 8px 10px;
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+      border-radius: 10px;
+    }
+
+    /* Style the file selector button for modern browsers */
+    #r-photo-file::file-selector-button {
+      margin-right: 8px;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s ease, transform .12s ease;
+    }
+
+    #r-photo-file::file-selector-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Small preview placeholder (without JS you may still reserve space) */
+    #r-photo-preview {
+      width: 100%;
+      height: 140px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #f8fafc, #ffffff);
+      border: 1px dashed rgba(15, 23, 42, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    /* Select control (rating) */
+    #r-rating {
+      width: 130px;
+      background: linear-gradient(180deg, #fff, #fbfdff);
+      text-align: left;
+    }
+
+    /* Buttons row adjustments (mobile fallback) */
+    #reviewForm .flex {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    /* Primary submit button */
+    #modalSubmit {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      box-shadow: 0 10px 28px rgba(6, 182, 212, 0.12);
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    }
+
+    #modalSubmit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 48px rgba(6, 182, 212, 0.16);
+    }
+
+    #modalSubmit:active {
+      transform: translateY(0);
+    }
+
+    /* Secondary cancel button */
+    #modalCancel {
+      background: transparent;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .12s ease, transform .12s ease;
+    }
+
+    #modalCancel:hover {
+      background: #fafafa;
+      transform: translateY(-2px);
+    }
+
+    /* Success / error message */
+    #formMsg {
+      font-weight: 600;
+      color: var(--success);
+      transition: opacity .18s ease, transform .12s ease;
+    }
+
+    #formMsg.hidden {
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+    }
+
+    #formMsg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Tiny helper: improve label spacing inside grid layout */
+    #reviewForm label+input,
+    #reviewForm label+textarea,
+    #reviewForm label+select,
+    #reviewForm label+#r-photo-file {
+      margin-top: 6px;
+    }
+
+    /* Accessibility: focus-visible ring */
+    :focus-visible {
+      outline: 3px solid rgba(6, 182, 212, 0.14);
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+
+      #reviewForm,
+      #modalSubmit,
+      #modalCancel {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    /* Decorative micro-animations for input placeholders */
+    #reviewForm input::placeholder,
+    #reviewForm textarea::placeholder {
+      color: rgba(15, 23, 42, 0.45);
+    }
+
+    /* Small screen adjustments — stack everything */
+    @media (max-width: 719px) {
+      #reviewForm {
+        padding: 18px;
+        display: block;
+      }
+
+      #reviewForm .flex {
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #modalSubmit,
+      #modalCancel {
+        padding: 10px 12px;
+      }
+
+      #r-rating {
+        width: 100%;
+        max-width: 220px;
+      }
+
+      /* ensure the file input is comfortable */
+      #r-photo-file {
+        padding: 8px;
+      }
+    }
+
+    /* Optional: subtle input icon (if you later add) */
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-with-icon .icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .input-with-icon input {
+      padding-left: 34px;
+    }
+
+    /* End of review form styles */
   </style>
 </head>
 
@@ -696,7 +991,8 @@
             </div>
 
             <!-- Dynamic service line -->
-            <div id="service-label" class="text-xl font-extrabold text-white font-medium" style="font-size: 2rem; font-weight: 400;">
+            <div id="service-label" class="text-xl font-extrabold text-white font-medium"
+              style="font-size: 2rem; font-weight: 400;">
               HR Consulting
             </div>
 
@@ -793,7 +1089,7 @@
               <p class="ml-3 text-lg text-gray-700">Expert trainers with industry experience</p>
             </li>
           </ul>
-          <a href="#contact"
+          <a href="services.html"
             class="inline-block bg-primary hover:bg-secondary text-white px-6 py-3 rounded-lg font-medium transition duration-300">
             Connect With Us
           </a>
@@ -924,119 +1220,119 @@
   </section>
 
   <!-- Testimonials Section -->
-<section id="testimonials" class="py-16 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">What Our Clients Say</h2>
-      <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
-      <p class="text-gray-600 max-w-2xl mx-auto">Real feedback from organisations and participants who attended our
-        programs.</p>
-    </div>
-
-    <!-- Main testimonial display card -->
-    <div class="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-lg relative">
-      <!-- Add Review button -->
-      <div class="absolute top-6 right-6">
-        <button id="addReviewBtn" class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:opacity-95">
-          + Add Review
-        </button>
+  <section id="testimonials" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">What Our Clients Say</h2>
+        <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+        <p class="text-gray-600 max-w-2xl mx-auto">Real feedback from organisations and participants who attended our
+          programs.</p>
       </div>
 
-      <div class="flex items-center mb-6">
-        <img id="testimonial-photo" src="" alt="Client photo"
-          class="w-20 h-20 rounded-full object-cover border-2 border-indigo-50 shadow-sm" />
-        <div class="ml-4">
-          <div id="testimonial-name" class="font-bold text-xl">Name Here</div>
-          <div id="testimonial-role" class="text-primary text-sm">Role • Company</div>
-        </div>
-      </div>
-
-      <p id="testimonial-text" class="text-gray-700 text-lg italic mb-6">
-        “Testimonial text goes here.”
-      </p>
-
-      <div id="testimonial-stars" class="flex items-center mb-6"></div>
-
-      <div class="flex items-center justify-between">
-        <div>
-          <button id="prev-btn" class="px-3 py-2 rounded-md border border-gray-200 hover:bg-slate-50 text-sm">
-            ← Prev
-          </button>
-          <button id="next-btn" class="ml-3 px-3 py-2 rounded-md border border-gray-200 hover:bg-slate-50 text-sm">
-            Next →
+      <!-- Main testimonial display card -->
+      <div class="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-lg relative">
+        <!-- Add Review button -->
+        <div class="absolute top-6 right-6">
+          <button id="addReviewBtn" class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:opacity-95">
+            + Add Review
           </button>
         </div>
 
-        <div id="testimonial-counter" class="text-sm text-gray-500">0 of 0</div>
+        <div class="flex items-center mb-6">
+          <img id="testimonial-photo" src="" alt="Client photo"
+            class="w-20 h-20 rounded-full object-cover border-2 border-indigo-50 shadow-sm" />
+          <div class="ml-4">
+            <div id="testimonial-name" class="font-bold text-xl">Name Here</div>
+            <div id="testimonial-role" class="text-primary text-sm">Role • Company</div>
+          </div>
+        </div>
+
+        <p id="testimonial-text" class="text-gray-700 text-lg italic mb-6">
+          “Testimonial text goes here.”
+        </p>
+
+        <div id="testimonial-stars" class="flex items-center mb-6"></div>
+
+        <div class="flex items-center justify-between">
+          <div>
+            <button id="prev-btn" class="px-3 py-2 rounded-md border border-gray-200 hover:bg-slate-50 text-sm">
+              ← Prev
+            </button>
+            <button id="next-btn" class="ml-3 px-3 py-2 rounded-md border border-gray-200 hover:bg-slate-50 text-sm">
+              Next →
+            </button>
+          </div>
+
+          <div id="testimonial-counter" class="text-sm text-gray-500">0 of 0</div>
+        </div>
+      </div>
+
+      <!-- Live grid of recent testimonials -->
+      <div class="mt-10 max-w-7xl mx-auto">
+        <h3 class="text-lg font-semibold mb-4">Recent Reviews</h3>
+        <div id="testimonials-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </div>
     </div>
 
-    <!-- Live grid of recent testimonials -->
-    <div class="mt-10 max-w-7xl mx-auto">
-      <h3 class="text-lg font-semibold mb-4">Recent Reviews</h3>
-      <div id="testimonials-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <!-- Add Review Modal -->
+    <div id="reviewModal" style="z-index: 1000;"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+      <div class="bg-white rounded-xl w-full max-w-xl p-6 shadow-lg relative">
+        <button id="modalClose" class="absolute top-4 right-4 text-gray-500 text-2xl">×</button>
+        <h4 class="text-xl font-bold mb-3">Add a Review</h4>
+
+        <form id="reviewForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Full name</label>
+            <input id="r-name" required class="mt-1 block w-full border border-gray-200 rounded-md p-2"
+              placeholder="e.g. Priya Sharma" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Role / Company</label>
+            <input id="r-role" class="mt-1 block w-full border border-gray-200 rounded-md p-2"
+              placeholder="e.g. HR Manager • ACME Corp" />
+          </div>
+
+
+
+          <!-- NEW: File upload input for Cloudinary -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Upload Your Photo (optional)</label>
+            <input id="r-photo-file" type="file" accept="image/*" class="mt-1 block w-full" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Rating</label>
+            <select id="r-rating" required class="mt-1 block w-36 border border-gray-200 rounded-md p-2">
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Very Good</option>
+              <option value="3">3 — Good</option>
+              <option value="2">2 — Fair</option>
+              <option value="1">1 — Poor</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Review</label>
+            <textarea id="r-text" rows="4" required class="mt-1 block w-full border border-gray-200 rounded-md p-2"
+              placeholder="Write your experience..."></textarea>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button type="button" id="modalCancel" class="px-4 py-2 rounded-md border border-gray-200">Cancel</button>
+            <button type="submit" id="modalSubmit" class="px-4 py-2 bg-primary text-white rounded-md">Submit
+              Review</button>
+          </div>
+
+          <div id="formMsg" class="text-sm text-green-600 mt-2 hidden"></div>
+        </form>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Add Review Modal -->
-  <div id="reviewModal" style="z-index: 1000;"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
-    <div class="bg-white rounded-xl w-full max-w-xl p-6 shadow-lg relative">
-      <button id="modalClose" class="absolute top-4 right-4 text-gray-500 text-2xl">×</button>
-      <h4 class="text-xl font-bold mb-3">Add a Review</h4>
-
-      <form id="reviewForm" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Full name</label>
-          <input id="r-name" required class="mt-1 block w-full border border-gray-200 rounded-md p-2"
-            placeholder="e.g. Priya Sharma" />
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Role / Company</label>
-          <input id="r-role" class="mt-1 block w-full border border-gray-200 rounded-md p-2"
-            placeholder="e.g. HR Manager • ACME Corp" />
-        </div>
-
-        
-
-        <!-- NEW: File upload input for Cloudinary -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Upload Your Photo (optional)</label>
-          <input id="r-photo-file" type="file" accept="image/*" class="mt-1 block w-full" />
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Rating</label>
-          <select id="r-rating" required class="mt-1 block w-36 border border-gray-200 rounded-md p-2">
-            <option value="5">5 — Excellent</option>
-            <option value="4">4 — Very Good</option>
-            <option value="3">3 — Good</option>
-            <option value="2">2 — Fair</option>
-            <option value="1">1 — Poor</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Review</label>
-          <textarea id="r-text" rows="4" required class="mt-1 block w-full border border-gray-200 rounded-md p-2"
-            placeholder="Write your experience..."></textarea>
-        </div>
-
-        <div class="flex justify-end gap-3">
-          <button type="button" id="modalCancel" class="px-4 py-2 rounded-md border border-gray-200">Cancel</button>
-          <button type="submit" id="modalSubmit" class="px-4 py-2 bg-primary text-white rounded-md">Submit
-            Review</button>
-        </div>
-
-        <div id="formMsg" class="text-sm text-green-600 mt-2 hidden"></div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- Cloudinary CDN (declaration) -->
-<script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+  <!-- Cloudinary CDN (declaration) -->
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
 
 
 
@@ -1723,102 +2019,102 @@
     });
 
     (function () {
-  // Ensure Firestore (compat) or modular is present on the page.
-  if (!(window.firebase && firebase.firestore)) {
-    console.error('Firebase Firestore (compat) not found. Ensure you included Firebase and initialized it on the page before this script.');
-    return;
-  }
+      // Ensure Firestore (compat) or modular is present on the page.
+      if (!(window.firebase && firebase.firestore)) {
+        console.error('Firebase Firestore (compat) not found. Ensure you included Firebase and initialized it on the page before this script.');
+        return;
+      }
 
-  // Use existing testimonialsRef if declared; otherwise create fallback (fallback only if needed)
-  let testimonialsRef;
-  if (typeof window.testimonialsRef !== 'undefined') {
-    testimonialsRef = window.testimonialsRef;
-  } else if (typeof testimonialsRef !== 'undefined') {
-    // in case it's declared in local scope earlier, use it
-    testimonialsRef = testimonialsRef;
-  } else {
-    // fallback (only if not present) - create from firebase.firestore()
-    testimonialsRef = firebase.firestore().collection('testimonials');
-  }
+      // Use existing testimonialsRef if declared; otherwise create fallback (fallback only if needed)
+      let testimonialsRef;
+      if (typeof window.testimonialsRef !== 'undefined') {
+        testimonialsRef = window.testimonialsRef;
+      } else if (typeof testimonialsRef !== 'undefined') {
+        // in case it's declared in local scope earlier, use it
+        testimonialsRef = testimonialsRef;
+      } else {
+        // fallback (only if not present) - create from firebase.firestore()
+        testimonialsRef = firebase.firestore().collection('testimonials');
+      }
 
-  // --- Cloudinary config (unsigned upload) ---
-  const cloudName = 'dhwanw6f7'; // Your Cloudinary cloud name
-  const uploadPreset = 'psychepan_unsigned'; // Your unsigned upload preset
-  const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+      // --- Cloudinary config (unsigned upload) ---
+      const cloudName = 'dhwanw6f7'; // Your Cloudinary cloud name
+      const uploadPreset = 'psychepan_unsigned'; // Your unsigned upload preset
+      const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
-  // DOM refs (preserve existing ids)
-  const photoEl = document.getElementById('testimonial-photo');
-  const nameEl = document.getElementById('testimonial-name');
-  const roleEl = document.getElementById('testimonial-role');
-  const textEl = document.getElementById('testimonial-text');
-  const starsEl = document.getElementById('testimonial-stars');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const counterEl = document.getElementById('testimonial-counter');
-  const gridEl = document.getElementById('testimonials-grid');
+      // DOM refs (preserve existing ids)
+      const photoEl = document.getElementById('testimonial-photo');
+      const nameEl = document.getElementById('testimonial-name');
+      const roleEl = document.getElementById('testimonial-role');
+      const textEl = document.getElementById('testimonial-text');
+      const starsEl = document.getElementById('testimonial-stars');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const counterEl = document.getElementById('testimonial-counter');
+      const gridEl = document.getElementById('testimonials-grid');
 
-  const addBtn = document.getElementById('addReviewBtn');
-  const modal = document.getElementById('reviewModal');
-  const modalClose = document.getElementById('modalClose');
-  const modalCancel = document.getElementById('modalCancel');
-  const reviewForm = document.getElementById('reviewForm');
-  const formMsg = document.getElementById('formMsg');
+      const addBtn = document.getElementById('addReviewBtn');
+      const modal = document.getElementById('reviewModal');
+      const modalClose = document.getElementById('modalClose');
+      const modalCancel = document.getElementById('modalCancel');
+      const reviewForm = document.getElementById('reviewForm');
+      const formMsg = document.getElementById('formMsg');
 
-  const rName = document.getElementById('r-name');
-  const rRole = document.getElementById('r-role');
-  const rPhoto = document.getElementById('r-photo');
-  const rPhotoFile = document.getElementById('r-photo-file'); // NEW file input
-  const rRating = document.getElementById('r-rating');
-  const rText = document.getElementById('r-text');
+      const rName = document.getElementById('r-name');
+      const rRole = document.getElementById('r-role');
+      const rPhoto = document.getElementById('r-photo');
+      const rPhotoFile = document.getElementById('r-photo-file'); // NEW file input
+      const rRating = document.getElementById('r-rating');
+      const rText = document.getElementById('r-text');
 
-  let testimonials = [];
-  let currentIndex = 0;
+      let testimonials = [];
+      let currentIndex = 0;
 
-  // Utility to render stars (filled/unfilled) using unicode characters
-  function renderStars(container, rating) {
-    container.innerHTML = '';
-    rating = Math.max(0, Math.min(5, parseInt(rating || 0)));
-    for (let i = 1; i <= 5; i++) {
-      const span = document.createElement('span');
-      span.className = 'text-lg mr-1';
-      span.textContent = i <= rating ? '★' : '☆';
-      container.appendChild(span);
-    }
-  }
+      // Utility to render stars (filled/unfilled) using unicode characters
+      function renderStars(container, rating) {
+        container.innerHTML = '';
+        rating = Math.max(0, Math.min(5, parseInt(rating || 0)));
+        for (let i = 1; i <= 5; i++) {
+          const span = document.createElement('span');
+          span.className = 'text-lg mr-1';
+          span.textContent = i <= rating ? '★' : '☆';
+          container.appendChild(span);
+        }
+      }
 
-  // Main render of large testimonial card
-  function renderMain(i) {
-    if (!testimonials.length) {
-      photoEl.src = '';
-      photoEl.alt = 'No reviews';
-      nameEl.textContent = 'No reviews yet';
-      roleEl.textContent = '';
-      textEl.textContent = 'Be the first to add a review.';
-      starsEl.innerHTML = '';
-      counterEl.textContent = '0 of 0';
-      return;
-    }
-    i = ((i % testimonials.length) + testimonials.length) % testimonials.length; // wrap
-    currentIndex = i;
-    const t = testimonials[i];
+      // Main render of large testimonial card
+      function renderMain(i) {
+        if (!testimonials.length) {
+          photoEl.src = '';
+          photoEl.alt = 'No reviews';
+          nameEl.textContent = 'No reviews yet';
+          roleEl.textContent = '';
+          textEl.textContent = 'Be the first to add a review.';
+          starsEl.innerHTML = '';
+          counterEl.textContent = '0 of 0';
+          return;
+        }
+        i = ((i % testimonials.length) + testimonials.length) % testimonials.length; // wrap
+        currentIndex = i;
+        const t = testimonials[i];
 
-    photoEl.src = t.photoURL && t.photoURL.length ? t.photoURL : 'https://via.placeholder.com/160x160.png?text=Photo';
-    photoEl.alt = t.name || 'Client photo';
-    nameEl.textContent = t.name || 'Anonymous';
-    roleEl.textContent = t.role || '';
-    textEl.textContent = t.text || '';
-    renderStars(starsEl, t.rating || 0);
+        photoEl.src = t.photoURL && t.photoURL.length ? t.photoURL : 'https://via.placeholder.com/160x160.png?text=Photo';
+        photoEl.alt = t.name || 'Client photo';
+        nameEl.textContent = t.name || 'Anonymous';
+        roleEl.textContent = t.role || '';
+        textEl.textContent = t.text || '';
+        renderStars(starsEl, t.rating || 0);
 
-    counterEl.textContent = `${i + 1} of ${testimonials.length}`;
-  }
+        counterEl.textContent = `${i + 1} of ${testimonials.length}`;
+      }
 
-  // Render the grid of recent reviews
-  function renderGrid() {
-    gridEl.innerHTML = '';
-    testimonials.forEach(t => {
-      const card = document.createElement('div');
-      card.className = 'bg-white p-4 rounded-lg shadow-sm border border-gray-100';
-      card.innerHTML = `
+      // Render the grid of recent reviews
+      function renderGrid() {
+        gridEl.innerHTML = '';
+        testimonials.forEach(t => {
+          const card = document.createElement('div');
+          card.className = 'bg-white p-4 rounded-lg shadow-sm border border-gray-100';
+          card.innerHTML = `
         <div class="flex items-center gap-3 mb-3">
           <img src="${escapeHtml(t.photoURL || 'https://via.placeholder.com/80x80.png?text=Photo')}" class="w-12 h-12 rounded-full object-cover" alt="${escapeHtml(t.name || 'Anonymous')}" />
           <div>
@@ -1829,205 +2125,205 @@
         <div class="text-sm text-gray-700 mb-2 italic">"${escapeHtml(t.text || '')}"</div>
         <div class="text-sm text-yellow-500">${'★'.repeat(t.rating || 0)}${'☆'.repeat(5 - (t.rating || 0))}</div>
       `;
-      gridEl.appendChild(card);
-    });
-  }
-
-  // Simple HTML escape for user input when rendering
-  function escapeHtml(str) {
-    if (!str && str !== 0) return '';
-    return String(str).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
-  }
-
-  // Firestore live listener (keeps your original behavior)
-  function subscribeToTestimonials() {
-    // Use existing testimonialsRef ordering by createdAt desc
-    // If testimonialsRef is a CollectionReference, use orderBy via query pattern
-    try {
-      testimonialsRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
-        const docs = [];
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          docs.push({
-            id: doc.id,
-            name: data.name || '',
-            role: data.role || '',
-            photoURL: data.photoURL || '',
-            rating: data.rating || 0,
-            text: data.text || '',
-            createdAt: data.createdAt ? (data.createdAt.toMillis ? data.createdAt.toMillis() : (data.createdAt.seconds ? data.createdAt.seconds * 1000 : null)) : null
-          });
+          gridEl.appendChild(card);
         });
-
-        testimonials = docs;
-        // re-render
-        if (testimonials.length === 0) {
-          renderMain(0);
-          renderGrid();
-        } else {
-          // if currentIndex now out of bounds, reset to 0
-          if (currentIndex >= testimonials.length) currentIndex = 0;
-          renderMain(currentIndex);
-          renderGrid();
-        }
-      }, err => {
-        console.error('Error listening to testimonials:', err);
-      });
-    } catch (err) {
-      console.error('Error subscribing to testimonials. Make sure testimonialsRef is a valid collection reference.', err);
-    }
-  }
-
-  // Add new testimonial (wrapper that will call Cloudinary upload if file chosen)
-  function addTestimonial(payload) {
-    // payload: { name, role, photoURL, rating, text }
-    // Use server timestamp for createdAt
-    const doc = {
-      name: payload.name || '',
-      role: payload.role || '',
-      photoURL: payload.photoURL || '',
-      rating: parseInt(payload.rating || 0),
-      text: payload.text || '',
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-
-    return testimonialsRef.add(doc);
-  }
-
-  // Upload file to Cloudinary (unsigned)
-  async function uploadImageToCloudinary(file) {
-    if (!file) return null;
-    const fd = new FormData();
-    fd.append('upload_preset', uploadPreset);
-    fd.append('file', file);
-    try {
-      const res = await fetch(cloudinaryUrl, {
-        method: 'POST',
-        body: fd
-      });
-      if (!res.ok) {
-        const txt = await res.text();
-        throw new Error('Cloudinary upload failed: ' + txt);
       }
-      const data = await res.json();
-      // data.secure_url is the uploaded image URL
-      return data.secure_url || data.url || null;
-    } catch (err) {
-      console.error('Cloudinary upload error:', err);
-      return null;
-    }
-  }
 
-  // Modal helpers
-  function openModal() {
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    rName.focus();
-  }
-  function closeModal() {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    formMsg.classList.add('hidden');
-    formMsg.textContent = '';
-    reviewForm.reset();
-  }
+      // Simple HTML escape for user input when rendering
+      function escapeHtml(str) {
+        if (!str && str !== 0) return '';
+        return String(str).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+      }
 
-  // Handle prev/next
-  prevBtn.addEventListener('click', (e) => {
-    if (!testimonials.length) return;
-    renderMain(currentIndex - 1);
-  });
-  nextBtn.addEventListener('click', (e) => {
-    if (!testimonials.length) return;
-    renderMain(currentIndex + 1);
-  });
+      // Firestore live listener (keeps your original behavior)
+      function subscribeToTestimonials() {
+        // Use existing testimonialsRef ordering by createdAt desc
+        // If testimonialsRef is a CollectionReference, use orderBy via query pattern
+        try {
+          testimonialsRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+            const docs = [];
+            snapshot.forEach(doc => {
+              const data = doc.data();
+              docs.push({
+                id: doc.id,
+                name: data.name || '',
+                role: data.role || '',
+                photoURL: data.photoURL || '',
+                rating: data.rating || 0,
+                text: data.text || '',
+                createdAt: data.createdAt ? (data.createdAt.toMillis ? data.createdAt.toMillis() : (data.createdAt.seconds ? data.createdAt.seconds * 1000 : null)) : null
+              });
+            });
 
-  // Open modal
-  addBtn.addEventListener('click', openModal);
-  modalClose.addEventListener('click', closeModal);
-  modalCancel.addEventListener('click', closeModal);
-  // close modal on outside click
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
+            testimonials = docs;
+            // re-render
+            if (testimonials.length === 0) {
+              renderMain(0);
+              renderGrid();
+            } else {
+              // if currentIndex now out of bounds, reset to 0
+              if (currentIndex >= testimonials.length) currentIndex = 0;
+              renderMain(currentIndex);
+              renderGrid();
+            }
+          }, err => {
+            console.error('Error listening to testimonials:', err);
+          });
+        } catch (err) {
+          console.error('Error subscribing to testimonials. Make sure testimonialsRef is a valid collection reference.', err);
+        }
+      }
 
-  // submit handler (integrates Cloudinary upload)
-  reviewForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const payload = {
-      name: (rName.value || '').trim(),
-      role: (rRole.value || '').trim(),
-      photoURL: (rPhoto.value || '').trim(),
-      rating: parseInt(rRating.value || '5', 10),
-      text: (rText.value || '').trim()
-    };
+      // Add new testimonial (wrapper that will call Cloudinary upload if file chosen)
+      function addTestimonial(payload) {
+        // payload: { name, role, photoURL, rating, text }
+        // Use server timestamp for createdAt
+        const doc = {
+          name: payload.name || '',
+          role: payload.role || '',
+          photoURL: payload.photoURL || '',
+          rating: parseInt(payload.rating || 0),
+          text: payload.text || '',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
 
-    // basic client-side validation
-    if (!payload.name || !payload.text) {
-      formMsg.classList.remove('hidden');
-      formMsg.classList.remove('text-green-600');
-      formMsg.classList.add('text-red-600');
-      formMsg.textContent = 'Please add your name and review text.';
-      return;
-    }
+        return testimonialsRef.add(doc);
+      }
 
-    // disable submit while processing
-    const submitBtn = document.getElementById('modalSubmit');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
+      // Upload file to Cloudinary (unsigned)
+      async function uploadImageToCloudinary(file) {
+        if (!file) return null;
+        const fd = new FormData();
+        fd.append('upload_preset', uploadPreset);
+        fd.append('file', file);
+        try {
+          const res = await fetch(cloudinaryUrl, {
+            method: 'POST',
+            body: fd
+          });
+          if (!res.ok) {
+            const txt = await res.text();
+            throw new Error('Cloudinary upload failed: ' + txt);
+          }
+          const data = await res.json();
+          // data.secure_url is the uploaded image URL
+          return data.secure_url || data.url || null;
+        } catch (err) {
+          console.error('Cloudinary upload error:', err);
+          return null;
+        }
+      }
 
-    try {
-      // If a file selected, upload to Cloudinary first and use that URL
-      const file = rPhotoFile && rPhotoFile.files && rPhotoFile.files[0] ? rPhotoFile.files[0] : null;
-      if (file) {
-        formMsg.classList.remove('hidden');
-        formMsg.classList.remove('text-red-600');
-        formMsg.classList.add('text-gray-600');
-        formMsg.textContent = 'Uploading image...';
-        const uploadedUrl = await uploadImageToCloudinary(file);
-        if (uploadedUrl) {
-          payload.photoURL = uploadedUrl;
-        } else {
-          // upload failed — fallback to any manual URL user typed OR empty
-          formMsg.classList.remove('text-gray-600');
+      // Modal helpers
+      function openModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        rName.focus();
+      }
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        formMsg.classList.add('hidden');
+        formMsg.textContent = '';
+        reviewForm.reset();
+      }
+
+      // Handle prev/next
+      prevBtn.addEventListener('click', (e) => {
+        if (!testimonials.length) return;
+        renderMain(currentIndex - 1);
+      });
+      nextBtn.addEventListener('click', (e) => {
+        if (!testimonials.length) return;
+        renderMain(currentIndex + 1);
+      });
+
+      // Open modal
+      addBtn.addEventListener('click', openModal);
+      modalClose.addEventListener('click', closeModal);
+      modalCancel.addEventListener('click', closeModal);
+      // close modal on outside click
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // submit handler (integrates Cloudinary upload)
+      reviewForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+          name: (rName.value || '').trim(),
+          role: (rRole.value || '').trim(),
+          photoURL: (rPhoto.value || '').trim(),
+          rating: parseInt(rRating.value || '5', 10),
+          text: (rText.value || '').trim()
+        };
+
+        // basic client-side validation
+        if (!payload.name || !payload.text) {
+          formMsg.classList.remove('hidden');
+          formMsg.classList.remove('text-green-600');
           formMsg.classList.add('text-red-600');
-          formMsg.textContent = 'Image upload failed — proceeding with provided URL (if any).';
-          // continue (payload.photoURL already set from text field)
+          formMsg.textContent = 'Please add your name and review text.';
+          return;
         }
-      }
 
-      // Add testimonial to Firestore
-      await addTestimonial(payload);
+        // disable submit while processing
+        const submitBtn = document.getElementById('modalSubmit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
 
-      formMsg.classList.remove('text-red-600');
-      formMsg.classList.add('text-green-600');
-      formMsg.classList.remove('hidden');
-      formMsg.textContent = 'Thanks — your review has been submitted!';
+        try {
+          // If a file selected, upload to Cloudinary first and use that URL
+          const file = rPhotoFile && rPhotoFile.files && rPhotoFile.files[0] ? rPhotoFile.files[0] : null;
+          if (file) {
+            formMsg.classList.remove('hidden');
+            formMsg.classList.remove('text-red-600');
+            formMsg.classList.add('text-gray-600');
+            formMsg.textContent = 'Uploading image...';
+            const uploadedUrl = await uploadImageToCloudinary(file);
+            if (uploadedUrl) {
+              payload.photoURL = uploadedUrl;
+            } else {
+              // upload failed — fallback to any manual URL user typed OR empty
+              formMsg.classList.remove('text-gray-600');
+              formMsg.classList.add('text-red-600');
+              formMsg.textContent = 'Image upload failed — proceeding with provided URL (if any).';
+              // continue (payload.photoURL already set from text field)
+            }
+          }
 
-      // reset and close modal shortly (onSnapshot will update UI)
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Review';
-        closeModal();
-      }, 900);
+          // Add testimonial to Firestore
+          await addTestimonial(payload);
 
-    } catch (err) {
-      console.error('Error adding testimonial:', err);
-      formMsg.classList.remove('hidden');
-      formMsg.classList.remove('text-green-600');
-      formMsg.classList.add('text-red-600');
-      formMsg.textContent = 'Failed to submit — please try again later.';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Review';
-    }
-  });
+          formMsg.classList.remove('text-red-600');
+          formMsg.classList.add('text-green-600');
+          formMsg.classList.remove('hidden');
+          formMsg.textContent = 'Thanks — your review has been submitted!';
 
-  // Initialize view and subscribe to Firestore
-  renderMain(0);
-  renderGrid();
-  subscribeToTestimonials();
+          // reset and close modal shortly (onSnapshot will update UI)
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Review';
+            closeModal();
+          }, 900);
 
-})();
+        } catch (err) {
+          console.error('Error adding testimonial:', err);
+          formMsg.classList.remove('hidden');
+          formMsg.classList.remove('text-green-600');
+          formMsg.classList.add('text-red-600');
+          formMsg.textContent = 'Failed to submit — please try again later.';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Review';
+        }
+      });
+
+      // Initialize view and subscribe to Firestore
+      renderMain(0);
+      renderGrid();
+      subscribeToTestimonials();
+
+    })();
   </script>
 
 </body>
