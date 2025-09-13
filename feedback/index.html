@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,67 +9,22 @@
   <link rel="icon" href="/images/psypan-logo-transparent.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Include Firebase SDK -->
+
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-  
-  <!-- Cloudinary CDN (declaration) -->
-  <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
+  <!-- Cloudinary -->
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+
+  <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #ffffff, #f0f9ff);
-      color: #334155;
-      overflow-x: hidden;
+      background: linear-gradient(to bottom, #ffffff, #f8fbff);
+      color: #1e293b;
     }
 
-    .testimonial-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* slide in from right */
-    @keyframes slideInFromRight {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    .slide-in-right {
-      animation: slideInFromRight 0.5s ease-out both;
-    }
-
-    /* Thank you modal animation */
-    @keyframes modalAppear {
-      from {
-        opacity: 0;
-        transform: scale(0.8) translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .modal-appear {
-      animation: modalAppear 0.4s ease-out forwards;
-    }
-
-    /* Floating label form */
+    /* Floating input */
     .floating-label {
       position: relative;
       margin-bottom: 20px;
@@ -94,8 +50,8 @@
       color: #64748b;
     }
 
-    .floating-input:focus ~ label,
-    .floating-input:not(:placeholder-shown) ~ label {
+    .floating-input:focus~label,
+    .floating-input:not(:placeholder-shown)~label {
       top: -20px;
       font-size: 0.8rem;
       color: #3b82f6;
@@ -116,79 +72,82 @@
       cursor: pointer;
       width: 30px;
       height: 30px;
-      background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath fill='%23cbd5e1' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3e%3c/svg%3e") no-repeat center;
+      background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3e%3cpath fill='%23cbd5e1' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3e%3c/svg%3e") no-repeat center;
     }
 
-    .rating input:checked ~ label,
+    .rating input:checked~label,
     .rating label:hover,
-    .rating label:hover ~ label {
-      background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath fill='%23f59e0b' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3e%3c/svg%3e") no-repeat center;
+    .rating label:hover~label {
+      background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3e%3cpath fill='%23f59e0b' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3e%3c/svg%3e") no-repeat center;
     }
   </style>
 </head>
+
 <body>
-  <!-- Testimonials Section -->
+  <!-- Testimonials -->
   <section id="testimonials" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">What Our Clients Say</h2>
-        <div class="w-24 h-1.5 bg-gradient-to-r from-primary to-secondary mx-auto mb-6 rounded-full"></div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+        <div class="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto mb-6 rounded-full"></div>
         <p class="text-gray-600 max-w-2xl mx-auto text-lg">Real feedback from organisations and participants who attended our programs.</p>
       </div>
 
-      <!-- Add Review button -->
+      <!-- Button -->
       <div class="text-center mb-10">
-        <button id="addReviewBtn" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:-translate-y-1 flex items-center mx-auto">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-          Share Your Experience
+        <button id="addReviewBtn"
+          class="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:-translate-y-1 flex items-center mx-auto">
+          <i class="fa fa-plus mr-2"></i> Share Your Experience
         </button>
       </div>
 
-      <!-- Add Review Modal -->
-      <div id="reviewModal" style="z-index: 1000;" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
-        <div class="bg-white rounded-2xl w-full max-w-2xl p-8 shadow-2xl relative transform transition-all duration-300 scale-95">
-          <button id="modalClose" class="absolute top-6 right-6 text-gray-500 hover:text-gray-700 transition-colors duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+      <!-- Review Modal -->
+      <div id="reviewModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
+        <div
+          class="bg-white rounded-2xl w-full max-w-lg md:max-w-xl lg:max-w-2xl p-8 shadow-2xl relative transform transition-all duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+          <!-- Close -->
+          <button id="modalClose"
+            class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors duration-200">
+            <i class="fa fa-times text-2xl"></i>
           </button>
-          
+
           <div class="text-center mb-7">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
+              <i class="fa fa-pen text-blue-600 text-xl"></i>
             </div>
-            <h4 class="text-2xl font-bold text-gray-800 mb-2">Share Your Experience</h4>
+            <h4 class="text-2xl font-bold text-gray-900 mb-2">Share Your Experience</h4>
             <p class="text-gray-600">Your feedback helps us improve our services</p>
           </div>
 
+          <!-- Form -->
           <form id="reviewForm" class="space-y-6">
             <div class="floating-label">
-              <input id="r-name" type="text" class="floating-input w-full p-3 text-lg border-0 border-b-2 focus:ring-0" placeholder=" " required>
+              <input id="r-name" type="text" class="floating-input w-full p-3 text-lg border-0 border-b-2 focus:ring-0"
+                placeholder=" " required>
               <label for="r-name">Full Name</label>
             </div>
 
             <div class="floating-label">
-              <input id="r-role" type="text" class="floating-input w-full p-3 text-lg border-0 border-b-2 focus:ring-0" placeholder=" ">
+              <input id="r-role" type="text" class="floating-input w-full p-3 text-lg border-0 border-b-2 focus:ring-0"
+                placeholder=" ">
               <label for="r-role">Role / Company</label>
             </div>
 
-            <!-- File upload input for Cloudinary -->
-            <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-primary transition-colors duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+            <!-- Upload -->
+            <div
+              class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-500 transition-colors duration-300">
+              <i class="fa fa-image text-3xl text-gray-400 mb-3"></i>
               <label for="r-photo-file" class="block text-sm font-medium text-gray-700 mb-2">Upload Your Photo (optional)</label>
               <input id="r-photo-file" type="file" accept="image/*" class="hidden" />
-              <button type="button" onclick="document.getElementById('r-photo-file').click()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors">
+              <button type="button" onclick="document.getElementById('r-photo-file').click()"
+                class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors">
                 Choose File
               </button>
               <p class="text-xs text-gray-500 mt-2">PNG, JPG up to 5MB</p>
             </div>
 
+            <!-- Rating -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-3">Your Rating</label>
               <div class="rating">
@@ -205,14 +164,18 @@
               </div>
             </div>
 
+            <!-- Review -->
             <div class="floating-label">
-              <textarea id="r-text" rows="4" class="floating-input w-full p-3 text-lg border-0 border-b-2 focus:ring-0" placeholder=" " required></textarea>
+              <textarea id="r-text" rows="4" class="floating-input w-full p-3 text-lg border-0 border-b-2 focus:ring-0"
+                placeholder=" " required></textarea>
               <label for="r-text">Your Review</label>
             </div>
 
             <div class="flex justify-end gap-4 pt-4">
-              <button type="button" id="modalCancel" class="px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-300">Cancel</button>
-              <button type="submit" id="modalSubmit" class="px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-0.5 font-medium">
+              <button type="button" id="modalCancel"
+                class="px-6 py-3 rounded-xl border border-gray-300 text-blue-600 font-medium hover:bg-gray-50 transition-colors duration-300">Cancel</button>
+              <button type="submit" id="modalSubmit"
+                class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-0.5 font-medium">
                 Submit Review
               </button>
             </div>
@@ -222,17 +185,17 @@
         </div>
       </div>
 
-      <!-- Thank You Modal -->
-      <div id="thankYouModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <!-- Thank You -->
+      <div id="thankYouModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
         <div class="bg-white rounded-2xl w-full max-w-md p-8 shadow-2xl text-center modal-appear">
           <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
+            <i class="fa fa-check text-green-600 text-3xl"></i>
           </div>
-          <h3 class="text-2xl font-bold text-gray-800 mb-3">Thank You! 🙏</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Thank You! 🙏</h3>
           <p class="text-gray-600 mb-6">Your feedback has been successfully submitted. We appreciate your time and valuable input.</p>
-          <button id="closeWebsiteBtn" class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-0.5 font-medium">
+          <button id="closeWebsiteBtn"
+            class="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-0.5 font-medium">
             Okay
           </button>
         </div>
@@ -295,7 +258,7 @@
         }, 10);
         rName.focus();
       }
-      
+
       function closeModal() {
         modal.style.opacity = 0;
         modal.querySelector('.bg-white').style.transform = 'scale(0.95)';
@@ -354,7 +317,7 @@
       addBtn.addEventListener('click', openModal);
       modalClose.addEventListener('click', closeModal);
       modalCancel.addEventListener('click', closeModal);
-      
+
       // close modal on outside click
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
@@ -370,7 +333,7 @@
       // submit handler (integrates Cloudinary upload)
       reviewForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         // Get selected rating
         const ratingInput = document.querySelector('input[name="rating"]:checked');
         if (!ratingInput) {
@@ -380,7 +343,7 @@
           formMsg.textContent = 'Please select a rating.';
           return;
         }
-        
+
         const payload = {
           name: (rName.value || '').trim(),
           role: (rRole.value || '').trim(),
@@ -441,4 +404,5 @@
     })();
   </script>
 </body>
+
 </html>
