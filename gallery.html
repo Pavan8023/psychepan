@@ -166,16 +166,22 @@
     </div>
 
     <!-- Main Content -->
-    <div class="pt-32 pb-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Psyche Panacea Gallery</h1>
-                <div class="h-1 w-24 bg-primary mx-auto rounded mb-6"></div>
-                <p class="text-gray-700 mt-6 max-w-2xl mx-auto text-lg">
-                    Explore our collection of events, workshops, and corporate programs
-                </p>
+    <div class="pb-16">
+        <!-- Gallery Section -->
+        <section class="pt-32 pb-16 bg-blue-700 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Psyche Panacea Gallery</h1>
+                    <div class="h-1 w-24 bg-white mx-auto rounded mb-6"></div>
+                    <p class="mt-6 max-w-2xl mx-auto text-lg text-blue-100">
+                        Explore our collection of events, workshops, and corporate programs
+                    </p>
+                </div>
             </div>
+        </section>
 
+        <!-- Rest of Gallery -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Folder Navigation -->
             <div class="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto py-2">
                 <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
@@ -223,310 +229,313 @@
                 </button>
             </div>
         </div>
-    </div>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
-        <div class="relative max-w-5xl w-full">
-            <button id="closeModal"
-                class="absolute -top-12 right-0 text-white text-3xl hover:text-gray-300 transition-colors">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="bg-gray-500 rounded-lg overflow-hidden shadow-2xl">
-                <img id="modalImage" alt="Gallery Image" class="w-full max-h-[80vh] object-contain">
-                <div class="p-4 text-center bg-gray-50">
-                    <h3 id="modalTitle" class="text-xl font-bold text-gray-900"></h3>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
+            <div class="relative max-w-5xl w-full" style="height: 400px; width: 600px; margin-bottom: 120px;">
+                <button id="closeModal"
+                    class="mt-16 absolute -top-12 right-0 text-red-600 text-3xl hover:text-gray-300 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="bg-gray-500 rounded-lg overflow-hidden shadow-2xl">
+                    <img id="modalImage" alt="Gallery Image" class="w-full max-h-[80vh] object-contain">
+                    <div class="p-4 text-center bg-gray-50">
+                        <h3 id="modalTitle" class="text-xl font-bold text-gray-900"></h3>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                <!-- Left half: Map -->
-                <div class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
-                    <iframe src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
-                        width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
-                        class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
-                        gestureHandling="greedy">
-                    </iframe>
-                </div>
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <!-- Left half: Map -->
+                    <div
+                        class="w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border-2 border-blue-700 shadow-lg">
+                        <iframe
+                            src="https://maps.google.com/maps?q=28.467519771527627,77.03697016794533&z=15&output=embed"
+                            width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen loading="lazy"
+                            class="filter grayscale hover:grayscale-0 transition-all duration-500 pointer-events-auto"
+                            gestureHandling="greedy">
+                        </iframe>
+                    </div>
 
-                <!-- Right half: Content -->
-                <div class="grid grid-cols-1 gap-8">
-                    <!-- Company Info -->
-                    <div>
-                        <div class="flex items-center mb-4">
-                            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                </svg>
+                    <!-- Right half: Content -->
+                    <div class="grid grid-cols-1 gap-8">
+                        <!-- Company Info -->
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
                             </div>
-                            <h3 class="text-xl font-bold text-blue-400">Psyche Panacea</h3>
+                            <p class="text-gray-400">
+                                Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
+                                transforming organizations through strategic HR solutions.
+                            </p>
                         </div>
-                        <p class="text-gray-400">
-                            Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
-                            transforming organizations through strategic HR solutions.
-                        </p>
-                    </div>
 
-                    <!-- Contact Info -->
-                    <div>
-                        <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">Contact Us
-                        </h4>
-                        <ul class="space-y-4 text-gray-400 text-sm">
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
-                                    Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
-                            </li>
-                            <li class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
-                                <span>09810323292, 09810319292</span>
-                            </li>
-                            <li class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                                <span>hr@psypanconsulting.com</span>
-                            </li>
-                        </ul>
+                        <!-- Contact Info -->
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-blue-400 border-b border-blue-700 pb-1">Contact
+                                Us
+                            </h4>
+                            <ul class="space-y-4 text-gray-400 text-sm">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-blue-500"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
+                                        Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                    <span>09810323292, 09810319292</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-500"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                    <span>hr@psypanconsulting.com</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Footer Bottom -->
-            <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
-                <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
-    <div class="chatbot fixed bottom-6 right-4 z-50">
-        <!-- Toggle / Floating Button -->
-        <button id="chatbotToggle"
-            class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
-            aria-label="Open chat">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                class="opacity-95">
-                <path
-                    d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z" />
-                <path d="M9 9h6v6H9z" />
-            </svg>
-        </button>
-
-        <!-- Chat window -->
-        <div id="chatbotWindow"
-            class="chatbot-window w-80 sm:w-96 max-h-[540px] absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 flex flex-col overflow-hidden">
-            <!-- Header -->
-            <div
-                class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
-                <div>
-                    <div class="font-bold text-sm sm:text-base">Psyche Panacea Assistant</div>
-                    <div class="text-xs opacity-90">Corporate Training & HR Support</div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button id="chatClear" title="Clear chat"
-                        class="text-xs bg-white/10 px-2 py-1 rounded-md hover:bg-white/20">Clear</button>
-                    <button id="chatbotClose" class="chatbot-close text-2xl leading-none">×</button>
+                <!-- Footer Bottom -->
+                <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+                    <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
                 </div>
             </div>
+        </footer>
 
-            <!-- Body -->
-            <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto flex-1 space-y-3 bg-white">
+        <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
+        <div class="chatbot fixed bottom-6 right-4 z-50">
+            <!-- Toggle / Floating Button -->
+            <button id="chatbotToggle"
+                class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
+                aria-label="Open chat">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    class="opacity-95">
+                    <path
+                        d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z" />
+                    <path d="M9 9h6v6H9z" />
+                </svg>
+            </button>
+
+            <!-- Chat window -->
+            <div id="chatbotWindow"
+                class="chatbot-window w-80 sm:w-96 max-h-[540px] absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 flex flex-col overflow-hidden">
+                <!-- Header -->
                 <div
-                    class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-1 max-w-[86%] float-left clear-both text-sm sm:text-base">
-                    Welcome! Choose an option below or type your question. 👇
+                    class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+                    <div>
+                        <div class="font-bold text-sm sm:text-base">Psyche Panacea Assistant</div>
+                        <div class="text-xs opacity-90">Corporate Training & HR Support</div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="chatClear" title="Clear chat"
+                            class="text-xs bg-white/10 px-2 py-1 rounded-md hover:bg-white/20">Clear</button>
+                        <button id="chatbotClose" class="chatbot-close text-2xl leading-none">×</button>
+                    </div>
                 </div>
 
-                <!-- quick options container -->
-                <div id="chatOptions" class="w-full flex flex-wrap gap-2"></div>
-            </div>
+                <!-- Body -->
+                <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto flex-1 space-y-3 bg-white">
+                    <div
+                        class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-1 max-w-[86%] float-left clear-both text-sm sm:text-base">
+                        Welcome! Choose an option below or type your question. 👇
+                    </div>
 
-            <!-- Input area -->
-            <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex gap-2 items-center">
-                <input id="chatbotInput" type="text"
-                    class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none"
-                    placeholder="Ask about our programs or click an option...">
-                <button id="chatbotSend"
-                    class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">Send</button>
+                    <!-- quick options container -->
+                    <div id="chatOptions" class="w-full flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Input area -->
+                <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex gap-2 items-center">
+                    <input id="chatbotInput" type="text"
+                        class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none"
+                        placeholder="Ask about our programs or click an option...">
+                    <button id="chatbotSend"
+                        class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">Send</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Gallery data organized by folders
-        const galleryData = {
-            all: [
-                { title: "Corporate Training Session", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-2.png" },
-                { title: "Graduation Ceremony", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE.jpg" },
-                { title: "Workshop in Progress", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-3.jpg" },
-                { title: "Career Counseling", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-2.png" },
-                { title: "Career Workshop", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-3.jpg" },
-                { title: "Career Guidance", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-5.png" },
-                { title: "Student Counseling", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-4.png" },
-                { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-1.jpg" },
-                { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-2.png" },
-                { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-3.jpg" },
-                { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-4.png" },
-                { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-1.jpg" },
-                { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-2.jpg" },
-                { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-1.jpg" },
-                { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-2.jpg" },
-                { title: "Program Session", folder: "EEP", image: "EEP-PICTURES-3.jpg" },
-                { title: "Workshop in Progress", folder: "EEP", image: "EEP-PICTURES-4.jpg" },
-                { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-5.png" },
-                { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-6.jpg" },
-                { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-7.png" },
-                { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-8.png" },
-                { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-9.png" },
-                { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-1.jpg" },
-                { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-2-1.jpg" },
-                { title: "Ist Engagement", folder: "EEP", image: "ist-enagament.png" },
-                { title: "Ist Engagement", folder: "EEP", image: "ist-engagement.jpg" },
-                { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-1.png" },
-                { title: "Team Adventure", folder: "Outbound", image: "Outbound-2.png" },
-                { title: "Group Activity", folder: "Outbound", image: "Outbound-3.png" },
-                { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-4.png" },
-                { title: "Group Activity", folder: "Outbound", image: "Outbound-5.png" },
-                { title: "Team Adventure", folder: "Outbound", image: "Outbound-6.png" },
-                { title: "Team Building", folder: "Outbound", image: "Outbound-7.png" },
+        <script>
+            // Gallery data organized by folders
+            const galleryData = {
+                all: [
+                    { title: "Corporate Training Session", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-2.png" },
+                    { title: "Graduation Ceremony", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE.jpg" },
+                    { title: "Workshop in Progress", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-3.jpg" },
+                    { title: "Career Counseling", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-2.png" },
+                    { title: "Career Workshop", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-3.jpg" },
+                    { title: "Career Guidance", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-5.png" },
+                    { title: "Student Counseling", folder: "CareerCounselingforEmployeeKids", image: "Career-Counselling-for-employee-kids-4.png" },
+                    { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-1.jpg" },
+                    { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-2.png" },
+                    { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-3.jpg" },
+                    { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-4.png" },
+                    { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-1.jpg" },
+                    { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-2.jpg" },
+                    { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-1.jpg" },
+                    { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-2.jpg" },
+                    { title: "Program Session", folder: "EEP", image: "EEP-PICTURES-3.jpg" },
+                    { title: "Workshop in Progress", folder: "EEP", image: "EEP-PICTURES-4.jpg" },
+                    { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-5.png" },
+                    { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-6.jpg" },
+                    { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-7.png" },
+                    { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-8.png" },
+                    { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-9.png" },
+                    { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-1.jpg" },
+                    { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-2-1.jpg" },
+                    { title: "Ist Engagement", folder: "EEP", image: "ist-enagament.png" },
+                    { title: "Ist Engagement", folder: "EEP", image: "ist-engagement.jpg" },
+                    { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-1.png" },
+                    { title: "Team Adventure", folder: "Outbound", image: "Outbound-2.png" },
+                    { title: "Group Activity", folder: "Outbound", image: "Outbound-3.png" },
+                    { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-4.png" },
+                    { title: "Group Activity", folder: "Outbound", image: "Outbound-5.png" },
+                    { title: "Team Adventure", folder: "Outbound", image: "Outbound-6.png" },
+                    { title: "Team Building", folder: "Outbound", image: "Outbound-7.png" },
 
-            ],
-            CampusToCorporate: [
-                { title: "Corporate Training Session", image: "CAMPUS-TO-CORPORATE-2.png" },
-                { title: "Graduation Ceremony", image: "CAMPUS-TO-CORPORATE.jpg" },
-                { title: "Workshop in Progress", image: "CAMPUS-TO-CORPORATE-3.jpg" },
-            ],
-            CareerCounselingforEmployeeKids: [
-                { title: "Career Counseling", image: "Career-Counselling-for-employee-kids-2.png" },
-                { title: "Career Workshop", image: "Career-Counselling-for-employee-kids-3.jpg" },
-                { title: "Career Guidance", image: "Career-Counselling-for-employee-kids-5.png" },
-                { title: "Student Counseling", image: "Career-Counselling-for-employee-kids-4.png" },
-            ],
-            "diversity&inclusion": [
-                { title: "Diversity Workshop", image: "Diversity-and-inclusion-1.jpg" },
-                { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-2.png" },
-                { title: "Team Diversity", image: "Diversity-and-inclusion-3.jpg" },
-                { title: "Diversity Workshop", image: "Diversity-and-inclusion-4.png" },
-                { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-1.jpg" },
-                { title: "Team Diversity", image: "Diversity-and-inclusion-2.jpg" },
-            ],
-            eep: [
-                { title: "EEP Training", image: "EEP-PICTURES-1.jpg" },
-                { title: "EEP Workshop", image: "EEP-PICTURES-2.jpg" },
-                { title: "Program Session", image: "EEP-PICTURES-3.jpg" },
-                { title: "Workshop in Progress", image: "EEP-PICTURES-4.jpg" },
-                { title: "EEP Program", image: "EEP-PICTURES-5.png" },
-                { title: "EEP Training", image: "EEP-PICTURES-6.jpg" },
-                { title: "EEP Workshop", image: "EEP-PICTURES-7.png" },
-                { title: "EEP Program", image: "EEP-PICTURES-8.png" },
-                { title: "EEP Training", image: "EEP-PICTURES-9.png" },
-                { title: "Employee Engagement", image: "Employee-Engagement-1.jpg" },
-                { title: "Employee Engagement", image: "Employee-Engagement-2-1.jpg" },
-                { title: "Ist Engagement", image: "ist-enagament.png" },
-                { title: "Ist Engagement", image: "ist-engagement.jpg" },
-            ],
-            outbound: [
-                { title: "Outdoor Activities", image: "Outbound-1.png" },
-                { title: "Team Adventure", image: "Outbound-2.png" },
-                { title: "Group Activity", image: "Outbound-3.png" },
-                { title: "Outdoor Activities", image: "Outbound-4.png" },
-                { title: "Group Activity", image: "Outbound-5.png" },
-                { title: "Team Adventure", image: "Outbound-6.png" },
-                { title: "Team Building", image: "Outbound-7.png" },
-            ]
-        };
+                ],
+                CampusToCorporate: [
+                    { title: "Corporate Training Session", image: "CAMPUS-TO-CORPORATE-2.png" },
+                    { title: "Graduation Ceremony", image: "CAMPUS-TO-CORPORATE.jpg" },
+                    { title: "Workshop in Progress", image: "CAMPUS-TO-CORPORATE-3.jpg" },
+                ],
+                CareerCounselingforEmployeeKids: [
+                    { title: "Career Counseling", image: "Career-Counselling-for-employee-kids-2.png" },
+                    { title: "Career Workshop", image: "Career-Counselling-for-employee-kids-3.jpg" },
+                    { title: "Career Guidance", image: "Career-Counselling-for-employee-kids-5.png" },
+                    { title: "Student Counseling", image: "Career-Counselling-for-employee-kids-4.png" },
+                ],
+                "diversity&inclusion": [
+                    { title: "Diversity Workshop", image: "Diversity-and-inclusion-1.jpg" },
+                    { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-2.png" },
+                    { title: "Team Diversity", image: "Diversity-and-inclusion-3.jpg" },
+                    { title: "Diversity Workshop", image: "Diversity-and-inclusion-4.png" },
+                    { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-1.jpg" },
+                    { title: "Team Diversity", image: "Diversity-and-inclusion-2.jpg" },
+                ],
+                eep: [
+                    { title: "EEP Training", image: "EEP-PICTURES-1.jpg" },
+                    { title: "EEP Workshop", image: "EEP-PICTURES-2.jpg" },
+                    { title: "Program Session", image: "EEP-PICTURES-3.jpg" },
+                    { title: "Workshop in Progress", image: "EEP-PICTURES-4.jpg" },
+                    { title: "EEP Program", image: "EEP-PICTURES-5.png" },
+                    { title: "EEP Training", image: "EEP-PICTURES-6.jpg" },
+                    { title: "EEP Workshop", image: "EEP-PICTURES-7.png" },
+                    { title: "EEP Program", image: "EEP-PICTURES-8.png" },
+                    { title: "EEP Training", image: "EEP-PICTURES-9.png" },
+                    { title: "Employee Engagement", image: "Employee-Engagement-1.jpg" },
+                    { title: "Employee Engagement", image: "Employee-Engagement-2-1.jpg" },
+                    { title: "Ist Engagement", image: "ist-enagament.png" },
+                    { title: "Ist Engagement", image: "ist-engagement.jpg" },
+                ],
+                outbound: [
+                    { title: "Outdoor Activities", image: "Outbound-1.png" },
+                    { title: "Team Adventure", image: "Outbound-2.png" },
+                    { title: "Group Activity", image: "Outbound-3.png" },
+                    { title: "Outdoor Activities", image: "Outbound-4.png" },
+                    { title: "Group Activity", image: "Outbound-5.png" },
+                    { title: "Team Adventure", image: "Outbound-6.png" },
+                    { title: "Team Building", image: "Outbound-7.png" },
+                ]
+            };
 
-        // DOM Elements
-        const galleryGrid = document.getElementById('galleryGrid');
-        const loadMoreBtn = document.getElementById('loadMore');
-        const folderTabs = document.querySelectorAll('.folder-tab');
-        const imageModal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const closeModal = document.getElementById('closeModal');
+            // DOM Elements
+            const galleryGrid = document.getElementById('galleryGrid');
+            const loadMoreBtn = document.getElementById('loadMore');
+            const folderTabs = document.querySelectorAll('.folder-tab');
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const closeModal = document.getElementById('closeModal');
 
 
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                }
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
-        });
 
-        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-            observer.observe(el);
-        });
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
 
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
 
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                }
+                        // Close mobile menu if open
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
             });
-        });
 
-        // Current state
-        let currentFolder = 'all';
-        let visibleItems = 8;
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                observer.observe(el);
+            });
 
-        // Create gallery item
-        function createGalleryItem(item, folder) {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'gallery-item bg-white rounded-xl shadow-md overflow-hidden animate-fade-in';
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
 
-            const imageUrl = `/images/gallery/${folder ? folder + '/' : ''}${item.image}`;
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
 
-            itemDiv.innerHTML = `
+                        // Close mobile menu if open
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Current state
+            let currentFolder = 'all';
+            let visibleItems = 8;
+
+            // Create gallery item
+            function createGalleryItem(item, folder) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'gallery-item bg-white rounded-xl shadow-md overflow-hidden animate-fade-in';
+
+                const imageUrl = `/images/gallery/${folder ? folder + '/' : ''}${item.image}`;
+
+                itemDiv.innerHTML = `
                 <div class="relative">
                     <img src="${imageUrl}" alt="${item.title}" class="w-full h-56 object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
@@ -535,420 +544,420 @@
                 </div>
             `;
 
-            itemDiv.addEventListener('click', () => {
-                modalImage.src = imageUrl;
-                modalTitle.textContent = item.title;
-                imageModal.classList.remove('hidden');
-                imageModal.classList.add('flex');
-            });
-
-            return itemDiv;
-        }
-
-        // Render gallery items
-        function renderGallery(folder = 'all', count = visibleItems) {
-            galleryGrid.innerHTML = '';
-            const items = galleryData[folder];
-            const itemsToShow = Math.min(count, items.length);
-
-            for (let i = 0; i < itemsToShow; i++) {
-                const item = items[i];
-                const galleryItem = createGalleryItem(item, folder === 'all' ? item.folder : folder);
-                galleryGrid.appendChild(galleryItem);
-            }
-
-            // Show/hide load more button
-            loadMoreBtn.style.display = itemsToShow < items.length ? 'block' : 'none';
-        }
-
-        // Initialize gallery
-        renderGallery();
-
-        // Folder tab click handler
-        folderTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs
-                folderTabs.forEach(t => t.classList.remove('active'));
-
-                // Add active class to clicked tab
-                tab.classList.add('active');
-
-                // Update folder icon
-                const icon = tab.querySelector('.folder-icon');
-                icon.classList.remove('fa-folder');
-                icon.classList.add('fa-folder-open');
-
-                // Set current folder and render gallery
-                currentFolder = tab.dataset.folder;
-                visibleItems = 8;
-                renderGallery(currentFolder);
-            });
-        });
-
-        // Load more button
-        loadMoreBtn.addEventListener('click', () => {
-            visibleItems += 4;
-            renderGallery(currentFolder, visibleItems);
-        });
-
-        // Modal close
-        closeModal.addEventListener('click', () => {
-            imageModal.classList.add('hidden');
-            imageModal.classList.remove('flex');
-        });
-
-        // Close modal when clicking outside
-        imageModal.addEventListener('click', (e) => {
-            if (e.target === imageModal) {
-                imageModal.classList.add('hidden');
-                imageModal.classList.remove('flex');
-            }
-        });
-
-        (function () {
-            // --- configuration / content (edit as needed) ---
-            const contactInfo = {
-                address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
-                phones: ['+91 9810319292', '+91 9810323292'],
-                email: 'hr@psypanconsulting.com',
-            };
-
-            // PAGE URL map: clicking goto/learn-more opens these pages in the same tab
-            const pageUrlMap = {
-                'Services': 'services.html',
-                'Flagship Programs': 'flagship-programs.html',
-                'Blogs': 'blogs.html',
-                'Events': 'events.html',
-                'Contact': 'contact.html',
-                'About Us': 'about-us.html',
-                // keep Gallery as optional (if desired, add a page)
-                'Gallery': 'gallery.html'
-            };
-
-            const servicesList = [
-                'Management Training',
-                'Employee Engagement',
-                'HR Consulting',
-                'Employee Assistance',
-                'Outbound Training',
-                'Soft Skills'
-            ];
-
-            const flagshipPrograms = [
-                'Managerial Dev. Program',
-                'Train The Trainer',
-                'Handling Conversation',
-                'Campus to Corporate',
-                'Business Comm. Skills',
-                'Mentoring Skills',
-                'Diversity & Inclusion',
-                'Sahyog'
-            ];
-
-            // Keyword responses (typed input fallback)
-            function getBotResponse(message) {
-                const lower = message.toLowerCase();
-                if (lower.includes('contact') || lower.includes('address')) {
-                    return `Our office is located at ${contactInfo.address}`;
-                }
-                if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number')) {
-                    return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
-                }
-                if (lower.includes('email') || lower.includes('mail')) {
-                    return `For inquiries, please email us at ${contactInfo.email}`;
-                }
-                if (lower.includes('training') || lower.includes('program')) {
-                    return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-                }
-                if (lower.includes('service') || lower.includes('offer')) {
-                    return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-                }
-                // fallback
-                return 'I’m here to help! You can click one of the options below or tell me what you need.';
-            }
-
-            // --- DOM references ---
-            const toggleBtn = document.getElementById('chatbotToggle');
-            const windowEl = document.getElementById('chatbotWindow');
-            const closeBtn = document.getElementById('chatbotClose');
-            const sendBtn = document.getElementById('chatbotSend');
-            const inputEl = document.getElementById('chatbotInput');
-            const bodyEl = document.getElementById('chatbotBody');
-            const optionsContainer = document.getElementById('chatOptions');
-            const clearBtn = document.getElementById('chatClear');
-
-            // --- helpers ---
-            function scrollChatToBottom() {
-                bodyEl.scrollTop = bodyEl.scrollHeight;
-            }
-
-            function createMessage({ text, who = 'bot', html = false }) {
-                const wrapper = document.createElement('div');
-                wrapper.className =
-                    'chatbot-message ' +
-                    (who === 'user'
-                        ? 'user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base'
-                        : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base');
-                if (html) wrapper.innerHTML = text;
-                else wrapper.textContent = text;
-                bodyEl.appendChild(wrapper);
-                scrollChatToBottom();
-                return wrapper;
-            }
-
-            function createTypingIndicator() {
-                return createMessage({ text: 'Typing...', who: 'bot' });
-            }
-
-            // Show quick options and prompt "How may I help you?"
-            function showOptionsPrompt(delay = 500) {
-                setTimeout(() => {
-                    createMessage({ text: 'How may I help you?', who: 'bot' });
-                    renderQuickOptions();
-                }, delay);
-            }
-
-            // Create clickable quick options
-            function renderQuickOptions() {
-                optionsContainer.innerHTML = '';
-
-                const mainOptions = [
-                    { label: 'Services', action: 'services' },
-                    { label: 'Flagship Programs', action: 'programs' },
-                    { label: 'Contact', action: 'contact' },
-                    { label: 'Phone', action: 'phone' },
-                    { label: 'Email', action: 'email' },
-                    { label: 'Events', action: 'goto', target: 'Events' },
-                    { label: 'Gallery', action: 'goto', target: 'Gallery' },
-                    { label: 'Blogs', action: 'goto', target: 'Blogs' },
-                    { label: 'About Us', action: 'goto', target: 'About Us' }
-                ];
-
-                mainOptions.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = 'px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 hover:bg-slate-50';
-                    btn.textContent = opt.label;
-                    btn.dataset.action = opt.action;
-                    if (opt.target) btn.dataset.target = opt.target;
-                    optionsContainer.appendChild(btn);
+                itemDiv.addEventListener('click', () => {
+                    modalImage.src = imageUrl;
+                    modalTitle.textContent = item.title;
+                    imageModal.classList.remove('hidden');
+                    imageModal.classList.add('flex');
                 });
 
-                scrollChatToBottom();
+                return itemDiv;
             }
 
-            // Show service details then show options again
-            function showServiceDetails(serviceName) {
-                const description = `${serviceName} — a tailored solution to address corporate needs. Click Learn more to visit the Services page.`;
-                const typing = createTypingIndicator();
-                setTimeout(() => {
-                    typing.remove();
-                    createMessage({ text: description, who: 'bot' });
-                    const html = `<div class="mt-2"><button data-action="goto" data-target="Services" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Learn more</button></div>`;
-                    createMessage({ text: html, who: 'bot', html: true });
-                    // show options again
-                    showOptionsPrompt(700);
-                }, 700);
+            // Render gallery items
+            function renderGallery(folder = 'all', count = visibleItems) {
+                galleryGrid.innerHTML = '';
+                const items = galleryData[folder];
+                const itemsToShow = Math.min(count, items.length);
+
+                for (let i = 0; i < itemsToShow; i++) {
+                    const item = items[i];
+                    const galleryItem = createGalleryItem(item, folder === 'all' ? item.folder : folder);
+                    galleryGrid.appendChild(galleryItem);
+                }
+
+                // Show/hide load more button
+                loadMoreBtn.style.display = itemsToShow < items.length ? 'block' : 'none';
             }
 
-            // Show program details then show options again
-            function showProgramDetails(programName) {
-                const description = `${programName} — structured program designed to build competencies and measurable outcomes. Click Go to Flagship Programs to know more.`;
-                const typing = createTypingIndicator();
-                setTimeout(() => {
-                    typing.remove();
-                    createMessage({ text: description, who: 'bot' });
-                    const html = `<div class="mt-2"><button data-action="goto" data-target="Flagship Programs" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Go to Flagship Programs</button></div>`;
-                    createMessage({ text: html, who: 'bot', html: true });
-                    // show options again
-                    showOptionsPrompt(700);
-                }, 700);
-            }
+            // Initialize gallery
+            renderGallery();
 
-            // Navigate to the mapped page (same tab). If no mapping, fallback to hash navigation.
-            function goToPage(name) {
-                const normalized = name.trim();
-                const url = pageUrlMap[normalized];
-                if (url) {
-                    // give a small confirmation message then navigate
-                    createMessage({ text: `Opening ${normalized}...`, who: 'bot' });
-                    // navigate in same tab
-                    window.location.href = url;
-                } else {
-                    // fallback: attempt scroll to element id
-                    const id = normalized.toLowerCase().replace(/\s+/g, '-');
-                    const el = document.getElementById(id);
-                    if (el) {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        createMessage({ text: `Taking you to ${normalized} section.`, who: 'bot' });
-                        // show options afterwards
+            // Folder tab click handler
+            folderTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    folderTabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+
+                    // Update folder icon
+                    const icon = tab.querySelector('.folder-icon');
+                    icon.classList.remove('fa-folder');
+                    icon.classList.add('fa-folder-open');
+
+                    // Set current folder and render gallery
+                    currentFolder = tab.dataset.folder;
+                    visibleItems = 8;
+                    renderGallery(currentFolder);
+                });
+            });
+
+            // Load more button
+            loadMoreBtn.addEventListener('click', () => {
+                visibleItems += 4;
+                renderGallery(currentFolder, visibleItems);
+            });
+
+            // Modal close
+            closeModal.addEventListener('click', () => {
+                imageModal.classList.add('hidden');
+                imageModal.classList.remove('flex');
+            });
+
+            // Close modal when clicking outside
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    imageModal.classList.add('hidden');
+                    imageModal.classList.remove('flex');
+                }
+            });
+
+            (function () {
+                // --- configuration / content (edit as needed) ---
+                const contactInfo = {
+                    address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
+                    phones: ['+91 9810319292', '+91 9810323292'],
+                    email: 'hr@psypanconsulting.com',
+                };
+
+                // PAGE URL map: clicking goto/learn-more opens these pages in the same tab
+                const pageUrlMap = {
+                    'Services': 'services.html',
+                    'Flagship Programs': 'flagship-programs.html',
+                    'Blogs': 'blogs.html',
+                    'Events': 'events.html',
+                    'Contact': 'contact.html',
+                    'About Us': 'about-us.html',
+                    // keep Gallery as optional (if desired, add a page)
+                    'Gallery': 'gallery.html'
+                };
+
+                const servicesList = [
+                    'Management Training',
+                    'Employee Engagement',
+                    'HR Consulting',
+                    'Employee Assistance',
+                    'Outbound Training',
+                    'Soft Skills'
+                ];
+
+                const flagshipPrograms = [
+                    'Managerial Dev. Program',
+                    'Train The Trainer',
+                    'Handling Conversation',
+                    'Campus to Corporate',
+                    'Business Comm. Skills',
+                    'Mentoring Skills',
+                    'Diversity & Inclusion',
+                    'Sahyog'
+                ];
+
+                // Keyword responses (typed input fallback)
+                function getBotResponse(message) {
+                    const lower = message.toLowerCase();
+                    if (lower.includes('contact') || lower.includes('address')) {
+                        return `Our office is located at ${contactInfo.address}`;
+                    }
+                    if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number')) {
+                        return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
+                    }
+                    if (lower.includes('email') || lower.includes('mail')) {
+                        return `For inquiries, please email us at ${contactInfo.email}`;
+                    }
+                    if (lower.includes('training') || lower.includes('program')) {
+                        return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+                    }
+                    if (lower.includes('service') || lower.includes('offer')) {
+                        return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+                    }
+                    // fallback
+                    return 'I’m here to help! You can click one of the options below or tell me what you need.';
+                }
+
+                // --- DOM references ---
+                const toggleBtn = document.getElementById('chatbotToggle');
+                const windowEl = document.getElementById('chatbotWindow');
+                const closeBtn = document.getElementById('chatbotClose');
+                const sendBtn = document.getElementById('chatbotSend');
+                const inputEl = document.getElementById('chatbotInput');
+                const bodyEl = document.getElementById('chatbotBody');
+                const optionsContainer = document.getElementById('chatOptions');
+                const clearBtn = document.getElementById('chatClear');
+
+                // --- helpers ---
+                function scrollChatToBottom() {
+                    bodyEl.scrollTop = bodyEl.scrollHeight;
+                }
+
+                function createMessage({ text, who = 'bot', html = false }) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className =
+                        'chatbot-message ' +
+                        (who === 'user'
+                            ? 'user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base'
+                            : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base');
+                    if (html) wrapper.innerHTML = text;
+                    else wrapper.textContent = text;
+                    bodyEl.appendChild(wrapper);
+                    scrollChatToBottom();
+                    return wrapper;
+                }
+
+                function createTypingIndicator() {
+                    return createMessage({ text: 'Typing...', who: 'bot' });
+                }
+
+                // Show quick options and prompt "How may I help you?"
+                function showOptionsPrompt(delay = 500) {
+                    setTimeout(() => {
+                        createMessage({ text: 'How may I help you?', who: 'bot' });
+                        renderQuickOptions();
+                    }, delay);
+                }
+
+                // Create clickable quick options
+                function renderQuickOptions() {
+                    optionsContainer.innerHTML = '';
+
+                    const mainOptions = [
+                        { label: 'Services', action: 'services' },
+                        { label: 'Flagship Programs', action: 'programs' },
+                        { label: 'Contact', action: 'contact' },
+                        { label: 'Phone', action: 'phone' },
+                        { label: 'Email', action: 'email' },
+                        { label: 'Events', action: 'goto', target: 'Events' },
+                        { label: 'Gallery', action: 'goto', target: 'Gallery' },
+                        { label: 'Blogs', action: 'goto', target: 'Blogs' },
+                        { label: 'About Us', action: 'goto', target: 'About Us' }
+                    ];
+
+                    mainOptions.forEach(opt => {
+                        const btn = document.createElement('button');
+                        btn.className = 'px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 hover:bg-slate-50';
+                        btn.textContent = opt.label;
+                        btn.dataset.action = opt.action;
+                        if (opt.target) btn.dataset.target = opt.target;
+                        optionsContainer.appendChild(btn);
+                    });
+
+                    scrollChatToBottom();
+                }
+
+                // Show service details then show options again
+                function showServiceDetails(serviceName) {
+                    const description = `${serviceName} — a tailored solution to address corporate needs. Click Learn more to visit the Services page.`;
+                    const typing = createTypingIndicator();
+                    setTimeout(() => {
+                        typing.remove();
+                        createMessage({ text: description, who: 'bot' });
+                        const html = `<div class="mt-2"><button data-action="goto" data-target="Services" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Learn more</button></div>`;
+                        createMessage({ text: html, who: 'bot', html: true });
+                        // show options again
                         showOptionsPrompt(700);
+                    }, 700);
+                }
+
+                // Show program details then show options again
+                function showProgramDetails(programName) {
+                    const description = `${programName} — structured program designed to build competencies and measurable outcomes. Click Go to Flagship Programs to know more.`;
+                    const typing = createTypingIndicator();
+                    setTimeout(() => {
+                        typing.remove();
+                        createMessage({ text: description, who: 'bot' });
+                        const html = `<div class="mt-2"><button data-action="goto" data-target="Flagship Programs" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Go to Flagship Programs</button></div>`;
+                        createMessage({ text: html, who: 'bot', html: true });
+                        // show options again
+                        showOptionsPrompt(700);
+                    }, 700);
+                }
+
+                // Navigate to the mapped page (same tab). If no mapping, fallback to hash navigation.
+                function goToPage(name) {
+                    const normalized = name.trim();
+                    const url = pageUrlMap[normalized];
+                    if (url) {
+                        // give a small confirmation message then navigate
+                        createMessage({ text: `Opening ${normalized}...`, who: 'bot' });
+                        // navigate in same tab
+                        window.location.href = url;
                     } else {
-                        createMessage({ text: `Couldn't find a page or section for "${normalized}".`, who: 'bot' });
-                        showOptionsPrompt(600);
+                        // fallback: attempt scroll to element id
+                        const id = normalized.toLowerCase().replace(/\s+/g, '-');
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            createMessage({ text: `Taking you to ${normalized} section.`, who: 'bot' });
+                            // show options afterwards
+                            showOptionsPrompt(700);
+                        } else {
+                            createMessage({ text: `Couldn't find a page or section for "${normalized}".`, who: 'bot' });
+                            showOptionsPrompt(600);
+                        }
                     }
                 }
-            }
 
-            // --- main event handlers ---
-            function handleOptionClick(target) {
-                const action = target.dataset.action;
-                const t = target.dataset.target || target.textContent;
+                // --- main event handlers ---
+                function handleOptionClick(target) {
+                    const action = target.dataset.action;
+                    const t = target.dataset.target || target.textContent;
 
-                if (action === 'services') {
+                    if (action === 'services') {
+                        const typing = createTypingIndicator();
+                        setTimeout(() => {
+                            typing.remove();
+                            createMessage({ text: 'Here are our Services:', who: 'bot' });
+                            const html = servicesList.map(s => `<button data-action="service" data-name="${s}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${s}</button>`).join('');
+                            createMessage({ text: html, who: 'bot', html: true });
+                            // show options again under the list
+                            showOptionsPrompt(600);
+                        }, 500);
+                        return;
+                    }
+
+                    if (action === 'programs') {
+                        const typing = createTypingIndicator();
+                        setTimeout(() => {
+                            typing.remove();
+                            createMessage({ text: 'Our Flagship Programs:', who: 'bot' });
+                            const html = flagshipPrograms.map(p => `<button data-action="program" data-name="${p}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${p}</button>`).join('');
+                            createMessage({ text: html, who: 'bot', html: true });
+                            showOptionsPrompt(600);
+                        }, 500);
+                        return;
+                    }
+
+                    if (action === 'contact') {
+                        createMessage({ text: `Address: ${contactInfo.address}`, who: 'bot' });
+                        createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
+                        createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
+                        showOptionsPrompt(600);
+                        return;
+                    }
+
+                    if (action === 'phone') {
+                        createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
+                        showOptionsPrompt(600);
+                        return;
+                    }
+
+                    if (action === 'email') {
+                        createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
+                        showOptionsPrompt(600);
+                        return;
+                    }
+
+                    if (action === 'goto') {
+                        // Open mapped page in same tab
+                        const targetLabel = target.dataset.target || target.textContent;
+                        goToPage(targetLabel);
+                        return;
+                    }
+
+                    if (action === 'service') {
+                        const name = target.dataset.name;
+                        showServiceDetails(name);
+                        return;
+                    }
+                    if (action === 'program') {
+                        const name = target.dataset.name;
+                        showProgramDetails(name);
+                        return;
+                    }
+
+                    // fallback: treat as typed content
+                    const typedText = target.textContent || '';
+                    createMessage({ text: typedText, who: 'user' });
+                    const response = getBotResponse(typedText);
                     const typing = createTypingIndicator();
                     setTimeout(() => {
                         typing.remove();
-                        createMessage({ text: 'Here are our Services:', who: 'bot' });
-                        const html = servicesList.map(s => `<button data-action="service" data-name="${s}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${s}</button>`).join('');
-                        createMessage({ text: html, who: 'bot', html: true });
-                        // show options again under the list
+                        createMessage({ text: response, who: 'bot' });
                         showOptionsPrompt(600);
-                    }, 500);
-                    return;
+                    }, 800);
                 }
 
-                if (action === 'programs') {
+                // Delegate clicks inside chat body (for dynamic buttons)
+                bodyEl.addEventListener('click', (e) => {
+                    const btn = e.target.closest('button');
+                    if (!btn) return;
+                    const action = btn.dataset.action;
+                    if (!action) return;
+                    // small user bubble showing clicked option
+                    const label = btn.textContent;
+                    createMessage({ text: label, who: 'user' });
+                    handleOptionClick(btn);
+                });
+
+                // Top-level quick options click
+                optionsContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('button');
+                    if (!btn) return;
+                    handleOptionClick(btn);
+                });
+
+                // send typed message
+                function sendMessage() {
+                    const message = inputEl.value.trim();
+                    if (!message) return;
+                    createMessage({ text: message, who: 'user' });
+                    inputEl.value = '';
                     const typing = createTypingIndicator();
                     setTimeout(() => {
                         typing.remove();
-                        createMessage({ text: 'Our Flagship Programs:', who: 'bot' });
-                        const html = flagshipPrograms.map(p => `<button data-action="program" data-name="${p}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${p}</button>`).join('');
-                        createMessage({ text: html, who: 'bot', html: true });
+                        // If user typed exact name of a service or program, prefer direct show
+                        const normalized = message.toLowerCase();
+                        const serviceMatch = servicesList.find(s => normalized === s.toLowerCase());
+                        const progMatch = flagshipPrograms.find(p => normalized === p.toLowerCase());
+                        if (serviceMatch) {
+                            showServiceDetails(serviceMatch);
+                            return;
+                        }
+                        if (progMatch) {
+                            showProgramDetails(progMatch);
+                            return;
+                        }
+                        // If they typed a page name like 'services' or 'blogs', open page
+                        const pageKey = Object.keys(pageUrlMap).find(k => k.toLowerCase() === message.toLowerCase());
+                        if (pageKey) {
+                            goToPage(pageKey);
+                            return;
+                        }
+                        const response = getBotResponse(message);
+                        createMessage({ text: response, who: 'bot' });
                         showOptionsPrompt(600);
-                    }, 500);
-                    return;
+                    }, 900);
                 }
 
-                if (action === 'contact') {
-                    createMessage({ text: `Address: ${contactInfo.address}`, who: 'bot' });
-                    createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
-                    createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
-                    showOptionsPrompt(600);
-                    return;
-                }
-
-                if (action === 'phone') {
-                    createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
-                    showOptionsPrompt(600);
-                    return;
-                }
-
-                if (action === 'email') {
-                    createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
-                    showOptionsPrompt(600);
-                    return;
-                }
-
-                if (action === 'goto') {
-                    // Open mapped page in same tab
-                    const targetLabel = target.dataset.target || target.textContent;
-                    goToPage(targetLabel);
-                    return;
-                }
-
-                if (action === 'service') {
-                    const name = target.dataset.name;
-                    showServiceDetails(name);
-                    return;
-                }
-                if (action === 'program') {
-                    const name = target.dataset.name;
-                    showProgramDetails(name);
-                    return;
-                }
-
-                // fallback: treat as typed content
-                const typedText = target.textContent || '';
-                createMessage({ text: typedText, who: 'user' });
-                const response = getBotResponse(typedText);
-                const typing = createTypingIndicator();
-                setTimeout(() => {
-                    typing.remove();
-                    createMessage({ text: response, who: 'bot' });
-                    showOptionsPrompt(600);
-                }, 800);
-            }
-
-            // Delegate clicks inside chat body (for dynamic buttons)
-            bodyEl.addEventListener('click', (e) => {
-                const btn = e.target.closest('button');
-                if (!btn) return;
-                const action = btn.dataset.action;
-                if (!action) return;
-                // small user bubble showing clicked option
-                const label = btn.textContent;
-                createMessage({ text: label, who: 'user' });
-                handleOptionClick(btn);
-            });
-
-            // Top-level quick options click
-            optionsContainer.addEventListener('click', (e) => {
-                const btn = e.target.closest('button');
-                if (!btn) return;
-                handleOptionClick(btn);
-            });
-
-            // send typed message
-            function sendMessage() {
-                const message = inputEl.value.trim();
-                if (!message) return;
-                createMessage({ text: message, who: 'user' });
-                inputEl.value = '';
-                const typing = createTypingIndicator();
-                setTimeout(() => {
-                    typing.remove();
-                    // If user typed exact name of a service or program, prefer direct show
-                    const normalized = message.toLowerCase();
-                    const serviceMatch = servicesList.find(s => normalized === s.toLowerCase());
-                    const progMatch = flagshipPrograms.find(p => normalized === p.toLowerCase());
-                    if (serviceMatch) {
-                        showServiceDetails(serviceMatch);
-                        return;
+                // Toggle open/close
+                function toggleChatbot() {
+                    const isHidden = windowEl.classList.contains('hidden');
+                    if (isHidden) {
+                        windowEl.classList.remove('hidden');
+                        // render quick options each time to ensure fresh buttons
+                        renderQuickOptions();
+                    } else {
+                        windowEl.classList.add('hidden');
                     }
-                    if (progMatch) {
-                        showProgramDetails(progMatch);
-                        return;
-                    }
-                    // If they typed a page name like 'services' or 'blogs', open page
-                    const pageKey = Object.keys(pageUrlMap).find(k => k.toLowerCase() === message.toLowerCase());
-                    if (pageKey) {
-                        goToPage(pageKey);
-                        return;
-                    }
-                    const response = getBotResponse(message);
-                    createMessage({ text: response, who: 'bot' });
-                    showOptionsPrompt(600);
-                }, 900);
-            }
+                }
 
-            // Toggle open/close
-            function toggleChatbot() {
-                const isHidden = windowEl.classList.contains('hidden');
-                if (isHidden) {
-                    windowEl.classList.remove('hidden');
-                    // render quick options each time to ensure fresh buttons
+                // Clear chat
+                function clearChat() {
+                    bodyEl.innerHTML = '';
+                    createMessage({ text: 'Welcome! Choose an option below or type your question. 👇', who: 'bot' });
                     renderQuickOptions();
-                } else {
-                    windowEl.classList.add('hidden');
                 }
-            }
 
-            // Clear chat
-            function clearChat() {
-                bodyEl.innerHTML = '';
-                createMessage({ text: 'Welcome! Choose an option below or type your question. 👇', who: 'bot' });
-                renderQuickOptions();
-            }
+                // --- wire up events ---
+                toggleBtn.addEventListener('click', toggleChatbot);
+                closeBtn.addEventListener('click', toggleChatbot);
+                sendBtn.addEventListener('click', sendMessage);
+                inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+                clearBtn.addEventListener('click', clearChat);
 
-            // --- wire up events ---
-            toggleBtn.addEventListener('click', toggleChatbot);
-            closeBtn.addEventListener('click', toggleChatbot);
-            sendBtn.addEventListener('click', sendMessage);
-            inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-            clearBtn.addEventListener('click', clearChat);
-
-        })();
-    </script>
+            })();
+        </script>
 </body>
 
 </html>

@@ -576,16 +576,29 @@
     }
 
     .stats-value {
-      font-size: 2.25rem;
+      font-size: 3rem;
       font-weight: bold;
       color: white;
       margin-bottom: 0.5rem;
     }
 
     .stats-label {
-      font-size: 1.125rem;
+      font-size: 1.5rem;
+      font-weight: bold;
       color: rgba(255, 255, 255, 0.9);
     }
+
+    /* small extras — keeps your .stats-value class intact and adds a subtle scale while counting */
+    .stats-value {
+      will-change: transform, opacity;
+      display: inline-block;
+    }
+
+    .stats-value.counting {
+      transform: scale(1.04);
+      transition: transform 1ms ease;
+    }
+
 
     /* ---------------------------
   Review form — visual design
@@ -945,20 +958,15 @@
 
       <!-- Slideshow images -->
       <div class="slideshow-container">
-        <div class="slide"
-          style="background-image: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
+        <div class="slide" style="background-image: url('/images/bd1.png');">
         </div>
-        <div class="slide"
-          style="background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
+        <div class="slide" style="background-image: url('/images/bd2.jpg');">
         </div>
-        <div class="slide"
-          style="background-image: url('https://images.unsplash.com/photo-1491336477066-31156b5e4f35?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
+        <div class="slide" style="background-image: url('/images/bd3.jpg');">
         </div>
-        <div class="slide"
-          style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
+        <div class="slide" style="background-image: url('/images/bd4.jpg');">
         </div>
-        <div class="slide"
-          style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
+        <div class="slide" style="background-image: url('/images/bd5.jpg');">
         </div>
       </div>
     </div>
@@ -1018,7 +1026,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div class="animate-on-scroll">
-          <div id="clients-stat" class="stats-value">350+</div>
+          <div id="clients-stat" class="stats-value">350</div>
           <div class="stats-label">Satisfied Clients</div>
         </div>
         <div class="animate-on-scroll">
@@ -1118,11 +1126,11 @@
             <div class="flip-card-front">
               <div class="flex items-center space-x-4">
                 <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <i class="fas fa-hiking text-primary text-2xl" aria-hidden="true"></i>
+                  <i class="fas fa-bullseye text-primary text-2xl" aria-hidden="true"></i>
                 </div>
                 <div>
-                  <h3 class="text-xl font-bold text-dark mb-0">Outbound Training</h3>
-                  <p class="text-sm text-gray-500 mt-1">Experiential team-building</p>
+                  <h3 class="text-xl font-bold text-dark mb-0">Result-oriented Training</h3>
+                  <p class="text-sm text-gray-500 mt-1">Clear KPIs & measurable outcomes</p>
                 </div>
               </div>
             </div>
@@ -1130,13 +1138,13 @@
             <!-- BACK: details -->
             <div class="flip-card-back">
               <div class="card-back-inner">
-                <h4 class="text-lg font-semibold text-dark">Outbound Training</h4>
+                <h4 class="text-lg font-semibold text-dark">Result-oriented Training</h4>
                 <p class="text-gray-600">
-                  Adventure-based modules to build leadership, trust and measurable team performance. Custom routes,
-                  expert facilitators and post-event action planning included.
+                  Programs designed around business KPIs — skill diagnostics, focused modules, on-the-job practice and
+                  post-program metrics to demonstrate impact on performance.
                 </p>
                 <div class="mt-2">
-                  <a href="services.html#outbound"
+                  <a href="services.html#result-oriented"
                     class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">Learn
                     more</a>
                 </div>
@@ -1153,11 +1161,11 @@
             <div class="flip-card-front">
               <div class="flex items-center space-x-4">
                 <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center">
-                  <i class="fas fa-heart text-primary text-2xl" aria-hidden="true"></i>
+                  <i class="fas fa-chart-line text-primary text-2xl" aria-hidden="true"></i>
                 </div>
                 <div>
-                  <h3 class="text-xl font-bold text-dark mb-0">SAHYOG Wellness</h3>
-                  <p class="text-sm text-gray-500 mt-1">Mental health & resilience</p>
+                  <h3 class="text-xl font-bold text-dark mb-0">Impact Assessment Program</h3>
+                  <p class="text-sm text-gray-500 mt-1">Measure real-world results</p>
                 </div>
               </div>
             </div>
@@ -1165,15 +1173,15 @@
             <!-- BACK -->
             <div class="flip-card-back">
               <div class="card-back-inner">
-                <h4 class="text-lg font-semibold text-dark">SAHYOG Wellness</h4>
+                <h4 class="text-lg font-semibold text-dark">Impact Assessment Program</h4>
                 <p class="text-gray-600">
-                  Counseling, resilience workshops and manager coaching to support employee wellbeing and productivity.
-                  Tailored plans and ongoing check-ins available.
+                  Pre/post assessments, data collection and analysis to quantify learning transfer, behavior change and
+                  business outcomes — with a concise impact report and recommendations.
                 </p>
                 <div class="mt-2">
-                  <a href="flagship-programs.html#sahyog"
-                    class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">Get
-                    in touch</a>
+                  <a href="services.html#impact-assessment"
+                    class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">View
+                    report sample</a>
                 </div>
               </div>
             </div>
@@ -1187,12 +1195,12 @@
             <!-- FRONT -->
             <div class="flip-card-front">
               <div class="flex items-center space-x-4">
-                <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <i class="fas fa-shield-alt text-primary text-2xl" aria-hidden="true"></i>
+                <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-tools text-primary text-2xl" aria-hidden="true"></i>
                 </div>
                 <div>
-                  <h3 class="text-xl font-bold text-dark mb-0">POSH Certification</h3>
-                  <p class="text-sm text-gray-500 mt-1">Safety & compliance</p>
+                  <h3 class="text-xl font-bold text-dark mb-0">Tailor-made Programs</h3>
+                  <p class="text-sm text-gray-500 mt-1">Built for your context</p>
                 </div>
               </div>
             </div>
@@ -1200,13 +1208,83 @@
             <!-- BACK -->
             <div class="flip-card-back">
               <div class="card-back-inner">
-                <h4 class="text-lg font-semibold text-dark">POSH Certification</h4>
+                <h4 class="text-lg font-semibold text-dark">Tailor-made Programs</h4>
                 <p class="text-gray-600">
-                  Full workplace prevention training, policy drafting and assessments aligned to statutory requirements.
-                  Role-based sessions and compliance reporting included.
+                  Custom content, role-based scenarios and localization. We co-design with your stakeholders to ensure
+                  relevance, leader buy-in and scalable deployment plans.
                 </p>
                 <div class="mt-2">
-                  <a href="flagship-programs.html#di"
+                  <a href="services.html#tailormade"
+                    class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">Request
+                    customization</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="flip-card bg-white rounded-xl shadow-lg animate-on-scroll" tabindex="0" role="button"
+          aria-pressed="false">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-front">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-comments text-primary text-2xl" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-dark mb-0">Employee Feedback Analysis</h3>
+                  <p class="text-sm text-gray-500 mt-1">Voice of the employee insights</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- BACK -->
+            <div class="flip-card-back">
+              <div class="card-back-inner">
+                <h4 class="text-lg font-semibold text-dark">Employee Feedback Analysis</h4>
+                <p class="text-gray-600">
+                  Collect, analyze and actionize feedback from participants and stakeholders — sentiment analysis,
+                  themes, priority gaps and an action roadmap to improve future programs.
+                </p>
+                <div class="mt-2">
+                  <a href="services.html#feedback-analysis"
+                    class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">See
+                    methodology</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="flip-card bg-white rounded-xl shadow-lg animate-on-scroll" tabindex="0" role="button"
+          aria-pressed="false">
+          <div class="flip-card-inner">
+            <!-- FRONT -->
+            <div class="flip-card-front">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-hiking text-primary text-2xl" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-dark mb-0">Outbound Trainings / Offsites</h3>
+                  <p class="text-sm text-gray-500 mt-1">Experiential learning beyond the workplace</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- BACK -->
+            <div class="flip-card-back">
+              <div class="card-back-inner">
+                <h4 class="text-lg font-semibold text-dark">Outbound Trainings / Offsites</h4>
+                <p class="text-gray-600">
+                  Adventure-based learning, facilitation-led debriefs and team rituals to convert shared experiences
+                  into improved collaboration, trust and performance back at work.
+                </p>
+                <div class="mt-2">
+                  <a href="services.html#outbound"
                     class="inline-block px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition">Request
                     quote</a>
                 </div>
@@ -1214,7 +1292,6 @@
             </div>
           </div>
         </article>
-
       </div>
     </div>
   </section>
@@ -1225,7 +1302,8 @@
       <div class="text-center mb-8">
         <h2 class="text-3xl font-bold text-dark mb-4 animate-on-scroll">What Our Clients Say</h2>
         <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
-        <p class="text-gray-600 max-w-2xl mx-auto">Real feedback from organisations and participants who attended our
+        <p class="text-gray-600 max-w-2xl mx-auto">Real feedback from organisations and participants who attended
+          our
           programs.</p>
       </div>
 
@@ -1828,6 +1906,22 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    // Counter animation function
+    function animateCount(id, target, suffix = '') {
+      const element = document.getElementById(id);
+      let count = 0;
+      const duration = 2000; // 2 seconds
+      const stepTime = Math.max(Math.floor(duration / target), 20);
+
+      const counter = setInterval(() => {
+        count++;
+        element.textContent = count.toLocaleString() + suffix;
+        if (count >= target) {
+          clearInterval(counter);
+        }
+      }, stepTime);
+    }
+
     // Fetch stats from Firestore
     function fetchStats() {
       const statsRef = db.collection('numdata').doc('stats');
@@ -1835,10 +1929,18 @@
       statsRef.get().then((doc) => {
         if (doc.exists) {
           const data = doc.data();
-          document.getElementById('clients-stat').textContent = data.companies + '';
-          document.getElementById('experience-stat').textContent = data.experience + '';
-          document.getElementById('retention-stat').textContent = data.associates + '';
-          document.getElementById('trained-stat').textContent = data.participants + '';
+
+          // Clean numbers: remove + , and convert to integer
+          const companies = parseInt(data.companies.replace(/[+,]/g, '')) || 0;
+          const experience = parseInt(data.experience.replace(/[+,]/g, '')) || 0;
+          const associates = parseInt(data.associates.replace(/[+,]/g, '')) || 0;
+          const participants = parseInt(data.participants.replace(/[+,]/g, '')) || 0;
+
+          // Animate each stat
+          animateCount('clients-stat', companies, '+');
+          animateCount('experience-stat', experience, '+');
+          animateCount('retention-stat', associates, '+');
+          animateCount('trained-stat', participants, '+');
         } else {
           console.log("No such document!");
         }
@@ -1846,6 +1948,10 @@
         console.log("Error getting document:", error);
       });
     }
+
+    // Call function on load
+    window.addEventListener('load', fetchStats);
+
 
     // Initialize logo carousel
     function initLogoCarousel() {
