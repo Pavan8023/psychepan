@@ -894,34 +894,148 @@
     }
 
     /* Mobile responsiveness */
-@media (max-width: 640px) {
-  /* Main title */
-  #slide-container h1 {
-    font-size: 2rem !important; /* smaller than 4rem */
-    line-height: 2.5rem !important;
-  }
+    @media (max-width: 640px) {
 
-  /* Service label text */
-  #service-label {
-    font-size: 1.25rem !important; /* smaller than 2rem */
-  }
+      /* Main title */
+      #slide-container h1 {
+        font-size: 2rem !important;
+        /* smaller than 4rem */
+        line-height: 2.5rem !important;
+      }
 
-  /* Buttons */
-  #slide-container a {
-    font-size: 0.875rem; /* smaller text */
-    padding: 0.5rem 1rem; /* reduce button padding */
-  }
+      /* Service label text */
+      #service-label {
+        font-size: 1.25rem !important;
+        /* smaller than 2rem */
+      }
 
-  /* Arrow buttons */
-  #arrow-up, #arrow-down {
-    width: 2.5rem;   /* smaller */
-    height: 2.5rem;
-    font-size: 0.875rem;
+      /* Buttons */
+      #slide-container a {
+        font-size: 0.875rem;
+        /* smaller text */
+        padding: 0.5rem 1rem;
+        /* reduce button padding */
+      }
+
+      /* Arrow buttons */
+      #arrow-up,
+      #arrow-down {
+        width: 2.5rem;
+        /* smaller */
+        height: 2.5rem;
+        font-size: 0.875rem;
+      }
+    }
+
+    /* Container */
+.updates-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Each update item */
+.update-item {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+/* Visible state */
+.update-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parts (initially hidden) */
+.update-title,
+.update-subtitle,
+.update-content,
+.update-image {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+/* Fade-in animation */
+@keyframes fadeInPart {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+.fade-in {
+  animation: fadeInPart 0.7s forwards;
+}
 
-    /* End of review form styles */
+.update-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1e3a8a;
+}
+
+.update-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.update-content {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.update-image {
+  width: 100%;
+  height: 400px;
+  object-fit: contain; /* fits fully in box */
+  border-radius: 8px;
+  margin-top: 1rem;
+  background: #000; /* optional: adds background so empty areas are visible */
+}
+
+.updates-section {
+  padding: 2rem;
+}
+
+.updates-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.updates-heading h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff; /* change if needed */
+  animation: scalePulse 2s ease-in-out infinite;
+}
+
+@keyframes scalePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
   </style>
 </head>
 
@@ -1072,6 +1186,17 @@
       </div>
     </div>
   </section>
+
+  <section class="updates-section bg-primary">
+  <!-- Heading -->
+  <div class="updates-heading">
+    <h2 id="updates-title">Latest Updates</h2>
+  </div>
+
+  <!-- Carousel/Grid -->
+  <div id="updates-carousel" class="updates-carousel"></div>
+</section>
+
 
   <!-- About Section -->
   <section id="about" class="py-16 bg-light">
@@ -1933,6 +2058,81 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+
+    const container = document.getElementById('updates-carousel');
+let updates = [];
+
+// Fetch updates from Firestore
+firebase.firestore()
+  .collection('current_updates')
+  .orderBy('createdAt', 'asc')
+  .get()
+  .then(snapshot => {
+    snapshot.forEach(doc => {
+      updates.push(doc.data());
+    });
+    if (updates.length) startCarousel();
+  })
+  .catch(console.error);
+
+// Carousel logic
+function startCarousel() {
+  let idx = 0;
+
+  function showNextSet() {
+    container.innerHTML = '';
+
+    // Pick 3 articles at a time
+    const set = updates.slice(idx, idx + 3);
+    if (set.length < 3 && updates.length >= 3) {
+      // wrap around if fewer than 3 remain
+      set.push(...updates.slice(0, 3 - set.length));
+    }
+
+    // Build grid items
+    set.forEach((data, i) => {
+      const item = document.createElement('div');
+      item.className = 'update-item';
+
+      const titleEl = document.createElement('div');
+      titleEl.className = 'update-title';
+      titleEl.textContent = data.title;
+
+      const subtitleEl = document.createElement('div');
+      subtitleEl.className = 'update-subtitle';
+      subtitleEl.textContent = data.subtitle;
+
+      const contentEl = document.createElement('div');
+      contentEl.className = 'update-content';
+      contentEl.textContent = data.content;
+
+      const imgEl = document.createElement('img');
+      imgEl.className = 'update-image';
+      imgEl.src = data.image;
+
+      item.append(titleEl, subtitleEl, contentEl, imgEl);
+      container.appendChild(item);
+
+      // Show wrapper with delay
+      setTimeout(() => item.classList.add('visible'), i * 400);
+
+      // Animate parts one by one (faster pace)
+      const delays = [300, 600, 900, 1200];
+      [titleEl, subtitleEl, contentEl, imgEl].forEach((el, j) => {
+        setTimeout(() => el.classList.add('fade-in'), i * 1600 + delays[j]);
+      });
+    });
+
+    // Move to next set after all 3 finish (total wait ~7s)
+    setTimeout(() => {
+      idx = (idx + 3) % updates.length;
+      showNextSet();
+    }, 8000);
+  }
+
+  showNextSet();
+}
+
 
     // Counter animation function
     function animateCount(id, target, suffix = '') {
