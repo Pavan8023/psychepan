@@ -120,18 +120,19 @@
         .events-nav {
             display: flex;
             margin-top: 20px;
+            justify-content: center;
         }
 
         .event-tab {
-            flex: 1;
-            padding: 20px;
+            padding: 20px 30px;
             text-align: center;
             background: #f0f5ff;
             cursor: pointer;
             transition: all 0.4s ease;
             border-bottom: 3px solid transparent;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
+            min-width: 280px;
         }
 
         .event-tab.active {
@@ -147,12 +148,16 @@
         /* Event Content */
         .event-content {
             display: none;
-            padding: 40px;
-            animation: fadeIn 0.8s ease forwards;
+            padding: 30px 0;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .event-content.active {
             display: block;
+            opacity: 1;
+            transform: scale(1);
         }
 
         .event-card {
@@ -161,6 +166,8 @@
             box-shadow: 0 10px 30px rgba(0, 82, 204, 0.15);
             overflow: hidden;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            margin: 0 auto;
+            max-width: 1200px;
         }
 
         .event-card:hover {
@@ -179,6 +186,7 @@
             padding: 30px;
             display: flex;
             flex-wrap: wrap;
+            gap: 30px;
         }
 
         .event-image {
@@ -188,6 +196,9 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .event-image:hover {
@@ -197,14 +208,13 @@
         .event-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
         }
 
         .event-details {
             flex: 1;
             min-width: 300px;
-            padding: 30px;
         }
 
         .event-highlight {
@@ -239,7 +249,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(200px);
             }
 
             to {
@@ -251,7 +261,7 @@
         @keyframes slideInLeft {
             from {
                 opacity: 0;
-                transform: translateX(-30px);
+                transform: translateX(-300px);
             }
 
             to {
@@ -263,7 +273,7 @@
         @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translateX(30px);
+                transform: translateX(300px);
             }
 
             to {
@@ -273,11 +283,11 @@
         }
 
         .animate-left {
-            animation: slideInLeft 0.8s ease forwards;
+            animation: slideInLeft 2s ease forwards;
         }
 
         .animate-right {
-            animation: slideInRight 0.8s ease forwards;
+            animation: slideInRight 2s ease forwards;
         }
 
         .delayed-1 {
@@ -350,14 +360,26 @@
 
             .events-nav {
                 flex-direction: column;
+                align-items: center;
+            }
+
+            .event-tab {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
             }
 
             .event-body {
                 flex-direction: column;
+                padding: 20px;
             }
 
             .event-details {
-                padding: 20px 0;
+                padding: 0;
+            }
+            
+            .event-image {
+                min-width: 100%;
             }
         }
 
@@ -379,6 +401,15 @@
             .chatbot-toggle {
                 width: 50px;
                 height: 50px;
+            }
+            
+            .event-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .event-tab {
+                padding: 15px 20px;
+                font-size: 1rem;
             }
         }
 
@@ -485,7 +516,7 @@
         <div class="event-tab" data-event="un-health">UN World Health Program</div>
     </div>
 
-    <!-- World Marketing Summit Content -->
+    <!-- World Marketing Summit Content (updated) -->
     <div class="event-content active" id="world-marketing">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="event-card">
@@ -527,39 +558,39 @@
                         <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl mt-8 animate-right">
                             <h3 class="text-xl font-bold text-gray-900 mb-4">Featured Speakers</h3>
                             <div class="speakers-grid">
-                                <div class="speaker-card animate-left delayed-1">
+                                <div class="speaker-card animate-left delayed-1 text-center">
                                     <div class="text-blue-800 mb-2"><i class="fas fa-user-tie text-2xl"></i></div>
                                     <h4 class="font-bold">HARUTO IWATA</h4>
                                 </div>
-                                <div class="speaker-card animate-left delayed-2">
+                                <div class="speaker-card animate-left delayed-2 text-center">
                                     <div class="text-blue-800 mb-2"><i class="fas fa-user-tie text-2xl"></i></div>
                                     <h4 class="font-bold">SADIA KIBRIA</h4>
                                 </div>
-                                <div class="speaker-card animate-left delayed-3">
+                                <div class="speaker-card animate-left delayed-3 text-center">
                                     <div class="text-blue-800 mb-2"><i class="fas fa-user-tie text-2xl"></i></div>
                                     <h4 class="font-bold">DOMINIQUE HANSSENS</h4>
                                 </div>
-                                <div class="speaker-card animate-left delayed-4">
+                                <div class="speaker-card animate-left delayed-4 text-center">
                                     <div class="text-blue-800 mb-2"><i class="fas fa-user-tie text-2xl"></i></div>
                                     <h4 class="font-bold">MARC OLIVER OPRESNIK</h4>
                                 </div>
-                                <div class="speaker-card animate-left delayed-1">
+                                <div class="speaker-card animate-left delayed-1 text-center">
                                     <div class="text-blue-800 mb-2"><i class="fas fa-user-tie text-2xl"></i></div>
                                     <h4 class="font-bold">LAURA RIES</h4>
                                 </div>
-                                <div class="speaker-card animate-left delayed-2">
+                                <div class="speaker-card animate-left delayed-2 text-center">
                                     <div class="text-blue-800 mb-2"><i class="fas fa-user-tie text-2xl"></i></div>
                                     <h4 class="font-bold">MORAN CERF</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <!-- /.event-body -->
             </div>
         </div>
     </div>
 
-    <!-- UN World Health Program Content -->
+    <!-- UN World Health Program Content (updated) -->
     <div class="event-content" id="un-health">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="event-card">
@@ -615,22 +646,27 @@
                                 </li>
                             </ul>
 
+                            <!-- Logos: perfectly fitted, no gaps -->
                             <div class="flex items-center mt-6">
-                                <div class="bg-white p-4 rounded-lg shadow-md mr-6">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/UN_World_Food_Programme_Logo.svg/1200px-UN_World_Food_Programme_Logo.svg.png"
-                                        alt="UN World Food Programme" class="h-16">
-                                </div>
-                                <div class="bg-white p-4 rounded-lg shadow-md">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Philip_Kotler.jpg/800px-Philip_Kotler.jpg"
-                                        alt="Philip Kotler" class="h-16 rounded-full">
+                                <div class="grid grid-cols-2 gap-0 w-full rounded-xl overflow-hidden shadow-md">
+                                    <div class="bg-white flex items-center justify-center p-4">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/UN_World_Food_Programme_Logo.svg/1200px-UN_World_Food_Programme_Logo.svg.png"
+                                            alt="UN World Food Programme" class="w-full h-24 object-contain">
+                                    </div>
+                                    <div class="bg-white flex items-center justify-center p-4">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Philip_Kotler.jpg/800px-Philip_Kotler.jpg"
+                                            alt="Philip Kotler" class="w-full h-24 object-contain rounded-full">
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
+                </div> <!-- /.event-body -->
             </div>
         </div>
     </div>
+
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
@@ -836,12 +872,16 @@
                 // Add active class to clicked tab
                 tab.classList.add('active');
 
-                // Hide all content
-                eventContents.forEach(content => content.classList.remove('active'));
+                // Hide all content with animation
+                eventContents.forEach(content => {
+                    content.classList.remove('active');
+                });
 
-                // Show content associated with clicked tab
-                const eventId = tab.getAttribute('data-event');
-                document.getElementById(eventId).classList.add('active');
+                // Show content associated with clicked tab with animation
+                setTimeout(() => {
+                    const eventId = tab.getAttribute('data-event');
+                    document.getElementById(eventId).classList.add('active');
+                }, 50);
             });
         });
 
