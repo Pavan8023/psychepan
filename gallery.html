@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psyche Panacea Gallery</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <link rel="icon" href="/images/psypan-logo-transparent.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -178,27 +181,28 @@
     </header>
 
     <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
-      <a href="services.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
-      <a href="flagship-programs.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship
-        Programs</a>
-      <a href="events.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
-      <a href="gallery.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Gallery</a>
-      <a href="about-us.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
-        Us</a>
-      <a href="blogs.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Blogs</a>
-      <a href="contact.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+    <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="index.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+            <a href="services.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
+            <a href="flagship-programs.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Flagship
+                Programs</a>
+            <a href="events.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
+            <a href="gallery.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Gallery</a>
+            <a href="about-us.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
+                Us</a>
+            <a href="blogs.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Blogs</a>
+            <a href="contact.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+        </div>
     </div>
-  </div>
 
     <!-- Main Content -->
     <div class="pb-16">
@@ -220,8 +224,13 @@
             <!-- Folder Navigation -->
             <div class="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto py-2">
                 <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
-                    data-folder="all">
+                    data-folder="recent">
                     <i class="fas fa-folder-open folder-icon text-xl mr-3 text-yellow-500"></i>
+                    <span>Recent Highlights</span>
+                </div>
+                <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
+                    data-folder="all">
+                    <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
                     <span>All Albums</span>
                 </div>
                 <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
@@ -252,7 +261,7 @@
             </div>
 
             <!-- Gallery Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="galleryGrid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6" id="galleryGrid">
                 <!-- Gallery items will be loaded here -->
             </div>
 
@@ -268,7 +277,7 @@
 
         <!-- Image Modal -->
         <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
-            <div class="relative max-w-5xl w-full" style="height: 400px; width: 600px; margin-bottom: 120px;">
+            <div class="relative max-w-5xl w-full" style="height: 400px; width: 600px;">
                 <button id="closeModal"
                     class="mt-16 absolute -top-12 right-0 text-red-600 text-3xl hover:text-gray-300 transition-colors">
                     <i class="fas fa-times"></i>
@@ -416,6 +425,21 @@
         </div>
 
         <script>
+            // Firebase configuration (replace with your actual config)
+            const firebaseConfig = {
+                apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+                authDomain: "psypanweb-7747a.firebaseapp.com",
+                projectId: "psypanweb-7747a",
+                storageBucket: "psypanweb-7747a.appspot.com",
+                messagingSenderId: "441049264188",
+                appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+                measurementId: "G-C1CTMX729Z"
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
             // Gallery data organized by folders
             const galleryData = {
                 all: [
@@ -454,6 +478,7 @@
                     { title: "Team Building", folder: "Outbound", image: "Outbound-7.png" },
 
                 ],
+                recent: [], // Will be populated from Firestore
                 CampusToCorporate: [
                     { title: "Corporate Training Session", image: "CAMPUS-TO-CORPORATE-2.png" },
                     { title: "Graduation Ceremony", image: "CAMPUS-TO-CORPORATE.jpg" },
@@ -560,7 +585,7 @@
             });
 
             // Current state
-            let currentFolder = 'all';
+            let currentFolder = 'recent';
             let visibleItems = 8;
 
             // Create gallery item
@@ -568,16 +593,21 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'gallery-item bg-white rounded-xl shadow-md overflow-hidden animate-fade-in';
 
-                const imageUrl = `/images/gallery/${folder ? folder + '/' : ''}${item.image}`;
+                // For Firestore images (recent folder), use the url directly
+                // For static images, use the path structure
+                const imageUrl = folder === 'recent' ? item.url : `/images/gallery/${folder ? folder + '/' : ''}${item.image}`;
 
                 itemDiv.innerHTML = `
                 <div class="relative">
-                    <img src="${imageUrl}" alt="${item.title}" class="w-full h-56 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
-                        <h3 class="text-white font-medium">${item.title}</h3>
-                    </div>
-                </div>
-            `;
+  <img src="${imageUrl}" alt="${item.title}" 
+       class="w-full h-72 object-contain bg-gray-100 rounded-lg shadow-md">
+  <div
+      class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
+      <h3 class="text-white font-medium">${item.title}</h3>
+  </div>
+</div>
+
+                     `;
 
                 itemDiv.addEventListener('click', () => {
                     modalImage.src = imageUrl;
@@ -590,7 +620,7 @@
             }
 
             // Render gallery items
-            function renderGallery(folder = 'all', count = visibleItems) {
+            function renderGallery(folder = 'recent', count = visibleItems) {
                 galleryGrid.innerHTML = '';
                 const items = galleryData[folder];
                 const itemsToShow = Math.min(count, items.length);
@@ -605,8 +635,43 @@
                 loadMoreBtn.style.display = itemsToShow < items.length ? 'block' : 'none';
             }
 
-            // Initialize gallery
-            renderGallery();
+            // Fetch images from Firestore
+            async function fetchFirestoreImages() {
+                try {
+                    const snapshot = await db.collection('images').orderBy('createdAt', 'desc').get();
+                    const firestoreImages = [];
+
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        firestoreImages.push({
+                            title: data.title || 'Untitled',
+                            url: data.url,
+                            createdAt: data.createdAt
+                        });
+                    });
+
+                    // Update galleryData with Firestore images
+                    galleryData.recent = firestoreImages;
+
+                    // Render gallery if we're on the recent folder
+                    if (currentFolder === 'recent') {
+                        renderGallery('recent');
+                    }
+                } catch (error) {
+                    console.error('Error fetching images from Firestore:', error);
+                    // Fallback to static images if Firestore fails
+                    galleryData.recent = [
+                        { title: "Recent Event 1", url: "https://res.cloudinary.com/dhwanw6f7/image/upload/v1757865752/rr" },
+                        { title: "Recent Event 2", url: "https://res.cloudinary.com/dhwanw6f7/image/upload/v1757865753/sample" }
+                    ];
+                    if (currentFolder === 'recent') {
+                        renderGallery('recent');
+                    }
+                }
+            }
+
+            // Initialize gallery and fetch Firestore images
+            fetchFirestoreImages();
 
             // Folder tab click handler
             folderTabs.forEach(tab => {
@@ -619,13 +684,21 @@
 
                     // Update folder icon
                     const icon = tab.querySelector('.folder-icon');
-                    icon.classList.remove('fa-folder');
-                    icon.classList.add('fa-folder-open');
+                    if (icon) {
+                        icon.classList.remove('fa-folder');
+                        icon.classList.add('fa-folder-open');
+                    }
 
                     // Set current folder and render gallery
                     currentFolder = tab.dataset.folder;
                     visibleItems = 8;
-                    renderGallery(currentFolder);
+
+                    // For the recent folder, ensure we have the latest data
+                    if (currentFolder === 'recent' && galleryData.recent.length === 0) {
+                        fetchFirestoreImages();
+                    } else {
+                        renderGallery(currentFolder);
+                    }
                 });
             });
 
