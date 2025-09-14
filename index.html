@@ -1126,6 +1126,27 @@
     .read-more-btn:hover {
       color: #2563eb;
     }
+
+    /* Fix for mobile menu and chatbot animation issues */
+    @media (max-width: 1024px) {
+      #mobile-menu, 
+      #mobile-menu-button, 
+      .chatbot, 
+      .chatbot-toggle, 
+      .chatbot-window {
+        transition: none !important;
+        animation: none !important;
+      }
+      
+      #mobile-menu {
+        top: 80px;
+      }
+      
+      .chatbot {
+        bottom: 20px;
+        right: 20px;
+      }
+    }
   </style>
 </head>
 
@@ -1942,7 +1963,7 @@
             typing.remove();
             createMessage({ text: description, who: 'bot' });
             const html = `<div class="mt-2"><button data-action="goto" data-target="Flagship Programs" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Go to Flagship Programs</button></div>`;
-            createMessage({ text: html, who: 'bot', html: true });
+            createMessage({ text: html, who: 'bot', html: true} );
             // show options again
             showOptionsPrompt(700);
           }, 700);
@@ -2121,7 +2142,7 @@
         function clearChat() {
           bodyEl.innerHTML = '';
           createMessage({ text: 'Welcome! Choose an option below or type your question. 👇', who: 'bot' });
-          renderQuickOptions();
+            renderQuickOptions();
         }
 
         // --- wire up events ---
