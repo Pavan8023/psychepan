@@ -282,9 +282,11 @@
       position: fixed;
       left: 0;
       right: 0;
+      top: 20px;
       background: white;
       z-index: 1000;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      /* Start hidden */
     }
 
     /* Mobile menu visible */
@@ -928,114 +930,202 @@
     }
 
     /* Container */
-.updates-carousel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 1.5rem;
-}
+    .updates-carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 1.5rem;
+    }
 
-/* Each update item */
-.update-item {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease;
-}
+    /* Each update item */
+    .update-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
 
-/* Visible state */
-.update-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+    /* Visible state */
+    .update-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* Parts (initially hidden) */
-.update-title,
-.update-subtitle,
-.update-content,
-.update-image {
-  opacity: 0;
-  transform: translateY(15px);
-}
+    /* Parts (initially hidden) */
+    .update-title,
+    .update-subtitle,
+    .update-content,
+    .update-image {
+      opacity: 0;
+      transform: translateY(15px);
+    }
 
-/* Fade-in animation */
-@keyframes fadeInPart {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    /* Fade-in animation */
+    @keyframes fadeInPart {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
 
-.fade-in {
-  animation: fadeInPart 0.7s forwards;
-}
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.update-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #1e3a8a;
-}
+    .fade-in {
+      animation: fadeInPart 0.7s forwards;
+    }
 
-.update-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #374151;
-}
+    .update-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #1e3a8a;
+    }
 
-.update-content {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 1rem;
-}
+    .update-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
 
-.update-image {
-  width: 100%;
-  height: 400px;
-  object-fit: contain; /* fits fully in box */
-  border-radius: 8px;
-  margin-top: 1rem;
-  background: #000; /* optional: adds background so empty areas are visible */
-}
+    .update-content {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
 
-.updates-section {
-  padding: 2rem;
-}
+    .update-image {
+      width: 100%;
+      height: 400px;
+      object-fit: contain;
+      /* fits fully in box */
+      border-radius: 8px;
+      margin-top: 1rem;
+      background: #000;
+      /* optional: adds background so empty areas are visible */
+    }
 
-.updates-heading {
-  text-align: center;
-  margin-bottom: 2rem;
-}
+    .updates-section {
+      padding: 2rem;
+    }
 
-.updates-heading h2 {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #fff; /* change if needed */
-  animation: scalePulse 2s ease-in-out infinite;
-}
+    .updates-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
 
-@keyframes scalePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-}
+    .updates-heading h2 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      /* change if needed */
+      animation: scalePulse 2s ease-in-out infinite;
+    }
 
+    @keyframes scalePulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.25);
+      }
+    }
+
+    /* Tablets (max-width: 1024px) */
+    @media (max-width: 1024px) {
+      .updates-carousel {
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns */
+        padding: 1rem;
+        gap: 1rem;
+      }
+
+      .update-item {
+        padding: 1rem;
+      }
+
+      .update-title {
+        font-size: 1.3rem;
+      }
+
+      .update-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .update-content {
+        font-size: 0.95rem;
+      }
+
+      .update-image {
+        height: 300px;
+        /* reduce height */
+      }
+
+      .updates-heading h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    /* Mobile devices (max-width: 640px) */
+    @media (max-width: 640px) {
+      .updates-carousel {
+        grid-template-columns: 1fr;
+        /* Single column */
+        padding: 0.8rem;
+      }
+
+      .update-item {
+        padding: 0.8rem;
+      }
+
+      .update-title {
+        font-size: 1.1rem;
+      }
+
+      .update-subtitle {
+        font-size: 1rem;
+      }
+
+      .update-content {
+        font-size: 0.9rem;
+      }
+
+      .update-image {
+        height: 220px;
+        /* smaller for mobile */
+      }
+
+      .updates-heading h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .read-more-btn {
+      color: #1e3a8a;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .read-more-btn:hover {
+      color: #2563eb;
+    }
   </style>
 </head>
 
@@ -1188,14 +1278,14 @@
   </section>
 
   <section class="updates-section bg-primary">
-  <!-- Heading -->
-  <div class="updates-heading">
-    <h2 id="updates-title">Latest Updates</h2>
-  </div>
+    <!-- Heading -->
+    <div class="updates-heading">
+      <h2 id="updates-title">Latest Updates</h2>
+    </div>
 
-  <!-- Carousel/Grid -->
-  <div id="updates-carousel" class="updates-carousel"></div>
-</section>
+    <!-- Carousel/Grid -->
+    <div id="updates-carousel" class="updates-carousel"></div>
+  </section>
 
 
   <!-- About Section -->
@@ -2060,78 +2150,114 @@
     const db = firebase.firestore();
 
     const container = document.getElementById('updates-carousel');
-let updates = [];
+    let updates = [];
 
-// Fetch updates from Firestore
-firebase.firestore()
-  .collection('current_updates')
-  .orderBy('createdAt', 'asc')
-  .get()
-  .then(snapshot => {
-    snapshot.forEach(doc => {
-      updates.push(doc.data());
-    });
-    if (updates.length) startCarousel();
-  })
-  .catch(console.error);
+    // Fetch updates from Firestore
+    firebase.firestore()
+      .collection('current_updates')
+      .orderBy('createdAt', 'asc')
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          updates.push(doc.data());
+        });
+        if (updates.length) startCarousel();
+      })
+      .catch(console.error);
 
-// Carousel logic
-function startCarousel() {
-  let idx = 0;
-
-  function showNextSet() {
-    container.innerHTML = '';
-
-    // Pick 3 articles at a time
-    const set = updates.slice(idx, idx + 3);
-    if (set.length < 3 && updates.length >= 3) {
-      // wrap around if fewer than 3 remain
-      set.push(...updates.slice(0, 3 - set.length));
+    // Helper: truncate text if too long
+    function truncateContent(content, limit = 30) {
+      const words = content.split(" ");
+      if (words.length <= limit) {
+        return { text: content, isTruncated: false, fullText: content };
+      }
+      return {
+        text: words.slice(0, limit).join(" ") + "...",
+        isTruncated: true,
+        fullText: content
+      };
     }
 
-    // Build grid items
-    set.forEach((data, i) => {
-      const item = document.createElement('div');
-      item.className = 'update-item';
+    // Carousel logic
+    function startCarousel() {
+      let idx = 0;
 
-      const titleEl = document.createElement('div');
-      titleEl.className = 'update-title';
-      titleEl.textContent = data.title;
+      function showNextSet() {
+        container.innerHTML = '';
 
-      const subtitleEl = document.createElement('div');
-      subtitleEl.className = 'update-subtitle';
-      subtitleEl.textContent = data.subtitle;
+        // Pick 3 articles at a time
+        const set = updates.slice(idx, idx + 3);
+        if (set.length < 3 && updates.length >= 3) {
+          // wrap around if fewer than 3 remain
+          set.push(...updates.slice(0, 3 - set.length));
+        }
 
-      const contentEl = document.createElement('div');
-      contentEl.className = 'update-content';
-      contentEl.textContent = data.content;
+        // Build grid items
+        set.forEach((data, i) => {
+          const item = document.createElement('div');
+          item.className = 'update-item';
 
-      const imgEl = document.createElement('img');
-      imgEl.className = 'update-image';
-      imgEl.src = data.image;
+          const titleEl = document.createElement('div');
+          titleEl.className = 'update-title';
+          titleEl.textContent = data.title;
 
-      item.append(titleEl, subtitleEl, contentEl, imgEl);
-      container.appendChild(item);
+          const subtitleEl = document.createElement('div');
+          subtitleEl.className = 'update-subtitle';
+          subtitleEl.textContent = data.subtitle;
 
-      // Show wrapper with delay
-      setTimeout(() => item.classList.add('visible'), i * 400);
+          const contentEl = document.createElement('div');
+          contentEl.className = 'update-content';
 
-      // Animate parts one by one (faster pace)
-      const delays = [300, 600, 900, 1200];
-      [titleEl, subtitleEl, contentEl, imgEl].forEach((el, j) => {
-        setTimeout(() => el.classList.add('fade-in'), i * 1600 + delays[j]);
-      });
-    });
+          // Apply truncation + read more
+          const truncated = truncateContent(data.content, 30);
+          contentEl.textContent = truncated.text;
 
-    // Move to next set after all 3 finish (total wait ~7s)
-    setTimeout(() => {
-      idx = (idx + 3) % updates.length;
+          if (truncated.isTruncated) {
+            const btn = document.createElement("span");
+            btn.className = "read-more-btn";
+            btn.textContent = " Read More";
+
+            btn.addEventListener("click", () => {
+              if (btn.textContent.trim() === "Read More") {
+                contentEl.textContent = truncated.fullText;
+                btn.textContent = " Read Less";
+              } else {
+                contentEl.textContent = truncated.text;
+                btn.textContent = " Read More";
+              }
+              contentEl.appendChild(btn); // re-attach button after toggle
+            });
+
+            contentEl.appendChild(btn);
+          }
+
+          const imgEl = document.createElement('img');
+          imgEl.className = 'update-image';
+          imgEl.src = data.image;
+
+          item.append(titleEl, subtitleEl, contentEl, imgEl);
+          container.appendChild(item);
+
+          // Show wrapper with delay
+          setTimeout(() => item.classList.add('visible'), i * 400);
+
+          // Animate parts one by one (faster pace)
+          const delays = [300, 600, 900, 1200];
+          [titleEl, subtitleEl, contentEl, imgEl].forEach((el, j) => {
+            setTimeout(() => el.classList.add('fade-in'), i * 1600 + delays[j]);
+          });
+        });
+
+        // Move to next set after all 3 finish (~8s)
+        setTimeout(() => {
+          idx = (idx + 3) % updates.length;
+          showNextSet();
+        }, 8000);
+      }
+
       showNextSet();
-    }, 8000);
-  }
+    }
 
-  showNextSet();
-}
 
 
     // Counter animation function

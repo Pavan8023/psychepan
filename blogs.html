@@ -92,12 +92,13 @@
       background: linear-gradient(135deg, #0052cc, #4da8ff);
     }
 
-    /* Header */
+    /* Fixed navbar solution */
     header {
       background-color: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       position: fixed;
+      top: 0;
       width: 100%;
       z-index: 1000;
       padding: 1.2rem 3rem;
@@ -125,6 +126,43 @@
     nav a:hover::after {
       width: 100%;
     }
+
+    /* Mobile menu fixes */
+        #mobile-menu {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 20px;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            /* Start hidden */
+        }
+
+        /* Mobile menu visible */
+        #mobile-menu.active {
+            display: block;
+        }
+
+        /* Mobile menu links */
+        #mobile-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+
+        #mobile-menu a:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* Active link in mobile menu */
+        #mobile-menu a.active {
+            background-color: #e6f2ff;
+            color: #0052cc;
+        }
 
     /* Instagram Style Blog Card */
     .blog-card {
@@ -408,9 +446,6 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
 
       .hero-section {
         padding-top: 100px;
@@ -580,10 +615,9 @@
   </header>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+  <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a href="index.html"
-        class="mt-14 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
+      <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
       <a href="services.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
       <a href="flagship-programs.html"
@@ -596,7 +630,8 @@
       <a href="about-us.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
         Us</a>
-      <a href="blogs.html" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Blogs</a>
+      <a href="blogs.html"
+        class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Blogs</a>
       <a href="contact.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
     </div>

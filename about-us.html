@@ -79,12 +79,13 @@
       background: linear-gradient(135deg, #0052cc, #4da8ff);
     }
 
-    /* Header */
+    /* Fixed navbar solution */
     header {
       background-color: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       position: fixed;
+      top: 0;
       width: 100%;
       z-index: 1000;
       padding: 1.2rem 3rem;
@@ -206,9 +207,6 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
 
       .tab-btn {
         padding: 0.8rem 1.2rem;
@@ -314,18 +312,21 @@
     /* Mobile menu fixes */
     #mobile-menu {
       position: fixed;
-      top: 63px;
       left: 0;
       right: 0;
+      top: 20px;
       background: white;
       z-index: 1000;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      /* Start hidden */
     }
 
+    /* Mobile menu visible */
     #mobile-menu.active {
       display: block;
     }
 
+    /* Mobile menu links */
     #mobile-menu a {
       display: block;
       padding: 12px 20px;
@@ -339,6 +340,7 @@
       background-color: #f0f7ff;
     }
 
+    /* Active link in mobile menu */
     #mobile-menu a.active {
       background-color: #e6f2ff;
       color: #0052cc;
@@ -556,7 +558,7 @@
   </header>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+  <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <a href="index.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
@@ -744,34 +746,34 @@
   </div>
 
   <!-- Testimonials Tab Content (live Firestore-driven) -->
-<section id="testimonials" class="tab-content py-16 bg-white">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">TESTIMONIALS</h2>
-      <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
-      <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
-        Associated with Psyche Panacea from last 10 years, Well Experienced Trainers Available In Pan India.
-      </p>
-    </div>
+  <section id="testimonials" class="tab-content py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">TESTIMONIALS</h2>
+        <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
+        <p class="text-gray-700 mt-6 max-w-2xl mx-auto">
+          Associated with Psyche Panacea from last 10 years, Well Experienced Trainers Available In Pan India.
+        </p>
+      </div>
 
-    <div class="relative" id="testimonials-relative">
-      <!-- Slides will be injected here by JS as elements with class="testimonial-slide" -->
-      <div id="tp-testimonials-loader" class="w-full text-center py-12 text-gray-500">Loading testimonials...</div>
+      <div class="relative" id="testimonials-relative">
+        <!-- Slides will be injected here by JS as elements with class="testimonial-slide" -->
+        <div id="tp-testimonials-loader" class="w-full text-center py-12 text-gray-500">Loading testimonials...</div>
 
-      <!-- Navigation Buttons (keep same IDs) -->
-      <div class="flex justify-center mt-10 space-x-4">
-        <button id="prev-testimonial"
-          class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button id="next-testimonial"
-          class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
-          <i class="fas fa-chevron-right"></i>
-        </button>
+        <!-- Navigation Buttons (keep same IDs) -->
+        <div class="flex justify-center mt-10 space-x-4">
+          <button id="prev-testimonial"
+            class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button id="next-testimonial"
+            class="bg-primary text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
   <!-- Footer -->
@@ -1569,81 +1571,81 @@
     });
   </script>
   <script type="module">
-/*
-  Firestore-driven Testimonials carousel
-  - Keeps original class/id names: .testimonial-slide, #prev-testimonial, #next-testimonial
-  - Listens to collection "testimonials" ordered by createdAt desc
-  - Uses provided firebaseConfig if Firebase app not already initialized
-*/
+    /*
+      Firestore-driven Testimonials carousel
+      - Keeps original class/id names: .testimonial-slide, #prev-testimonial, #next-testimonial
+      - Listens to collection "testimonials" ordered by createdAt desc
+      - Uses provided firebaseConfig if Firebase app not already initialized
+    */
 
-import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
-  authDomain: "psypanweb-7747a.firebaseapp.com",
-  projectId: "psypanweb-7747a",
-  storageBucket: "psypanweb-7747a.appspot.com",
-  messagingSenderId: "441049264188",
-  appId: "1:441049264188:web:4dab8de0554b2c7c741339",
-  measurementId: "G-C1CTMX729Z"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+      authDomain: "psypanweb-7747a.firebaseapp.com",
+      projectId: "psypanweb-7747a",
+      storageBucket: "psypanweb-7747a.appspot.com",
+      messagingSenderId: "441049264188",
+      appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+      measurementId: "G-C1CTMX729Z"
+    };
 
-// initialize or reuse app
-let app;
-try {
-  app = getApp();
-} catch (e) {
-  app = initializeApp(firebaseConfig);
-}
+    // initialize or reuse app
+    let app;
+    try {
+      app = getApp();
+    } catch (e) {
+      app = initializeApp(firebaseConfig);
+    }
 
-const db = getFirestore(app);
-const testimonialsRef = collection(db, 'testimonials');
-const testimonialsQuery = query(testimonialsRef, orderBy('createdAt', 'desc'));
+    const db = getFirestore(app);
+    const testimonialsRef = collection(db, 'testimonials');
+    const testimonialsQuery = query(testimonialsRef, orderBy('createdAt', 'desc'));
 
-// DOM refs (keep original container and button IDs)
-const relativeEl = document.getElementById('testimonials-relative');
-const loaderEl = document.getElementById('tp-testimonials-loader');
-const prevBtn = document.getElementById('prev-testimonial');
-const nextBtn = document.getElementById('next-testimonial');
+    // DOM refs (keep original container and button IDs)
+    const relativeEl = document.getElementById('testimonials-relative');
+    const loaderEl = document.getElementById('tp-testimonials-loader');
+    const prevBtn = document.getElementById('prev-testimonial');
+    const nextBtn = document.getElementById('next-testimonial');
 
-if (!relativeEl) {
-  console.error('Testimonials container not found (#testimonials-relative). Aborting testimonials script.');
-} else {
-  // store slide data & track current index
-  let slideData = []; // array of {id, name, role, company, photoURL, rating, text, createdAt}
-  let currentIndex = 0;
+    if (!relativeEl) {
+      console.error('Testimonials container not found (#testimonials-relative). Aborting testimonials script.');
+    } else {
+      // store slide data & track current index
+      let slideData = []; // array of {id, name, role, company, photoURL, rating, text, createdAt}
+      let currentIndex = 0;
 
-  // UTIL: escape html
-  function escapeHtml(str) {
-    if (str === null || str === undefined) return '';
-    return String(str)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#39;');
-  }
+      // UTIL: escape html
+      function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
 
-  // UTIL: render star icons same look as original markup
-  function renderStars(rating) {
-    rating = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
-    let html = '';
-    for (let i = 0; i < rating; i++) html += '<i class="fas fa-star text-yellow-400 mr-1"></i>';
-    for (let i = rating; i < 5; i++) html += '<i class="far fa-star text-gray-300 mr-1"></i>';
-    return html;
-  }
+      // UTIL: render star icons same look as original markup
+      function renderStars(rating) {
+        rating = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
+        let html = '';
+        for (let i = 0; i < rating; i++) html += '<i class="fas fa-star text-yellow-400 mr-1"></i>';
+        for (let i = rating; i < 5; i++) html += '<i class="far fa-star text-gray-300 mr-1"></i>';
+        return html;
+      }
 
-  // Build a slide element following your original structure and classes
-  function buildSlide(item) {
-    const slide = document.createElement('div');
-    slide.className = 'testimonial-slide';
-    const photoMarkup = item.photoURL
-      ? `<img src="${escapeHtml(item.photoURL)}" alt="${escapeHtml(item.name || '')}" class="w-full h-full object-cover">`
-      : ''; // if empty, leave the dashed box blank (keeps original look)
-    const roleCompany = (item.role || '') + (item.company ? ' • ' + item.company : '');
+      // Build a slide element following your original structure and classes
+      function buildSlide(item) {
+        const slide = document.createElement('div');
+        slide.className = 'testimonial-slide';
+        const photoMarkup = item.photoURL
+          ? `<img src="${escapeHtml(item.photoURL)}" alt="${escapeHtml(item.name || '')}" class="w-full h-full object-cover">`
+          : ''; // if empty, leave the dashed box blank (keeps original look)
+        const roleCompany = (item.role || '') + (item.company ? ' • ' + item.company : '');
 
-    slide.innerHTML = `
+        slide.innerHTML = `
       <div class="bg-gray-50 rounded-xl p-8 md:p-12 shadow-md">
         <div class="rating mb-6">${renderStars(item.rating)}</div>
         <p class="text-gray-700 text-lg mb-8 italic">"${escapeHtml(item.text)}"</p>
@@ -1658,111 +1660,111 @@ if (!relativeEl) {
         </div>
       </div>
     `;
-    return slide;
-  }
+        return slide;
+      }
 
-  // Clear current slides (but leave nav buttons intact)
-  function clearSlides() {
-    const existing = relativeEl.querySelectorAll('.testimonial-slide');
-    existing.forEach(n => n.remove());
-  }
+      // Clear current slides (but leave nav buttons intact)
+      function clearSlides() {
+        const existing = relativeEl.querySelectorAll('.testimonial-slide');
+        existing.forEach(n => n.remove());
+      }
 
-  // Render slides array into DOM, inserting before nav buttons
-  function renderSlides() {
-    // remove old slides
-    clearSlides();
+      // Render slides array into DOM, inserting before nav buttons
+      function renderSlides() {
+        // remove old slides
+        clearSlides();
 
-    // remove loader
-    if (loaderEl) loaderEl.remove();
+        // remove loader
+        if (loaderEl) loaderEl.remove();
 
-    if (!slideData || slideData.length === 0) {
-      // show no-data message
-      const nodata = document.createElement('div');
-      nodata.className = 'testimonial-slide';
-      nodata.innerHTML = `
+        if (!slideData || slideData.length === 0) {
+          // show no-data message
+          const nodata = document.createElement('div');
+          nodata.className = 'testimonial-slide';
+          nodata.innerHTML = `
         <div class="bg-gray-50 rounded-xl p-8 md:p-12 shadow-md">
           <p class="text-gray-700 text-lg mb-8 italic">No testimonials yet. Be the first to add one!</p>
         </div>`;
-      // insert before nav buttons (nav sits at end)
-      const nav = relativeEl.querySelector('.flex.justify-center.mt-10');
-      if (nav) relativeEl.insertBefore(nodata, nav);
-      else relativeEl.appendChild(nodata);
-      currentIndex = 0;
-      updateVisible();
-      return;
+          // insert before nav buttons (nav sits at end)
+          const nav = relativeEl.querySelector('.flex.justify-center.mt-10');
+          if (nav) relativeEl.insertBefore(nodata, nav);
+          else relativeEl.appendChild(nodata);
+          currentIndex = 0;
+          updateVisible();
+          return;
+        }
+
+        // create slides and insert
+        slideData.forEach((item, idx) => {
+          const slideEl = buildSlide(item);
+          if (idx === currentIndex) slideEl.classList.add('active');
+          const nav = relativeEl.querySelector('.flex.justify-center.mt-10');
+          if (nav) relativeEl.insertBefore(slideEl, nav);
+          else relativeEl.appendChild(slideEl);
+        });
+
+        // ensure visible slide updated
+        updateVisible();
+      }
+
+      // Add/remove 'active' class to show the current slide only
+      function updateVisible() {
+        const slides = Array.from(relativeEl.querySelectorAll('.testimonial-slide'));
+        if (slides.length === 0) return;
+        slides.forEach(s => s.classList.remove('active'));
+        // clamp index
+        if (currentIndex < 0) currentIndex = slides.length - 1;
+        if (currentIndex >= slides.length) currentIndex = 0;
+        slides[currentIndex].classList.add('active');
+      }
+
+      // Prev/next handlers (preserve original behavior)
+      prevBtn?.addEventListener('click', () => {
+        const slides = relativeEl.querySelectorAll('.testimonial-slide');
+        if (!slides.length) return;
+        currentIndex--;
+        if (currentIndex < 0) currentIndex = slides.length - 1;
+        updateVisible();
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        const slides = relativeEl.querySelectorAll('.testimonial-slide');
+        if (!slides.length) return;
+        currentIndex++;
+        if (currentIndex >= slides.length) currentIndex = 0;
+        updateVisible();
+      });
+
+      // Listen to Firestore in real-time
+      onSnapshot(testimonialsQuery, (snapshot) => {
+        // map docs to simple object shape (reference screenshot fields)
+        slideData = snapshot.docs.map(doc => {
+          const d = doc.data();
+          return {
+            id: doc.id,
+            name: d.name || '',
+            role: d.role || '',
+            company: d.company || '',
+            photoURL: d.photoURL || '',
+            rating: d.rating || 5,
+            text: d.text || '',
+            createdAt: d.createdAt || null
+          };
+        });
+
+        // reset to first (most recent) when data refreshes
+        currentIndex = 0;
+        renderSlides();
+
+      }, (err) => {
+        console.error('Error listening to testimonials:', err);
+        // if error, remove loader and show a friendly message
+        if (loaderEl) loaderEl.textContent = 'Could not load testimonials.';
+      });
+
+      // initial: show loader (already present in HTML), if needed we can keep it for a moment
     }
-
-    // create slides and insert
-    slideData.forEach((item, idx) => {
-      const slideEl = buildSlide(item);
-      if (idx === currentIndex) slideEl.classList.add('active');
-      const nav = relativeEl.querySelector('.flex.justify-center.mt-10');
-      if (nav) relativeEl.insertBefore(slideEl, nav);
-      else relativeEl.appendChild(slideEl);
-    });
-
-    // ensure visible slide updated
-    updateVisible();
-  }
-
-  // Add/remove 'active' class to show the current slide only
-  function updateVisible() {
-    const slides = Array.from(relativeEl.querySelectorAll('.testimonial-slide'));
-    if (slides.length === 0) return;
-    slides.forEach(s => s.classList.remove('active'));
-    // clamp index
-    if (currentIndex < 0) currentIndex = slides.length - 1;
-    if (currentIndex >= slides.length) currentIndex = 0;
-    slides[currentIndex].classList.add('active');
-  }
-
-  // Prev/next handlers (preserve original behavior)
-  prevBtn?.addEventListener('click', () => {
-    const slides = relativeEl.querySelectorAll('.testimonial-slide');
-    if (!slides.length) return;
-    currentIndex--;
-    if (currentIndex < 0) currentIndex = slides.length - 1;
-    updateVisible();
-  });
-
-  nextBtn?.addEventListener('click', () => {
-    const slides = relativeEl.querySelectorAll('.testimonial-slide');
-    if (!slides.length) return;
-    currentIndex++;
-    if (currentIndex >= slides.length) currentIndex = 0;
-    updateVisible();
-  });
-
-  // Listen to Firestore in real-time
-  onSnapshot(testimonialsQuery, (snapshot) => {
-    // map docs to simple object shape (reference screenshot fields)
-    slideData = snapshot.docs.map(doc => {
-      const d = doc.data();
-      return {
-        id: doc.id,
-        name: d.name || '',
-        role: d.role || '',
-        company: d.company || '',
-        photoURL: d.photoURL || '',
-        rating: d.rating || 5,
-        text: d.text || '',
-        createdAt: d.createdAt || null
-      };
-    });
-
-    // reset to first (most recent) when data refreshes
-    currentIndex = 0;
-    renderSlides();
-
-  }, (err) => {
-    console.error('Error listening to testimonials:', err);
-    // if error, remove loader and show a friendly message
-    if (loaderEl) loaderEl.textContent = 'Could not load testimonials.';
-  });
-
-  // initial: show loader (already present in HTML), if needed we can keep it for a moment
-}
-</script>
+  </script>
 
 </body>
 

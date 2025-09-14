@@ -242,9 +242,6 @@
     }
 
     @media (max-width: 768px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
 
       .training-grid {
         grid-template-columns: 1fr;
@@ -282,41 +279,42 @@
     }
 
     /* Mobile menu fixes */
-    #mobile-menu {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 60px;
-      background: white;
-      z-index: 1000;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      /* Start hidden */
-    }
+        #mobile-menu {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 20px;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            /* Start hidden */
+        }
 
-    /* Mobile menu visible */
-    #mobile-menu.active {
-      display: block;
-    }
+        /* Mobile menu visible */
+        #mobile-menu.active {
+            display: block;
+        }
 
-    /* Mobile menu links */
-    #mobile-menu a {
-      display: block;
-      padding: 12px 20px;
-      color: #333;
-      text-decoration: none;
-      border-bottom: 1px solid #eee;
-      transition: background 0.3s;
-    }
+        /* Mobile menu links */
+        #mobile-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
 
-    #mobile-menu a:hover {
-      background-color: #f0f7ff;
-    }
+        #mobile-menu a:hover {
+            background-color: #f0f7ff;
+        }
 
-    /* Active link in mobile menu */
-    #mobile-menu a.active {
-      background-color: #e6f2ff;
-      color: #0052cc;
-    }
+        /* Active link in mobile menu */
+        #mobile-menu a.active {
+            background-color: #e6f2ff;
+            color: #0052cc;
+        }
 
     /* Flip-card container */
     .flip-card {
@@ -554,7 +552,7 @@
   </header>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
+  <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <a href="index.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
@@ -567,14 +565,12 @@
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
       <a href="gallery.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
+      <a href="about-us.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
+        Us</a>
       <a href="blogs.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Blogs</a>
-      <a href="about-us.html"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
-        Us</a>
       <a href="contact.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
-
     </div>
   </div>
 

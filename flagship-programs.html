@@ -23,7 +23,6 @@
                         dark: '#1a1a1a',
                         light: '#f8f9fa',
                         accent: '#f59e0b',
-                        hero: '#1e3a8a',
                     },
                     fontFamily: {
                         poppins: ['Poppins', 'sans-serif']
@@ -490,6 +489,43 @@
             display: inline-block;
         }
 
+
+        /* Mobile menu fixes */
+    #mobile-menu {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 60px;
+      background: white;
+      z-index: 1000;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      /* Start hidden */
+    }
+
+    /* Mobile menu visible */
+    #mobile-menu.active {
+      display: block;
+    }
+
+    /* Mobile menu links */
+    #mobile-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s;
+    }
+
+    #mobile-menu a:hover {
+      background-color: #f0f7ff;
+    }
+
+    /* Active link in mobile menu */
+    #mobile-menu a.active {
+      background-color: #e6f2ff;
+      color: #0052cc;
+    }
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #1e3a8a, #3b82f6);
@@ -654,23 +690,25 @@
     <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="md:hidden bg-white shadow-lg rounded-b-lg hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="index.html" style="margin-top: 60px;"
+            <a href="index.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
             <a href="services.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Services</a>
             <a href="flagship-programs.html"
-                class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Flagship Programs</a>
+                class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-blue-50">Flagship
+                Programs</a>
             <a href="events.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Events</a>
             <a href="gallery.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Gallery</a>
+            <a href="blogs.html"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Blogs</a>
             <a href="about-us.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">About
                 Us</a>
-            <a href="blogs.html"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Blogs</a>
             <a href="contact.html"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Contact</a>
+
         </div>
     </div>
 
