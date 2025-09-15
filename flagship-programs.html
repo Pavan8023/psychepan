@@ -117,7 +117,7 @@
             width: 100%;
         }
 
-        /* Tab Navigation */
+        /* Tab Navigation (base) */
         .tab-nav {
             display: flex;
             justify-content: center;
@@ -159,7 +159,7 @@
             display: block;
         }
 
-        /* Program Cards */
+        /* Program Cards (kept as-is) */
         .program-card {
             background: white;
             border-radius: 12px;
@@ -278,6 +278,129 @@
             }
         }
 
+        /* ------------------------------
+   STICKY + TOGGLE + MOBILE BEHAVIOR
+   ------------------------------ */
+
+        /* Make the whole tabs wrapper sticky (desktop/laptop/tablet/mobile) */
+        .tabs-wrapper {
+            position: sticky;
+            top: 0;
+            /* sticks to top of viewport */
+            z-index: 9999;
+            /* high stacking context */
+            background: rgba(255, 255, 255, 0.95);
+            /* prevent content bleed-through */
+            backdrop-filter: blur(4px);
+            /* optional: soft blur */
+            /* add a subtle border shadow so it visually separates */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Mobile toggle button - show on mobile only, also sticky */
+        .mobile-toggle {
+            display: none;
+            background: #0052cc;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 0.6rem;
+            /* small offset inside sticky wrapper */
+            position: sticky;
+            top: 0;
+            z-index: 10010;
+            /* higher than .tabs-wrapper to ensure visibility */
+        }
+
+        /* Ensure the tab-nav itself also has sticky behavior and sits under the wrapper */
+        .tab-nav {
+            /* keep its existing layout but also reserve high stacking when visible */
+            z-index: 9998;
+        }
+
+        /* Media query to shrink tabs on medium screens */
+        @media (max-width: 1024px) {
+            .tab-nav {
+                gap: 0.4rem;
+                padding: 0.75rem;
+            }
+
+            .tab-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.6rem;
+            }
+        }
+
+        /* Mobile view: hide inline tab-nav; show toggle; dropdown opens under sticky bar */
+        @media (max-width: 640px) {
+
+            /* hide the inline/desktop tab-nav by default on mobile */
+            .tab-nav {
+                display: none !important;
+            }
+
+            /* show toggle button on mobile only */
+            .mobile-toggle {
+                display: inline-block;
+            }
+
+            /* when toggle opens, show compact grid dropdown */
+            .tab-nav.mobile-open {
+                display: grid !important;
+                position: absolute;
+                left: 0;
+                right: 0;
+                /* place dropdown directly below the sticky wrapper */
+                top: calc(var(--header-height, 48px));
+                /* adjust with --header-height inline style if needed */
+                background: #f7fafc;
+                padding: 0.5rem;
+                gap: 0.25rem;
+                grid-template-columns: repeat(4, 1fr);
+                /* compact 4 columns */
+                z-index: 10005;
+                /* higher than content but below toggle */
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+                max-height: 50vh;
+                overflow: auto;
+            }
+
+            .tab-btn {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.75rem;
+                margin: 0;
+                border-radius: 6px;
+                text-align: center;
+                white-space: normal;
+            }
+
+            /* make active visible even in compact mode */
+            .tab-btn.active {
+                background: rgba(0, 82, 204, 0.08);
+                border-bottom: none;
+                color: #0052cc;
+            }
+        }
+
+        /* ensure on larger screens toggle is hidden (and tabs visible) */
+        @media (min-width: 641px) {
+            .mobile-toggle {
+                display: none !important;
+            }
+
+            /* ensure tab nav visible on larger screens */
+            .tab-nav {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* keep your intro styles */
         .tab-intro {
             text-align: center;
             max-width: 800px;
@@ -491,41 +614,42 @@
 
 
         /* Mobile menu fixes */
-    #mobile-menu {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 60px;
-      background: white;
-      z-index: 1000;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      /* Start hidden */
-    }
+        #mobile-menu {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 60px;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            /* Start hidden */
+        }
 
-    /* Mobile menu visible */
-    #mobile-menu.active {
-      display: block;
-    }
+        /* Mobile menu visible */
+        #mobile-menu.active {
+            display: block;
+        }
 
-    /* Mobile menu links */
-    #mobile-menu a {
-      display: block;
-      padding: 12px 20px;
-      color: #333;
-      text-decoration: none;
-      border-bottom: 1px solid #eee;
-      transition: background 0.3s;
-    }
+        /* Mobile menu links */
+        #mobile-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
 
-    #mobile-menu a:hover {
-      background-color: #f0f7ff;
-    }
+        #mobile-menu a:hover {
+            background-color: #f0f7ff;
+        }
 
-    /* Active link in mobile menu */
-    #mobile-menu a.active {
-      background-color: #e6f2ff;
-      color: #0052cc;
-    }
+        /* Active link in mobile menu */
+        #mobile-menu a.active {
+            background-color: #e6f2ff;
+            color: #0052cc;
+        }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #1e3a8a, #3b82f6);
@@ -722,18 +846,25 @@
         </p>
     </section>
 
-    <!-- Sticky Tab Navigation -->
-    <div class="sticky-tabs">
-        <div style="margin-top: 60px;"
-            class="tab-nav bg-gray-100 rounded-md grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4">
-            <button class="tab-btn active" data-tab="mdp">Managerial Dev. Program</button>
-            <button class="tab-btn" data-tab="ttt">Train The Trainer</button>
-            <button class="tab-btn" data-tab="hdc">Handling Conversation</button>
-            <button class="tab-btn" data-tab="c2c">Campus to Corporate</button>
-            <button class="tab-btn" data-tab="bcs">Business Comm. Skills</button>
-            <button class="tab-btn" data-tab="ms">Mentoring Skills</button>
-            <button class="tab-btn" data-tab="di">Diversity & Inclusion</button>
-            <button class="tab-btn" data-tab="sahyog">Sahyog</button>
+    <div class="tabs-wrapper">
+        <!-- Mobile toggle (visible only on mobile) -->
+        <button id="tabToggle" class="mobile-toggle" aria-expanded="false" aria-controls="tabNav">
+            ☰ Programs
+        </button>
+
+        <!-- Tab Navigation (use same classes you already use) -->
+        <div id="tabNav"
+            class="tab-nav bg-gray-100 rounded-md grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 p-4"
+            role="tablist">
+            <button class="tab-btn active" data-tab="mdp" role="tab" aria-selected="true">Managerial Dev.
+                Program</button>
+            <button class="tab-btn" data-tab="ttt" role="tab" aria-selected="false">Train The Trainer</button>
+            <button class="tab-btn" data-tab="hdc" role="tab" aria-selected="false">Handling Conversation</button>
+            <button class="tab-btn" data-tab="c2c" role="tab" aria-selected="false">Campus to Corporate</button>
+            <button class="tab-btn" data-tab="bcs" role="tab" aria-selected="false">Business Comm. Skills</button>
+            <button class="tab-btn" data-tab="ms" role="tab" aria-selected="false">Mentoring Skills</button>
+            <button class="tab-btn" data-tab="di" role="tab" aria-selected="false">Diversity & Inclusion</button>
+            <button class="tab-btn" data-tab="sahyog" role="tab" aria-selected="false">Sahyog</button>
         </div>
     </div>
 
@@ -2233,38 +2364,82 @@
             return n / 1000;
         }
 
-        /* ---------- Tabs ---------- */
-        function initTabs() {
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
+        (function () {
+            const tabNav = document.getElementById('tabNav');
+            const tabBtns = Array.from(tabNav.querySelectorAll('.tab-btn'));
+            const tabContents = Array.from(document.querySelectorAll('.tab-content'));
+            const toggleBtn = document.getElementById('tabToggle');
+            const tabsWrapper = document.querySelector('.tabs-wrapper');
 
-            function activateTab(button) {
-                // remove active
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
+            // Tab click handler (switch active tab)
+            function activateTabBtn(btn) {
+                tabBtns.forEach(b => {
+                    b.classList.toggle('active', b === btn);
+                    b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+                });
 
-                // add active to clicked
-                button.classList.add('active');
+                const target = btn.dataset.tab;
+                tabContents.forEach(tc => {
+                    tc.classList.toggle('active', tc.id === target);
+                });
 
-                // show corresponding content (safe guard in case id missing)
-                const tabId = button.getAttribute('data-tab');
-                if (tabId) {
-                    const el = document.getElementById(tabId);
-                    if (el) el.classList.add('active');
+                // close mobile dropdown after selecting (mobile UX)
+                if (tabNav.classList.contains('mobile-open')) {
+                    tabNav.classList.remove('mobile-open');
+                    toggleBtn.setAttribute('aria-expanded', 'false');
                 }
-
-                // animate cards of the shown tab
-                animateProgramCards();
             }
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => activateTab(button));
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => activateTabBtn(btn));
+                // keyboard interaction
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        activateTabBtn(btn);
+                    }
+                });
             });
 
-            // set initial active if any (if HTML already set)
-            const initialBtn = document.querySelector('.tab-btn.active') || tabButtons[0];
-            if (initialBtn) activateTab(initialBtn);
-        }
+            // Mobile toggle open/close
+            toggleBtn.addEventListener('click', (e) => {
+                const open = tabNav.classList.toggle('mobile-open');
+                toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+                // When opened, ensure scroll position keeps sticky bar visible
+                if (open) {
+                    // scroll the sticky wrapper into view to avoid overlay
+                    tabsWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            // Close mobile dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 640) {
+                    if (!tabNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+                        if (tabNav.classList.contains('mobile-open')) {
+                            tabNav.classList.remove('mobile-open');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                }
+            });
+
+            // Handle resize: if going to larger screens, ensure mobile-open removed
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 640) {
+                    tabNav.classList.remove('mobile-open');
+                    toggleBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // init: ensure one active tab-content visible
+            (function init() {
+                const activeBtn = tabBtns.find(b => b.classList.contains('active')) || tabBtns[0];
+                if (activeBtn) activateTabBtn(activeBtn);
+            })();
+
+        })();
 
         /* ---------- Animate Program Cards ---------- */
         function animateProgramCards() {
