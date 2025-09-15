@@ -2151,6 +2151,9 @@
 
     const container = document.getElementById('updates-carousel');
     let updates = [];
+    let carouselTimer = null; // store timeout reference
+    let idx = 0;              // keep global so we don’t reset each time
+    let isPaused = false;     // pause state
 
     // Fetch updates from Firestore
     firebase.firestore()
@@ -2178,54 +2181,62 @@
       };
     }
 
-    // Carousel logic
+    // Carousel logic (2 items per set, last odd = single full-size)
     function startCarousel() {
-      let idx = 0;
-
       function showNextSet() {
         container.innerHTML = '';
 
-        // Pick 3 articles at a time
-        const set = updates.slice(idx, idx + 3);
-        if (set.length < 3 && updates.length >= 3) {
-          // wrap around if fewer than 3 remain
-          set.push(...updates.slice(0, 3 - set.length));
+        if (!updates.length) return;
+
+        let set = [];
+        let isSingle = false;
+
+        if (updates.length === 1) {
+          set = [updates[0]];
+          isSingle = true;
+        } else if (updates.length % 2 === 1 && idx === updates.length - 1) {
+          set = [updates[idx]];
+          isSingle = true;
+        } else {
+          set = updates.slice(idx, idx + 2);
+          if (set.length < 2 && updates.length >= 2) {
+            set.push(...updates.slice(0, 2 - set.length));
+          }
         }
 
-        // Build grid items
         set.forEach((data, i) => {
           const item = document.createElement('div');
           item.className = 'update-item';
+          if (isSingle) item.classList.add('full-size');
 
           const titleEl = document.createElement('div');
           titleEl.className = 'update-title';
-          titleEl.textContent = data.title;
+          titleEl.textContent = data.title || '';
 
           const subtitleEl = document.createElement('div');
           subtitleEl.className = 'update-subtitle';
-          subtitleEl.textContent = data.subtitle;
+          subtitleEl.textContent = data.subtitle || '';
 
           const contentEl = document.createElement('div');
           contentEl.className = 'update-content';
 
-          // Apply truncation + read more
-          const truncated = truncateContent(data.content, 30);
+          const truncated = truncateContent(data.content || '', 30);
           contentEl.textContent = truncated.text;
 
           if (truncated.isTruncated) {
             const btn = document.createElement("span");
             btn.className = "read-more-btn";
-            btn.textContent = " Read More";
+            btn.textContent = "Read More";
 
             btn.addEventListener("click", () => {
               if (btn.textContent.trim() === "Read More") {
                 contentEl.textContent = truncated.fullText;
-                btn.textContent = " Read Less";
+                btn.textContent = "Read Less";
               } else {
                 contentEl.textContent = truncated.text;
-                btn.textContent = " Read More";
+                btn.textContent = "Read More";
               }
-              contentEl.appendChild(btn); // re-attach button after toggle
+              contentEl.appendChild(btn);
             });
 
             contentEl.appendChild(btn);
@@ -2233,7 +2244,7 @@
 
           const imgEl = document.createElement('img');
           imgEl.className = 'update-image';
-          imgEl.src = data.image;
+          imgEl.src = data.image || '';
 
           item.append(titleEl, subtitleEl, contentEl, imgEl);
           container.appendChild(item);
@@ -2241,24 +2252,39 @@
           // Show wrapper with delay
           setTimeout(() => item.classList.add('visible'), i * 400);
 
-          // Animate parts one by one (faster pace)
+          // Animate parts
           const delays = [300, 600, 900, 1200];
           [titleEl, subtitleEl, contentEl, imgEl].forEach((el, j) => {
             setTimeout(() => el.classList.add('fade-in'), i * 1600 + delays[j]);
           });
+
+          // Hover pause/resume
+          item.addEventListener("mouseenter", () => {
+            isPaused = true;
+            clearTimeout(carouselTimer);
+          });
+          item.addEventListener("mouseleave", () => {
+            if (isPaused) {
+              isPaused = false;
+              scheduleNext();
+            }
+          });
         });
 
-        // Move to next set after all 3 finish (~8s)
-        setTimeout(() => {
-          idx = (idx + 3) % updates.length;
-          showNextSet();
-        }, 8000);
+        // Schedule next set
+        function scheduleNext() {
+          carouselTimer = setTimeout(() => {
+            if (!isPaused) {
+              idx = (idx + (isSingle ? 1 : 2)) % updates.length;
+              showNextSet();
+            }
+          }, 5000);
+        }
+        scheduleNext();
       }
 
       showNextSet();
     }
-
-
 
     // Counter animation function
     function animateCount(id, target, suffix = '') {
