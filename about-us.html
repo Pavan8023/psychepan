@@ -1590,6 +1590,7 @@
       app = initializeApp(firebaseConfig);
     }
 
+    // ---------- Testimonials script with HEIC + Cloudinary + default-avatar fallbacks ----------
     const db = getFirestore(app);
     const testimonialsRef = collection(db, 'testimonials');
     const testimonialsQuery = query(testimonialsRef, orderBy('createdAt', 'desc'));
@@ -1606,6 +1607,8 @@
       // store slide data & track current index
       let slideData = []; // array of {id, name, role, company, photoURL, rating, text, createdAt}
       let currentIndex = 0;
+
+      const DEFAULT_AVATAR = 'https://www.gravatar.com/avatar/?d=mp&s=160';
 
       // UTIL: escape html
       function escapeHtml(str) {
@@ -1627,26 +1630,116 @@
         return html;
       }
 
+      // Try to resolve an image URL with fallbacks (original -> heic->jpg -> cloudinary f_auto -> default)
+      // Returns a Promise that resolves with the working URL (or DEFAULT_AVATAR)
+      function resolveImageUrl(originalUrl) {
+        return new Promise((resolve) => {
+          if (!originalUrl) {
+            resolve(DEFAULT_AVATAR);
+            return;
+          }
+
+          // normalize
+          const url = String(originalUrl).trim();
+          let triedHeicRename = false;
+          let triedCloudinaryAuto = false;
+          let resolved = false;
+
+          function finish(finalUrl) {
+            if (!resolved) {
+              resolved = true;
+              resolve(finalUrl || DEFAULT_AVATAR);
+            }
+          }
+
+          // attempt a single URL
+          function attempt(u, onFail) {
+            if (!u) {
+              onFail();
+              return;
+            }
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function () {
+              finish(u);
+            };
+            img.onerror = function () {
+              onFail();
+            };
+            img.src = u;
+          }
+
+          // Start with original
+          attempt(url, function () {
+            // If original fails, try .heic -> .jpg if applicable
+            if (!triedHeicRename && /\.heic(?:$|\?)/i.test(url)) {
+              triedHeicRename = true;
+              const jpgUrl = url.replace(/\.heic/i, '.jpg');
+              attempt(jpgUrl, function () {
+                // try cloudinary transform if cloudinary url
+                if (!triedCloudinaryAuto && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
+                  triedCloudinaryAuto = true;
+                  const autoUrl = url.replace('/upload/', '/upload/f_auto,q_auto/');
+                  attempt(autoUrl, function () {
+                    finish(DEFAULT_AVATAR);
+                  });
+                } else {
+                  finish(DEFAULT_AVATAR);
+                }
+              });
+            } else if (!triedCloudinaryAuto && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
+              // try cloudinary auto-format
+              triedCloudinaryAuto = true;
+              const autoUrl = url.replace('/upload/', '/upload/f_auto,q_auto/');
+              attempt(autoUrl, function () {
+                // if this fails, maybe original was .heic - try .jpg conversion
+                if (!triedHeicRename && /\.heic(?:$|\?)/i.test(url)) {
+                  triedHeicRename = true;
+                  const jpgUrl = url.replace(/\.heic/i, '.jpg');
+                  attempt(jpgUrl, function () {
+                    finish(DEFAULT_AVATAR);
+                  });
+                } else {
+                  finish(DEFAULT_AVATAR);
+                }
+              });
+            } else if (!triedHeicRename && /\.heic(?:$|\?)/i.test(url)) {
+              // try .heic->.jpg if not tried yet
+              triedHeicRename = true;
+              const jpgUrl = url.replace(/\.heic/i, '.jpg');
+              attempt(jpgUrl, function () {
+                finish(DEFAULT_AVATAR);
+              });
+            } else {
+              // give up -> default
+              finish(DEFAULT_AVATAR);
+            }
+          });
+        });
+      }
+
       // Build a slide element following your original structure and classes
+      // NOTE: we set the img src initially to DEFAULT_AVATAR and include data-photo attribute for async replacement
       function buildSlide(item) {
         const slide = document.createElement('div');
         slide.className = 'testimonial-slide';
-        const photoMarkup = item.photoURL
-          ? `<img src="${escapeHtml(item.photoURL)}" alt="${escapeHtml(item.name || '')}" class="w-full h-full object-cover">`
-          : ''; // if empty, leave the dashed box blank (keeps original look)
-        const roleCompany = (item.role || '') + (item.company ? ' • ' + item.company : '');
+        const escapedName = escapeHtml(item.name || '');
+        const escapedRoleCompany = escapeHtml((item.role || '') + (item.company ? ' • ' + item.company : ''));
+        const escapedText = escapeHtml(item.text || '');
+        const dataPhotoAttr = escapeHtml(item.photoURL || '');
 
         slide.innerHTML = `
       <div class="bg-gray-50 rounded-xl p-8 md:p-12 shadow-md">
         <div class="rating mb-6">${renderStars(item.rating)}</div>
-        <p class="text-gray-700 text-lg mb-8 italic">"${escapeHtml(item.text)}"</p>
+        <p class="text-gray-700 text-lg mb-8 italic">"${escapedText}"</p>
         <div class="flex items-center">
           <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-200 border-2 border-dashed flex-shrink-0">
-            ${photoMarkup}
+            <!-- placeholder image; data-photo holds original URL for later resolution -->
+            <img data-photo="${dataPhotoAttr}" src="${DEFAULT_AVATAR}" alt="${escapedName}" class="w-full h-full object-cover testimonial-img">
           </div>
           <div class="ml-4">
-            <h4 class="text-xl font-bold text-gray-900">${escapeHtml(item.name || 'Anonymous')}</h4>
-            <p class="text-gray-600">${escapeHtml(roleCompany)}</p>
+            <h4 class="text-xl font-bold text-gray-900">${escapedName || 'Anonymous'}</h4>
+            <p class="text-gray-600">${escapedRoleCompany}</p>
           </div>
         </div>
       </div>
@@ -1658,6 +1751,26 @@
       function clearSlides() {
         const existing = relativeEl.querySelectorAll('.testimonial-slide');
         existing.forEach(n => n.remove());
+      }
+
+      // After slides are inserted, resolve images asynchronously and swap srcs to working url
+      function resolveImagesInSlides() {
+        const imgs = relativeEl.querySelectorAll('img.testimonial-img');
+        imgs.forEach(imgEl => {
+          const dataPhoto = imgEl.getAttribute('data-photo') || '';
+          // If dataPhoto is empty -> keep default avatar
+          if (!dataPhoto) {
+            imgEl.src = DEFAULT_AVATAR;
+            return;
+          }
+          // attempt to resolve
+          resolveImageUrl(dataPhoto).then(finalUrl => {
+            // only set if finalUrl is truthy
+            if (finalUrl) imgEl.src = finalUrl;
+          }).catch(() => {
+            imgEl.src = DEFAULT_AVATAR;
+          });
+        });
       }
 
       // Render slides array into DOM, inserting before nav buttons
@@ -1676,7 +1789,6 @@
         <div class="bg-gray-50 rounded-xl p-8 md:p-12 shadow-md">
           <p class="text-gray-700 text-lg mb-8 italic">No testimonials yet. Be the first to add one!</p>
         </div>`;
-          // insert before nav buttons (nav sits at end)
           const nav = relativeEl.querySelector('.flex.justify-center.mt-10');
           if (nav) relativeEl.insertBefore(nodata, nav);
           else relativeEl.appendChild(nodata);
@@ -1693,6 +1805,9 @@
           if (nav) relativeEl.insertBefore(slideEl, nav);
           else relativeEl.appendChild(slideEl);
         });
+
+        // resolve images for newly inserted slides
+        resolveImagesInSlides();
 
         // ensure visible slide updated
         updateVisible();
@@ -1749,12 +1864,12 @@
 
       }, (err) => {
         console.error('Error listening to testimonials:', err);
-        // if error, remove loader and show a friendly message
         if (loaderEl) loaderEl.textContent = 'Could not load testimonials.';
       });
 
-      // initial: show loader (already present in HTML), if needed we can keep it for a moment
+      // initial: show loader (already present in HTML)
     }
+
   </script>
 
 </body>

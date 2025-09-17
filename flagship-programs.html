@@ -287,7 +287,7 @@
             position: sticky;
             top: 0;
             /* sticks to top of viewport */
-            z-index: 9999;
+            z-index: 1000;
             /* high stacking context */
             background: rgba(255, 255, 255, 0.95);
             /* prevent content bleed-through */
@@ -354,7 +354,7 @@
                 left: 0;
                 right: 0;
                 /* place dropdown directly below the sticky wrapper */
-                top: calc(var(--header-height, 48px));
+                top: 10px;
                 /* adjust with --header-height inline style if needed */
                 background: #f7fafc;
                 padding: 0.5rem;
@@ -485,7 +485,7 @@
             border-radius: 12px;
             width: 90%;
             max-width: 600px;
-            max-height: 90vh;
+            max-height: 95vh;
             overflow-y: auto;
             transform: scale(0.8);
             transition: transform 0.3s ease;
@@ -620,7 +620,7 @@
             right: 0;
             top: 60px;
             background: white;
-            z-index: 1000;
+            z-index: 1002;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             /* Start hidden */
         }
@@ -746,6 +746,41 @@
         /* Success icon animation */
         .success-icon {
             animation: popIn 420ms cubic-bezier(.2, .9, .3, 1);
+        }
+
+        /* Modal mobile improvements */
+        @media (max-width: 640px) {
+            .modal-content {
+                width: 95%;
+                max-height: 85vh;
+                margin: 1rem;
+            }
+
+            .form-container {
+                padding: 1rem;
+                max-height: 60vh;
+                overflow-y: auto;
+            }
+
+            .grid.grid-cols-1.sm\:grid-cols-2.gap-4 {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-title {
+                font-size: 1.25rem;
+            }
+
+            .btn-close {
+                top: 10px;
+                right: 10px;
+                width: 30px;
+                height: 30px;
+            }
         }
 
         @keyframes popIn {
@@ -2295,7 +2330,7 @@
     </footer>
 
     <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
-    <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 500;">
+    <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 1001;">
         <!-- Toggle / Floating Button -->
         <button id="chatbotToggle"
             class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
@@ -2382,12 +2417,6 @@
                 tabContents.forEach(tc => {
                     tc.classList.toggle('active', tc.id === target);
                 });
-
-                // close mobile dropdown after selecting (mobile UX)
-                if (tabNav.classList.contains('mobile-open')) {
-                    tabNav.classList.remove('mobile-open');
-                    toggleBtn.setAttribute('aria-expanded', 'false');
-                }
             }
 
             tabBtns.forEach(btn => {
@@ -2842,6 +2871,20 @@
             }
         }
 
+        /* ---------- Init on DOMContentLoaded ---------- */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize mobile menu
+            initMobileMenu();
+
+            // Rest of your initialization code
+            initBookingModal();
+            animateProgramCards();
+            initReadMore();
+
+            // Chatbot initialization code
+            if (chatbotInput) chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+        });
+
         /* ---------- Booking Modal (updated, preserves original function names) ---------- */
         function initBookingModal() {
             const modal = document.getElementById('bookingModal');
@@ -3000,21 +3043,10 @@
 
         /* ---------- Init on DOMContentLoaded ---------- */
         document.addEventListener('DOMContentLoaded', () => {
-            initTabs();
-            initReadMore();
-            initMobileMenu();
+
             initBookingModal();
             animateProgramCards();
 
-            // Chatbot wiring (if elements exist)
-            const chatbotToggle = document.getElementById('chatbotToggle');
-            const chatbotClose = document.getElementById('chatbotClose');
-            const chatbotSend = document.getElementById('chatbotSend');
-            const chatbotInput = document.getElementById('chatbotInput');
-
-            if (chatbotToggle) chatbotToggle.addEventListener('click', toggleChatbot);
-            if (chatbotClose) chatbotClose.addEventListener('click', toggleChatbot);
-            if (chatbotSend) chatbotSend.addEventListener('click', sendMessage);
             if (chatbotInput) chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
         });
     </script>
