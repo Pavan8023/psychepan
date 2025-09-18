@@ -291,6 +291,110 @@
         nav a:hover::after {
             width: 100%;
         }
+
+        /* ---------- Marquee base styles (single track) ---------- */
+        .clients-marquee-section {
+            width: 100%;
+            background: #ffffff;
+            padding: 1rem 0;
+            box-sizing: border-box;
+        }
+
+        .clients-marquee-wrap {
+            --marquee-gap: 1.25rem;
+            --logo-height-desktop: 80px;
+            --logo-height-mobile: 56px;
+            --px-per-second: 120;
+
+            max-width: 1300px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        /* SINGLE track that will contain clients + a duplicated set for seamless looping */
+        .marquee-track {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--marquee-gap);
+            white-space: nowrap;
+            will-change: transform;
+            animation-name: marquee-scroll;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-duration: 20s;
+            /* fallback; JS will set correct duration */
+            animation-play-state: running;
+        }
+
+        /* Pause on hover */
+        .clients-marquee-wrap:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        /* item */
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            flex: 0 0 auto;
+            box-sizing: border-box;
+        }
+
+        .marquee-item .logo-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: var(--logo-height-desktop);
+            min-width: calc(var(--logo-height-desktop) * 2);
+            padding: 0.3rem 0.75rem;
+            box-sizing: border-box;
+            border-radius: 6px;
+            background: transparent;
+        }
+
+        .marquee-item img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* animation: translate left by 50% (we duplicate content inside the same track) */
+        @keyframes marquee-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .clients-marquee-wrap {
+                --logo-height-desktop: 64px;
+            }
+
+            .marquee-item .logo-box {
+                min-width: calc(var(--logo-height-desktop) * 1.8);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .clients-marquee-wrap {
+                --logo-height-desktop: var(--logo-height-mobile);
+                padding: 0 0.5rem;
+            }
+
+            .marquee-item .logo-box {
+                min-width: calc(var(--logo-height-mobile) * 1.8);
+                padding: 0.2rem 0.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -521,6 +625,13 @@
         </div>
     </section>
 
+    <!-- CLIENT LOGO MARQUEE (single-row, no double-vertical logos) -->
+    <section id="clients-marquee" class="clients-marquee-section" aria-label="Our clients">
+        <div class="clients-marquee-wrap">
+            <div class="marquee-track" aria-hidden="true"></div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -652,6 +763,148 @@
     </div>
 
     <script>
+
+        /* Use your clients array exactly as provided */
+        const clients = [
+            // Automotive
+            { name: "Honda", image: "honda.png", category: "automotive", tagline: "The Power of Dreams" },
+            { name: "Maruti Suzuki", image: "maruti.png", category: "automotive", tagline: "Way of Life" },
+            { name: "Hero", image: "hero.png", category: "automotive", tagline: "Desh Ki Dhadkan" },
+            { name: "JCB", image: "jcb.png", category: "automotive", tagline: "Powering Progress" },
+            { name: "Yamaha", image: "BirlaYamaha.png", category: "automotive", tagline: "Revs Your Heart" },
+            { name: "Suzuki Motorcycles", image: "Suzuki-Motorcycles.png", category: "automotive" },
+            { name: "JK Tyres", image: "jktyre.png", category: "automotive" },
+            { name: "Escort", image: "Escort.png", category: "automotive" },
+            { name: "Sona Koyo", image: "Sona-Koyo.jpg", category: "automotive" },
+            { name: "Minda", image: "minda.png", category: "automotive" },
+            { name: "JBM Group", image: "jbm.png", category: "automotive" },
+
+            // Manufacturing
+            { name: "ACC", image: "acc.png", category: "manufacturing", tagline: "The Professional's Choice" },
+            { name: "Amtek", image: "Amtek.jpg", category: "manufacturing" },
+            { name: "Anchor", image: "Anchor.jpg", category: "manufacturing" },
+            { name: "Asahi Glass", image: "Asahi-Glass.png", category: "manufacturing" },
+            { name: "ATO", image: "ato.png", category: "manufacturing" },
+            { name: "BIRLA POWER", image: "birla-power.png", category: "manufacturing", tagline: "POWER... the ability to change" },
+            { name: "Bria", image: "Birla.jpg", category: "manufacturing" },
+            { name: "Chemsys", image: "Chemsys.png", category: "manufacturing" },
+            { name: "Colgate and Palmolive", image: "ColgateandPalmolive.png", category: "manufacturing" },
+            { name: "Daikin", image: "Daikin.png", category: "manufacturing" },
+            { name: "Dabur", image: "dabur.png", category: "manufacturing" },
+            { name: "Ester Industries", image: "Ester-Industries.png", category: "manufacturing" },
+            { name: "Grasim", image: "Grasim.jpg", category: "manufacturing" },
+            { name: "Hindustan Zinc", image: "Hindustan-Zinc.png", category: "manufacturing" },
+            { name: "Indian Oil", image: "indian-oil.png", category: "manufacturing" },
+            { name: "NTPC", image: "ntpc.png", category: "manufacturing" },
+            { name: "Shree Cements", image: "Shree-Cements.jpg", category: "manufacturing" },
+            { name: "SRF", image: "SRF.png", category: "manufacturing" },
+
+            // Technology
+            { name: "Bharti", image: "Bharti.png", category: "technology" },
+            { name: "HCL", image: "hcl.png", category: "technology" },
+            { name: "Hughes Software", image: "Hughes-Software.png", category: "technology" },
+            { name: "ICICI Bank", image: "icici-bank.png", category: "technology" },
+            { name: "Mizuho Bank", image: "Mizuho-Bank.png", category: "technology" },
+            { name: "RMSI", image: "RMSI.png", category: "technology" },
+            { name: "Safran", image: "Safran.png", category: "technology" },
+            { name: "SPIL", image: "SPIL.png", category: "technology" },
+            { name: "Tech Mahindra", image: "tech-mahindra.png", category: "technology" },
+            { name: "TMTL", image: "TMTL.png", category: "technology" },
+            { name: "Wabag", image: "Wabag.png", category: "technology" },
+            { name: "OMAX Technology", image: "LOGO_OMAX-technology.png", category: "technology" },
+            { name: "Nex-Gen", image: "Nex-Gen.png", category: "technology" },
+            { name: "Biotech", image: "Biotech.webp", category: "technology" },
+
+            // FMCG
+            { name: "Pepsi", image: "pepsi.png", category: "fmg" },
+            { name: "Parle-G", image: "Parle-G.jpg", category: "fmg" },
+            { name: "Dabur", image: "DABUR (1).png", category: "fmg" },
+            { name: "Colgate and Palmolive", image: "Colgate-and-Palmoliv.png", category: "fmg" },
+            { name: "Whirlpool", image: "whirl-pool.png", category: "fmg" },
+            { name: "Spencer's", image: "spencers.png", category: "fmg" },
+            { name: "Van Melle", image: "Van-Melle.png", category: "fmg" },
+            { name: "Mother Dairy", image: "Mother-Dairy.jpg", category: "fmg" }
+        ];
+
+        const COMMON_PATH = 'images/clients/'; // common path requested
+        const DEFAULT_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='; // tiny transparent pixel
+
+        function createItemNode(client) {
+            const item = document.createElement('div');
+            item.className = 'marquee-item';
+            const box = document.createElement('div');
+            box.className = 'logo-box';
+
+            const img = document.createElement('img');
+            img.alt = client.name || '';
+            img.src = COMMON_PATH + client.image;
+            img.onerror = function () {
+                this.onerror = null;
+                // try a safe placeholder in images/clients/ first (if you have it), else use transparent pixel
+                this.src = COMMON_PATH + 'placeholder.png';
+                // if placeholder.png doesn't exist on server, the browser will try that and hit onerror again
+                // but we already removed onerror to avoid infinite loop; in that case you will see broken image or provide placeholder.png
+            };
+
+            box.appendChild(img);
+            item.appendChild(box);
+            return item;
+        }
+
+        function populateSingleTrack() {
+            const track = document.querySelector('.marquee-track');
+            if (!track) return;
+            track.innerHTML = '';
+
+            // create fragment of original items
+            const frag = document.createDocumentFragment();
+            clients.forEach(c => frag.appendChild(createItemNode(c)));
+
+            // append original items
+            track.appendChild(frag);
+
+            // append a clone of the same items to the same track (seamless loop)
+            // we clone nodes to avoid reusing the exact same elements (keeps DOM stable)
+            const nodesToClone = Array.from(track.children).slice(0, clients.length);
+            nodesToClone.forEach(n => track.appendChild(n.cloneNode(true)));
+        }
+
+        function adjustDurationSingleTrack() {
+            const wrap = document.querySelector('.clients-marquee-wrap');
+            const track = document.querySelector('.marquee-track');
+            if (!wrap || !track) return;
+
+            // One set width is half the scrollWidth because we duplicated content inside same track
+            const total = track.scrollWidth;
+            const oneSetWidth = total / 2 || track.getBoundingClientRect().width / 2;
+
+            const style = getComputedStyle(wrap);
+            const pxPerSecond = Math.max(40, parseFloat(style.getPropertyValue('--px-per-second')) || 120);
+
+            // duration so that oneSetWidth travels at pxPerSecond speed (seconds)
+            const duration = Math.max(6, (oneSetWidth / pxPerSecond));
+            track.style.animationDuration = duration + 's';
+        }
+
+        // init
+        function initSingleMarquee() {
+            populateSingleTrack();
+
+            // wait a bit for images to load and layout to settle before measuring
+            setTimeout(() => {
+                adjustDurationSingleTrack();
+            }, 80);
+
+            // recalc on resize (debounced)
+            let t;
+            window.addEventListener('resize', () => {
+                clearTimeout(t);
+                t = setTimeout(adjustDurationSingleTrack, 150);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initSingleMarquee);
+
         // Mobile Menu Toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');

@@ -525,7 +525,61 @@
       animation: successAnimation 0.7s ease forwards;
     }
 
-    /* about CEO section */
+    .floating-element {
+      animation: float 5s infinite ease-in-out;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .gradient-border {
+      position: relative;
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #0d9488, #38bdf8, #0d9488);
+      z-index: -1;
+      border-radius: 1.5rem;
+      animation: border-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes border-pulse {
+
+      0%,
+      100% {
+        opacity: 0.7;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .animate-fade-in-left {
+      animation: fadeInLeft 1s ease-out forwards;
+    }
+
+    .animate-fade-in-right {
+      animation: fadeInRight 1s ease-out forwards;
+    }
+
     @keyframes fadeInLeft {
       0% {
         opacity: 0;
@@ -550,12 +604,208 @@
       }
     }
 
-    .animate-fade-in-left {
-      animation: fadeInLeft 1s ease-out forwards;
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      animation: float 8s infinite ease-in-out;
     }
 
-    .animate-fade-in-right {
-      animation: fadeInRight 1s ease-out forwards;
+    .achievement-badge {
+      transition: all 0.3s ease;
+    }
+
+    .achievement-badge:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .logo-item {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .logo-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* about section */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.6), rgba(56, 189, 248, 0.4));
+      animation: float 5s infinite ease-in-out;
+      opacity: 0.7;
+    }
+
+    .gradient-border {
+      position: relative;
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #0d9488, #38bdf8, #0d9488);
+      z-index: -1;
+      border-radius: 1.5rem;
+      animation: border-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes border-pulse {
+
+      0%,
+      100% {
+        opacity: 0.7;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .feature-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .animate-delay-100 {
+      animation-delay: 100ms;
+    }
+
+    .animate-delay-200 {
+      animation-delay: 200ms;
+    }
+
+    .animate-delay-300 {
+      animation-delay: 300ms;
+    }
+
+    /* ---------- Marquee base styles (single track) ---------- */
+    .clients-marquee-section {
+      width: 100%;
+      background: #ffffff;
+      padding: 1rem 0;
+      box-sizing: border-box;
+    }
+
+    .clients-marquee-wrap {
+      --marquee-gap: 1.25rem;
+      --logo-height-desktop: 80px;
+      --logo-height-mobile: 56px;
+      --px-per-second: 120;
+
+      max-width: 1300px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+      padding: 0 1rem;
+    }
+
+    /* SINGLE track that will contain clients + a duplicated set for seamless looping */
+    .marquee-track {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--marquee-gap);
+      white-space: nowrap;
+      will-change: transform;
+      animation-name: marquee-scroll;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 20s;
+      /* fallback; JS will set correct duration */
+      animation-play-state: running;
+    }
+
+    /* Pause on hover */
+    .clients-marquee-wrap:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    /* item */
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      flex: 0 0 auto;
+      box-sizing: border-box;
+    }
+
+    .marquee-item .logo-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--logo-height-desktop);
+      min-width: calc(var(--logo-height-desktop) * 2);
+      padding: 0.3rem 0.75rem;
+      box-sizing: border-box;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    .marquee-item img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* animation: translate left by 50% (we duplicate content inside the same track) */
+    @keyframes marquee-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .clients-marquee-wrap {
+        --logo-height-desktop: 64px;
+      }
+
+      .marquee-item .logo-box {
+        min-width: calc(var(--logo-height-desktop) * 1.8);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .clients-marquee-wrap {
+        --logo-height-desktop: var(--logo-height-mobile);
+        padding: 0 0.5rem;
+      }
+
+      .marquee-item .logo-box {
+        min-width: calc(var(--logo-height-mobile) * 1.8);
+        padding: 0.2rem 0.5rem;
+      }
     }
   </style>
 </head>
@@ -591,7 +841,7 @@
   </header>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden">
+  <div id="mobile-menu" class="mt-16 md:hidden bg-white shadow-lg rounded-b-lg hidden" style="z-index: 1000;">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <a href="index.html"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-blue-50">Home</a>
@@ -626,51 +876,266 @@
   </section>
 
   <!-- About The Director Section -->
-  <section id="about-director" class="relative bg-gradient-to-br from-gray-50 to-gray-100 py-16">
+  <section id="about-director" class="relative py-16 overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Background decorative elements -->
+      <div class="floating-shape w-64 h-64 bg-teal-300 -top-32 -left-32" style="animation-delay: 0s"></div>
+      <div class="floating-shape w-40 h-40 bg-blue-300 bottom-10 right-10" style="animation-delay: 1s"></div>
+      <div class="floating-shape w-32 h-32 bg-teal-200 top-1/2 right-1/3" style="animation-delay: 2s"></div>
 
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <!-- Left Content -->
-        <div class="space-y-6 animate-fade-in-left">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 relative">
-            About <span class="text-teal-600">The Director</span>
-            <span class="absolute -bottom-2 left-0 w-16 h-1 bg-teal-500 rounded"></span>
-          </h2>
-          <p class="text-lg text-gray-700 leading-relaxed">
-            Mrs. <strong>Deepa Vats</strong>, Director of <strong>Psyche Panacea</strong>,
-            is a phenomenal entrepreneur who has been making waves in her industry.
-            She is a visionary leader, a mother, creative thinker, business development expert,
-            HR consultant, and a true inspiration to aspiring entrepreneurs.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            With her innovative ideas and unwavering determination, she has successfully built
-            a thriving business that is making a significant impact in the market. Under her
-            leadership, Psyche Panacea has grown multi-folds. She has helped spread the
-            importance of HR programs for corporates like <strong>Honda, Reliance,
-              Hero Moto Corp</strong>, and more.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            She also introduced <strong>Result-Oriented Trainings</strong> when the industry
-            was still underdeveloped. With her passion for societal change and empowerment,
-            she has aligned Psyche Panacea’s pursuits with CSR portfolios of several
-            companies—benefiting local communities, women, youth, and organizations
-            in terms of value branding.
-          </p>
+        <div class="space-y-8 animate-fade-in-left">
+          <div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 relative inline-block">
+              About <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-500">The
+                Director</span>
+              <span
+                class="absolute -bottom-3 left-0 w-20 h-1.5 bg-gradient-to-r from-teal-500 to-blue-400 rounded-full"></span>
+            </h2>
+          </div>
+
+          <div class="space-y-5 text-gray-700">
+            <p class="text-lg leading-relaxed">
+              Mrs. <strong class="text-teal-700">Deepa Vats</strong>, Director of <strong>Psyche Panacea</strong>,
+              is a phenomenal entrepreneur who has been making waves in her industry.
+              She is a visionary leader, a mother, creative thinker, business development expert,
+              HR consultant, and a true inspiration to aspiring entrepreneurs.
+            </p>
+
+            <p class="leading-relaxed">
+              With her innovative ideas and unwavering determination, she has successfully built
+              a thriving business that is making a significant impact in the market. Under her
+              leadership, Psyche Panacea has grown multi-folds.
+            </p>
+
+            <div class="bg-teal-50 p-5 rounded-xl border-l-4 border-teal-500">
+              <p class="text-gray-700">
+                She has helped spread the importance of HR programs for corporates like
+                <strong>Honda, Reliance, Hero Moto Corp</strong>, and more.
+              </p>
+            </div>
+
+            <p class="leading-relaxed">
+              She introduced <strong class="text-teal-700">Result-Oriented Trainings</strong> when the industry
+              was still underdeveloped. With her passion for societal change and empowerment,
+              she has aligned Psyche Panacea's pursuits with CSR portfolios of several
+              companies—benefiting local communities, women, youth, and organizations
+              in terms of value branding.
+            </p>
+          </div>
+
+          <!-- Achievements -->
+          <div class="grid grid-cols-2 gap-4 pt-4">
+            <div class="achievement-badge bg-white p-4 rounded-xl shadow-md flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
+                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                  </path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800">22+ Years</p>
+                <p class="text-sm text-gray-600">Experience</p>
+              </div>
+            </div>
+
+            <div class="achievement-badge bg-white p-4 rounded-xl shadow-md flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                  </path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800">500+</p>
+                <p class="text-sm text-gray-600">Clients</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Right Image -->
         <div class="relative group animate-fade-in-right">
-          <div class="overflow-hidden rounded-2xl shadow-xl transform transition duration-500 group-hover:scale-105">
-            <img src="/images/deepa-vats.jpg" alt="Mrs. Deepa Vats" class="w-full h-full object-cover">
-          </div>
           <div
-            class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center p-4">
-            <span class="text-white font-semibold text-lg">Mrs. Deepa Vats</span>
+            class="gradient-border rounded-2xl overflow-hidden shadow-2xl transform transition duration-700 group-hover:scale-[1.02]">
+            <img src="/images/deepa-vats.jpg" alt="Mrs. Deepa Vats" class="w-full h-[560px] object-cover">
+          </div>
+
+          <!-- Floating info card -->
+          <div
+            class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-xl shadow-xl p-4 w-4/5 group-hover:-translate-y-2 transition-transform duration-500">
+            <h3 class="font-bold text-gray-900 text-center">Mrs. Deepa Vats</h3>
+            <p class="text-sm text-teal-600 text-center">Director & Founder</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- About Psyche Panacea -->
+  <section id="about-psyche" class="relative py-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Left: Image block with particles -->
+        <div class="relative order-1 lg:order-1">
+          <div
+            class="gradient-border rounded-2xl overflow-hidden shadow-2xl transform transition duration-700 hover:scale-[1.02]">
+            <img src="/images/about-psyche.jpg" alt="Psyche Panacea team discussion"
+              class="w-full h-[560px] object-cover">
+          </div>
+
+          <!-- Animated particles -->
+          <div class="particle w-4 h-4 -top-4 -left-4 animate-float-slow"></div>
+          <div class="particle w-6 h-6 -bottom-2 -right-4 animate-float-medium" style="animation-delay: 1s"></div>
+          <div class="particle w-3 h-3 top-1/2 -right-6 animate-float-fast" style="animation-delay: 2s"></div>
+          <div class="particle w-5 h-5 bottom-10 -left-6 animate-float-slow" style="animation-delay: 1.5s"></div>
+          <div class="particle w-4 h-4 top-8 -right-8 animate-float-medium" style="animation-delay: 0.5s"></div>
+
+          <!-- Decorative elements -->
+          <div
+            class="absolute -z-10 -bottom-10 -right-10 w-40 h-40 bg-teal-200 rounded-full opacity-20 animate-pulse-soft">
+          </div>
+          <div class="absolute -z-10 -top-6 -left-6 w-24 h-24 bg-blue-300 rounded-full opacity-30 animate-pulse-soft"
+            style="animation-delay: 1s"></div>
+        </div>
+
+        <!-- Right: Text block -->
+        <div class="order-2 lg:order-2 space-y-8">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+            About <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-500">Psyche
+              Panacea</span>
+          </h2>
+
+          <div class="space-y-4 text-gray-700">
+            <p class="text-lg leading-relaxed">
+              Welcome to <strong class="text-teal-700">Psyche Panacea</strong>, where 22 years of expertise have
+              established us as a premier consultancy and training agency delivering result-oriented learning solutions.
+            </p>
+
+            <p class="leading-relaxed">
+              With a strong foundation and rich history, we design exceptional programs for individuals and
+              organizations across India—empowering them to upskill, navigate change, and maximize performance.
+            </p>
+
+            <p class="leading-relaxed">
+              Our market insight enables us to anticipate trends and provide timely solutions. We've partnered with
+              corporates to enhance workforce capabilities and design CSR initiatives that create measurable value for
+              communities, women, youth, and organizations.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <a href="mailto:hr@psypanconsulting.com"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-blue-500 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+              Get In Touch
+            </a>
+
+            <a href="services.html"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 border border-teal-500 text-teal-600 rounded-lg hover:bg-teal-50 transition-colors duration-300">
+              Learn about our services
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Vision Section -->
+  <section id="our-vision" class="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-teal-100 rounded-full opacity-20"></div>
+    <div class="absolute -bottom-16 -left-16 w-80 h-80 bg-blue-100 rounded-full opacity-30"></div>
+
+    <div class="max-w-6xl mx-auto px-6 lg:px-12 relative z-10">
+      <!-- Heading and intro -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center justify-center p-2 bg-teal-100 rounded-full mb-6">
+          <svg class="w-8 h-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+            </path>
+          </svg>
+        </div>
+        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Our Vision
+        </h3>
+        <p class="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+          We empower organizations and individuals to unlock their full potential — driving sustainable growth,
+          continuous learning, and measurable impact through innovative consulting and tailored training solutions.
+        </p>
+      </div>
+
+      <!-- Icon feature cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div
+          class="feature-card bg-white rounded-xl p-6 shadow-md border-l-teal-500 animate-fade-in-up animate-delay-100">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center">
+                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+              </div>
+              <h4 class="font-semibold text-gray-800 text-lg">Sustainable Growth</h4>
+            </div>
+            <p class="text-gray-600">Strategies and training to scale capability and achieve lasting business outcomes
+              through continuous development.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          class="feature-card bg-white rounded-xl p-6 shadow-md border-l-amber-500 animate-fade-in-up animate-delay-200">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center">
+                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                  </path>
+                </svg>
+              </div>
+              <h4 class="font-semibold text-gray-800 text-lg">Human-Centered Culture</h4>
+            </div>
+            <p class="text-gray-600">Build resilient teams with empathy-driven leadership and wellbeing programs that
+              foster collaboration and innovation.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          class="feature-card bg-white rounded-xl p-6 shadow-md border-l-indigo-500 animate-fade-in-up animate-delay-300">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center">
+                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                  </path>
+                </svg>
+              </div>
+              <h4 class="font-semibold text-gray-800 text-lg">Innovative Impact</h4>
+            </div>
+            <p class="text-gray-600">Deliver measurable, outcome-focused learning interventions that solve real-world
+              problems and drive organizational success.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- Tab Navigation -->
   <div class="tab-nav">
@@ -847,6 +1312,12 @@
     </div>
   </section>
 
+  <!-- CLIENT LOGO MARQUEE (single-row, no double-vertical logos) -->
+  <section id="clients-marquee" class="clients-marquee-section" aria-label="Our clients">
+    <div class="clients-marquee-wrap">
+      <div class="marquee-track" aria-hidden="true"></div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12">
@@ -926,7 +1397,7 @@
   </footer>
 
   <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
-  <div class="chatbot fixed bottom-6 right-4 z-50">
+  <div class="chatbot fixed bottom-6 right-4" style="z-index: 999;">
     <!-- Toggle / Floating Button -->
     <button id="chatbotToggle"
       class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
@@ -996,6 +1467,218 @@
   </div>
 
   <script>
+
+    /* Use your clients array exactly as provided */
+    const client = [
+      // Automotive
+      { name: "Honda", image: "honda.png", category: "automotive", tagline: "The Power of Dreams" },
+      { name: "Maruti Suzuki", image: "maruti.png", category: "automotive", tagline: "Way of Life" },
+      { name: "Hero", image: "hero.png", category: "automotive", tagline: "Desh Ki Dhadkan" },
+      { name: "JCB", image: "jcb.png", category: "automotive", tagline: "Powering Progress" },
+      { name: "Yamaha", image: "BirlaYamaha.png", category: "automotive", tagline: "Revs Your Heart" },
+      { name: "Suzuki Motorcycles", image: "Suzuki-Motorcycles.png", category: "automotive" },
+      { name: "JK Tyres", image: "jktyre.png", category: "automotive" },
+      { name: "Escort", image: "Escort.png", category: "automotive" },
+      { name: "Sona Koyo", image: "Sona-Koyo.jpg", category: "automotive" },
+      { name: "Minda", image: "minda.png", category: "automotive" },
+      { name: "JBM Group", image: "jbm.png", category: "automotive" },
+
+      // Manufacturing
+      { name: "ACC", image: "acc.png", category: "manufacturing", tagline: "The Professional's Choice" },
+      { name: "Amtek", image: "Amtek.jpg", category: "manufacturing" },
+      { name: "Anchor", image: "Anchor.jpg", category: "manufacturing" },
+      { name: "Asahi Glass", image: "Asahi-Glass.png", category: "manufacturing" },
+      { name: "ATO", image: "ato.png", category: "manufacturing" },
+      { name: "BIRLA POWER", image: "birla-power.png", category: "manufacturing", tagline: "POWER... the ability to change" },
+      { name: "Bria", image: "Birla.jpg", category: "manufacturing" },
+      { name: "Chemsys", image: "Chemsys.png", category: "manufacturing" },
+      { name: "Colgate and Palmolive", image: "ColgateandPalmolive.png", category: "manufacturing" },
+      { name: "Daikin", image: "Daikin.png", category: "manufacturing" },
+      { name: "Dabur", image: "dabur.png", category: "manufacturing" },
+      { name: "Ester Industries", image: "Ester-Industries.png", category: "manufacturing" },
+      { name: "Grasim", image: "Grasim.jpg", category: "manufacturing" },
+      { name: "Hindustan Zinc", image: "Hindustan-Zinc.png", category: "manufacturing" },
+      { name: "Indian Oil", image: "indian-oil.png", category: "manufacturing" },
+      { name: "NTPC", image: "ntpc.png", category: "manufacturing" },
+      { name: "Shree Cements", image: "Shree-Cements.jpg", category: "manufacturing" },
+      { name: "SRF", image: "SRF.png", category: "manufacturing" },
+
+      // Technology
+      { name: "Bharti", image: "Bharti.png", category: "technology" },
+      { name: "HCL", image: "hcl.png", category: "technology" },
+      { name: "Hughes Software", image: "Hughes-Software.png", category: "technology" },
+      { name: "ICICI Bank", image: "icici-bank.png", category: "technology" },
+      { name: "Mizuho Bank", image: "Mizuho-Bank.png", category: "technology" },
+      { name: "RMSI", image: "RMSI.png", category: "technology" },
+      { name: "Safran", image: "Safran.png", category: "technology" },
+      { name: "SPIL", image: "SPIL.png", category: "technology" },
+      { name: "Tech Mahindra", image: "tech-mahindra.png", category: "technology" },
+      { name: "TMTL", image: "TMTL.png", category: "technology" },
+      { name: "Wabag", image: "Wabag.png", category: "technology" },
+      { name: "OMAX Technology", image: "LOGO_OMAX-technology.png", category: "technology" },
+      { name: "Nex-Gen", image: "Nex-Gen.png", category: "technology" },
+      { name: "Biotech", image: "Biotech.webp", category: "technology" },
+
+      // FMCG
+      { name: "Pepsi", image: "pepsi.png", category: "fmg" },
+      { name: "Parle-G", image: "Parle-G.jpg", category: "fmg" },
+      { name: "Dabur", image: "DABUR (1).png", category: "fmg" },
+      { name: "Colgate and Palmolive", image: "Colgate-and-Palmoliv.png", category: "fmg" },
+      { name: "Whirlpool", image: "whirl-pool.png", category: "fmg" },
+      { name: "Spencer's", image: "spencers.png", category: "fmg" },
+      { name: "Van Melle", image: "Van-Melle.png", category: "fmg" },
+      { name: "Mother Dairy", image: "Mother-Dairy.jpg", category: "fmg" }
+    ];
+
+    const COMMON_PATH = 'images/clients/'; // common path requested
+    const DEFAULT_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='; // tiny transparent pixel
+
+    function createItemNode(client) {
+      const item = document.createElement('div');
+      item.className = 'marquee-item';
+      const box = document.createElement('div');
+      box.className = 'logo-box';
+
+      const img = document.createElement('img');
+      img.alt = client.name || '';
+      img.src = COMMON_PATH + client.image;
+      img.onerror = function () {
+        this.onerror = null;
+        // try a safe placeholder in images/clients/ first (if you have it), else use transparent pixel
+        this.src = COMMON_PATH + 'placeholder.png';
+        // if placeholder.png doesn't exist on server, the browser will try that and hit onerror again
+        // but we already removed onerror to avoid infinite loop; in that case you will see broken image or provide placeholder.png
+      };
+
+      box.appendChild(img);
+      item.appendChild(box);
+      return item;
+    }
+
+    function populateSingleTrack() {
+      const track = document.querySelector('.marquee-track');
+      if (!track) return;
+      track.innerHTML = '';
+
+      // create fragment of original items
+      const frag = document.createDocumentFragment();
+      client.forEach(c => frag.appendChild(createItemNode(c)));
+
+      // append original items
+      track.appendChild(frag);
+
+      // append a clone of the same items to the same track (seamless loop)
+      // we clone nodes to avoid reusing the exact same elements (keeps DOM stable)
+      const nodesToClone = Array.from(track.children).slice(0, client.length);
+      nodesToClone.forEach(n => track.appendChild(n.cloneNode(true)));
+    }
+
+    function adjustDurationSingleTrack() {
+      const wrap = document.querySelector('.clients-marquee-wrap');
+      const track = document.querySelector('.marquee-track');
+      if (!wrap || !track) return;
+
+      // One set width is half the scrollWidth because we duplicated content inside same track
+      const total = track.scrollWidth;
+      const oneSetWidth = total / 2 || track.getBoundingClientRect().width / 2;
+
+      const style = getComputedStyle(wrap);
+      const pxPerSecond = Math.max(40, parseFloat(style.getPropertyValue('--px-per-second')) || 120);
+
+      // duration so that oneSetWidth travels at pxPerSecond speed (seconds)
+      const duration = Math.max(6, (oneSetWidth / pxPerSecond));
+      track.style.animationDuration = duration + 's';
+    }
+
+    // init
+    function initSingleMarquee() {
+      populateSingleTrack();
+
+      // wait a bit for images to load and layout to settle before measuring
+      setTimeout(() => {
+        adjustDurationSingleTrack();
+      }, 80);
+
+      // recalc on resize (debounced)
+      let t;
+      window.addEventListener('resize', () => {
+        clearTimeout(t);
+        t = setTimeout(adjustDurationSingleTrack, 150);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initSingleMarquee);
+
+    // Add intersection observer for animations
+    document.addEventListener('DOMContentLoaded', function () {
+      const animatedElements = document.querySelectorAll('.animate-fade-in-left, .animate-fade-in-right');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateX(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      animatedElements.forEach(el => {
+        el.style.opacity = 0;
+        if (el.classList.contains('animate-fade-in-left')) {
+          el.style.transform = 'translateX(-40px)';
+        } else {
+          el.style.transform = 'translateX(40px)';
+        }
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(el);
+      });
+    });
+
+    // Create animated particles
+    document.addEventListener('DOMContentLoaded', function () {
+      const imageContainer = document.querySelector('.relative.order-1');
+
+      // Create multiple particles
+      for (let i = 0; i < 8; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+
+        // Random size between 3 and 8
+        const size = Math.floor(Math.random() * 6) + 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+
+        // Random position
+        const posX = Math.floor(Math.random() * 40) - 20;
+        const posY = Math.floor(Math.random() * 40) - 20;
+        particle.style.left = `${posX}px`;
+        particle.style.top = `${posY}px`;
+
+        // Random animation delay
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+
+        imageContainer.appendChild(particle);
+      }
+
+      // Add intersection observer for animations
+      const animatedElements = document.querySelectorAll('.animate-fade-in-up');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      animatedElements.forEach(el => {
+        el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+        observer.observe(el);
+      });
+    });
+
     // File upload handling
     document.getElementById('resume').addEventListener('change', function (e) {
       const fileName = this.files[0]?.name || '';
