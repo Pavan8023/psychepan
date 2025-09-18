@@ -929,110 +929,30 @@
       }
     }
 
-    /* Container */
-    .updates-carousel {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      margin: 0 auto;
-      overflow: hidden;
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-      gap: 1.5rem;
-    }
 
-    /* Each update item */
-    .update-item {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-      padding: 1.5rem;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
-
-    /* Visible state */
-    .update-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Parts (initially hidden) */
-    .update-title,
-    .update-subtitle,
-    .update-content,
-    .update-image {
-      opacity: 0;
-      transform: translateY(15px);
-    }
-
-    /* Fade-in animation */
-    @keyframes fadeInPart {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in {
-      animation: fadeInPart 0.7s forwards;
-    }
-
-    .update-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      color: #1e3a8a;
-    }
-
-    .update-subtitle {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      color: #374151;
-    }
-
-    .update-content {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 1rem;
-    }
-
-    .update-image {
-      width: 100%;
-      height: 400px;
-      object-fit: contain;
-      /* fits fully in box */
-      border-radius: 8px;
-      margin-top: 1rem;
-      background: #000;
-      /* optional: adds background so empty areas are visible */
-    }
-
+    /* recent updates Container */
     .updates-section {
-      padding: 2rem;
+      background-color: #0052cc;
+      height: 100%;
+      width: 100%;
     }
 
     .updates-heading {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     .updates-heading h2 {
-      font-size: 3rem;
-      font-weight: bold;
+      font-size: 2.2rem;
+      font-weight: 700;
       color: #fff;
-      /* change if needed */
-      animation: scalePulse 2s ease-in-out infinite;
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      animation: scalePulse 1.5s ease-in-out infinite;
     }
 
+    /* small pulse for heading (optional) */
     @keyframes scalePulse {
 
       0%,
@@ -1045,86 +965,244 @@
       }
     }
 
-    /* Tablets (max-width: 1024px) */
-    @media (max-width: 1024px) {
-      .updates-carousel {
-        grid-template-columns: 1fr 1fr;
-        /* 2 columns */
-        padding: 1rem;
-        gap: 1rem;
+    /* Carousel area */
+    .updates-carousel {
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 550px;
+      overflow: hidden;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(30, 58, 138, 0.08));
+      display: block;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    /* Nav arrows */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(41, 152, 237, 0.95);
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      font-size: 35px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    .carousel-nav:hover {
+      transform: translateY(-50%) scale(1.06);
+    }
+
+    .carousel-nav-left {
+      left: -10px;
+    }
+
+    .carousel-nav-right {
+      right: -10px;
+    }
+
+    /* Make the whole slide scrollable while keeping its fixed size */
+    .update-item {
+      /* keep positioning & transitions as before */
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 2rem;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      /* allow vertical scrolling of content */
+      justify-content: center;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(18, 38, 74, 0.06);
+      opacity: 0;
+      transform: translateX(100%);
+      transition: transform 600ms cubic-bezier(.2, .9, .2, 1), opacity 300ms ease;
+      z-index: 10;
+
+      /* NEW: make slide itself scrollable (vertical) */
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      /* smooth scrolling on iOS */
+      scrollbar-width: thin;
+      /* Firefox */
+    }
+
+    /* ensure children can shrink inside flex so vertical scroll works properly */
+    .update-left,
+    .update-right {
+      min-width: 0;
+      /* important to prevent overflow due to long content */
+    }
+
+    /* optional: nicer scrollbar (webkit browsers) */
+    .update-item::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .update-item::-webkit-scrollbar-thumb {
+      background: rgba(30, 58, 138, 0.18);
+      border-radius: 999px;
+    }
+
+    .update-item::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.03);
+    }
+
+    /* Visible slide */
+    .update-item.current {
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 20;
+    }
+
+    /* Exit left / Enter right classes */
+    .update-item.enter-from-right {
+      transform: translateX(100%);
+    }
+
+    .update-item.enter-from-left {
+      transform: translateX(-100%);
+    }
+
+    .update-item.enter-to-center {
+      transform: translateX(0);
+    }
+
+    .update-item.exit-to-left {
+      transform: translateX(-100%);
+      opacity: 0;
+      z-index: 5;
+    }
+
+    .update-item.exit-to-right {
+      transform: translateX(100%);
+      opacity: 0;
+      z-index: 5;
+    }
+
+    /* slide inner layout: image + text */
+    .update-left {
+      flex: 1 1 50%;
+    }
+
+    .update-right {
+      flex: 1 1 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Content parts (hidden initially) */
+    .update-title,
+    .update-subtitle,
+    .update-content,
+    .update-image {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    /* fade-in part animation */
+    @keyframes fadeInPart {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
       }
 
-      .update-item {
-        padding: 1rem;
-      }
-
-      .update-title {
-        font-size: 1.3rem;
-      }
-
-      .update-subtitle {
-        font-size: 1.1rem;
-      }
-
-      .update-content {
-        font-size: 0.95rem;
-      }
-
-      .update-image {
-        height: 300px;
-        /* reduce height */
-      }
-
-      .updates-heading h2 {
-        font-size: 1.8rem;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    /* Mobile devices (max-width: 640px) */
-    @media (max-width: 640px) {
-      .updates-carousel {
-        grid-template-columns: 1fr;
-        /* Single column */
-        padding: 0.8rem;
-      }
-
-      .update-item {
-        padding: 0.8rem;
-      }
-
-      .update-title {
-        font-size: 1.1rem;
-      }
-
-      .update-subtitle {
-        font-size: 1rem;
-      }
-
-      .update-content {
-        font-size: 0.9rem;
-      }
-
-      .update-image {
-        height: 220px;
-        /* smaller for mobile */
-      }
-
-      .updates-heading h2 {
-        font-size: 1.5rem;
-      }
+    .fade-in {
+      animation: fadeInPart 500ms forwards;
     }
 
+    /* Styling for parts */
+    .update-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .update-subtitle {
+      font-size: 1.15rem;
+      color: #374151;
+      margin-bottom: 0.75rem;
+    }
+
+    .update-content {
+      font-size: 1rem;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    .update-image {
+      width: 100%;
+      height: 360px;
+      object-fit: contain;
+      /* fits fully in box */
+      border-radius: 10px;
+      background: #f3f4f6;
+    }
+
+    /* Read more button */
     .read-more-btn {
       color: #1e3a8a;
       font-weight: 600;
       cursor: pointer;
       display: inline-block;
       margin-top: 0.5rem;
-      transition: color 0.3s ease;
     }
 
     .read-more-btn:hover {
       color: #2563eb;
+    }
+
+    /* Responsive: stack on small */
+    @media (max-width: 768px) {
+      .updates-carousel {
+        height: 640px;
+        padding: 1rem;
+      }
+
+      .update-item {
+        padding: 1rem;
+        flex-direction: column-reverse;
+        gap: 1rem;
+      }
+
+      .update-left,
+      .update-right {
+        width: 100%;
+        flex-basis: auto;
+      }
+
+      .update-image {
+        height: 280px;
+      }
+
+      .updates-heading h2 {
+        font-size: 1.5rem;
+      }
     }
 
     /* ---------- Marquee base styles (single track) ---------- */
@@ -1257,17 +1335,17 @@
     }
 
     /* Fade animations for whole text block */
-  #slide-container.fade-out {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
+    #slide-container.fade-out {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
 
-  #slide-container.fade-in {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
+    #slide-container.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
   </style>
 </head>
 
@@ -1414,14 +1492,29 @@
     </div>
   </section>
 
-  <section class="updates-section bg-primary">
-    <!-- Heading -->
+  <!-- UPDATES SECTION (drop-in) -->
+  <section class="updates-section py-12">
     <div class="updates-heading">
       <h2 id="updates-title">Latest Updates</h2>
     </div>
 
-    <!-- Carousel/Grid -->
-    <div id="updates-carousel" class="updates-carousel"></div>
+    <div id="updates-carousel" class="updates-carousel" aria-live="polite">
+      <!-- arrows -->
+      <button id="prevBtn" class="carousel-nav carousel-nav-left" aria-label="Previous update">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="arrow-icon">
+          <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <button id="nextBtn" class="carousel-nav carousel-nav-right" aria-label="Next update">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="arrow-icon">
+          <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      <!-- slides will be injected here by JS -->
+    </div>
   </section>
 
 
@@ -1972,81 +2065,81 @@
   <script>
 
     const slides = document.querySelectorAll(".slide");
-  const slideContainer = document.getElementById("slide-container");
-  const serviceLabel = document.getElementById("service-label");
+    const slideContainer = document.getElementById("slide-container");
+    const serviceLabel = document.getElementById("service-label");
 
-  // Services linked with slides
-  const services = [
-    "Management Training",
-    "Employee Engagement Programs",
-    "HR Consulting Premium",
-    "Employee Assistance Programs",
-    "Outbound Trainings/Offsite",
-    "Soft Skills Training"
-  ];
+    // Services linked with slides
+    const services = [
+      "Management Training",
+      "Employee Engagement Programs",
+      "HR Consulting Premium",
+      "Employee Assistance Programs",
+      "Outbound Trainings/Offsite",
+      "Soft Skills Training"
+    ];
 
-  let currentIndex = 0;
-  let slideInterval;
+    let currentIndex = 0;
+    let slideInterval;
 
-  function updateContent(index) {
-    // Fade out the entire block
-    slideContainer.classList.add("fade-out");
-
-    setTimeout(() => {
-      // Update service text
-      serviceLabel.textContent = services[index];
-
-      // Fade in the entire block
-      slideContainer.classList.remove("fade-out");
-      slideContainer.classList.add("fade-in");
+    function updateContent(index) {
+      // Fade out the entire block
+      slideContainer.classList.add("fade-out");
 
       setTimeout(() => {
-        slideContainer.classList.remove("fade-in"); // cleanup
-      }, 800);
-    }, 800); // wait for fade-out
-  }
+        // Update service text
+        serviceLabel.textContent = services[index];
 
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === index);
+        // Fade in the entire block
+        slideContainer.classList.remove("fade-out");
+        slideContainer.classList.add("fade-in");
+
+        setTimeout(() => {
+          slideContainer.classList.remove("fade-in"); // cleanup
+        }, 800);
+      }, 800); // wait for fade-out
+    }
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+      updateContent(index);
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function startSlideshow() {
+      slideInterval = setInterval(nextSlide, 3000);
+    }
+
+    function stopSlideshow() {
+      clearInterval(slideInterval);
+    }
+
+    // Arrow navigation
+    document.getElementById("arrow-up").addEventListener("click", () => {
+      stopSlideshow();
+      prevSlide();
+      startSlideshow();
     });
-    updateContent(index);
-  }
 
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
+    document.getElementById("arrow-down").addEventListener("click", () => {
+      stopSlideshow();
+      nextSlide();
+      startSlideshow();
+    });
+
+    // Init
     showSlide(currentIndex);
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
-  }
-
-  function startSlideshow() {
-    slideInterval = setInterval(nextSlide, 3000);
-  }
-
-  function stopSlideshow() {
-    clearInterval(slideInterval);
-  }
-
-  // Arrow navigation
-  document.getElementById("arrow-up").addEventListener("click", () => {
-    stopSlideshow();
-    prevSlide();
     startSlideshow();
-  });
-
-  document.getElementById("arrow-down").addEventListener("click", () => {
-    stopSlideshow();
-    nextSlide();
-    startSlideshow();
-  });
-
-  // Init
-  showSlide(currentIndex);
-  startSlideshow();
 
     /* Use your clients array exactly as provided */
     const clients = [
@@ -2549,142 +2642,232 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    const container = document.getElementById('updates-carousel');
-    let updates = [];
-    let carouselTimer = null; // store timeout reference
-    let idx = 0;              // keep global so we don’t reset each time
-    let isPaused = false;     // pause state
+    (function () {
+      const container = document.getElementById('updates-carousel');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const AUTO_INTERVAL = 3000; // 3 seconds
+      let updates = [];
+      let idx = 0;
+      let autoTimer = null;
+      let isPaused = false;
+      let currentSlideEl = null;
+      let animating = false;
 
-    // Fetch updates from Firestore
-    firebase.firestore()
-      .collection('current_updates')
-      .orderBy('createdAt', 'asc')
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          updates.push(doc.data());
-        });
-        if (updates.length) startCarousel();
-      })
-      .catch(console.error);
-
-    // Helper: truncate text if too long
-    function truncateContent(content, limit = 30) {
-      const words = content.split(" ");
-      if (words.length <= limit) {
-        return { text: content, isTruncated: false, fullText: content };
+      // Simple truncate helper for Read More (30 words)
+      function truncateContent(content, limit = 30) {
+        if (!content) return { text: '', isTruncated: false, fullText: '' };
+        const words = content.trim().split(/\s+/);
+        if (words.length <= limit) return { text: content, isTruncated: false, fullText: content };
+        return { text: words.slice(0, limit).join(' ') + '...', isTruncated: true, fullText: content };
       }
-      return {
-        text: words.slice(0, limit).join(" ") + "...",
-        isTruncated: true,
-        fullText: content
-      };
-    }
 
-    // Carousel logic (2 items per set, last odd = single full-size)
-    function startCarousel() {
-      function showNextSet() {
-        container.innerHTML = '';
+      // Build slide DOM for a given data object
+      function buildSlide(data) {
+        const slide = document.createElement('div');
+        slide.className = 'update-item enter-from-right';
 
-        if (!updates.length) return;
+        // Left: image, Right: text
+        const left = document.createElement('div');
+        left.className = 'update-left';
+        const img = document.createElement('img');
+        img.className = 'update-image';
+        img.alt = data.title || 'update image';
+        img.src = data.image || '';
 
-        let set = [];
-        let isSingle = false;
+        left.appendChild(img);
 
-        if (updates.length === 1) {
-          set = [updates[0]];
-          isSingle = true;
-        } else if (updates.length % 2 === 1 && idx === updates.length - 1) {
-          set = [updates[idx]];
-          isSingle = true;
-        } else {
-          set = updates.slice(idx, idx + 2);
-          if (set.length < 2 && updates.length >= 2) {
-            set.push(...updates.slice(0, 2 - set.length));
-          }
-        }
+        const right = document.createElement('div');
+        right.className = 'update-right';
 
-        set.forEach((data, i) => {
-          const item = document.createElement('div');
-          item.className = 'update-item';
-          if (isSingle) item.classList.add('full-size');
+        const titleEl = document.createElement('div');
+        titleEl.className = 'update-title';
+        titleEl.textContent = data.title || '';
 
-          const titleEl = document.createElement('div');
-          titleEl.className = 'update-title';
-          titleEl.textContent = data.title || '';
+        const subtitleEl = document.createElement('div');
+        subtitleEl.className = 'update-subtitle';
+        subtitleEl.textContent = data.subtitle || '';
 
-          const subtitleEl = document.createElement('div');
-          subtitleEl.className = 'update-subtitle';
-          subtitleEl.textContent = data.subtitle || '';
+        const contentEl = document.createElement('div');
+        contentEl.className = 'update-content';
 
-          const contentEl = document.createElement('div');
-          contentEl.className = 'update-content';
+        const truncated = truncateContent(data.content || '', 20);
+        contentEl.textContent = truncated.text;
 
-          const truncated = truncateContent(data.content || '', 30);
-          contentEl.textContent = truncated.text;
-
-          if (truncated.isTruncated) {
-            const btn = document.createElement("span");
-            btn.className = "read-more-btn";
-            btn.textContent = "Read More";
-
-            btn.addEventListener("click", () => {
-              if (btn.textContent.trim() === "Read More") {
-                contentEl.textContent = truncated.fullText;
-                btn.textContent = "Read Less";
-              } else {
-                contentEl.textContent = truncated.text;
-                btn.textContent = "Read More";
-              }
-              contentEl.appendChild(btn);
-            });
-
+        if (truncated.isTruncated) {
+          const btn = document.createElement('span');
+          btn.className = 'read-more-btn';
+          btn.textContent = ' Read More';
+          btn.addEventListener('click', () => {
+            if (btn.textContent.trim() === 'Read More') {
+              contentEl.textContent = truncated.fullText;
+              btn.textContent = ' Read Less';
+            } else {
+              contentEl.textContent = truncated.text;
+              btn.textContent = ' Read More';
+            }
             contentEl.appendChild(btn);
-          }
-
-          const imgEl = document.createElement('img');
-          imgEl.className = 'update-image';
-          imgEl.src = data.image || '';
-
-          item.append(titleEl, subtitleEl, contentEl, imgEl);
-          container.appendChild(item);
-
-          // Show wrapper with delay
-          setTimeout(() => item.classList.add('visible'), i * 400);
-
-          // Animate parts
-          const delays = [300, 600, 900, 1200];
-          [titleEl, subtitleEl, contentEl, imgEl].forEach((el, j) => {
-            setTimeout(() => el.classList.add('fade-in'), i * 1600 + delays[j]);
           });
-
-          // Hover pause/resume
-          item.addEventListener("mouseenter", () => {
-            isPaused = true;
-            clearTimeout(carouselTimer);
-          });
-          item.addEventListener("mouseleave", () => {
-            if (isPaused) {
-              isPaused = false;
-              scheduleNext();
-            }
-          });
-        });
-
-        // Schedule next set
-        function scheduleNext() {
-          carouselTimer = setTimeout(() => {
-            if (!isPaused) {
-              idx = (idx + (isSingle ? 1 : 2)) % updates.length;
-              showNextSet();
-            }
-          }, 5000);
+          contentEl.appendChild(btn);
         }
-        scheduleNext();
+
+        right.append(titleEl, subtitleEl, contentEl);
+
+        slide.append(left, right);
+        return { slide, parts: [titleEl, subtitleEl, contentEl, img] };
       }
 
-      showNextSet();
-    }
+      // Show slide at newIndex. direction = 'next' or 'prev'
+      function showSlide(newIndex, direction = 'next') {
+        if (animating) return;
+        animating = true;
+
+        const prevEl = currentSlideEl;
+        const { slide, parts } = buildSlide(updates[newIndex]);
+
+        // set initial classes based on direction
+        if (direction === 'next') {
+          slide.classList.remove('enter-from-left');
+          slide.classList.add('enter-from-right');
+        } else {
+          slide.classList.remove('enter-from-right');
+          slide.classList.add('enter-from-left');
+        }
+        // append new slide (on top)
+        container.appendChild(slide);
+
+        // force reflow then bring to center
+        requestAnimationFrame(() => {
+          slide.classList.add('current');
+          slide.classList.remove('enter-from-right', 'enter-from-left');
+          // previous exit animation
+          if (prevEl) {
+            if (direction === 'next') {
+              prevEl.classList.add('exit-to-left');
+            } else {
+              prevEl.classList.add('exit-to-right');
+            }
+            // remove prev after transition
+            prevEl.addEventListener('transitionend', function onEnd() {
+              prevEl.removeEventListener('transitionend', onEnd);
+              if (prevEl.parentElement) prevEl.parentElement.removeChild(prevEl);
+            });
+          }
+        });
+
+        // sequentially animate parts (faster pace)
+        const partDelays = [180, 420, 700, 1000]; // ms offsets for title, subtitle, content, image
+        parts.forEach((p, i) => {
+          // ensure hidden initially
+          p.style.opacity = 0;
+          p.style.transform = 'translateY(12px)';
+          setTimeout(() => p.classList.add('fade-in'), partDelays[i]);
+        });
+
+        // after slide animation complete, mark currentSlideEl and clear animating flag
+        // allow same total time: transition duration ~600ms + parts (we'll wait 1.2s)
+        setTimeout(() => {
+          // cleanup classes
+          slide.classList.remove('exit-to-left', 'exit-to-right');
+          currentSlideEl = slide;
+          animating = false;
+        }, 1400);
+      }
+
+      function nextSlide(manual = false) {
+        if (!updates.length) return;
+        const newIndex = (idx + 1) % updates.length;
+        showSlide(newIndex, 'next');
+        idx = newIndex;
+        if (manual) resetAuto();
+      }
+
+      function prevSlide(manual = false) {
+        if (!updates.length) return;
+        const newIndex = (idx - 1 + updates.length) % updates.length;
+        showSlide(newIndex, 'prev');
+        idx = newIndex;
+        if (manual) resetAuto();
+      }
+
+      function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(() => {
+          if (!isPaused && !animating) nextSlide(false);
+        }, AUTO_INTERVAL);
+      }
+      function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+      function resetAuto() { stopAuto(); startAuto(); }
+
+      // Pause on hover
+      container.addEventListener('mouseenter', () => { isPaused = true; });
+      container.addEventListener('mouseleave', () => { isPaused = false; });
+
+      // arrow handlers
+      prevBtn.addEventListener('click', () => prevSlide(true));
+      nextBtn.addEventListener('click', () => nextSlide(true));
+
+      // Fetch updates from Firestore (ensure firebase & firestore available)
+      function fetchAndStart() {
+        if (!(window.firebase && firebase.firestore)) {
+          console.error('Firestore not found. Initialize Firebase before using updates carousel.');
+          return;
+        }
+        firebase.firestore()
+          .collection('current_updates')
+          .orderBy('createdAt', 'asc')
+          .get()
+          .then(snapshot => {
+            updates = [];
+            snapshot.forEach(doc => {
+              // ensure we have expected fields; fallback empty strings if missing
+              const d = doc.data() || {};
+              updates.push({
+                title: d.title || '',
+                subtitle: d.subtitle || '',
+                content: d.content || '',
+                image: d.image || ''
+              });
+            });
+            if (!updates.length) {
+              // show placeholder
+              updates = [{
+                title: 'No updates yet',
+                subtitle: '',
+                content: 'We will publish the latest news and CEO thoughts here soon.',
+                image: ''
+              }];
+            }
+            // initial show
+            idx = 0;
+            showSlide(idx, 'next');
+            startAuto();
+          })
+          .catch(err => {
+            console.error('Error fetching updates:', err);
+          });
+      }
+
+      // wait a short while for firebase to be ready if needed
+      if (window.firebase && firebase.firestore) {
+        fetchAndStart();
+      } else {
+        // poll for up to 6s
+        let waited = 0;
+        const poll = setInterval(() => {
+          if (window.firebase && firebase.firestore) {
+            clearInterval(poll);
+            fetchAndStart();
+          } else {
+            waited += 200;
+            if (waited > 6000) {
+              clearInterval(poll);
+              console.error('Firebase not initialized. Carousel aborted.');
+            }
+          }
+        }, 200);
+      }
+    })();
 
     // Counter animation function
     function animateCount(id, target, suffix = '') {

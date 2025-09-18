@@ -1592,18 +1592,21 @@
 
     // ---------- Testimonials script with HEIC + Cloudinary + default-avatar fallbacks ----------
     const db = getFirestore(app);
-    const testimonialsRef = collection(db, 'testimonials');
-    const testimonialsQuery = query(testimonialsRef, orderBy('createdAt', 'desc'));
+    (function () {
+      const testimonialsRef = collection(db, 'testimonials');
+      const testimonialsQuery = query(testimonialsRef, orderBy('createdAt', 'desc'));
 
-    // DOM refs (keep original container and button IDs)
-    const relativeEl = document.getElementById('testimonials-relative');
-    const loaderEl = document.getElementById('tp-testimonials-loader');
-    const prevBtn = document.getElementById('prev-testimonial');
-    const nextBtn = document.getElementById('next-testimonial');
+      // DOM refs (keep original container and button IDs)
+      const relativeEl = document.getElementById('testimonials-relative');
+      const loaderEl = document.getElementById('tp-testimonials-loader');
+      const prevBtn = document.getElementById('prev-testimonial');
+      const nextBtn = document.getElementById('next-testimonial');
 
-    if (!relativeEl) {
-      console.error('Testimonials container not found (#testimonials-relative). Aborting testimonials script.');
-    } else {
+      if (!relativeEl) {
+        console.error('Testimonials container not found (#testimonials-relative). Aborting testimonials script.');
+        return;
+      }
+
       // store slide data & track current index
       let slideData = []; // array of {id, name, role, company, photoURL, rating, text, createdAt}
       let currentIndex = 0;
@@ -1630,8 +1633,15 @@
         return html;
       }
 
-      // Try to resolve an image URL with fallbacks (original -> heic->jpg -> cloudinary f_auto -> default)
-      // Returns a Promise that resolves with the working URL (or DEFAULT_AVATAR)
+      /**
+       * resolveImageUrl(originalUrl)
+       * Tries the provided URL first. If it loads, returns it.
+       * If it fails and the url looks like .heic, tries .jpg.
+       * If it fails and looks like Cloudinary, tries /upload/f_auto,q_auto/ variant.
+       * Otherwise resolves to DEFAULT_AVATAR.
+       *
+       * Returns Promise<string> with the resolved URL (or DEFAULT_AVATAR).
+       */
       function resolveImageUrl(originalUrl) {
         return new Promise((resolve) => {
           if (!originalUrl) {
@@ -1639,81 +1649,102 @@
             return;
           }
 
-          // normalize
           const url = String(originalUrl).trim();
-          let triedHeicRename = false;
-          let triedCloudinaryAuto = false;
-          let resolved = false;
+
+          // If it's a data: URL (base64 etc) — use directly without testing (browsers handle it)
+          if (/^data:/i.test(url)) {
+            resolve(url);
+            return;
+          }
+
+          let triedHeic = false;
+          let triedCloudinary = false;
+          let finished = false;
 
           function finish(finalUrl) {
-            if (!resolved) {
-              resolved = true;
+            if (!finished) {
+              finished = true;
               resolve(finalUrl || DEFAULT_AVATAR);
             }
           }
 
-          // attempt a single URL
-          function attempt(u, onFail) {
+          function attempt(u, failCb) {
             if (!u) {
-              onFail();
+              failCb();
               return;
             }
             const img = new Image();
             img.crossOrigin = 'anonymous';
+            let timeout = setTimeout(() => {
+              // if image hasn't loaded in 5s, treat as failure (prevents hanging)
+              img.onload = img.onerror = null;
+              failCb();
+            }, 5000);
             img.onload = function () {
+              clearTimeout(timeout);
               finish(u);
             };
             img.onerror = function () {
-              onFail();
+              clearTimeout(timeout);
+              failCb();
             };
             img.src = u;
           }
 
-          // Start with original
+          // First try original
           attempt(url, function () {
-            // If original fails, try .heic -> .jpg if applicable
-            if (!triedHeicRename && /\.heic(?:$|\?)/i.test(url)) {
-              triedHeicRename = true;
-              const jpgUrl = url.replace(/\.heic/i, '.jpg');
-              attempt(jpgUrl, function () {
-                // try cloudinary transform if cloudinary url
-                if (!triedCloudinaryAuto && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
-                  triedCloudinaryAuto = true;
-                  const autoUrl = url.replace('/upload/', '/upload/f_auto,q_auto/');
-                  attempt(autoUrl, function () {
+            // If original fails, try logical fallbacks in order
+
+            // 1) If .heic extension, try .jpg
+            if (!triedHeic && /\.heic(?:$|\?)/i.test(url)) {
+              triedHeic = true;
+              const jpg = url.replace(/\.heic/i, '.jpg');
+              attempt(jpg, function () {
+                // next try cloudinary auto if applicable
+                if (!triedCloudinary && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
+                  triedCloudinary = true;
+                  const auto = url.replace('/upload/', '/upload/f_auto,q_auto/');
+                  attempt(auto, function () {
                     finish(DEFAULT_AVATAR);
                   });
                 } else {
                   finish(DEFAULT_AVATAR);
                 }
               });
-            } else if (!triedCloudinaryAuto && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
-              // try cloudinary auto-format
-              triedCloudinaryAuto = true;
-              const autoUrl = url.replace('/upload/', '/upload/f_auto,q_auto/');
-              attempt(autoUrl, function () {
-                // if this fails, maybe original was .heic - try .jpg conversion
-                if (!triedHeicRename && /\.heic(?:$|\?)/i.test(url)) {
-                  triedHeicRename = true;
-                  const jpgUrl = url.replace(/\.heic/i, '.jpg');
-                  attempt(jpgUrl, function () {
+              return;
+            }
+
+            // 2) If Cloudinary URL, try f_auto,q_auto variant
+            if (!triedCloudinary && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
+              triedCloudinary = true;
+              const auto = url.replace('/upload/', '/upload/f_auto,q_auto/');
+              attempt(auto, function () {
+                // after cloudinary variant fails, if it was .heic try jpg, else finish
+                if (!triedHeic && /\.heic(?:$|\?)/i.test(url)) {
+                  triedHeic = true;
+                  const jpg = url.replace(/\.heic/i, '.jpg');
+                  attempt(jpg, function () {
                     finish(DEFAULT_AVATAR);
                   });
                 } else {
                   finish(DEFAULT_AVATAR);
                 }
               });
-            } else if (!triedHeicRename && /\.heic(?:$|\?)/i.test(url)) {
-              // try .heic->.jpg if not tried yet
-              triedHeicRename = true;
-              const jpgUrl = url.replace(/\.heic/i, '.jpg');
-              attempt(jpgUrl, function () {
+              return;
+            }
+
+            // 3) If URL contains .heic anywhere but we haven't tried jpg -> try jpg
+            if (!triedHeic && /\.heic(?:$|\?)/i.test(url)) {
+              triedHeic = true;
+              const jpg = url.replace(/\.heic/i, '.jpg');
+              attempt(jpg, function () {
                 finish(DEFAULT_AVATAR);
               });
-            } else {
-              // give up -> default
-              finish(DEFAULT_AVATAR);
+              return;
             }
+
+            // nothing left -> fallback
+            finish(DEFAULT_AVATAR);
           });
         });
       }
@@ -1735,7 +1766,7 @@
         <div class="flex items-center">
           <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-200 border-2 border-dashed flex-shrink-0">
             <!-- placeholder image; data-photo holds original URL for later resolution -->
-            <img data-photo="${dataPhotoAttr}" src="${DEFAULT_AVATAR}" alt="${escapedName}" class="w-full h-full object-cover testimonial-img">
+            <img data-photo="${dataPhotoAttr}" src="${DEFAULT_AVATAR}" alt="${escapedName}" class="w-full h-full object-cover testimonial-img" style="opacity:0; transition: opacity .25s ease-in;">
           </div>
           <div class="ml-4">
             <h4 class="text-xl font-bold text-gray-900">${escapedName || 'Anonymous'}</h4>
@@ -1758,17 +1789,40 @@
         const imgs = relativeEl.querySelectorAll('img.testimonial-img');
         imgs.forEach(imgEl => {
           const dataPhoto = imgEl.getAttribute('data-photo') || '';
-          // If dataPhoto is empty -> keep default avatar
+          // If dataPhoto is empty -> set default avatar and reveal
           if (!dataPhoto) {
             imgEl.src = DEFAULT_AVATAR;
+            imgEl.style.opacity = '1';
             return;
           }
-          // attempt to resolve
+          // attempt to resolve; set src when resolved
           resolveImageUrl(dataPhoto).then(finalUrl => {
-            // only set if finalUrl is truthy
-            if (finalUrl) imgEl.src = finalUrl;
+            if (finalUrl) {
+              // Temporarily set a tiny transparent pixel if finalUrl === current to avoid reload
+              // Set src and reveal on load or immediately if data URL
+              if (finalUrl === imgEl.src) {
+                imgEl.style.opacity = '1';
+              } else {
+                // If finalUrl is data: or cross-origin, the load will trigger onload
+                imgEl.onload = function () {
+                  imgEl.style.opacity = '1';
+                  imgEl.onload = null;
+                };
+                imgEl.onerror = function () {
+                  // fallback to default
+                  imgEl.src = DEFAULT_AVATAR;
+                  imgEl.style.opacity = '1';
+                  imgEl.onerror = null;
+                };
+                imgEl.src = finalUrl;
+              }
+            } else {
+              imgEl.src = DEFAULT_AVATAR;
+              imgEl.style.opacity = '1';
+            }
           }).catch(() => {
             imgEl.src = DEFAULT_AVATAR;
+            imgEl.style.opacity = '1';
           });
         });
       }
@@ -1868,7 +1922,8 @@
       });
 
       // initial: show loader (already present in HTML)
-    }
+    })();
+
 
   </script>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +65,7 @@
         }
       }
     }
-    
+
     // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
@@ -75,7 +76,7 @@
       appId: "1:441049264188:web:4dab8de0554b2c7c741339",
       measurementId: "G-C1CTMX729Z"
     };
-    
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
@@ -223,6 +224,7 @@
       from {
         opacity: 0;
       }
+
       to {
         opacity: 1;
       }
@@ -233,6 +235,7 @@
         transform: translateY(30px);
         opacity: 0;
       }
+
       to {
         transform: translateY(0);
         opacity: 1;
@@ -240,16 +243,33 @@
     }
 
     .locked-out {
-      animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+      animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
     }
 
     @keyframes shake {
-      10%, 90% { transform: translateX(-1px); }
-      20%, 80% { transform: translateX(2px); }
-      30%, 50%, 70% { transform: translateX(-4px); }
-      40%, 60% { transform: translateX(4px); }
+
+      10%,
+      90% {
+        transform: translateX(-1px);
+      }
+
+      20%,
+      80% {
+        transform: translateX(2px);
+      }
+
+      30%,
+      50%,
+      70% {
+        transform: translateX(-4px);
+      }
+
+      40%,
+      60% {
+        transform: translateX(4px);
+      }
     }
-    
+
     .notification {
       position: fixed;
       top: 20px;
@@ -259,21 +279,21 @@
       color: white;
       font-weight: 600;
       z-index: 10000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       transform: translateX(100%);
       opacity: 0;
       transition: all 0.3s ease;
     }
-    
+
     .notification.show {
       transform: translateX(0);
       opacity: 1;
     }
-    
+
     .notification.success {
       background: linear-gradient(135deg, #00b09b, #96c93d);
     }
-    
+
     .notification.error {
       background: linear-gradient(135deg, #ff416c, #ff4b2b);
     }
@@ -320,18 +340,18 @@
       justify-content: center;
       padding: 10px;
     }
-    
+
     /* Testimonial Stars */
     .testimonial-stars {
       display: flex;
       margin: 10px 0;
     }
-    
+
     .star {
       color: #f59e0b;
       margin-right: 2px;
     }
-    
+
     /* Testimonial Card */
     .testimonial-card {
       background: rgba(255, 255, 255, 0.05);
@@ -339,35 +359,35 @@
       overflow: hidden;
       transition: all 0.3s ease;
     }
-    
+
     .testimonial-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
-    
+
     .testimonial-image {
       width: 100%;
       height: 200px;
       object-fit: cover;
     }
-    
+
     .testimonial-content {
       padding: 15px;
     }
-    
+
     .testimonial-name {
       font-size: 1.2rem;
       font-weight: 600;
       margin-bottom: 5px;
       color: white;
     }
-    
+
     .testimonial-role {
       font-size: 0.9rem;
       color: #4da8ff;
       margin-bottom: 10px;
     }
-    
+
     .testimonial-text {
       font-size: 0.95rem;
       color: #ddd;
@@ -375,12 +395,13 @@
     }
   </style>
 </head>
+
 <body class="admin-container min-h-screen flex flex-col">
   <!-- Notification System -->
   <div id="notification" class="notification hidden">
     <span id="notification-message"></span>
   </div>
-  
+
   <!-- Admin Login Section -->
   <section id="login-section" class="flex-grow flex items-center justify-center p-4">
     <div class="admin-card max-w-md w-full p-8 rounded-2xl shadow-xl">
@@ -393,22 +414,24 @@
         <h2 class="text-3xl font-bold text-white mb-2">Admin Panel</h2>
         <p class="text-blue-300">Psyche Panacea Content Management</p>
       </div>
-      
+
       <form id="login-form" class="space-y-6">
         <div>
           <label for="username" class="block text-sm font-medium text-gray-300 mb-1">Username</label>
-          <input type="text" id="username" name="username" class="form-input w-full p-3 rounded-lg" placeholder="Enter username" required>
+          <input type="text" id="username" name="username" class="form-input w-full p-3 rounded-lg"
+            placeholder="Enter username" required>
         </div>
-        
+
         <div>
           <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
-          <input type="password" id="password" name="password" class="form-input w-full p-3 rounded-lg" placeholder="Enter password" required>
+          <input type="password" id="password" name="password" class="form-input w-full p-3 rounded-lg"
+            placeholder="Enter password" required>
         </div>
-        
+
         <div class="text-red-400 text-sm h-5" id="login-error"></div>
-        
+
         <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-white">Login</button>
-        
+
         <div class="text-center text-sm text-gray-400 mt-4">
           <p id="attempts-info">Login attempts remaining: 3</p>
           <p id="lockout-info" class="text-red-400 hidden">Account locked for 1 hour</p>
@@ -416,15 +439,16 @@
       </form>
     </div>
   </section>
-  
+
   <!-- Admin Panel (Initially Hidden) -->
   <section id="admin-panel" class="hidden flex-grow p-4 max-w-6xl mx-auto w-full">
     <div class="text-center mb-10">
       <h1 class="text-4xl font-bold text-white mb-4">Psyche Panacea Admin</h1>
       <div class="h-1 w-24 bg-gradient-to-r from-primary to-blue-600 mx-auto rounded mb-4"></div>
-      <p class="text-blue-300 max-w-2xl mx-auto">Manage your website content, blogs, and statistics with this secure admin panel</p>
+      <p class="text-blue-300 max-w-2xl mx-auto">Manage your website content, blogs, and statistics with this secure
+        admin panel</p>
     </div>
-    
+
     <!-- Tab Navigation -->
     <div class="tab-nav">
       <button class="tab-btn active" data-tab="blogs">Blogs Management</button>
@@ -433,7 +457,7 @@
       <button class="tab-btn" data-tab="testimonials">Testimonials</button>
       <button class="tab-btn" data-tab="statistics">Website Statistics</button>
     </div>
-    
+
     <!-- Blogs Tab Content -->
     <div id="blogs" class="tab-content active">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -442,41 +466,46 @@
           <h3 class="text-xl font-bold text-white mb-4">Add New Blog</h3>
           <form id="blog-form" class="space-y-4">
             <input type="hidden" id="blog-id">
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Title</label>
-              <input type="text" id="blog-title" class="form-input w-full p-3 rounded-lg" placeholder="Blog title" required>
+              <input type="text" id="blog-title" class="form-input w-full p-3 rounded-lg" placeholder="Blog title"
+                required>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Image</label>
               <div class="flex space-x-2">
-                <input type="text" id="blog-image" class="form-input w-full p-3 rounded-lg" placeholder="Image URL" required>
+                <input type="text" id="blog-image" class="form-input w-full p-3 rounded-lg" placeholder="Image URL"
+                  required>
                 <button type="button" id="upload-image" class="btn-secondary px-4 rounded-lg">
                   <i class="fas fa-cloud-upload-alt"></i>
                 </button>
               </div>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Content</label>
-              <textarea id="blog-content" rows="6" class="form-input w-full p-3 rounded-lg" placeholder="Blog content..." required></textarea>
+              <textarea id="blog-content" rows="6" class="form-input w-full p-3 rounded-lg"
+                placeholder="Blog content..." required></textarea>
             </div>
-            
+
             <div class="flex space-x-3 pt-2">
-              <button type="submit" id="save-blog" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save Blog</button>
-              <button type="button" id="cancel-edit" class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
+              <button type="submit" id="save-blog" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save
+                Blog</button>
+              <button type="button" id="cancel-edit"
+                class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
             </div>
           </form>
         </div>
-        
+
         <!-- Blog List -->
         <div class="admin-card p-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold text-white">Blog Posts</h3>
             <div class="text-sm text-gray-400" id="blog-count">0 blogs</div>
           </div>
-          
+
           <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2" id="blogs-list">
             <!-- Blogs will be loaded here -->
             <div class="text-center py-10 text-gray-500">
@@ -487,7 +516,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Current Updates Tab Content -->
     <div id="current-updates" class="tab-content">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -496,46 +525,52 @@
           <h3 class="text-xl font-bold text-white mb-4">Add Current Update</h3>
           <form id="update-form" class="space-y-4">
             <input type="hidden" id="update-id">
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Title</label>
-              <input type="text" id="update-title" class="form-input w-full p-3 rounded-lg" placeholder="Update title" required>
+              <input type="text" id="update-title" class="form-input w-full p-3 rounded-lg" placeholder="Update title"
+                required>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Subtitle</label>
-              <input type="text" id="update-subtitle" class="form-input w-full p-3 rounded-lg" placeholder="Update subtitle" required>
+              <input type="text" id="update-subtitle" class="form-input w-full p-3 rounded-lg"
+                placeholder="Update subtitle" required>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Content</label>
-              <textarea id="update-content" rows="6" class="form-input w-full p-3 rounded-lg" placeholder="Update content..." required></textarea>
+              <textarea id="update-content" rows="6" class="form-input w-full p-3 rounded-lg"
+                placeholder="Update content..." required></textarea>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Image</label>
               <div class="flex space-x-2">
-                <input type="text" id="update-image" class="form-input w-full p-3 rounded-lg" placeholder="Image URL" required>
+                <input type="text" id="update-image" class="form-input w-full p-3 rounded-lg" placeholder="Image URL"
+                  required>
                 <button type="button" id="upload-update-image" class="btn-secondary px-4 rounded-lg">
                   <i class="fas fa-cloud-upload-alt"></i>
                 </button>
               </div>
             </div>
-            
+
             <div class="flex space-x-3 pt-2">
-              <button type="submit" id="save-update" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save Update</button>
-              <button type="button" id="cancel-update-edit" class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
+              <button type="submit" id="save-update" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save
+                Update</button>
+              <button type="button" id="cancel-update-edit"
+                class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
             </div>
           </form>
         </div>
-        
+
         <!-- Current Updates List -->
         <div class="admin-card p-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold text-white">Current Updates</h3>
             <div class="text-sm text-gray-400" id="update-count">0 updates</div>
           </div>
-          
+
           <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2" id="updates-list">
             <!-- Updates will be loaded here -->
             <div class="text-center py-10 text-gray-500">
@@ -546,7 +581,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Image Gallery Tab Content -->
     <div id="image-gallery" class="tab-content">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -555,36 +590,40 @@
           <h3 class="text-xl font-bold text-white mb-4">Add New Image</h3>
           <form id="image-form" class="space-y-4">
             <input type="hidden" id="image-id">
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Title</label>
-              <input type="text" id="image-title" class="form-input w-full p-3 rounded-lg" placeholder="Image title" required>
+              <input type="text" id="image-title" class="form-input w-full p-3 rounded-lg" placeholder="Image title"
+                required>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Image</label>
               <div class="flex space-x-2">
-                <input type="text" id="image-url" class="form-input w-full p-3 rounded-lg" placeholder="Image URL" required>
+                <input type="text" id="image-url" class="form-input w-full p-3 rounded-lg" placeholder="Image URL"
+                  required>
                 <button type="button" id="upload-gallery-image" class="btn-secondary px-4 rounded-lg">
                   <i class="fas fa-cloud-upload-alt"></i>
                 </button>
               </div>
             </div>
-            
+
             <div class="flex space-x-3 pt-2">
-              <button type="submit" id="save-image" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save Image</button>
-              <button type="button" id="cancel-image-edit" class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
+              <button type="submit" id="save-image" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save
+                Image</button>
+              <button type="button" id="cancel-image-edit"
+                class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
             </div>
           </form>
         </div>
-        
+
         <!-- Image Gallery List -->
         <div class="admin-card p-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold text-white">Image Gallery</h3>
             <div class="text-sm text-gray-400" id="image-count">0 images</div>
           </div>
-          
+
           <div class="gallery-grid" id="gallery-list">
             <!-- Images will be loaded here -->
             <div class="text-center py-10 text-gray-500 col-span-full">
@@ -595,7 +634,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Testimonials Tab Content -->
     <div id="testimonials" class="tab-content">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -604,22 +643,25 @@
           <h3 class="text-xl font-bold text-white mb-4">Add New Testimonial</h3>
           <form id="testimonial-form" class="space-y-4">
             <input type="hidden" id="testimonial-id">
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Name</label>
-              <input type="text" id="testimonial-name" class="form-input w-full p-3 rounded-lg" placeholder="Person's name" required>
+              <input type="text" id="testimonial-name" class="form-input w-full p-3 rounded-lg"
+                placeholder="Person's name" required>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Role</label>
-              <input type="text" id="testimonial-role" class="form-input w-full p-3 rounded-lg" placeholder="Person's role/position" required>
+              <input type="text" id="testimonial-role" class="form-input w-full p-3 rounded-lg"
+                placeholder="Person's role/position" required>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Testimonial Text</label>
-              <textarea id="testimonial-text" rows="4" class="form-input w-full p-3 rounded-lg" placeholder="Testimonial content..." required></textarea>
+              <textarea id="testimonial-text" rows="4" class="form-input w-full p-3 rounded-lg"
+                placeholder="Testimonial content..." required></textarea>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Rating</label>
               <select id="testimonial-rating" class="form-input w-full p-3 rounded-lg" required>
@@ -630,31 +672,34 @@
                 <option value="5">5 Stars</option>
               </select>
             </div>
-            
+
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-1">Profile Image</label>
               <div class="flex space-x-2">
-                <input type="text" id="testimonial-photo" class="form-input w-full p-3 rounded-lg" placeholder="Image URL" required>
+                <input type="text" id="testimonial-photo" class="form-input w-full p-3 rounded-lg"
+                  placeholder="Image URL" required>
                 <button type="button" id="upload-testimonial-image" class="btn-secondary px-4 rounded-lg">
                   <i class="fas fa-cloud-upload-alt"></i>
                 </button>
               </div>
             </div>
-            
+
             <div class="flex space-x-3 pt-2">
-              <button type="submit" id="save-testimonial" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save Testimonial</button>
-              <button type="button" id="cancel-testimonial-edit" class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
+              <button type="submit" id="save-testimonial" class="btn-primary flex-1 py-3 rounded-lg font-bold">Save
+                Testimonial</button>
+              <button type="button" id="cancel-testimonial-edit"
+                class="btn-secondary flex-1 py-3 rounded-lg font-bold hidden">Cancel</button>
             </div>
           </form>
         </div>
-        
+
         <!-- Testimonials List -->
         <div class="admin-card p-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold text-white">Testimonials</h3>
             <div class="text-sm text-gray-400" id="testimonial-count">0 testimonials</div>
           </div>
-          
+
           <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2" id="testimonials-list">
             <!-- Testimonials will be loaded here -->
             <div class="text-center py-10 text-gray-500">
@@ -665,13 +710,13 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Statistics Tab Content -->
     <div id="statistics" class="tab-content">
       <div class="admin-card p-6">
         <h3 class="text-xl font-bold text-white mb-6">Website Statistics</h3>
         <p class="text-gray-400 mb-6">Update the statistics displayed on the website homepage.</p>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <!-- Companies -->
           <div class="stat-card p-6 text-center">
@@ -679,21 +724,21 @@
             <h4 class="text-lg font-semibold text-white mb-2">Companies</h4>
             <button class="btn-secondary w-full py-2 rounded-lg edit-stat" data-id="companies">Edit</button>
           </div>
-          
+
           <!-- Experience -->
           <div class="stat-card p-6 text-center">
             <div class="text-5xl font-bold text-primary mb-3" id="experience-value">24+</div>
             <h4 class="text-lg font-semibold text-white mb-2">Years Experience</h4>
             <button class="btn-secondary w-full py-2 rounded-lg edit-stat" data-id="experience">Edit</button>
           </div>
-          
+
           <!-- Associates -->
           <div class="stat-card p-6 text-center">
             <div class="text-5xl font-bold text-primary mb-3" id="associates-value">300+</div>
             <h4 class="text-lg font-semibold text-white mb-2">Training Associates</h4>
             <button class="btn-secondary w-full py-2 rounded-lg edit-stat" data-id="associates">Edit</button>
           </div>
-          
+
           <!-- Participants -->
           <div class="stat-card p-6 text-center">
             <div class="text-5xl font-bold text-primary mb-3" id="participants-value">3,00,000+</div>
@@ -703,7 +748,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Logout Button -->
     <div class="text-center mt-10">
       <button id="logout-btn" class="btn-danger px-6 py-3 rounded-lg font-bold">
@@ -711,7 +756,7 @@
       </button>
     </div>
   </section>
-  
+
   <!-- Edit Stat Modal -->
   <div id="edit-stat-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
     <div class="admin-card max-w-md w-full p-6 rounded-2xl">
@@ -726,18 +771,20 @@
       </div>
     </div>
   </div>
-  
+
   <script>
+    // ===== Admin & App Script (updated testimonials handling included) =====
+
     // Admin credentials (hashed with CryptoJS)
     const ADMIN_USERNAME = CryptoJS.SHA256("admin123").toString();
     const ADMIN_PASSWORD = CryptoJS.SHA256("admin@123").toString();
-    
+
     // Login state management
     let loginAttempts = 3;
     let isLocked = false;
     let lockTimeout = null;
     let currentStatEditing = null;
-    
+
     // DOM Elements
     const loginSection = document.getElementById('login-section');
     const adminPanel = document.getElementById('admin-panel');
@@ -748,25 +795,25 @@
     const lockoutInfo = document.getElementById('lockout-info');
     const notification = document.getElementById('notification');
     const notificationMessage = document.getElementById('notification-message');
-    
-    // Initialize Firebase Firestore
+
+    // Initialize Firebase Firestore (compat style in your code)
     const blogsCollection = db.collection("blogs");
     const updatesCollection = db.collection("current_updates");
     const imagesCollection = db.collection("images");
     const statsCollection = db.collection("numdata");
     const testimonialsCollection = db.collection("testimonials");
-    
+
     // Notification system
     function showNotification(message, isSuccess = true) {
       notificationMessage.textContent = message;
       notification.className = 'notification';
       notification.classList.add(isSuccess ? 'success' : 'error', 'show');
-      
+
       setTimeout(() => {
         notification.classList.remove('show');
       }, 3000);
     }
-    
+
     // Initialize Cloudinary with provided settings
     const cloudinaryWidget = cloudinary.createUploadWidget({
       cloudName: 'dhwanw6f7', // Your Cloudinary cloud name
@@ -788,23 +835,23 @@
         showNotification('Error uploading image: ' + error.message, false);
       }
     });
-    
+
     // Login functionality
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
+
       if (isLocked) {
         loginError.textContent = "Account locked. Try again later.";
         return;
       }
-      
+
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
-      
+
       // Hash inputs for comparison
       const hashedUsername = CryptoJS.SHA256(username).toString();
       const hashedPassword = CryptoJS.SHA256(password).toString();
-      
+
       if (hashedUsername === ADMIN_USERNAME && hashedPassword === ADMIN_PASSWORD) {
         // Successful login
         loginSection.classList.add('hidden');
@@ -815,16 +862,17 @@
         loadTestimonials();
         loadStats();
         showNotification('Login successful!');
+        sessionStorage.setItem('adminLoggedIn', 'true');
       } else {
         // Failed login
         loginAttempts--;
         attemptsInfo.textContent = `Login attempts remaining: ${loginAttempts}`;
-        
+
         if (loginAttempts <= 0) {
           isLocked = true;
           lockoutInfo.classList.remove('hidden');
           loginForm.classList.add('locked-out');
-          
+
           // Lock account for 1 hour
           lockTimeout = setTimeout(() => {
             isLocked = false;
@@ -834,12 +882,12 @@
             loginForm.classList.remove('locked-out');
           }, 3600000); // 1 hour
         }
-        
+
         loginError.textContent = "Invalid username or password";
         showNotification('Invalid username or password', false);
       }
     });
-    
+
     // Logout functionality
     logoutBtn.addEventListener('click', () => {
       adminPanel.classList.add('hidden');
@@ -847,26 +895,16 @@
       // Clear form
       loginForm.reset();
       loginError.textContent = "";
+      sessionStorage.removeItem('adminLoggedIn');
       showNotification('You have been logged out');
     });
-    
+
     // Cloudinary upload triggers
-    document.getElementById('upload-image').addEventListener('click', () => {
-      cloudinaryWidget.open();
-    });
-    
-    document.getElementById('upload-update-image').addEventListener('click', () => {
-      cloudinaryWidget.open();
-    });
-    
-    document.getElementById('upload-gallery-image').addEventListener('click', () => {
-      cloudinaryWidget.open();
-    });
-    
-    document.getElementById('upload-testimonial-image').addEventListener('click', () => {
-      cloudinaryWidget.open();
-    });
-    
+    document.getElementById('upload-image')?.addEventListener('click', () => cloudinaryWidget.open());
+    document.getElementById('upload-update-image')?.addEventListener('click', () => cloudinaryWidget.open());
+    document.getElementById('upload-gallery-image')?.addEventListener('click', () => cloudinaryWidget.open());
+    document.getElementById('upload-testimonial-image')?.addEventListener('click', () => cloudinaryWidget.open());
+
     // Tab functionality
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -874,209 +912,211 @@
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         // Add active class to clicked button
         btn.classList.add('active');
-        
+
         // Hide all tab content
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
         // Show target tab content
         document.getElementById(btn.dataset.tab).classList.add('active');
       });
     });
-    
-    // Load blogs from Firestore
-    function loadBlogs() {
-      blogsCollection.orderBy('createdAt', 'desc').get().then(querySnapshot => {
-        const blogsList = document.getElementById('blogs-list');
-        blogsList.innerHTML = '';
-        
-        if (querySnapshot.empty) {
-          blogsList.innerHTML = `
-            <div class="text-center py-10 text-gray-500">
-              <i class="fas fa-file-alt text-4xl mb-3"></i>
-              <p>No blog posts found</p>
-            </div>
-          `;
-          document.getElementById('blog-count').textContent = `0 blogs`;
-          return;
+
+    // ----------------- Helper utilities for images & testimonials -----------------
+
+    const DEFAULT_AVATAR = 'https://www.gravatar.com/avatar/?d=mp&s=160'; // fallback avatar
+
+    // Small HTML-escape function
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    /**
+     * resolveImageUrl(originalUrl)
+     * Tries the provided URL first. If it loads, resolves to it.
+     * If it fails and the url looks like .heic, tries .jpg.
+     * If it fails and looks like Cloudinary, tries /upload/f_auto,q_auto/ variant.
+     * If all attempts fail, resolves to DEFAULT_AVATAR.
+     *
+     * Returns Promise<string>.
+     */
+    function resolveImageUrl(originalUrl) {
+      return new Promise((resolve) => {
+        if (!originalUrl) return resolve(DEFAULT_AVATAR);
+
+        const url = String(originalUrl).trim();
+
+        // If data: URI - use directly
+        if (/^data:/i.test(url)) {
+          return resolve(url);
         }
-        
-        querySnapshot.forEach(doc => {
-          const blog = doc.data();
-          // Convert Firestore Timestamp to JavaScript Date
-          const createdAt = blog.createdAt ? blog.createdAt.toDate() : new Date();
-          blogsList.innerHTML += createBlogElement(doc.id, blog, createdAt);
+
+        let triedHeic = false;
+        let triedCloudinary = false;
+        let finished = false;
+        const TIMEOUT_MS = 5000;
+
+        function finish(finalUrl) {
+          if (!finished) {
+            finished = true;
+            resolve(finalUrl || DEFAULT_AVATAR);
+          }
+        }
+
+        function attempt(u, failCb) {
+          if (!u) return failCb();
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          const timer = setTimeout(() => {
+            img.onload = img.onerror = null;
+            failCb();
+          }, TIMEOUT_MS);
+          img.onload = function () {
+            clearTimeout(timer);
+            finish(u);
+          };
+          img.onerror = function () {
+            clearTimeout(timer);
+            failCb();
+          };
+          img.src = u;
+        }
+
+        // Start with original
+        attempt(url, function () {
+          // 1) If .heic extension -> try .jpg
+          if (!triedHeic && /\.heic(?:$|\?)/i.test(url)) {
+            triedHeic = true;
+            const jpg = url.replace(/\.heic/i, '.jpg');
+            attempt(jpg, function () {
+              // 2) try cloudinary auto if applicable
+              if (!triedCloudinary && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
+                triedCloudinary = true;
+                const auto = url.replace('/upload/', '/upload/f_auto,q_auto/');
+                attempt(auto, function () {
+                  finish(DEFAULT_AVATAR);
+                });
+              } else {
+                finish(DEFAULT_AVATAR);
+              }
+            });
+            return;
+          }
+
+          // 2) If Cloudinary URL -> try auto transform
+          if (!triedCloudinary && /cloudinary\.com|res\.cloudinary\.com/.test(url)) {
+            triedCloudinary = true;
+            const auto = url.replace('/upload/', '/upload/f_auto,q_auto/');
+            attempt(auto, function () {
+              // 3) if .heic present try jpg
+              if (!triedHeic && /\.heic(?:$|\?)/i.test(url)) {
+                triedHeic = true;
+                const jpg = url.replace(/\.heic/i, '.jpg');
+                attempt(jpg, function () {
+                  finish(DEFAULT_AVATAR);
+                });
+              } else {
+                finish(DEFAULT_AVATAR);
+              }
+            });
+            return;
+          }
+
+          // 3) Generic .heic anywhere -> try jpg
+          if (!triedHeic && /\.heic(?:$|\?)/i.test(url)) {
+            triedHeic = true;
+            const jpg = url.replace(/\.heic/i, '.jpg');
+            attempt(jpg, function () {
+              finish(DEFAULT_AVATAR);
+            });
+            return;
+          }
+
+          // else fallback
+          finish(DEFAULT_AVATAR);
         });
-        
-        document.getElementById('blog-count').textContent = `${querySnapshot.size} blog${querySnapshot.size !== 1 ? 's' : ''}`;
-      }).catch(error => {
-        console.error("Error loading blogs: ", error);
-        showNotification('Error loading blogs: ' + error.message, false);
       });
     }
-    
-    // Load updates from Firestore
-    function loadUpdates() {
-      updatesCollection.orderBy('createdAt', 'desc').get().then(querySnapshot => {
-        const updatesList = document.getElementById('updates-list');
-        updatesList.innerHTML = '';
-        
-        if (querySnapshot.empty) {
-          updatesList.innerHTML = `
-            <div class="text-center py-10 text-gray-500">
-              <i class="fas fa-newspaper text-4xl mb-3"></i>
-              <p>No current updates found</p>
-            </div>
-          `;
-          document.getElementById('update-count').textContent = `0 updates`;
-          return;
-        }
-        
-        querySnapshot.forEach(doc => {
-          const update = doc.data();
-          // Convert Firestore Timestamp to JavaScript Date
-          const createdAt = update.createdAt ? update.createdAt.toDate() : new Date();
-          updatesList.innerHTML += createUpdateElement(doc.id, update, createdAt);
-        });
-        
-        document.getElementById('update-count').textContent = `${querySnapshot.size} update${querySnapshot.size !== 1 ? 's' : ''}`;
-      }).catch(error => {
-        console.error("Error loading updates: ", error);
-        showNotification('Error loading updates: ' + error.message, false);
-      });
-    }
-    
-    // Load images from Firestore
-    function loadImages() {
-      imagesCollection.orderBy('createdAt', 'desc').get().then(querySnapshot => {
-        const galleryList = document.getElementById('gallery-list');
-        galleryList.innerHTML = '';
-        
-        if (querySnapshot.empty) {
-          galleryList.innerHTML = `
-            <div class="text-center py-10 text-gray-500 col-span-full">
-              <i class="fas fa-images text-4xl mb-3"></i>
-              <p>No images found</p>
-            </div>
-          `;
-          document.getElementById('image-count').textContent = `0 images`;
-          return;
-        }
-        
-        querySnapshot.forEach(doc => {
-          const image = doc.data();
-          // Convert Firestore Timestamp to JavaScript Date
-          const createdAt = image.createdAt ? image.createdAt.toDate() : new Date();
-          galleryList.innerHTML += createImageElement(doc.id, image, createdAt);
-        });
-        
-        document.getElementById('image-count').textContent = `${querySnapshot.size} image${querySnapshot.size !== 1 ? 's' : ''}`;
-      }).catch(error => {
-        console.error("Error loading images: ", error);
-        showNotification('Error loading images: ' + error.message, false);
-      });
-    }
-    
-    // Load testimonials from Firestore
-    function loadTestimonials() {
-      testimonialsCollection.orderBy('createdAt', 'desc').get().then(querySnapshot => {
-        const testimonialsList = document.getElementById('testimonials-list');
-        testimonialsList.innerHTML = '';
-        
-        if (querySnapshot.empty) {
-          testimonialsList.innerHTML = `
-            <div class="text-center py-10 text-gray-500">
-              <i class="fas fa-quote-left text-4xl mb-3"></i>
-              <p>No testimonials found</p>
-            </div>
-          `;
-          document.getElementById('testimonial-count').textContent = `0 testimonials`;
-          return;
-        }
-        
-        querySnapshot.forEach(doc => {
-          const testimonial = doc.data();
-          // Convert Firestore Timestamp to JavaScript Date
-          const createdAt = testimonial.createdAt ? testimonial.createdAt.toDate() : new Date();
-          testimonialsList.innerHTML += createTestimonialElement(doc.id, testimonial, createdAt);
-        });
-        
-        document.getElementById('testimonial-count').textContent = `${querySnapshot.size} testimonial${querySnapshot.size !== 1 ? 's' : ''}`;
-      }).catch(error => {
-        console.error("Error loading testimonials: ", error);
-        showNotification('Error loading testimonials: ' + error.message, false);
-      });
-    }
-    
-    // Create HTML for a blog element
+
+    // ----------------- Create element helpers -----------------
+
+    // Blog / update / image creation functions left mostly unchanged
     function createBlogElement(id, blog, createdAt) {
       return `
-        <div class="blog-card rounded-xl p-4" id="blog-${id}">
-          <div class="flex">
-            <img src="${blog.image}" alt="${blog.title}" class="w-16 h-16 rounded-lg object-cover">
-            <div class="ml-4 flex-1">
-              <h4 class="font-bold text-white truncate">${blog.title}</h4>
-              <p class="text-sm text-gray-400 mt-1">${createdAt.toLocaleDateString()}</p>
-            </div>
-          </div>
-          <div class="flex space-x-2 mt-3">
-            <button class="edit-blog btn-secondary flex-1 py-2" data-id="${id}">
-              <i class="fas fa-edit mr-1"></i> Edit
-            </button>
-            <button class="delete-blog btn-danger flex-1 py-2" data-id="${id}">
-              <i class="fas fa-trash mr-1"></i> Delete
-            </button>
-          </div>
+    <div class="blog-card rounded-xl p-4" id="blog-${id}">
+      <div class="flex">
+        <img src="${blog.image}" alt="${escapeHtml(blog.title)}" class="w-16 h-16 rounded-lg object-cover">
+        <div class="ml-4 flex-1">
+          <h4 class="font-bold text-white truncate">${escapeHtml(blog.title)}</h4>
+          <p class="text-sm text-gray-400 mt-1">${createdAt.toLocaleDateString()}</p>
         </div>
-      `;
+      </div>
+      <div class="flex space-x-2 mt-3">
+        <button class="edit-blog btn-secondary flex-1 py-2" data-id="${id}">
+          <i class="fas fa-edit mr-1"></i> Edit
+        </button>
+        <button class="delete-blog btn-danger flex-1 py-2" data-id="${id}">
+          <i class="fas fa-trash mr-1"></i> Delete
+        </button>
+      </div>
+    </div>
+  `;
     }
-    
-    // Create HTML for an update element
+
     function createUpdateElement(id, update, createdAt) {
       return `
-        <div class="blog-card rounded-xl p-4" id="update-${id}">
-          <div class="flex">
-            <img src="${update.image}" alt="${update.title}" class="w-16 h-16 rounded-lg object-cover">
-            <div class="ml-4 flex-1">
-              <h4 class="font-bold text-white truncate">${update.title}</h4>
-              <p class="text-sm text-white truncate">${update.subtitle}</p>
-              <p class="text-sm text-gray-400 mt-1">${createdAt.toLocaleDateString()}</p>
-            </div>
-          </div>
-          <div class="flex space-x-2 mt-3">
-            <button class="edit-update btn-secondary flex-1 py-2" data-id="${id}">
-              <i class="fas fa-edit mr-1"></i> Edit
-            </button>
-            <button class="delete-update btn-danger flex-1 py-2" data-id="${id}">
-              <i class="fas fa-trash mr-1"></i> Delete
-            </button>
-          </div>
+    <div class="blog-card rounded-xl p-4" id="update-${id}">
+      <div class="flex">
+        <img src="${update.image}" alt="${escapeHtml(update.title)}" class="w-16 h-16 rounded-lg object-cover">
+        <div class="ml-4 flex-1">
+          <h4 class="font-bold text-white truncate">${escapeHtml(update.title)}</h4>
+          <p class="text-sm text-white truncate">${escapeHtml(update.subtitle)}</p>
+          <p class="text-sm text-gray-400 mt-1">${createdAt.toLocaleDateString()}</p>
         </div>
-      `;
+      </div>
+      <div class="flex space-x-2 mt-3">
+        <button class="edit-update btn-secondary flex-1 py-2" data-id="${id}">
+          <i class="fas fa-edit mr-1"></i> Edit
+        </button>
+        <button class="delete-update btn-danger flex-1 py-2" data-id="${id}">
+          <i class="fas fa-trash mr-1"></i> Delete
+        </button>
+      </div>
+    </div>
+  `;
     }
-    
-    // Create HTML for an image element
+
     function createImageElement(id, image, createdAt) {
       return `
-        <div class="gallery-item" id="image-${id}">
-          <img src="${image.url}" alt="${image.title}" class="gallery-image">
-          <div class="gallery-content">
-            <h4 class="gallery-title">${image.title}</h4>
-            <p class="text-sm text-gray-400">${createdAt.toLocaleDateString()}</p>
-          </div>
-          <div class="gallery-actions">
-            <button class="delete-image btn-danger w-full py-2" data-id="${id}">
-              <i class="fas fa-trash mr-1"></i> Delete
-            </button>
-          </div>
-        </div>
-      `;
+    <div class="gallery-item" id="image-${id}">
+      <img src="${image.url}" alt="${escapeHtml(image.title)}" class="gallery-image">
+      <div class="gallery-content">
+        <h4 class="gallery-title">${escapeHtml(image.title)}</h4>
+        <p class="text-sm text-gray-400">${createdAt.toLocaleDateString()}</p>
+      </div>
+      <div class="gallery-actions">
+        <button class="delete-image btn-danger w-full py-2" data-id="${id}">
+          <i class="fas fa-trash mr-1"></i> Delete
+        </button>
+      </div>
+    </div>
+  `;
     }
-    
-    // Create HTML for a testimonial element
+
+    /**
+     * createTestimonialElement
+     * - wraps in a container with data-testimonial-id for reliable selection
+     * - sets an immediate placeholder avatar and stores the DB photoURL in data-photo attribute
+     */
     function createTestimonialElement(id, testimonial, createdAt) {
       // Create star rating HTML
       let starsHtml = '';
-      const rating = testimonial.rating || 4;
-      
+      const rating = Number.isFinite(testimonial.rating) ? Math.max(0, Math.min(5, Math.round(testimonial.rating))) : 4;
+
       for (let i = 1; i <= 5; i++) {
         if (i <= rating) {
           starsHtml += '<span class="star"><i class="fas fa-star"></i></span>';
@@ -1084,32 +1124,226 @@
           starsHtml += '<span class="star"><i class="far fa-star"></i></span>';
         }
       }
-      
+
+      const name = escapeHtml(testimonial.name || 'Anonymous');
+      const role = escapeHtml(testimonial.role || '');
+      const text = escapeHtml(testimonial.text || '');
+      const photoURL = testimonial.photoURL ? escapeHtml(testimonial.photoURL) : '';
+
+      // using DEFAULT_AVATAR as immediate placeholder, real photo will be resolved asynchronously
       return `
-        <div class="testimonial-card" id="testimonial-${id}">
-          <img src="${testimonial.photolRL || testimonial.photoURL}" alt="${testimonial.name}" class="testimonial-image">
-          <div class="testimonial-content">
-            <h4 class="testimonial-name">${testimonial.name}</h4>
-            <p class="testimonial-role">${testimonial.role}</p>
-            <div class="testimonial-stars">
-              ${starsHtml}
-            </div>
-            <p class="testimonial-text">${testimonial.text}</p>
-            <p class="text-sm text-gray-400 mt-3">${createdAt.toLocaleDateString()}</p>
-            <div class="flex space-x-2 mt-4">
-              <button class="edit-testimonial btn-secondary flex-1 py-2" data-id="${id}">
-                <i class="fas fa-edit mr-1"></i> Edit
-              </button>
-              <button class="delete-testimonial btn-danger flex-1 py-2" data-id="${id}">
-                <i class="fas fa-trash mr-1"></i> Delete
-              </button>
-            </div>
+    <div class="testimonial-card" id="testimonial-${id}" data-testimonial-id="${id}">
+      <div class="flex p-4 bg-grey-500 rounded-lg shadow-sm">
+        <div class="flex-shrink-0">
+          <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-100 border border-gray-200">
+            <img class="testimonial-photo w-full h-full object-cover" src="${DEFAULT_AVATAR}" alt="${name}" data-photo="${photoURL}" style="opacity:0; transition: opacity .3s ease;">
           </div>
         </div>
-      `;
+        <div class="ml-4 flex-1">
+          <h4 class="testimonial-name font-semibold text-white">${name}</h4>
+          <p class="testimonial-role text-sm text-white mb-2">${role}</p>
+          <div class="testimonial-stars mb-2">${starsHtml}</div>
+          <p class="testimonial-text text-white">${text}</p>
+          <p class="text-sm text-gray-400 mt-3">${createdAt.toLocaleDateString()}</p>
+          <div class="flex space-x-2 mt-4">
+            <button class="edit-testimonial btn-secondary flex-1 py-2" data-id="${id}">
+              <i class="fas fa-edit mr-1"></i> Edit
+            </button>
+            <button class="delete-testimonial btn-danger flex-1 py-2" data-id="${id}">
+              <i class="fas fa-trash mr-1"></i> Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
     }
-    
-    // Load statistics from Firestore
+
+    // ----------------- Loaders (blogs, updates, images, stats) -----------------
+
+    function loadBlogs() {
+      blogsCollection.orderBy('createdAt', 'desc').get().then(querySnapshot => {
+        const blogsList = document.getElementById('blogs-list');
+        blogsList.innerHTML = '';
+
+        if (querySnapshot.empty) {
+          blogsList.innerHTML = `
+        <div class="text-center py-10 text-gray-500">
+          <i class="fas fa-file-alt text-4xl mb-3"></i>
+          <p>No blog posts found</p>
+        </div>
+      `;
+          document.getElementById('blog-count').textContent = `0 blogs`;
+          return;
+        }
+
+        querySnapshot.forEach(doc => {
+          const blog = doc.data();
+          const createdAt = blog.createdAt ? blog.createdAt.toDate() : new Date();
+          blogsList.innerHTML += createBlogElement(doc.id, blog, createdAt);
+        });
+
+        document.getElementById('blog-count').textContent = `${querySnapshot.size} blog${querySnapshot.size !== 1 ? 's' : ''}`;
+      }).catch(error => {
+        console.error("Error loading blogs: ", error);
+        showNotification('Error loading blogs: ' + error.message, false);
+      });
+    }
+
+    function loadUpdates() {
+      updatesCollection.orderBy('createdAt', 'desc').get().then(querySnapshot => {
+        const updatesList = document.getElementById('updates-list');
+        updatesList.innerHTML = '';
+
+        if (querySnapshot.empty) {
+          updatesList.innerHTML = `
+        <div class="text-center py-10 text-gray-500">
+          <i class="fas fa-newspaper text-4xl mb-3"></i>
+          <p>No current updates found</p>
+        </div>
+      `;
+          document.getElementById('update-count').textContent = `0 updates`;
+          return;
+        }
+
+        querySnapshot.forEach(doc => {
+          const update = doc.data();
+          const createdAt = update.createdAt ? update.createdAt.toDate() : new Date();
+          updatesList.innerHTML += createUpdateElement(doc.id, update, createdAt);
+        });
+
+        document.getElementById('update-count').textContent = `${querySnapshot.size} update${querySnapshot.size !== 1 ? 's' : ''}`;
+      }).catch(error => {
+        console.error("Error loading updates: ", error);
+        showNotification('Error loading updates: ' + error.message, false);
+      });
+    }
+
+    function loadImages() {
+      imagesCollection.orderBy('createdAt', 'desc').get().then(querySnapshot => {
+        const galleryList = document.getElementById('gallery-list');
+        galleryList.innerHTML = '';
+
+        if (querySnapshot.empty) {
+          galleryList.innerHTML = `
+        <div class="text-center py-10 text-gray-500 col-span-full">
+          <i class="fas fa-images text-4xl mb-3"></i>
+          <p>No images found</p>
+        </div>
+      `;
+          document.getElementById('image-count').textContent = `0 images`;
+          return;
+        }
+
+        querySnapshot.forEach(doc => {
+          const image = doc.data();
+          const createdAt = image.createdAt ? image.createdAt.toDate() : new Date();
+          galleryList.innerHTML += createImageElement(doc.id, image, createdAt);
+        });
+
+        document.getElementById('image-count').textContent = `${querySnapshot.size} image${querySnapshot.size !== 1 ? 's' : ''}`;
+      }).catch(error => {
+        console.error("Error loading images: ", error);
+        showNotification('Error loading images: ' + error.message, false);
+      });
+    }
+
+    // ----------------- Testimonials: load + resolve images -----------------
+
+    /**
+     * loadTestimonials()
+     * - fetches testimonials from Firestore ordered by createdAt desc
+     * - injects markup for each testimonial
+     * - for each testimonial image, attempts to resolve the best loadable URL (HEIC/jpg/cloudinary/data:)
+     * - reveals image with smooth fade
+     */
+    function loadTestimonials() {
+      testimonialsCollection.orderBy('createdAt', 'desc').get().then(async (querySnapshot) => {
+        const testimonialsList = document.getElementById('testimonials-list');
+        testimonialsList.innerHTML = '';
+
+        if (querySnapshot.empty) {
+          testimonialsList.innerHTML = `
+        <div class="text-center py-10 text-gray-500">
+          <i class="fas fa-quote-left text-4xl mb-3"></i>
+          <p>No testimonials found</p>
+        </div>
+      `;
+          document.getElementById('testimonial-count').textContent = `0 testimonials`;
+          return;
+        }
+
+        // Append markup
+        const appendPromises = [];
+        querySnapshot.forEach(doc => {
+          const testimonial = doc.data();
+          const createdAt = testimonial.createdAt ? testimonial.createdAt.toDate() : new Date();
+          testimonialsList.insertAdjacentHTML('beforeend', createTestimonialElement(doc.id, testimonial, createdAt));
+        });
+
+        // Resolve images for each appended testimonial element
+        const items = testimonialsList.querySelectorAll('[data-testimonial-id]');
+        const promises = Array.from(items).map(item => {
+          const imgEl = item.querySelector('img.testimonial-photo');
+          if (!imgEl) return Promise.resolve();
+
+          const dataPhoto = imgEl.getAttribute('data-photo') || '';
+          if (!dataPhoto) {
+            // reveal default placeholder
+            imgEl.style.opacity = '1';
+            return Promise.resolve();
+          }
+
+          // resolve best URL and set src with load timeout
+          return resolveImageUrl(dataPhoto).then(finalUrl => {
+            if (!finalUrl) {
+              imgEl.src = DEFAULT_AVATAR;
+              imgEl.style.opacity = '1';
+              return;
+            }
+
+            return new Promise(res => {
+              const timer = setTimeout(() => {
+                // fallback if final image never loaded
+                imgEl.src = DEFAULT_AVATAR;
+                imgEl.style.opacity = '1';
+                imgEl.onload = imgEl.onerror = null;
+                res();
+              }, 6000);
+
+              imgEl.onload = function () {
+                clearTimeout(timer);
+                imgEl.style.opacity = '1';
+                imgEl.onload = imgEl.onerror = null;
+                res();
+              };
+              imgEl.onerror = function () {
+                clearTimeout(timer);
+                imgEl.src = DEFAULT_AVATAR;
+                imgEl.style.opacity = '1';
+                imgEl.onload = imgEl.onerror = null;
+                res();
+              };
+
+              // start loading the resolved src
+              imgEl.src = finalUrl;
+            });
+          }).catch(() => {
+            imgEl.src = DEFAULT_AVATAR;
+            imgEl.style.opacity = '1';
+          });
+        });
+
+        await Promise.all(promises);
+
+        document.getElementById('testimonial-count').textContent = `${querySnapshot.size} testimonial${querySnapshot.size !== 1 ? 's' : ''}`;
+      }).catch(error => {
+        console.error("Error loading testimonials: ", error);
+        showNotification('Error loading testimonials: ' + error.message, false);
+      });
+    }
+
+    // ----------------- Stats loader -----------------
     function loadStats() {
       statsCollection.doc('stats').get().then(doc => {
         if (doc.exists) {
@@ -1132,236 +1366,116 @@
         showNotification('Error loading statistics: ' + error.message, false);
       });
     }
-    
-    // Save/Update blog
+
+    // ----------------- Save/Update forms (blogs, updates, images, testimonials) -----------------
+
+    // Save Blog
     document.getElementById('blog-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      
       const blogId = document.getElementById('blog-id').value;
       const title = document.getElementById('blog-title').value;
       const image = document.getElementById('blog-image').value;
       const content = document.getElementById('blog-content').value;
-      
-      // Basic validation
-      if (!title || !image || !content) {
-        showNotification('Please fill all fields', false);
-        return;
-      }
-      
-      const blogData = {
-        title,
-        image,
-        content,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-      
+      if (!title || !image || !content) { showNotification('Please fill all fields', false); return; }
+      const blogData = { title, image, content, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
       const saveBtn = document.getElementById('save-blog');
       saveBtn.disabled = true;
       saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
-      
       if (blogId) {
-        // Update existing blog
-        blogsCollection.doc(blogId).update(blogData).then(() => {
-          resetBlogForm();
-          loadBlogs();
-          showNotification('Blog updated successfully!');
-        }).catch(error => {
-          console.error("Error updating blog: ", error);
-          showNotification('Error updating blog: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Blog';
-        });
+        blogsCollection.doc(blogId).update(blogData).then(() => { resetBlogForm(); loadBlogs(); showNotification('Blog updated successfully!'); })
+          .catch(error => { console.error("Error updating blog: ", error); showNotification('Error updating blog: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Blog'; });
       } else {
-        // Add new blog
-        blogsCollection.add(blogData).then(() => {
-          resetBlogForm();
-          loadBlogs();
-          showNotification('Blog added successfully!');
-        }).catch(error => {
-          console.error("Error adding blog: ", error);
-          showNotification('Error adding blog: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Blog';
-        });
+        blogsCollection.add(blogData).then(() => { resetBlogForm(); loadBlogs(); showNotification('Blog added successfully!'); })
+          .catch(error => { console.error("Error adding blog: ", error); showNotification('Error adding blog: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Blog'; });
       }
     });
-    
-    // Save/Update current update
+
+    // Save Update
     document.getElementById('update-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      
       const updateId = document.getElementById('update-id').value;
       const title = document.getElementById('update-title').value;
       const subtitle = document.getElementById('update-subtitle').value;
       const content = document.getElementById('update-content').value;
       const image = document.getElementById('update-image').value;
-      
-      // Basic validation
-      if (!title || !subtitle || !content || !image) {
-        showNotification('Please fill all fields', false);
-        return;
-      }
-      
-      const updateData = {
-        title,
-        subtitle,
-        content,
-        image,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-      
+      if (!title || !subtitle || !content || !image) { showNotification('Please fill all fields', false); return; }
+      const updateData = { title, subtitle, content, image, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
       const saveBtn = document.getElementById('save-update');
       saveBtn.disabled = true;
       saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
-      
       if (updateId) {
-        // Update existing update
-        updatesCollection.doc(updateId).update(updateData).then(() => {
-          resetUpdateForm();
-          loadUpdates();
-          showNotification('Update saved successfully!');
-        }).catch(error => {
-          console.error("Error updating current update: ", error);
-          showNotification('Error updating current update: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Update';
-        });
+        updatesCollection.doc(updateId).update(updateData).then(() => { resetUpdateForm(); loadUpdates(); showNotification('Update saved successfully!'); })
+          .catch(error => { console.error("Error updating current update: ", error); showNotification('Error updating current update: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Update'; });
       } else {
-        // Add new update
-        updatesCollection.add(updateData).then(() => {
-          resetUpdateForm();
-          loadUpdates();
-          showNotification('Update added successfully!');
-        }).catch(error => {
-          console.error("Error adding current update: ", error);
-          showNotification('Error adding current update: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Update';
-        });
+        updatesCollection.add(updateData).then(() => { resetUpdateForm(); loadUpdates(); showNotification('Update added successfully!'); })
+          .catch(error => { console.error("Error adding current update: ", error); showNotification('Error adding current update: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Update'; });
       }
     });
-    
-    // Save/Update image
+
+    // Save Image
     document.getElementById('image-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      
       const imageId = document.getElementById('image-id').value;
       const title = document.getElementById('image-title').value;
       const url = document.getElementById('image-url').value;
-      
-      // Basic validation
-      if (!title || !url) {
-        showNotification('Please fill all fields', false);
-        return;
-      }
-      
-      const imageData = {
-        title,
-        url,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-      
+      if (!title || !url) { showNotification('Please fill all fields', false); return; }
+      const imageData = { title, url, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
       const saveBtn = document.getElementById('save-image');
       saveBtn.disabled = true;
       saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
-      
       if (imageId) {
-        // Update existing image
-        imagesCollection.doc(imageId).update(imageData).then(() => {
-          resetImageForm();
-          loadImages();
-          showNotification('Image updated successfully!');
-        }).catch(error => {
-          console.error("Error updating image: ", error);
-          showNotification('Error updating image: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Image';
-        });
+        imagesCollection.doc(imageId).update(imageData).then(() => { resetImageForm(); loadImages(); showNotification('Image updated successfully!'); })
+          .catch(error => { console.error("Error updating image: ", error); showNotification('Error updating image: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Image'; });
       } else {
-        // Add new image
-        imagesCollection.add(imageData).then(() => {
-          resetImageForm();
-          loadImages();
-          showNotification('Image added successfully!');
-        }).catch(error => {
-          console.error("Error adding image: ", error);
-          showNotification('Error adding image: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Image';
-        });
+        imagesCollection.add(imageData).then(() => { resetImageForm(); loadImages(); showNotification('Image added successfully!'); })
+          .catch(error => { console.error("Error adding image: ", error); showNotification('Error adding image: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Image'; });
       }
     });
-    
-    // Save/Update testimonial
+
+    // Save/Update testimonial (create or update)
     document.getElementById('testimonial-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      
       const testimonialId = document.getElementById('testimonial-id').value;
       const name = document.getElementById('testimonial-name').value;
       const role = document.getElementById('testimonial-role').value;
       const text = document.getElementById('testimonial-text').value;
       const rating = document.getElementById('testimonial-rating').value;
-      const photolRL = document.getElementById('testimonial-photo').value;
-      
-      // Basic validation
-      if (!name || !role || !text || !photolRL) {
-        showNotification('Please fill all fields', false);
-        return;
-      }
-      
+      const photoURL = document.getElementById('testimonial-photo').value;
+      if (!name || !role || !text) { showNotification('Please fill all required fields', false); return; }
       const testimonialData = {
         name,
         role,
         text,
-        rating: parseInt(rating),
-        photolRL,
+        rating: parseInt(rating) || 4,
+        photoURL: photoURL || '',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
-      
       const saveBtn = document.getElementById('save-testimonial');
       saveBtn.disabled = true;
       saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
-      
       if (testimonialId) {
-        // Update existing testimonial
-        testimonialsCollection.doc(testimonialId).update(testimonialData).then(() => {
-          resetTestimonialForm();
-          loadTestimonials();
-          showNotification('Testimonial updated successfully!');
-        }).catch(error => {
-          console.error("Error updating testimonial: ", error);
-          showNotification('Error updating testimonial: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Testimonial';
-        });
+        testimonialsCollection.doc(testimonialId).update(testimonialData).then(() => { resetTestimonialForm(); loadTestimonials(); showNotification('Testimonial updated successfully!'); })
+          .catch(error => { console.error("Error updating testimonial: ", error); showNotification('Error updating testimonial: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Testimonial'; });
       } else {
-        // Add new testimonial
-        testimonialsCollection.add(testimonialData).then(() => {
-          resetTestimonialForm();
-          loadTestimonials();
-          showNotification('Testimonial added successfully!');
-        }).catch(error => {
-          console.error("Error adding testimonial: ", error);
-          showNotification('Error adding testimonial: ' + error.message, false);
-        }).finally(() => {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save Testimonial';
-        });
+        testimonialsCollection.add(testimonialData).then(() => { resetTestimonialForm(); loadTestimonials(); showNotification('Testimonial added successfully!'); })
+          .catch(error => { console.error("Error adding testimonial: ", error); showNotification('Error adding testimonial: ' + error.message, false); })
+          .finally(() => { saveBtn.disabled = false; saveBtn.textContent = 'Save Testimonial'; });
       }
     });
-    
-    // Edit blog
+
+    // ----------------- Delegated click handlers (edit/delete) -----------------
+
     document.addEventListener('click', (e) => {
+      // Edit blog
       if (e.target.classList.contains('edit-blog') || e.target.closest('.edit-blog')) {
-        const blogId = e.target.closest('.edit-blog').dataset.id;
-        
+        const blogId = (e.target.closest('.edit-blog') || e.target).dataset.id;
         blogsCollection.doc(blogId).get().then(doc => {
           if (doc.exists) {
             const blog = doc.data();
@@ -1369,20 +1483,16 @@
             document.getElementById('blog-title').value = blog.title;
             document.getElementById('blog-image').value = blog.image;
             document.getElementById('blog-content').value = blog.content;
-            
             document.getElementById('save-blog').textContent = 'Update Blog';
             document.getElementById('cancel-edit').classList.remove('hidden');
-            
-            // Scroll to form
             document.getElementById('blog-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
-      
+
       // Edit update
       if (e.target.classList.contains('edit-update') || e.target.closest('.edit-update')) {
-        const updateId = e.target.closest('.edit-update').dataset.id;
-        
+        const updateId = (e.target.closest('.edit-update') || e.target).dataset.id;
         updatesCollection.doc(updateId).get().then(doc => {
           if (doc.exists) {
             const update = doc.data();
@@ -1391,150 +1501,105 @@
             document.getElementById('update-subtitle').value = update.subtitle;
             document.getElementById('update-content').value = update.content;
             document.getElementById('update-image').value = update.image;
-            
             document.getElementById('save-update').textContent = 'Update Update';
             document.getElementById('cancel-update-edit').classList.remove('hidden');
-            
-            // Scroll to form
             document.getElementById('update-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
-      
+
       // Edit testimonial
       if (e.target.classList.contains('edit-testimonial') || e.target.closest('.edit-testimonial')) {
-        const testimonialId = e.target.closest('.edit-testimonial').dataset.id;
-        
+        const testimonialId = (e.target.closest('.edit-testimonial') || e.target).dataset.id;
         testimonialsCollection.doc(testimonialId).get().then(doc => {
           if (doc.exists) {
             const testimonial = doc.data();
             document.getElementById('testimonial-id').value = testimonialId;
-            document.getElementById('testimonial-name').value = testimonial.name;
-            document.getElementById('testimonial-role').value = testimonial.role;
-            document.getElementById('testimonial-text').value = testimonial.text;
+            document.getElementById('testimonial-name').value = testimonial.name || '';
+            document.getElementById('testimonial-role').value = testimonial.role || '';
+            document.getElementById('testimonial-text').value = testimonial.text || '';
             document.getElementById('testimonial-rating').value = testimonial.rating || 4;
-            document.getElementById('testimonial-photo').value = testimonial.photolRL || testimonial.photoURL || '';
-            
+            document.getElementById('testimonial-photo').value = testimonial.photoURL || '';
             document.getElementById('save-testimonial').textContent = 'Update Testimonial';
             document.getElementById('cancel-testimonial-edit').classList.remove('hidden');
-            
-            // Scroll to form
             document.getElementById('testimonial-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
-      
+
       // Delete blog
       if (e.target.classList.contains('delete-blog') || e.target.closest('.delete-blog')) {
-        const blogId = e.target.closest('.delete-blog').dataset.id;
-        
+        const blogId = (e.target.closest('.delete-blog') || e.target).dataset.id;
         if (confirm('Are you sure you want to delete this blog?')) {
-          blogsCollection.doc(blogId).delete().then(() => {
-            loadBlogs();
-            showNotification('Blog deleted successfully!');
-          }).catch(error => {
-            console.error("Error deleting blog: ", error);
-            showNotification('Error deleting blog: ' + error.message, false);
-          });
+          blogsCollection.doc(blogId).delete().then(() => { loadBlogs(); showNotification('Blog deleted successfully!'); })
+            .catch(error => { console.error("Error deleting blog: ", error); showNotification('Error deleting blog: ' + error.message, false); });
         }
       }
-      
+
       // Delete update
       if (e.target.classList.contains('delete-update') || e.target.closest('.delete-update')) {
-        const updateId = e.target.closest('.delete-update').dataset.id;
-        
+        const updateId = (e.target.closest('.delete-update') || e.target).dataset.id;
         if (confirm('Are you sure you want to delete this update?')) {
-          updatesCollection.doc(updateId).delete().then(() => {
-            loadUpdates();
-            showNotification('Update deleted successfully!');
-          }).catch(error => {
-            console.error("Error deleting update: ", error);
-            showNotification('Error deleting update: ' + error.message, false);
-          });
+          updatesCollection.doc(updateId).delete().then(() => { loadUpdates(); showNotification('Update deleted successfully!'); })
+            .catch(error => { console.error("Error deleting update: ", error); showNotification('Error deleting update: ' + error.message, false); });
         }
       }
-      
+
       // Delete image
       if (e.target.classList.contains('delete-image') || e.target.closest('.delete-image')) {
-        const imageId = e.target.closest('.delete-image').dataset.id;
-        
+        const imageId = (e.target.closest('.delete-image') || e.target).dataset.id;
         if (confirm('Are you sure you want to delete this image?')) {
-          imagesCollection.doc(imageId).delete().then(() => {
-            loadImages();
-            showNotification('Image deleted successfully!');
-          }).catch(error => {
-            console.error("Error deleting image: ", error);
-            showNotification('Error deleting image: ' + error.message, false);
-          });
+          imagesCollection.doc(imageId).delete().then(() => { loadImages(); showNotification('Image deleted successfully!'); })
+            .catch(error => { console.error("Error deleting image: ", error); showNotification('Error deleting image: ' + error.message, false); });
         }
       }
-      
+
       // Delete testimonial
       if (e.target.classList.contains('delete-testimonial') || e.target.closest('.delete-testimonial')) {
-        const testimonialId = e.target.closest('.delete-testimonial').dataset.id;
-        
+        const testimonialId = (e.target.closest('.delete-testimonial') || e.target).dataset.id;
         if (confirm('Are you sure you want to delete this testimonial?')) {
-          testimonialsCollection.doc(testimonialId).delete().then(() => {
-            loadTestimonials();
-            showNotification('Testimonial deleted successfully!');
-          }).catch(error => {
-            console.error("Error deleting testimonial: ", error);
-            showNotification('Error deleting testimonial: ' + error.message, false);
-          });
+          testimonialsCollection.doc(testimonialId).delete().then(() => { loadTestimonials(); showNotification('Testimonial deleted successfully!'); })
+            .catch(error => { console.error("Error deleting testimonial: ", error); showNotification('Error deleting testimonial: ' + error.message, false); });
         }
       }
-      
+
       // Edit statistic
       if (e.target.classList.contains('edit-stat') || e.target.closest('.edit-stat')) {
-        const statId = e.target.closest('.edit-stat').dataset.id;
+        const statId = (e.target.closest('.edit-stat') || e.target).dataset.id;
         const modal = document.getElementById('edit-stat-modal');
         const label = document.getElementById('stat-label');
         const currentValue = document.getElementById(`${statId}-value`).textContent;
-        
         currentStatEditing = statId;
         label.textContent = statId.charAt(0).toUpperCase() + statId.slice(1);
         document.getElementById('stat-value').value = currentValue;
         modal.classList.remove('hidden');
       }
     });
-    
-    // Cancel blog edit
-    document.getElementById('cancel-edit').addEventListener('click', resetBlogForm);
-    
-    // Cancel update edit
-    document.getElementById('cancel-update-edit').addEventListener('click', resetUpdateForm);
-    
-    // Cancel image edit
-    document.getElementById('cancel-image-edit').addEventListener('click', resetImageForm);
-    
-    // Cancel testimonial edit
-    document.getElementById('cancel-testimonial-edit').addEventListener('click', resetTestimonialForm);
-    
-    // Reset blog form
+
+    // ----------------- Cancel / Reset handlers -----------------
+    document.getElementById('cancel-edit')?.addEventListener('click', resetBlogForm);
+    document.getElementById('cancel-update-edit')?.addEventListener('click', resetUpdateForm);
+    document.getElementById('cancel-image-edit')?.addEventListener('click', resetImageForm);
+    document.getElementById('cancel-testimonial-edit')?.addEventListener('click', resetTestimonialForm);
+
     function resetBlogForm() {
       document.getElementById('blog-form').reset();
       document.getElementById('blog-id').value = '';
       document.getElementById('save-blog').textContent = 'Save Blog';
       document.getElementById('cancel-edit').classList.add('hidden');
     }
-    
-    // Reset update form
     function resetUpdateForm() {
       document.getElementById('update-form').reset();
       document.getElementById('update-id').value = '';
       document.getElementById('save-update').textContent = 'Save Update';
       document.getElementById('cancel-update-edit').classList.add('hidden');
     }
-    
-    // Reset image form
     function resetImageForm() {
       document.getElementById('image-form').reset();
       document.getElementById('image-id').value = '';
       document.getElementById('save-image').textContent = 'Save Image';
       document.getElementById('cancel-image-edit').classList.add('hidden');
     }
-    
-    // Reset testimonial form
     function resetTestimonialForm() {
       document.getElementById('testimonial-form').reset();
       document.getElementById('testimonial-id').value = '';
@@ -1542,15 +1607,13 @@
       document.getElementById('save-testimonial').textContent = 'Save Testimonial';
       document.getElementById('cancel-testimonial-edit').classList.add('hidden');
     }
-    
+
     // Save statistic
-    document.getElementById('save-stat').addEventListener('click', () => {
+    document.getElementById('save-stat')?.addEventListener('click', () => {
       const value = document.getElementById('stat-value').value;
-      
       if (value) {
         const updateData = {};
         updateData[currentStatEditing] = value;
-        
         statsCollection.doc('stats').set(updateData, { merge: true }).then(() => {
           document.getElementById(`${currentStatEditing}-value`).textContent = value;
           document.getElementById('edit-stat-modal').classList.add('hidden');
@@ -1563,15 +1626,15 @@
         showNotification('Please enter a value', false);
       }
     });
-    
+
     // Cancel statistic edit
-    document.getElementById('cancel-edit-stat').addEventListener('click', () => {
+    document.getElementById('cancel-edit-stat')?.addEventListener('click', () => {
       document.getElementById('edit-stat-modal').classList.add('hidden');
     });
-    
-    // Initialize page
+
+    // ----------------- Initialization -----------------
     document.addEventListener('DOMContentLoaded', () => {
-      // Check if user was already logged in (in session)
+      // If user already logged in in this session
       if (sessionStorage.getItem('adminLoggedIn') === 'true') {
         loginSection.classList.add('hidden');
         adminPanel.classList.remove('hidden');
@@ -1581,17 +1644,11 @@
         loadTestimonials();
         loadStats();
       }
-      
-      // Save login state on logout
-      logoutBtn.addEventListener('click', () => {
-        sessionStorage.removeItem('adminLoggedIn');
-      });
-      
-      // Save login state on successful login
-      loginForm.addEventListener('submit', () => {
-        sessionStorage.setItem('adminLoggedIn', 'true');
-      });
+
+      // Save login state on submit is handled earlier in the login handler
     });
+
   </script>
 </body>
+
 </html>
