@@ -524,6 +524,39 @@
     .success-animation {
       animation: successAnimation 0.7s ease forwards;
     }
+
+    /* about CEO section */
+    @keyframes fadeInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .animate-fade-in-left {
+      animation: fadeInLeft 1s ease-out forwards;
+    }
+
+    .animate-fade-in-right {
+      animation: fadeInRight 1s ease-out forwards;
+    }
   </style>
 </head>
 
@@ -589,6 +622,53 @@
         Pioneers of innovative and breakthrough methodologies in the Indian consultation arena, transforming
         organizations through strategic HR solutions.
       </p>
+    </div>
+  </section>
+
+  <!-- About The Director Section -->
+  <section id="about-director" class="relative bg-gradient-to-br from-gray-50 to-gray-100 py-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Left Content -->
+        <div class="space-y-6 animate-fade-in-left">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 relative">
+            About <span class="text-teal-600">The Director</span>
+            <span class="absolute -bottom-2 left-0 w-16 h-1 bg-teal-500 rounded"></span>
+          </h2>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Mrs. <strong>Deepa Vats</strong>, Director of <strong>Psyche Panacea</strong>,
+            is a phenomenal entrepreneur who has been making waves in her industry.
+            She is a visionary leader, a mother, creative thinker, business development expert,
+            HR consultant, and a true inspiration to aspiring entrepreneurs.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            With her innovative ideas and unwavering determination, she has successfully built
+            a thriving business that is making a significant impact in the market. Under her
+            leadership, Psyche Panacea has grown multi-folds. She has helped spread the
+            importance of HR programs for corporates like <strong>Honda, Reliance,
+              Hero Moto Corp</strong>, and more.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            She also introduced <strong>Result-Oriented Trainings</strong> when the industry
+            was still underdeveloped. With her passion for societal change and empowerment,
+            she has aligned Psyche Panacea’s pursuits with CSR portfolios of several
+            companies—benefiting local communities, women, youth, and organizations
+            in terms of value branding.
+          </p>
+        </div>
+
+        <!-- Right Image -->
+        <div class="relative group animate-fade-in-right">
+          <div class="overflow-hidden rounded-2xl shadow-xl transform transition duration-500 group-hover:scale-105">
+            <img src="/images/deepa-vats.jpg" alt="Mrs. Deepa Vats" class="w-full h-full object-cover">
+          </div>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center p-4">
+            <span class="text-white font-semibold text-lg">Mrs. Deepa Vats</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
