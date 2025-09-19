@@ -683,12 +683,10 @@
     }
 
     .feature-card {
-      transition: all 0.3s ease;
       border-left: 4px solid;
     }
 
     .feature-card:hover {
-      transform: translateY(-5px);
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
@@ -805,6 +803,135 @@
       .marquee-item .logo-box {
         min-width: calc(var(--logo-height-mobile) * 1.8);
         padding: 0.2rem 0.5rem;
+      }
+    }
+
+    .body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+      min-height: 10vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      perspective: 1000px;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-content {
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .front-face,
+    .back-face {
+      width: 50%;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .front-face {
+      justify-content: center;
+      align-items: center;
+      background: white;
+    }
+
+    .back-face {
+      background: linear-gradient(to bottom right, #3b82f6, #1d4ed8);
+      color: white;
+    }
+
+    .card-container:hover .card-content {
+      transform: translateX(-50%);
+    }
+
+    .icon-container {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 1.25rem;
+      text-align: center;
+    }
+
+    .description {
+      margin-top: 12px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .learn-more {
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .learn-more:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      color: #1e3a8a;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 5px;
+      background: linear-gradient(to right, #3b82f6, #1d4ed8);
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 2rem;
       }
     }
   </style>
@@ -1075,61 +1202,73 @@
         </p>
       </div>
 
-      <!-- Icon feature cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Card 1 -->
-        <div
-          class="feature-card bg-white rounded-xl p-6 shadow-md border-l-teal-500 animate-fade-in-up animate-delay-100">
-          <div class="flex flex-col">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center">
-                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                </svg>
-              </div>
-              <h4 class="font-semibold text-gray-800 text-lg">Sustainable Growth</h4>
-            </div>
-            <p class="text-gray-600">Strategies and training to scale capability and achieve lasting business outcomes
-              through continuous development.</p>
-          </div>
-        </div>
+      <div class="body">
+        <div class="w-full max-w-7xl mx-auto px-4 py-12">
+          <h1 class="section-title">Our Core Features</h1>
 
-        <!-- Card 2 -->
-        <div
-          class="feature-card bg-white rounded-xl p-6 shadow-md border-l-amber-500 animate-fade-in-up animate-delay-200">
-          <div class="flex flex-col">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center">
-                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                  </path>
-                </svg>
+          <div class="grid-container">
+            <!-- Card 1 -->
+            <div class="card-container">
+              <div class="card-content">
+                <div class="front-face">
+                  <div class="icon-container bg-blue-100">
+                    <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+                  </div>
+                  <h3 class="title text-gray-800">Sustainable Growth</h3>
+                </div>
+                <div class="back-face">
+                  <h3 class="title">Sustainable Growth</h3>
+                  <p class="description">Strategies and training to scale capability and achieve lasting business
+                    outcomes through continuous development.</p>
+                  <a href="flagship-programs.html" class="learn-more">
+                    Learn more
+                    <i class="fas fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
               </div>
-              <h4 class="font-semibold text-gray-800 text-lg">Human-Centered Culture</h4>
             </div>
-            <p class="text-gray-600">Build resilient teams with empathy-driven leadership and wellbeing programs that
-              foster collaboration and innovation.</p>
-          </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div
-          class="feature-card bg-white rounded-xl p-6 shadow-md border-l-indigo-500 animate-fade-in-up animate-delay-300">
-          <div class="flex flex-col">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center">
-                <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
-                  </path>
-                </svg>
+            <!-- Card 2 -->
+            <div class="card-container">
+              <div class="card-content">
+                <div class="front-face">
+                  <div class="icon-container bg-blue-100">
+                    <i class="fas fa-users text-blue-600 text-2xl"></i>
+                  </div>
+                  <h3 class="title text-gray-800">Human-Centered Culture</h3>
+                </div>
+                <div class="back-face">
+                  <h3 class="title">Human-Centered Culture</h3>
+                  <p class="description">Build resilient teams with empathy-driven leadership and wellbeing programs
+                    that foster collaboration and innovation.</p>
+                  <a href="flagship-programs.html" class="learn-more">
+                    Learn more
+                    <i class="fas fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
               </div>
-              <h4 class="font-semibold text-gray-800 text-lg">Innovative Impact</h4>
             </div>
-            <p class="text-gray-600">Deliver measurable, outcome-focused learning interventions that solve real-world
-              problems and drive organizational success.</p>
+
+            <!-- Card 3 -->
+            <div class="card-container">
+              <div class="card-content">
+                <div class="front-face">
+                  <div class="icon-container bg-blue-100">
+                    <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
+                  </div>
+                  <h3 class="title text-gray-800">Innovative Impact</h3>
+                </div>
+                <div class="back-face">
+                  <h3 class="title">Innovative Impact</h3>
+                  <p class="description">Deliver measurable, outcome-focused learning interventions that solve
+                    real-world problems and drive organizational success.</p>
+                  <a href="flagship-programs.html" class="learn-more">
+                    Learn more
+                    <i class="fas fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1144,64 +1283,78 @@
     <button class="tab-btn" data-tab="testimonials">Testimonials</button>
   </div>
 
-  <!-- Careers Tab Content -->
-  <section id="careers" class="tab-content active py-16 bg-gray-50">
+  <!-- Careers Tab Content (updated: reduced spacing, compact design, professional icons) -->
+  <section id="careers" class="tab-content active py-12 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="career-card bg-white rounded-xl p-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Dear Candidates</h2>
-          <p class="text-gray-700 text-lg">
-            We are thrilled to extend a warm welcome to you as you embark on a journey towards a world of exciting job
-            opportunities.
+      <div class="career-card bg-white rounded-xl p-6 shadow-sm">
+        <div class="text-center mb-6">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Dear Candidates</h2>
+          <p class="text-gray-700 text-base">
+            Connect with <span class="font-semibold">Psyche Panacea</span> by sharing your details:
           </p>
         </div>
 
-        <div class="mb-10">
-          <p class="text-gray-700 mb-6">
-            At Psyche Panacea we believe in the power of talent and the value that each individual brings to our team.
-            As a forward-thinking and dynamic training and consultancy company, we are continuously seeking exceptional
-            individuals like you to join our ranks and contribute to our mission.
-          </p>
-          <p class="text-gray-700">
-            We are committed to fostering an environment that encourages innovation, personal growth, and collaboration.
-            Your unique skills and experiences are exactly what we are looking for to help us drive our company forward.
-          </p>
+        <div class="mb-6">
+          <ul class="space-y-2 text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="mt-1 text-primary"><i class="fas fa-user-check"></i></span>
+              <span>Fill out the form below with your basic details</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 text-primary"><i class="fas fa-file-upload"></i></span>
+              <span>Upload and send your updated resume (PDF / DOC / DOCX)</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 text-primary"><i class="fas fa-handshake"></i></span>
+              <span>Our team will connect with you for suitable opportunities</span>
+            </li>
+          </ul>
         </div>
 
-        <div class="border-t border-gray-200 pt-8 mb-8"></div>
+        <div class="border-t border-gray-200 pt-6 mb-6"></div>
 
         <form id="career-form" method="POST" action="https://usebasin.com/f/04f341d6d131" enctype="multipart/form-data"
-          class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-700 font-medium mb-2" for="first-name">First Name *</label>
+              <label class="block text-gray-700 font-medium mb-1" for="first-name">
+                <i class="fas fa-user mr-2 text-gray-500"></i>First Name *
+              </label>
               <input type="text" id="first-name" name="first_name" required
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-2" for="last-name">Last Name</label>
+              <label class="block text-gray-700 font-medium mb-1" for="last-name">
+                <i class="fas fa-user mr-2 text-gray-500"></i>Last Name
+              </label>
               <input type="text" id="last-name" name="last_name"
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-700 font-medium mb-2" for="email">Email *</label>
+              <label class="block text-gray-700 font-medium mb-1" for="email">
+                <i class="fas fa-envelope mr-2 text-gray-500"></i>Email *
+              </label>
               <input type="email" id="email" name="email" required
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-2" for="phone">Phone</label>
+              <label class="block text-gray-700 font-medium mb-1" for="phone">
+                <i class="fas fa-phone mr-2 text-gray-500"></i>Phone
+              </label>
               <input type="tel" id="phone" name="phone"
-                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
           </div>
 
           <div>
-            <label class="block text-gray-700 font-medium mb-2" for="job">Job Applying For: *</label>
+            <label class="block text-gray-700 font-medium mb-1" for="job">
+              <i class="fas fa-briefcase mr-2 text-gray-500"></i>Job Applying For: *
+            </label>
             <select id="job" name="job" required
-              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
               <option value="">Select a position</option>
               <option value="HR Consultant: HR/Psychology">HR Consultant: HR/Psychology</option>
               <option value="Corporate Trainer">Corporate Trainer</option>
@@ -1210,35 +1363,45 @@
             </select>
           </div>
 
-          <!-- File Upload Section -->
-          <div class="file-upload-container">
-            <label class="block text-gray-700 font-medium mb-2">Upload Resume *</label>
-            <input type="file" id="resume" name="resume" required accept=".pdf,.doc,.docx">
-            <label for="resume" class="file-upload-label">
-              <i class="fas fa-cloud-upload-alt"></i> Select File to Upload
+          <!-- File Upload Section (compact & styled) -->
+          <div>
+            <label class="block text-gray-700 font-medium mb-2">
+              <i class="fas fa-file-alt mr-2 text-gray-500"></i>Upload Resume *
             </label>
-            <div id="file-name" class="file-name">
-              <i class="fas fa-file-alt mr-2"></i><span id="file-name-text"></span>
+
+            <div class="flex items-center gap-3">
+              <input type="file" id="resume" name="resume" required accept=".pdf,.doc,.docx" class="hidden">
+              <label for="resume"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer hover:shadow-sm">
+                <i class="fas fa-cloud-upload-alt text-gray-600"></i>
+                <span class="text-sm text-gray-700">Choose file</span>
+              </label>
+
+              <div id="file-name" class="text-sm text-gray-600">
+                <i class="fas fa-file mr-2 text-gray-400"></i>
+                <span id="file-name-text">No file chosen</span>
+              </div>
             </div>
-            <div id="upload-status" class="upload-status"></div>
-            <p class="text-gray-500 text-sm mt-2">Supported formats: PDF, DOC, DOCX (Max size: 5MB)</p>
+
+            <p class="text-gray-500 text-xs mt-2">Supported: PDF, DOC, DOCX — Max 5MB</p>
           </div>
 
-          <div class="text-center pt-6">
+          <div class="text-center pt-4">
             <button type="submit" id="submit-btn"
-              class="bg-gradient-to-r from-primary to-blue-700 hover:from-blue-700 hover:to-primary text-white font-bold py-4 px-12 rounded-lg transition-all transform hover:scale-105 shadow-lg">
-              Submit Application
+              class="bg-gradient-to-r from-primary to-blue-700 hover:from-blue-700 hover:to-primary text-white font-semibold py-3 px-10 rounded-lg transition-transform transform hover:scale-105 shadow">
+              <i class="fas fa-paper-plane mr-2"></i>Submit Application
             </button>
           </div>
         </form>
 
-        <div class="mt-12 text-center text-gray-600">
-          <p>Don't find a match with your profile? Do drop a mail at <a href="mailto:hr@psypanconsulting.com"
-              class="text-primary font-medium">hr@psypanconsulting.com</a> for future reference!</p>
+        <div class="mt-6 text-center text-gray-600 text-sm">
+          <p>Don't find a match? Email <a href="mailto:hr@psypanconsulting.com"
+              class="text-primary font-medium">hr@psypanconsulting.com</a> for future reference.</p>
         </div>
       </div>
     </div>
   </section>
+
 
   <!-- Our Clients Tab Content -->
   <section id="clients-tab" class="tab-content py-16 bg-gradient-to-br from-gray-50 to-blue-50">
@@ -1467,6 +1630,11 @@
   </div>
 
   <script>
+
+    // Add slight delay to each card for staggered animation
+    document.querySelectorAll('.card-container').forEach((card, index) => {
+      card.style.transitionDelay = `${index * 0.1}s`;
+    });
 
     /* Use your clients array exactly as provided */
     const client = [
