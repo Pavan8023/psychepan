@@ -18,11 +18,20 @@
   <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to bottom, #ffffff, #f8fbff);
       color: #1e293b;
-      height: auto;
+      height: 100%;
+    }
+
+    #testimonials{
+      height: 100%;
     }
 
     /* Floating input */
@@ -315,7 +324,7 @@
 
 <body>
   <!-- Testimonials -->
-  <section id="testimonials" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden h-full">
+  <section id="testimonials" class="bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
     <!-- Background elements -->
     <div class="animated-bg-element w-80 h-80 -top-40 -left-40"></div>
     <div class="animated-bg-element w-64 h-64 -bottom-32 -right-32 animation-delay-2000"></div>
