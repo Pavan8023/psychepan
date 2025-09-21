@@ -1345,14 +1345,12 @@
           document.getElementById('companies-value').textContent = stats.companies;
           document.getElementById('experience-value').textContent = stats.experience;
           document.getElementById('associates-value').textContent = stats.associates;
-          document.getElementById('participants-value').textContent = stats.participants;
         } else {
           // Initialize stats if they don't exist
           statsCollection.doc('stats').set({
             companies: "350+",
             experience: "24+",
             associates: "300+",
-            participants: "3,00,000+"
           });
         }
       }).catch(error => {
