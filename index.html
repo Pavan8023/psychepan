@@ -2441,12 +2441,12 @@
       // Content for various options
       const content = {
         trainings: [
-          'Management Trainings',
-          'Employee Engagements Trainings',
-          'HR Consulting',
-          'Employee Assistance Program',
-          'Outbound Trainings/Offsites',
-          'Soft Skills'
+          'Result Oriented Trainings',
+          'Impact Assessment Program',
+          'Tailormade Program',
+          'Employee Feedback Analysis',
+          'People & Team Leadership',
+          'Strategy & Operational Excellence'
         ],
         eepServices: [
           'Employee Wellness Programme',
@@ -2757,11 +2757,11 @@
               showSubOptions(currentMenu);
               break;
             case 'Venues':
-              showList(content.venues);
+              showList(content.venues, pageUrlMap['Services']);
               showSubOptions(currentMenu);
               break;
             case 'FormatDetails':
-              showList(content.formatDetails);
+              showList(content.formatDetails, pageUrlMap['Services']);
               showSubOptions(currentMenu);
               break;
             case 'SampleActivities':
