@@ -2040,7 +2040,7 @@
         { id: 5, label: 'Employee Assistance', icon: '🤝' },
         { id: 6, label: 'Outbound Training', icon: '🏕️' },
         { id: 7, label: 'Offsites', icon: '🏞️' },
-        { id: 8, label: 'Connect with Us', icon: '📞' }
+        { id: 8, label: 'Contact Us', icon: '📞' }
       ];
 
       // Sub-options for each main option
@@ -2087,12 +2087,12 @@
       // Content for various options
       const content = {
         trainings: [
-          'Management Trainings',
-          'Employee Engagements Trainings',
-          'HR Consulting',
-          'Employee Assistance Program',
-          'Outbound Trainings/Offsites',
-          'Soft Skills'
+          'Result Oriented Trainings',
+          'Impact Assessment Program',
+          'Tailormade Program',
+          'Employee Feedback Analysis',
+          'People & Team Leadership',
+          'Strategy & Operational Excellence'
         ],
         eepServices: [
           'Employee Wellness Programme',
@@ -2119,9 +2119,16 @@
           'Experiential Strategic & Challenging Group activities'
         ],
         sampleActivities: [
-          'EEP Program',
-          'Outbound Activities',
-          'Offsites and more...'
+          'Big Picture',
+          'Street Jam',
+          'Pixel Challenge',
+          'Drone Making',
+          'Olympic Challenge',
+          'Treasure Hunt',
+          'Pyramid Challenge',
+          'Drop the ball',
+          'Ripple Effect',
+          'Gladiator'
         ]
       };
 
@@ -2395,19 +2402,19 @@
               showSubOptions(currentMenu);
               break;
             case 'EEPServices':
-              showList(content.eepServices, pageUrlMap['Flagship Programs']);
+              showList(content.eepServices, pageUrlMap['Services']);
               showSubOptions(currentMenu);
               break;
             case 'EAPDetails':
-              showList(content.eapDetails);
+              showList(content.eapDetails, pageUrlMap['Services']);
               showSubOptions(currentMenu);
               break;
             case 'Venues':
-              showList(content.venues);
+              showList(content.venues, pageUrlMap['Services']);
               showSubOptions(currentMenu);
               break;
             case 'FormatDetails':
-              showList(content.formatDetails);
+              showList(content.formatDetails, pageUrlMap['Services']);
               showSubOptions(currentMenu);
               break;
             case 'SampleActivities':
@@ -2491,7 +2498,6 @@
         initChatbot();
       });
     })();
-
     // Client data with categories
     const clients = [
       // Automotive
