@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global MBA Program | Psyche Panacea & Opresnik</title>
+    <link rel="icon" href="/images/psypan-logo-transparent.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #d69e2e;
+            --light: #f7fafc;
+            --dark: #2d3748;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .logo-divider {
+            margin: 0 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .collab-partner {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 54, 93, 0.85), rgba(26, 54, 93, 0.9)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            animation: fadeIn 1.5s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(214, 158, 46, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        /* Programs Section */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .program-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .program-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .program-card:hover .program-img img {
+            transform: scale(1.05);
+        }
+
+        /* PDF Grid Section */
+        .pdf-section {
+            background-color: #f1f5f9;
+        }
+
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .pdf-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .pdf-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .pdf-thumbnail {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+
+        .pdf-info {
+            padding: 20px;
+        }
+
+        .pdf-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .pdf-info p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .pdf-modal {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(50px);
+            transition: transform 0.4s ease;
+        }
+
+        .modal-overlay.active .pdf-modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 22px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .modal-content {
+            padding: 30px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .modal-content embed {
+            width: 100%;
+            height: 500px;
+        }
+
+        .modal-actions {
+            padding: 20px;
+            background: #f7fafc;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .download-btn:hover {
+            background: var(--primary);
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+        }
+
+        /* MBA Program Section */
+        .mba-details {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 40px;
+        }
+
+        .mba-details h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .mba-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .highlight-card {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .highlight-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-contact h3,
+        .footer-links h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-contact h3:after,
+        .footer-links h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .programs-grid,
+            .pdf-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-divider {
+                display: none;
+            }
+
+            .collab-partner {
+                margin-top: 10px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .mba-details {
+                padding: 25px;
+            }
+
+            .pdf-modal {
+                width: 95%;
+            }
+
+            .modal-content embed {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .programs-grid,
+            .pdf-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mba-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content embed {
+                height: 300px;
+            }
+        }
+
+        /* Section centers content both horizontally and vertically */
+        .programs-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            /* vertically centered area */
+            padding: 2.5rem 1rem;
+            box-sizing: border-box;
+        }
+
+        /* Grid: two columns, centered, moderate max width */
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            width: 100%;
+            max-width: 920px;
+            /* container width */
+            align-items: center;
+            justify-items: center;
+        }
+
+        /* Card: medium size, a little taller */
+        .card-centered {
+            width: 100%;
+            max-width: 440px;
+            /* keeps card medium-sized */
+            height: 320px;
+            /* a bit more height */
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(12, 14, 20, 0.06);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            /* small inner gap so image doesn't touch edges */
+            box-sizing: border-box;
+        }
+
+        /* Image box fills the card */
+        .program-img-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f6f7fb;
+            /* subtle background for letterboxing */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Image: fully visible and scaled to fit (no cropping) */
+        .program-img-visible {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* important: shows full image */
+            object-position: center;
+            display: block;
+            -webkit-backface-visibility: hidden;
+        }
+
+        /* Responsiveness: stack on small screens */
+        @media (max-width: 720px) {
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-centered {
+                max-width: 760px;
+                height: 360px;
+                /* slightly taller on narrow screens if you want */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">Psyche Panacea<span class="logo-divider">|</span></div>
+                <div class="collab-partner">In collaboration with Opresnik</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Global MBA Program</h1>
+            <p>An innovative 8-month fast-track MBA program delivered in collaboration with accredited UK universities
+            </p>
+            <a href="#programs" class="cta-button">Explore Programs</a>
+        </div>
+    </section>
+
+    <!-- Executive Education Programs -->
+    <section id="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Collaboration with Opresnik</h2>
+            </div>
+
+            <div class="programs-grid">
+                <div class="program-card animated">
+                    <div class="program-img">
+                        <img src="/mba/img/IMG-20250921-WA0061.jpg" alt="Negotiation & Communication">
+                    </div>
+                </div>
+
+                <div class="program-card animated">
+                    <div class="program-img">
+                        <img src="/mba/img/IMG-20250921-WA0062.jpg" alt="Strategic Management">
+                    </div>
+                </div>
+
+                <div class="program-card animated">
+                    <div class="program-img">
+                        <img src="/mba/img/IMG-20250921-WA0063.jpg" alt="Marketing Management">
+                    </div>
+                </div>
+
+                <div class="program-card animated">
+                    <div class="program-img">
+                        <img src="/mba/img/IMG-20250921-WA0064.jpg" alt="AI and Digital Leadership">
+                    </div>
+                </div>
+
+                <div class="program-card animated">
+                    <div class="program-img">
+                        <img src="/mba/img/IMG-20250921-WA0065.jpg" alt="Marketing Mix Mastery">
+                    </div>
+                </div>
+
+                <div class="program-card animated">
+                    <div class="program-img">
+                        <img src="/mba/img/IMG-20250921-WA0066.jpg" alt="Social Media Marketing">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Centered Programs Section (2-up, images fully visible) -->
+    <section id="programsSection" class="programs-section">
+        <div id="programGrid" class="program-grid">
+            <!-- Card 1 -->
+            <div id="program-card-1" class="program-card-unique card-centered">
+                <div class="program-img-box">
+                    <img id="program-img-1" class="program-img-visible"
+                        src="/mba/img/WhatsApp Image 2025-09-21 at 14.33.42_e1988318.jpg" alt="Entrepreneurship 1">
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div id="program-card-2" class="program-card-unique-2 card-centered">
+                <div class="program-img-box">
+                    <img id="program-img-2" class="program-img-visible"
+                        src="/mba/img/WhatsApp Image 2025-09-21 at 14.36.19_ede65c5c.jpg" alt="Entrepreneurship 2">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PDF Documents Section -->
+    <section class="pdf-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Program Brochures</h2>
+                <p>Click on any document to view details and download</p>
+            </div>
+
+            <div class="pdf-grid">
+                <div class="pdf-item animated" data-pdf-title="MBA Program Overview"
+                    data-pdf-file="pdf/OMC Nikolay Vylegzhanin MOU Cooperation and Recruitment Draft MENA 14.5.2025.pdf">
+                    <div class="pdf-thumbnail">
+                        <i class="far fa-file-pdf"></i>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>Opresnik Management Consulting</h3>
+                        <p>Opresnik Management ConsultingHigher Education Programme Memorandum of Understanding</p>
+                    </div>
+                </div>
+
+                <div class="pdf-item animated" data-pdf-title="Executive Education Portfolio"
+                    data-pdf-file="pdf/Opresnik-Business-School-Brochure-2025.pdf">
+                    <div class="pdf-thumbnail">
+                        <i class="far fa-file-pdf"></i>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>Opresnik Business School</h3>
+                        <p>Comprehensive brochure detailing our programs and offerings</p>
+                    </div>
+                </div>
+
+                <div class="pdf-item animated" data-pdf-title="MENA Contract Sample"
+                    data-pdf-file="pdf/Opresnik-Business-School-Executive-Leadership-Excellence-Program-2025.pdf">
+                    <div class="pdf-thumbnail">
+                        <i class="far fa-file-pdf"></i>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>Opresnik Leadership Program</h3>
+                        <p>Program details and curriculum overview</p>
+                    </div>
+                </div>
+
+                <div class="pdf-item animated" data-pdf-title="Customization Options"
+                    data-pdf-file="pdf/Seminar-Contents-Easy-Selling-Marc-Opresnik-Final-2025.pdf">
+                    <div class="pdf-thumbnail">
+                        <i class="far fa-file-pdf"></i>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>Opresnik seminar Contents</h3>
+                        <p>Detailed contents of the Opresnik seminar program</p>
+                    </div>
+                </div>
+                <div class="pdf-item animated" data-pdf-title="Customization Options"
+                    data-pdf-file="pdf/Seminar-Contents-Marketing-Management-Intensive-Seminar-Marc-Opresnik-Final-2025.pdf">
+                    <div class="pdf-thumbnail">
+                        <i class="far fa-file-pdf"></i>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>Opresnik Marketing Management Seminar</h3>
+                        <p>Detailed contents of the Opresnik Marketing Management Intensive Seminar</p>
+                    </div>
+                </div>
+                <div class="pdf-item animated" data-pdf-title="Customization Options"
+                    data-pdf-file="pdf/Seminar-Contents-Negotiation-Marc-Opresnik-Final-2025.pdf">
+                    <div class="pdf-thumbnail">
+                        <i class="far fa-file-pdf"></i>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>Opresnik Negotiation Seminar</h3>
+                        <p>Detailed contents of the Opresnik Negotiation Seminar</p>
+                    </div>
+                </div>
+                <div class="pdf-item animated" data-pdf-title="Customization Options"
+                    data-pdf-file="pdf/CV_Abstract_Opresnik_EN-Final-2025.pdf">
+                    <div class="pdf-thumbnail">
+                        <i class="far fa-file-pdf"></i>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>Opresnik CV Abstract</h3>
+                        <p>Detailed contents of the Opresnik CV Abstract</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MBA Program Details -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h2>Global MBA Program Details</h2>
+            </div>
+
+            <div class="mba-details animated">
+                <h3>8-Months Fast-Track MBA Program</h3>
+                <p>Our 8-month fully online MBA program is delivered in collaboration with accredited UK universities.
+                    It consists of 4 months of interactive online modules (8 in total, each ending with a Reflective
+                    Thinking Report) followed by automatic enrollment at one of our UK university partners for the
+                    Master's Thesis.</p>
+
+                <div class="mba-highlights">
+                    <div class="highlight-card">
+                        <h4>Special Intakes</h4>
+                        <p>Special intakes can be arranged for 12+ participants, and we offer customization with modules
+                            such as Purpose-Driven Leadership (Simon Sinek) and Female Leadership in Entrepreneurship.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>Co-Branding Options</h4>
+                        <p>While the MBA degree itself is not co-brandable, we can co-brand the Level 7 Diploma in
+                            Strategic Management & Leadership if required.</p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>Delivery Locations</h4>
+                        <p>Programs can be delivered in-house at the client's location, or at our university sites in
+                            Turkey, Hamburg, Switzerland, or London, depending on preferences.</p>
+                    </div>
+                </div>
+
+                <h3>Executive Leadership Program</h3>
+                <p>This consists of 2–3 days of in-person training with me in the client's country (e.g., Malaysia,
+                    Kuwait), followed by a module at one of our elite partner universities – such as Oxford, LSE, LBS,
+                    Imperial College London or, most affordably, Copenhagen Business School.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Modal -->
+    <div class="modal-overlay" id="pdfModal">
+        <div class="pdf-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Document Title</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <embed id="pdfViewer" src="" type="application/pdf" />
+            </div>
+            <div class="modal-actions">
+                <a href="#" id="downloadLink" class="download-btn" download>
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Psyche Panacea <span>&</span> Opresnik</div>
+                    <p>Providing world-class executive education and globally accredited MBA programs through strategic
+                        collaborations.</p>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <span>308/2, Old Delhi Rd, adjacent Country Inn,<br>Sector 12 A, Anamika
+                        Enclave,<br>Sector 14, Gurugram, Haryana 122001</span>
+                    <p><i class="fas fa-envelope"></i> hr@psypanconsulting.com</p>
+                    <p><i class="fas phone"></i> 09810323292, 09810319292</p>
+                </div>
+
+                <div class="footer-links">
+                    <p class="text-gray-400">
+                        Pioneers of innovative and breakthrough methodologies in the Indian consultation arena,
+                        transforming organizations through strategic HR solutions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy;© 2025 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</< /p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // PDF Modal functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const pdfItems = document.querySelectorAll('.pdf-item');
+            const modalOverlay = document.getElementById('pdfModal');
+            const pdfViewer = document.getElementById('pdfViewer');
+            const modalTitle = document.getElementById('modalTitle');
+            const downloadLink = document.getElementById('downloadLink');
+            const closeModal = document.querySelector('.close-modal');
+
+            // Set up click events for PDF items
+            pdfItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const title = this.getAttribute('data-pdf-title');
+                    const file = this.getAttribute('data-pdf-file');
+
+                    modalTitle.textContent = title;
+                    pdfViewer.src = file;
+                    downloadLink.href = file;
+                    downloadLink.download = file;
+
+                    modalOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', function () {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close modal when clicking outside
+            modalOverlay.addEventListener('click', function (e) {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Animation on scroll
+            const animatedElements = document.querySelectorAll('.animated');
+
+            function checkScroll() {
+                animatedElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add('animate');
+                    }
+                });
+            }
+
+            // Initial check
+            checkScroll();
+
+            // Check on scroll
+            window.addEventListener('scroll', checkScroll);
+        });
+    </script>
+</body>
+
+</html>
