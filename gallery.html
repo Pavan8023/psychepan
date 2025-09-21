@@ -251,6 +251,117 @@
                 padding: 0.2rem 0.5rem;
             }
         }
+
+        /* Sticky wrapper similar to your tabs wrapper */
+        .folder-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            padding: 0.5rem 0.75rem;
+            /* small padding for wrapper */
+        }
+
+        /* Hide the mobile toggle by default (desktop) */
+        .mobile-toggle {
+            display: none;
+            background: #0052cc;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 10010;
+        }
+
+        /* Make the folder-nav high stacking when needed */
+        .folder-nav {
+            z-index: 9998;
+        }
+
+        /* Folder active styling (you already use .active) */
+        .folder-tab.active {
+            outline: 2px solid rgba(0, 82, 204, 0.08);
+            background: rgba(0, 82, 204, 0.04);
+            color: #003a8c;
+        }
+
+        /* MOBILE: hide inline folder-nav and show toggle */
+        @media (max-width: 640px) {
+            .folder-nav {
+                display: none !important;
+                /* hide inline list */
+            }
+
+            .mobile-toggle {
+                display: inline-block;
+            }
+
+            /* When open, show compact dropdown */
+            .folder-nav.mobile-open {
+                display: grid !important;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 56px;
+                /* sits below the sticky wrapper — adjust if wrapper height changes */
+                background: #f7fafc;
+                padding: 0.5rem;
+                gap: 0.25rem;
+                grid-template-columns: repeat(4, 1fr);
+                /* compact grid on mobile */
+                z-index: 10005;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+                max-height: 50vh;
+                overflow: auto;
+            }
+
+            .folder-tab {
+                padding: 0.4rem 0.5rem !important;
+                font-size: 0.75rem !important;
+                margin: 0;
+                border-radius: 6px;
+                text-align: center;
+                white-space: normal;
+            }
+
+            .folder-tab .folder-icon {
+                margin-right: 0.5rem;
+            }
+
+            .folder-tab.active {
+                background: rgba(0, 82, 204, 0.08) !important;
+                color: #0052cc !important;
+            }
+        }
+
+        /* Larger screens: ensure folder nav is visible */
+        @media (min-width: 641px) {
+            .folder-nav {
+                display: flex !important;
+                /* restore original flex layout */
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.75rem;
+            }
+
+            .mobile-toggle {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #galleryGrid {
+                margin-top: 120px !important;
+            }
+        }
     </style>
 </head>
 
@@ -323,10 +434,16 @@
             </div>
         </section>
 
-        <!-- Rest of Gallery -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Folder Navigation -->
-            <div class="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto py-2">
+        <!-- Folder Wrapper (sticky + mobile toggle) -->
+        <div class="folder-wrapper">
+            <!-- Mobile toggle (visible only on mobile) -->
+            <button id="folderToggle" class="mobile-toggle" aria-expanded="false" aria-controls="folderNav">
+                ☰ Folders
+            </button>
+
+            <!-- Folder Navigation (keep inner markup exactly as you provided) -->
+            <div id="folderNav" class="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto py-2 folder-nav"
+                role="tablist">
                 <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
                     data-folder="recent">
                     <i class="fas fa-folder-open folder-icon text-xl mr-3 text-yellow-500"></i>
@@ -363,10 +480,14 @@
                     <span>Outbound Activities</span>
                 </div>
             </div>
+        </div>
+        <!-- Rest of Gallery -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
 
             <!-- Gallery Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6" id="galleryGrid">
-                <!-- Gallery items will be loaded here -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6 mt-6 sm:mt-6"
+                id="galleryGrid" style="margin-top:20px;">
             </div>
 
             <!-- Load More Button -->
@@ -530,6 +651,101 @@
         </div>
 
         <script>
+
+                (function () {
+                    const folderNav = document.getElementById('folderNav');
+                    const folderTabs = Array.from(folderNav.querySelectorAll('.folder-tab'));
+                    const toggleBtn = document.getElementById('folderToggle');
+                    const wrapper = document.querySelector('.folder-wrapper');
+
+                    // Activate a folder tab visually and show matching content (if present)
+                    function activateFolderTab(tab) {
+                        folderTabs.forEach(t => {
+                            t.classList.toggle('active', t === tab);
+                            // aria-selected for accessibility
+                            t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+                        });
+
+                        const target = tab.dataset.folder;
+                        // Toggle folder-content panels if they exist (ids should match data-folder values)
+                        const contents = Array.from(document.querySelectorAll('.folder-content'));
+                        if (contents.length) {
+                            contents.forEach(c => {
+                                c.classList.toggle('active', c.id === target);
+                            });
+                        }
+                    }
+
+                    // Attach click + keyboard handlers to each folder tab
+                    folderTabs.forEach(tab => {
+                        tab.addEventListener('click', () => {
+                            activateFolderTab(tab);
+                            // close mobile dropdown for tidy UX
+                            if (window.innerWidth <= 640 && folderNav.classList.contains('mobile-open')) {
+                                folderNav.classList.remove('mobile-open');
+                                toggleBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        });
+
+                        tab.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                activateFolderTab(tab);
+                            }
+                        });
+                    });
+
+                    // Mobile toggle open/close
+                    toggleBtn.addEventListener('click', (e) => {
+                        const open = folderNav.classList.toggle('mobile-open');
+                        toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+                        // When opened, ensure wrapper in view
+                        if (open) {
+                            wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+
+                    // Close mobile dropdown when clicking outside
+                    document.addEventListener('click', (e) => {
+                        if (window.innerWidth <= 640) {
+                            if (!folderNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+                                if (folderNav.classList.contains('mobile-open')) {
+                                    folderNav.classList.remove('mobile-open');
+                                    toggleBtn.setAttribute('aria-expanded', 'false');
+                                }
+                            }
+                        }
+                    });
+
+                    // Close on Escape
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            if (folderNav.classList.contains('mobile-open')) {
+                                folderNav.classList.remove('mobile-open');
+                                toggleBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    });
+
+                    // Handle resize: ensure mobile-open removed when going to larger screens
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth > 640) {
+                            if (folderNav.classList.contains('mobile-open')) {
+                                folderNav.classList.remove('mobile-open');
+                                toggleBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    });
+
+                    // init: ensure one active folder
+                    (function init() {
+                        const activeTab = folderTabs.find(t => t.classList.contains('active')) || folderTabs[0];
+                        if (activeTab) activateFolderTab(activeTab);
+                    })();
+
+                })();
+
             document.addEventListener("DOMContentLoaded", function () {
                 const chatbotWindow = document.getElementById("chatbotWindow");
                 const chatbotToggle = document.getElementById("chatbotToggle");

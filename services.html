@@ -235,23 +235,6 @@
       box-shadow: 0 10px 25px rgba(0, 82, 204, 0.2);
     }
 
-    .training-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    @media (max-width: 768px) {
-
-      .training-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .city-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
     .typing-animation {
       overflow: hidden;
       border-right: .15em solid #3b82f6;
@@ -2160,16 +2143,13 @@
       </div>
     </div>
   </footer>
-  <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
-  <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 999;">
+  <!-- Chatbot -->
+  <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 1000;">
     <!-- Toggle / Floating Button -->
     <button id="chatbotToggle"
-      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
+      class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
       aria-label="Open chat">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        class="opacity-95">
-        <img src="Chatbot.gif" alt="">
-      </svg>
+      <img src="Chatbot.gif" alt="">
     </button>
 
     <!-- Chat window -->
@@ -2177,10 +2157,10 @@
       class="chatbot-window w-80 sm:w-96 max-h-[540px] absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 flex flex-col overflow-hidden">
       <!-- Header -->
       <div
-        class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+        class="chatbot-header bg-gradient-to-r from-blue-500 to-blue-700 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
         <div>
-          <div class="font-bold text-sm sm:text-base">Psyche Panacea Assistant</div>
-          <div class="text-xs opacity-90">Corporate Training & HR Support</div>
+          <div class="font-bold text-sm sm:text-base">PsypanChatbot</div>
+          <div class="text-xs opacity-90">Your virtual guide</div>
         </div>
         <div class="flex items-center gap-2">
           <button id="chatClear" title="Clear chat"
@@ -2191,22 +2171,21 @@
 
       <!-- Body -->
       <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto flex-1 space-y-3 bg-white">
-        <div
-          class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-1 max-w-[86%] float-left clear-both text-sm sm:text-base">
-          Welcome! Choose an option below or type your question. 👇
-        </div>
+        <!-- Messages will be inserted here by JavaScript -->
+      </div>
 
-        <!-- quick options container -->
-        <div id="chatOptions" class="w-full flex flex-wrap gap-2"></div>
+      <!-- Options Container -->
+      <div id="chatOptions" class="p-3 bg-white border-t border-gray-200 flex flex-wrap gap-2">
+        <!-- Options will be inserted here by JavaScript -->
       </div>
 
       <!-- Input area -->
       <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex gap-2 items-center">
         <input id="chatbotInput" type="text"
-          class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none"
-          placeholder="Ask about our programs or click an option...">
+          class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-300"
+          placeholder="Type your message here...">
         <button id="chatbotSend"
-          class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">Send</button>
+          class="bg-blue-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:bg-blue-600 transition">Send</button>
       </div>
     </div>
   </div>
