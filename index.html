@@ -3117,13 +3117,11 @@
           const companies = parseInt(data.companies.replace(/[+,]/g, '')) || 0;
           const experience = parseInt(data.experience.replace(/[+,]/g, '')) || 0;
           const associates = parseInt(data.associates.replace(/[+,]/g, '')) || 0;
-          const participants = parseInt(data.participants.replace(/[+,]/g, '')) || 0;
 
           // Animate each stat
           animateCount('clients-stat', companies, '+');
           animateCount('experience-stat', experience, '+');
           animateCount('retention-stat', associates, '+');
-          animateCount('trained-stat', participants, '+');
         } else {
           console.log("No such document!");
         }
@@ -3141,17 +3139,6 @@
       const logos = document.querySelectorAll('.logo-item-carousel');
       let current = 0;
 
-      // Rotate logos every 2 seconds
-      setInterval(() => {
-        // Remove active class from current logo
-        logos[current].classList.remove('active');
-
-        // Move to next logo
-        current = (current + 1) % logos.length;
-
-        // Add active class to new logo
-        logos[current].classList.add('active');
-      }, 2000);
     }
 
     // Initialize everything when DOM is loaded

@@ -252,11 +252,83 @@
       }
     }
 
-    @media (max-width: 480px) {
+    .typing-animation {
+      overflow: hidden;
+      border-right: .15em solid #3b82f6;
+      white-space: nowrap;
+      animation: typing 1s steps(40, end), blink-caret .75s step-end infinite;
+    }
 
+    @keyframes typing {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    @keyframes blink-caret {
+
+      from,
+      to {
+        border-color: transparent
+      }
+
+      50% {
+        border-color: #3b82f6;
+      }
+    }
+
+    .chatbot-body {
+      scroll-behavior: smooth;
+    }
+
+    #chatbotWindow {
+      transition: all 0.3s ease;
+    }
+
+    .option-btn {
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    #chatbotToggle {
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    #chatbotToggle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    }
+
+    .chatbot-message {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
       .chatbot-window {
+        width: 90vw;
         max-width: 90vw;
         right: 5px;
+        max-height: 70vh;
       }
 
       .chatbot-input {
@@ -1960,46 +2032,49 @@
     <section class="py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Soft Skills Training</h2>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Offsite</h2>
           <div class="h-1 w-20 bg-primary mx-auto rounded"></div>
           <p class="text-gray-700 mt-6 max-w-2xl mx-auto text-sm">
-            Practical soft-skills that improve communication, collaboration and leadership.
+            Engaging offsite programs designed to strengthen teamwork, boost morale, and enhance leadership skills.
           </p>
         </div>
 
         <!-- IMAGE -->
         <div class="overflow-hidden rounded-xl shadow-lg">
-          <img src="/images/gallery/offsites/real-offsite.jpg" alt="Soft skills training illustration"
-            class="w-full h-auto object-cover rounded-xl" />
+          <img src="/images/gallery/offsite/real-offsite.jpg" alt="Soft skills training illustration"
+            style="width:100%; height:400px; object-fit:contain; display:block; background:#f6f7fb; border-radius:0.75rem;">
+
         </div>
 
         <!-- TEXT BLOCKS -->
         <div class="prose max-w-3xl mx-auto space-y-4">
           <ul class="list-disc list-inside text-sm text-gray-700">
-            <li>Communication: active listening, clarity & presentations</li>
-            <li>Interpersonal: teamwork, conflict resolution, empathy</li>
-            <li>Leadership & productivity: delegation, time management</li>
+            <li>Team bonding: fun activities that build trust & collaboration</li>
+            <li>Engagement: outdoor challenges & immersive group tasks</li>
+            <li>Leadership in action: problem-solving, strategy & coordination</li>
           </ul>
 
           <div id="soft-more" class="hidden space-y-4">
             <ul class="list-disc list-inside text-sm text-gray-700">
-              <li>Emotional intelligence: self-awareness and stress management</li>
-              <li>Practical workshops: role-plays, feedback loops & real-world practice</li>
-              <li>Outcome: better collaboration, customer experience & retention</li>
+              <li>Wellness & motivation: relaxation, reflection & rejuvenation</li>
+              <li>Customized experiences: venues, themes & activities tailored to teams</li>
+              <li>Outcome: stronger workplace culture, morale & performance</li>
             </ul>
           </div>
+        </div>
 
-          <div class="text-center">
-            <button
-              class="read-more inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark focus:outline-none"
-              data-target="soft-more">
-              <span>Read More</span>
-              <i class="fas fa-chevron-down ml-2 transition-transform duration-300"></i>
-            </button>
-          </div>
+
+        <div class="text-center">
+          <button
+            class="read-more inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark focus:outline-none"
+            data-target="soft-more">
+            <span>Read More</span>
+            <i class="fas fa-chevron-down ml-2 transition-transform duration-300"></i>
+          </button>
         </div>
       </div>
-    </section>
+  </div>
+  </section>
   </div>
 
   <!-- CLIENT LOGO MARQUEE (single-row, no double-vertical logos) -->
@@ -2137,6 +2212,22 @@
   </div>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const chatbotWindow = document.getElementById("chatbotWindow");
+      const chatbotToggle = document.getElementById("chatbotToggle");
+      const chatbotClose = document.getElementById("chatbotClose");
+
+
+      // Toggle chatbot when floating button is clicked
+      chatbotToggle.addEventListener("click", () => {
+        chatbotWindow.classList.toggle("hidden");
+      });
+
+      // Close chatbot when "×" is clicked
+      chatbotClose.addEventListener("click", () => {
+        chatbotWindow.classList.add("hidden");
+      });
+    });
 
     /* ---------- Single-track marquee script (no double-vertical logos) ---------- */
 
@@ -2477,340 +2568,473 @@
           email: 'hr@psypanconsulting.com',
         };
 
-        // PAGE URL map: clicking goto/learn-more opens these pages in the same tab
+        // PAGE URL map
         const pageUrlMap = {
           'Services': 'services.html',
-          'Flagship Programs': 'flagship-programs.html',
-          'Blogs': 'blogs.html',
-          'Events': 'events.html',
           'Contact': 'contact.html',
-          'About Us': 'about-us.html',
-          // keep Gallery as optional (if desired, add a page)
-          'Gallery': 'gallery.html'
+          'Flagship Programs': 'flagship-programs.html',
+          'Global Programs': 'https://psychepan-mba.netlify.app'
         };
 
-        const servicesList = [
-          'Management Training',
-          'Employee Engagement',
-          'HR Consulting',
-          'Employee Assistance',
-          'Outbound Training',
-          'Soft Skills'
+        // Main menu options
+        const mainOptions = [
+          { id: 1, label: 'Services Offered', icon: '🌐' },
+          { id: 2, label: 'Management Trainings', icon: '📊' },
+          { id: 3, label: 'Global Executive Devp Programs', icon: '🌍' },
+          { id: 4, label: 'Employee Engagement', icon: '👥' },
+          { id: 5, label: 'Employee Assistance', icon: '🤝' },
+          { id: 6, label: 'Outbound Training', icon: '🏕️' },
+          { id: 7, label: 'Offsites', icon: '🏞️' },
+          { id: 8, label: 'Connect with Us', icon: '📞' }
         ];
 
-        const flagshipPrograms = [
-          'Managerial Dev. Program',
-          'Train The Trainer',
-          'Handling Conversation',
-          'Campus to Corporate',
-          'Business Comm. Skills',
-          'Mentoring Skills',
-          'Diversity & Inclusion',
-          'Sahyog'
-        ];
+        // Sub-options for each main option
+        const subOptions = {
+          1: [
+            { label: 'Management Trainings', action: 'redirect', target: 'Services' },
+            { label: 'Employee Engagement', action: 'redirect', target: 'Services' },
+            { label: 'Global Executive Development', action: 'menu', target: 3 },
+            { label: 'Outbound Training', action: 'redirect', target: 'Services' },
+            { label: 'Offsites', action: 'redirect', target: 'Services' },
+            { label: 'Employee Assistance', action: 'redirect', target: 'Services' }
+          ],
+          2: [
+            { label: '📘 Featured Trainings', action: 'Trainings' },
+            { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
+          ],
+          3: [
+            { label: '🌍 Global MBA', action: 'redirect', target: 'Global Programs' },
+            { label: '✅ Eligibility', action: 'redirect', target: 'Global Programs' }
+          ],
+          4: [
+            { label: '🎯 EEP Services', action: 'EEPServices' },
+            { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
+          ],
+          5: [
+            { label: '🧩 EAP Details', action: 'EAPDetails' },
+            { label: '📞 Request Call Back', action: 'Phone' }
+          ],
+          6: [
+            { label: '🏖 Venue Options', action: 'Venues' },
+            { label: '🎯 Format Details', action: 'FormatDetails' }
+          ],
+          7: [
+            { label: '🏞 Sample Activities', action: 'SampleActivities' },
+            { label: '📅 Book a Session', action: 'redirect', target: 'Flagship Programs' }
+          ],
+          8: [
+            { label: '📩 Talk to a Human', action: 'redirect', target: 'Contact' },
+            { label: '📅 Book a Consultation', action: 'Email' },
+            { label: '📞 Request a Call Back', action: 'Phone' }
+          ]
+        };
+
+        // Content for various options
+        const content = {
+          trainings: [
+            'Management Trainings',
+            'Employee Engagements Trainings',
+            'HR Consulting',
+            'Employee Assistance Program',
+            'Outbound Trainings/Offsites',
+            'Soft Skills'
+          ],
+          eepServices: [
+            'Employee Wellness Programme',
+            'Employee Development',
+            'Employee Konnect',
+            'Employee Offsite Program'
+          ],
+          eapDetails: [
+            'Workplace / Mental Health Counselling',
+            'Wellness Assessment',
+            'Wellness Survey',
+            'Wellness Report'
+          ],
+          venues: [
+            'Panchgani', 'Chandipur', 'Bubhneshwar', 'Lonavala', 'Khandala',
+            'Jim Corbett', 'Nanital', 'Ranikhet', 'Kausani', 'Kausali',
+            'Chail', 'Dhanulti', 'Mussorie', 'Solan', 'Shoghi',
+            'Nalagarh', 'Garh Mukteshwar'
+          ],
+          formatDetails: [
+            'Result Oriented OBTs',
+            'Strategic OBTs',
+            'Immersive Experience',
+            'Experiential Strategic & Challenging Group activities'
+          ],
+          sampleActivities: [
+            'EEP Program',
+            'Outbound Activities',
+            'Offsites and more...'
+          ]
+        };
+
+
+        // Bot responses for main options
+        const botResponses = {
+          1: "We offer a portfolio of services to support organizations and individuals with growth, learning, and transformation. Would you like to explore specific services such as Management Trainings, Employee Engagement, or Outbound Programs?",
+          2: "Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness. They can be customized for different levels of management. Would you like to see available training modules or connect with our team for details?",
+          3: "We bring world-class executive development programs through our global collaborations with leading universities and experts. These programs focus on leadership, innovation, and future-ready skills. Would you like an overview or check eligibility to join?",
+          4: "We design employee engagement initiatives to boost motivation, collaboration, and workplace satisfaction. Programs include workshops, cultural initiatives, and interactive experiences. Would you like examples of engagement activities?",
+          5: "Our Employee Assistance Programs (EAPs) provide confidential support to employees for work-life balance, stress management, and well-being. Would you like to know more about our EAP offerings?",
+          6: "Our outbound training programs combine learning with adventure, designed to build teamwork, leadership, and resilience. Would you like to see sample activities or discuss a custom OBT for your team?",
+          7: "We organize corporate offsites to strengthen bonding, align strategy, and recharge teams in engaging environments. Would you like options for venues and formats?",
+          8: "Would you like to connect with our team directly?"
+        };
+
+        // Fallback response
+        const fallbackResponse = "❓ I may not know that yet…➡️ Explore services👨‍💼 Talk to a consultant";
+
+        // Track the last question asked by the bot
+        let lastQuestionContext = null;
 
         // Keyword responses (typed input fallback)
         function getBotResponse(message) {
           const lower = message.toLowerCase();
+
+          // Handle yes/no responses to bot questions
+          if (lastQuestionContext) {
+            if (lower === 'yes' || lower === 'y' || lower === 'yeah' || lower === 'yep') {
+              // Handle the "yes" response based on the last question context
+              handleActionSelect(lastQuestionContext.action, lastQuestionContext.target);
+              lastQuestionContext = null;
+              return "";
+            } else if (lower === 'no' || lower === 'n' || lower === 'nope') {
+              // Clear chat and show main options for "no" response
+              bodyEl.innerHTML = '';
+              initChatbot();
+              lastQuestionContext = null;
+              return "";
+            }
+          }
+
+          // Common words mapping
+          if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+            return "Hello! How can I help you today?";
+          }
+          if (lower.includes('thank')) {
+            return "You're welcome! Is there anything else I can help you with?";
+          }
+          if (lower.includes('bye') || lower.includes('goodbye')) {
+            return "Thank you for chatting with me. Have a great day!";
+          }
           if (lower.includes('contact') || lower.includes('address')) {
             return `Our office is located at ${contactInfo.address}`;
           }
-          if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number')) {
+          if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number') || lower.includes('number')) {
             return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
           }
           if (lower.includes('email') || lower.includes('mail')) {
             return `For inquiries, please email us at ${contactInfo.email}`;
           }
-          if (lower.includes('training') || lower.includes('program')) {
-            return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
+          if (lower.includes('training') || lower.includes('program') || lower.includes('course')) {
+            return 'We offer various training programs including Management Training, Employee Engagement, and Outbound Training.';
           }
-          if (lower.includes('service') || lower.includes('offer')) {
+          if (lower.includes('service') || lower.includes('offer') || lower.includes('provide')) {
             return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
           }
+          if (lower.includes('management') || lower.includes('leadership')) {
+            return 'Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness.';
+          }
+          if (lower.includes('employee') || lower.includes('staff')) {
+            return 'We offer Employee Engagement and Employee Assistance programs to support your workforce.';
+          }
+          if (lower.includes('global') || lower.includes('executive') || lower.includes('mba')) {
+            return 'We bring world-class executive development programs through our global collaborations with leading universities.';
+          }
+          if (lower.includes('outbound') || lower.includes('obt') || lower.includes('team building')) {
+            return 'Our outbound training programs combine learning with adventure, designed to build teamwork and leadership.';
+          }
+          if (lower.includes('offsites') || lower.includes('offsite')) {
+            return 'We organize corporate offsites to strengthen bonding and align strategy in engaging environments.';
+          }
+          if (lower.includes('help') || lower.includes('support')) {
+            return "I'm here to help! You can ask me about our services, training programs, or how to contact us.";
+          }
+
           // fallback
-          return 'I’m here to help! You can click one of the options below or tell me what you need.';
+          return fallbackResponse;
         }
 
         // --- DOM references ---
-        const toggleBtn = document.getElementById('chatbotToggle');
-        const windowEl = document.getElementById('chatbotWindow');
-        const closeBtn = document.getElementById('chatbotClose');
         const sendBtn = document.getElementById('chatbotSend');
         const inputEl = document.getElementById('chatbotInput');
         const bodyEl = document.getElementById('chatbotBody');
         const optionsContainer = document.getElementById('chatOptions');
-        const clearBtn = document.getElementById('chatClear');
+
+        // Track current menu state
+        let currentMenu = null;
 
         // --- helpers ---
         function scrollChatToBottom() {
           bodyEl.scrollTop = bodyEl.scrollHeight;
         }
 
-        function createMessage({ text, who = 'bot', html = false }) {
+        function createMessage({ text, who = 'bot', html = false, typing = false }) {
           const wrapper = document.createElement('div');
           wrapper.className =
             'chatbot-message ' +
             (who === 'user'
-              ? 'user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base'
-              : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base');
+              ? 'user bg-blue-500 text-white rounded-lg p-3 mb-3 max-w-[80%] ml-auto clear-both text-sm'
+              : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] clear-both text-sm');
+
+          if (typing) {
+            wrapper.classList.add('typing-animation');
+            wrapper.style.width = 'fit-content';
+          }
+
           if (html) wrapper.innerHTML = text;
           else wrapper.textContent = text;
+
           bodyEl.appendChild(wrapper);
           scrollChatToBottom();
           return wrapper;
         }
 
         function createTypingIndicator() {
-          return createMessage({ text: 'Typing...', who: 'bot' });
+          return createMessage({ text: 'PsypanChatbot is typing...', who: 'bot', typing: true });
         }
 
-        // Show quick options and prompt "How may I help you?"
-        function showOptionsPrompt(delay = 500) {
-          setTimeout(() => {
-            createMessage({ text: 'How may I help you?', who: 'bot' });
-            renderQuickOptions();
-          }, delay);
+        function removeTypingIndicator(indicator) {
+          if (indicator && indicator.parentNode) {
+            indicator.classList.remove('typing-animation');
+            indicator.style.borderRight = 'none';
+          }
         }
 
-        // Create clickable quick options
-        function renderQuickOptions() {
+        // Show main options
+        function showMainOptions() {
           optionsContainer.innerHTML = '';
-
-          const mainOptions = [
-            { label: 'Services', action: 'services' },
-            { label: 'Flagship Programs', action: 'programs' },
-            { label: 'Contact', action: 'contact' },
-            { label: 'Phone', action: 'phone' },
-            { label: 'Email', action: 'email' },
-            { label: 'Events', action: 'goto', target: 'Events' },
-            { label: 'Gallery', action: 'goto', target: 'Gallery' },
-            { label: 'Blogs', action: 'goto', target: 'Blogs' },
-            { label: 'About Us', action: 'goto', target: 'About Us' }
-          ];
 
           mainOptions.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = 'px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 hover:bg-slate-50';
-            btn.textContent = opt.label;
-            btn.dataset.action = opt.action;
-            if (opt.target) btn.dataset.target = opt.target;
+            btn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
+            btn.innerHTML = `${opt.icon} ${opt.label}`;
+            btn.dataset.option = opt.id;
             optionsContainer.appendChild(btn);
           });
 
+          currentMenu = null;
           scrollChatToBottom();
         }
 
-        // Show service details then show options again
-        function showServiceDetails(serviceName) {
-          const description = `${serviceName} — a tailored solution to address corporate needs. Click Learn more to visit the Services page.`;
-          const typing = createTypingIndicator();
-          setTimeout(() => {
-            typing.remove();
-            createMessage({ text: description, who: 'bot' });
-            const html = `<div class="mt-2"><button data-action="goto" data-target="Services" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Learn more</button></div>`;
-            createMessage({ text: html, who: 'bot', html: true });
-            // show options again
-            showOptionsPrompt(700);
-          }, 700);
+        // Show sub options
+        function showSubOptions(optionId) {
+          optionsContainer.innerHTML = '';
+
+          if (subOptions[optionId]) {
+            subOptions[optionId].forEach(opt => {
+              const btn = document.createElement('button');
+              btn.className = 'option-btn px-3 py-2 mb-2 mr-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
+              btn.textContent = opt.label;
+              btn.dataset.action = opt.action;
+              if (opt.target) btn.dataset.target = opt.target;
+              optionsContainer.appendChild(btn);
+            });
+          }
+
+          // Add back button
+          const backBtn = document.createElement('button');
+          backBtn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition';
+          backBtn.textContent = '⬅ Back to Main Menu';
+          backBtn.addEventListener('click', () => {
+            createMessage({ text: 'What would you like to know about?', who: 'bot' });
+            showMainOptions();
+          });
+          optionsContainer.appendChild(backBtn);
+
+          currentMenu = optionId;
+          scrollChatToBottom();
         }
 
-        // Show program details then show options again
-        function showProgramDetails(programName) {
-          const description = `${programName} — structured program designed to build competencies and measurable outcomes. Click Go to Flagship Programs to know more.`;
-          const typing = createTypingIndicator();
-          setTimeout(() => {
-            typing.remove();
-            createMessage({ text: description, who: 'bot' });
-            const html = `<div class="mt-2"><button data-action="goto" data-target="Flagship Programs" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Go to Flagship Programs</button></div>`;
-            createMessage({ text: html, who: 'bot', html: true });
-            // show options again
-            showOptionsPrompt(700);
-          }, 700);
-        }
-
-        // Navigate to the mapped page (same tab). If no mapping, fallback to hash navigation.
-        function goToPage(name) {
-          const normalized = name.trim();
-          const url = pageUrlMap[normalized];
-          if (url) {
-            // give a small confirmation message then navigate
-            createMessage({ text: `Opening ${normalized}...`, who: 'bot' });
-            // navigate in same tab
-            window.location.href = url;
+        // Show list of items
+        function showList(items, redirectUrl = null) {
+          let listHtml = '';
+          if (redirectUrl) {
+            listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
+                        <ul class="list-disc list-inside text-sm">${items.map(item => `<li class="cursor-pointer hover:underline" onclick="window.location.href='${redirectUrl}'">${item}</li>`).join('')}</ul>
+                    </div>`;
           } else {
-            // fallback: attempt scroll to element id
-            const id = normalized.toLowerCase().replace(/\s+/g, '-');
-            const el = document.getElementById(id);
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              createMessage({ text: `Taking you to ${normalized} section.`, who: 'bot' });
-              // show options afterwards
-              showOptionsPrompt(700);
-            } else {
-              createMessage({ text: `Couldn't find a page or section for "${normalized}".`, who: 'bot' });
-              showOptionsPrompt(600);
-            }
+            listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
+                        <ul class="list-disc list-inside text-sm">${items.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>`;
+          }
+          createMessage({ text: listHtml, who: 'bot', html: true });
+        }
+
+        // Redirect to page
+        function redirectToPage(page) {
+          if (pageUrlMap[page]) {
+            createMessage({ text: `Redirecting you to ${page}...`, who: 'bot' });
+            setTimeout(() => {
+              if (pageUrlMap[page].startsWith('http')) {
+                window.open(pageUrlMap[page], '_blank');
+              } else {
+                window.location.href = pageUrlMap[page];
+              }
+            }, 1000);
+          } else {
+            createMessage({ text: `The ${page} page is not available at the moment.`, who: 'bot' });
           }
         }
 
-        // --- main event handlers ---
-        function handleOptionClick(target) {
-          const action = target.dataset.action;
-          const t = target.dataset.target || target.textContent;
+        // Show phone number
+        function showPhone() {
+          createMessage({ text: `You can call us at: ${contactInfo.phones[1]}`, who: 'bot' });
+        }
 
-          if (action === 'services') {
-            const typing = createTypingIndicator();
-            setTimeout(() => {
-              typing.remove();
-              createMessage({ text: 'Here are our Services:', who: 'bot' });
-              const html = servicesList.map(s => `<button data-action="service" data-name="${s}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${s}</button>`).join('');
-              createMessage({ text: html, who: 'bot', html: true });
-              // show options again under the list
-              showOptionsPrompt(600);
-            }, 500);
-            return;
-          }
+        // Show email
+        function showEmail() {
+          createMessage({ text: `Please email us at: ${contactInfo.email}`, who: 'bot' });
+        }
 
-          if (action === 'programs') {
-            const typing = createTypingIndicator();
-            setTimeout(() => {
-              typing.remove();
-              createMessage({ text: 'Our Flagship Programs:', who: 'bot' });
-              const html = flagshipPrograms.map(p => `<button data-action="program" data-name="${p}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${p}</button>`).join('');
-              createMessage({ text: html, who: 'bot', html: true });
-              showOptionsPrompt(600);
-            }, 500);
-            return;
-          }
+        // Handle option selection
+        function handleOptionSelect(optionId) {
+          // Create user message
+          const optionText = mainOptions.find(opt => opt.id == optionId).label;
+          createMessage({ text: optionText, who: 'user' });
 
-          if (action === 'contact') {
-            createMessage({ text: `Address: ${contactInfo.address}`, who: 'bot' });
-            createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
-            createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
-            showOptionsPrompt(600);
-            return;
-          }
+          // Show typing indicator
+          const typingIndicator = createTypingIndicator();
 
-          if (action === 'phone') {
-            createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
-            showOptionsPrompt(600);
-            return;
-          }
-
-          if (action === 'email') {
-            createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
-            showOptionsPrompt(600);
-            return;
-          }
-
-          if (action === 'goto') {
-            // Open mapped page in same tab
-            const targetLabel = target.dataset.target || target.textContent;
-            goToPage(targetLabel);
-            return;
-          }
-
-          if (action === 'service') {
-            const name = target.dataset.name;
-            showServiceDetails(name);
-            return;
-          }
-          if (action === 'program') {
-            const name = target.dataset.name;
-            showProgramDetails(name);
-            return;
-          }
-
-          // fallback: treat as typed content
-          const typedText = target.textContent || '';
-          createMessage({ text: typedText, who: 'user' });
-          const response = getBotResponse(typedText);
-          const typing = createTypingIndicator();
+          // After delay, show bot response and options
           setTimeout(() => {
-            typing.remove();
-            createMessage({ text: response, who: 'bot' });
-            showOptionsPrompt(600);
-          }, 800);
+            removeTypingIndicator(typingIndicator);
+            createMessage({ text: botResponses[optionId], who: 'bot' });
+
+            // Set last question context if the response ends with a question mark
+            if (botResponses[optionId].endsWith('?')) {
+              const firstSubOption = subOptions[optionId] && subOptions[optionId][0];
+              if (firstSubOption) {
+                lastQuestionContext = {
+                  action: firstSubOption.action,
+                  target: firstSubOption.target
+                };
+              }
+            }
+
+            showSubOptions(optionId);
+          }, 1500);
         }
 
-        // Delegate clicks inside chat body (for dynamic buttons)
-        bodyEl.addEventListener('click', (e) => {
-          const btn = e.target.closest('button');
-          if (!btn) return;
-          const action = btn.dataset.action;
-          if (!action) return;
-          // small user bubble showing clicked option
-          const label = btn.textContent;
-          createMessage({ text: label, who: 'user' });
-          handleOptionClick(btn);
-        });
+        // Handle action selection
+        function handleActionSelect(action, target) {
+          // Create user message
+          const actionText = event ? event.target.textContent : "Yes";
+          createMessage({ text: actionText, who: 'user' });
 
-        // Top-level quick options click
-        optionsContainer.addEventListener('click', (e) => {
-          const btn = e.target.closest('button');
-          if (!btn) return;
-          handleOptionClick(btn);
-        });
+          // Show typing indicator
+          const typingIndicator = createTypingIndicator();
 
-        // send typed message
-        function sendMessage() {
+          // After delay, handle the action
+          setTimeout(() => {
+            removeTypingIndicator(typingIndicator);
+
+            switch (action) {
+              case 'menu':
+                handleOptionSelect(target);
+                break;
+              case 'Trainings':
+                showList(content.trainings, pageUrlMap['Services']);
+                showSubOptions(currentMenu);
+                break;
+              case 'EEPServices':
+                showList(content.eepServices, pageUrlMap['Flagship Programs']);
+                showSubOptions(currentMenu);
+                break;
+              case 'EAPDetails':
+                showList(content.eapDetails);
+                showSubOptions(currentMenu);
+                break;
+              case 'Venues':
+                showList(content.venues);
+                showSubOptions(currentMenu);
+                break;
+              case 'FormatDetails':
+                showList(content.formatDetails);
+                showSubOptions(currentMenu);
+                break;
+              case 'SampleActivities':
+                showList(content.sampleActivities);
+                showSubOptions(currentMenu);
+                break;
+              case 'Phone':
+                showPhone();
+                showSubOptions(currentMenu);
+                break;
+              case 'Email':
+                showEmail();
+                showSubOptions(currentMenu);
+                break;
+              case 'redirect':
+                redirectToPage(target);
+                break;
+              default:
+                createMessage({ text: "I'm not sure how to help with that.", who: 'bot' });
+                showMainOptions();
+            }
+
+            // Clear the last question context after handling the action
+            lastQuestionContext = null;
+          }, 1500);
+        }
+
+        // Initialize chatbot
+        function initChatbot() {
+          createMessage({ text: "Hello! PsypanChatbot here 👋 Ready to explore our services?", who: 'bot' });
+          showMainOptions();
+        }
+
+        // --- event handlers ---
+        sendBtn.addEventListener('click', () => {
           const message = inputEl.value.trim();
-          if (!message) return;
-          createMessage({ text: message, who: 'user' });
-          inputEl.value = '';
-          const typing = createTypingIndicator();
-          setTimeout(() => {
-            typing.remove();
-            // If user typed exact name of a service or program, prefer direct show
-            const normalized = message.toLowerCase();
-            const serviceMatch = servicesList.find(s => normalized === s.toLowerCase());
-            const progMatch = flagshipPrograms.find(p => normalized === p.toLowerCase());
-            if (serviceMatch) {
-              showServiceDetails(serviceMatch);
-              return;
-            }
-            if (progMatch) {
-              showProgramDetails(progMatch);
-              return;
-            }
-            // If they typed a page name like 'services' or 'blogs', open page
-            const pageKey = Object.keys(pageUrlMap).find(k => k.toLowerCase() === message.toLowerCase());
-            if (pageKey) {
-              goToPage(pageKey);
-              return;
-            }
-            const response = getBotResponse(message);
-            createMessage({ text: response, who: 'bot' });
-            showOptionsPrompt(600);
-          }, 900);
-        }
+          if (message) {
+            createMessage({ text: message, who: 'user' });
+            inputEl.value = '';
 
-        // Toggle open/close
-        function toggleChatbot() {
-          const isHidden = windowEl.classList.contains('hidden');
-          if (isHidden) {
-            windowEl.classList.remove('hidden');
-            // render quick options each time to ensure fresh buttons
-            renderQuickOptions();
-          } else {
-            windowEl.classList.add('hidden');
+            const typingIndicator = createTypingIndicator();
+
+            setTimeout(() => {
+              removeTypingIndicator(typingIndicator);
+              const response = getBotResponse(message);
+
+              if (response) {
+                createMessage({ text: response, who: 'bot' });
+
+                if (response === fallbackResponse) {
+                  const html = `<div class="flex gap-2 mt-2">
+                                    <button data-action="redirect" data-target="Services" class="px-3 py-1 rounded-md bg-blue-500 text-white text-xs">🌐 Explore Services</button>
+                                    <button data-action="redirect" data-target="Contact" class="px-3 py-1 rounded-md bg-blue-500 text-white text-xs">🤝 Talk to Consultant</button>
+                                </div>`;
+                  createMessage({ text: html, who: 'bot', html: true });
+                } else {
+                  showMainOptions();
+                }
+              }
+            }, 1000);
           }
-        }
+        });
 
-        // Clear chat
-        function clearChat() {
-          bodyEl.innerHTML = '';
-          createMessage({ text: 'Welcome! Choose an option below or type your question. 👇', who: 'bot' });
-          renderQuickOptions();
-        }
+        inputEl.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            sendBtn.click();
+          }
+        });
 
-        // --- wire up events ---
-        toggleBtn.addEventListener('click', toggleChatbot);
-        closeBtn.addEventListener('click', toggleChatbot);
-        sendBtn.addEventListener('click', sendMessage);
-        inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-        clearBtn.addEventListener('click', clearChat);
+        // Delegate option clicks
+        optionsContainer.addEventListener('click', (e) => {
+          if (e.target.dataset.option) {
+            handleOptionSelect(e.target.dataset.option);
+          } else if (e.target.dataset.action) {
+            handleActionSelect(e.target.dataset.action, e.target.dataset.target);
+          }
+        });
 
+        // Initialize the chatbot when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+          initChatbot();
+        });
       })();
     });
   </script>

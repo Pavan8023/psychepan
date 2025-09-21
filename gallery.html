@@ -469,472 +469,483 @@
                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                     <span>hr@psypanconsulting.com</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-<!-- Footer Bottom -->
-<div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
-    <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
-</div>
-</div>
-</footer>
-
-<!-- ====== Chatbot (copy-paste into your HTML) ====== -->
-<div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 999;">
-    <!-- Toggle / Floating Button -->
-    <button id="chatbotToggle"
-        class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
-        aria-label="Open chat">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            class="opacity-95">
-            <img src="Chatbot.gif" alt="">
-        </svg>
-    </button>
-
-    <!-- Chat window -->
-    <div id="chatbotWindow"
-        class="chatbot-window w-80 sm:w-96 max-h-[540px] absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 flex flex-col overflow-hidden">
-        <!-- Header -->
-        <div
-            class="chatbot-header bg-gradient-to-r from-primary to-blue-600 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
-            <div>
-                <div class="font-bold text-sm sm:text-base">Psyche Panacea Assistant</div>
-                <div class="text-xs opacity-90">Corporate Training & HR Support</div>
+                <!-- Footer Bottom -->
+                <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500 text-sm">
+                    <p>© 2023 Psyche Panacea. All rights reserved. Designed by Psyche Panacea Team.</p>
+                </div>
             </div>
-            <div class="flex items-center gap-2">
-                <button id="chatClear" title="Clear chat"
-                    class="text-xs bg-white/10 px-2 py-1 rounded-md hover:bg-white/20">Clear</button>
-                <button id="chatbotClose" class="chatbot-close text-2xl leading-none">×</button>
+        </footer>
+
+        <!-- Chatbot -->
+        <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 1000;">
+            <!-- Toggle / Floating Button -->
+            <button id="chatbotToggle"
+                class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
+                aria-label="Open chat">
+                <img src="Chatbot.gif" alt="">
+            </button>
+
+            <!-- Chat window -->
+            <div id="chatbotWindow"
+                class="chatbot-window w-80 sm:w-96 max-h-[540px] absolute bottom-20 sm:bottom-24 right-0 bg-white rounded-xl shadow-2xl hidden border border-blue-100 flex flex-col overflow-hidden">
+                <!-- Header -->
+                <div
+                    class="chatbot-header bg-gradient-to-r from-blue-500 to-blue-700 text-white p-3 sm:p-4 rounded-t-xl flex justify-between items-center">
+                    <div>
+                        <div class="font-bold text-sm sm:text-base">PsypanChatbot</div>
+                        <div class="text-xs opacity-90">Your virtual guide</div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="chatClear" title="Clear chat"
+                            class="text-xs bg-white/10 px-2 py-1 rounded-md hover:bg-white/20">Clear</button>
+                        <button id="chatbotClose" class="chatbot-close text-2xl leading-none">×</button>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto flex-1 space-y-3 bg-white">
+                    <!-- Messages will be inserted here by JavaScript -->
+                </div>
+
+                <!-- Options Container -->
+                <div id="chatOptions" class="p-3 bg-white border-t border-gray-200 flex flex-wrap gap-2">
+                    <!-- Options will be inserted here by JavaScript -->
+                </div>
+
+                <!-- Input area -->
+                <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex gap-2 items-center">
+                    <input id="chatbotInput" type="text"
+                        class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        placeholder="Type your message here...">
+                    <button id="chatbotSend"
+                        class="bg-blue-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:bg-blue-600 transition">Send</button>
+                </div>
             </div>
         </div>
 
-        <!-- Body -->
-        <div id="chatbotBody" class="chatbot-body p-3 sm:p-4 overflow-y-auto flex-1 space-y-3 bg-white">
-            <div
-                class="chatbot-message bot bg-blue-50 text-gray-800 rounded-lg p-2 sm:p-3 mb-1 max-w-[86%] float-left clear-both text-sm sm:text-base">
-                Welcome! Choose an option below or type your question. 👇
-            </div>
-
-            <!-- quick options container -->
-            <div id="chatOptions" class="w-full flex flex-wrap gap-2"></div>
-        </div>
-
-        <!-- Input area -->
-        <div class="chatbot-input p-2 sm:p-3 border-t border-gray-200 flex gap-2 items-center">
-            <input id="chatbotInput" type="text"
-                class="flex-1 p-2 sm:p-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none"
-                placeholder="Ask about our programs or click an option...">
-            <button id="chatbotSend"
-                class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">Send</button>
-        </div>
-    </div>
-</div>
-
-<script>
-
-    /* Use your clients array exactly as provided */
-    const clients = [
-        // Automotive
-        { name: "Honda", image: "honda.png", category: "automotive", tagline: "The Power of Dreams" },
-        { name: "Maruti Suzuki", image: "maruti.png", category: "automotive", tagline: "Way of Life" },
-        { name: "Hero", image: "hero.png", category: "automotive", tagline: "Desh Ki Dhadkan" },
-        { name: "JCB", image: "jcb.png", category: "automotive", tagline: "Powering Progress" },
-        { name: "Yamaha", image: "BirlaYamaha.png", category: "automotive", tagline: "Revs Your Heart" },
-        { name: "Suzuki Motorcycles", image: "Suzuki-Motorcycles.png", category: "automotive" },
-        { name: "JK Tyres", image: "jktyre.png", category: "automotive" },
-        { name: "Escort", image: "Escort.png", category: "automotive" },
-        { name: "Sona Koyo", image: "Sona-Koyo.jpg", category: "automotive" },
-        { name: "Minda", image: "minda.png", category: "automotive" },
-        { name: "JBM Group", image: "jbm.png", category: "automotive" },
-
-        // Manufacturing
-        { name: "ACC", image: "acc.png", category: "manufacturing", tagline: "The Professional's Choice" },
-        { name: "Amtek", image: "Amtek.jpg", category: "manufacturing" },
-        { name: "Anchor", image: "Anchor.jpg", category: "manufacturing" },
-        { name: "Asahi Glass", image: "Asahi-Glass.png", category: "manufacturing" },
-        { name: "ATO", image: "ato.png", category: "manufacturing" },
-        { name: "BIRLA POWER", image: "birla-power.png", category: "manufacturing", tagline: "POWER... the ability to change" },
-        { name: "Bria", image: "Birla.jpg", category: "manufacturing" },
-        { name: "Chemsys", image: "Chemsys.png", category: "manufacturing" },
-        { name: "Colgate and Palmolive", image: "ColgateandPalmolive.png", category: "manufacturing" },
-        { name: "Daikin", image: "Daikin.png", category: "manufacturing" },
-        { name: "Dabur", image: "dabur.png", category: "manufacturing" },
-        { name: "Ester Industries", image: "Ester-Industries.png", category: "manufacturing" },
-        { name: "Grasim", image: "Grasim.jpg", category: "manufacturing" },
-        { name: "Hindustan Zinc", image: "Hindustan-Zinc.png", category: "manufacturing" },
-        { name: "Indian Oil", image: "indian-oil.png", category: "manufacturing" },
-        { name: "NTPC", image: "ntpc.png", category: "manufacturing" },
-        { name: "Shree Cements", image: "Shree-Cements.jpg", category: "manufacturing" },
-        { name: "SRF", image: "SRF.png", category: "manufacturing" },
-
-        // Technology
-        { name: "Bharti", image: "Bharti.png", category: "technology" },
-        { name: "HCL", image: "hcl.png", category: "technology" },
-        { name: "Hughes Software", image: "Hughes-Software.png", category: "technology" },
-        { name: "ICICI Bank", image: "icici-bank.png", category: "technology" },
-        { name: "Mizuho Bank", image: "Mizuho-Bank.png", category: "technology" },
-        { name: "RMSI", image: "RMSI.png", category: "technology" },
-        { name: "Safran", image: "Safran.png", category: "technology" },
-        { name: "SPIL", image: "SPIL.png", category: "technology" },
-        { name: "Tech Mahindra", image: "tech-mahindra.png", category: "technology" },
-        { name: "TMTL", image: "TMTL.png", category: "technology" },
-        { name: "Wabag", image: "Wabag.png", category: "technology" },
-        { name: "OMAX Technology", image: "LOGO_OMAX-technology.png", category: "technology" },
-        { name: "Nex-Gen", image: "Nex-Gen.png", category: "technology" },
-        { name: "Biotech", image: "Biotech.webp", category: "technology" },
-
-        // FMCG
-        { name: "Pepsi", image: "pepsi.png", category: "fmg" },
-        { name: "Parle-G", image: "Parle-G.jpg", category: "fmg" },
-        { name: "Dabur", image: "DABUR (1).png", category: "fmg" },
-        { name: "Colgate and Palmolive", image: "Colgate-and-Palmoliv.png", category: "fmg" },
-        { name: "Whirlpool", image: "whirl-pool.png", category: "fmg" },
-        { name: "Spencer's", image: "spencers.png", category: "fmg" },
-        { name: "Van Melle", image: "Van-Melle.png", category: "fmg" },
-        { name: "Mother Dairy", image: "Mother-Dairy.jpg", category: "fmg" },
-        { name: "BSES", image: "bses.png", category: "fmg" },
-        { name: "Antheme", image: "Antheme.png", category: "fmg" },
-        { name: "BPT", image: "BPT.png", category: "fmg" },
-        { name: "EIL", image: "eil.png", category: "fmg" },
-        { name: "LBL", image: "lbl.png", category: "fmg" },
-        { name: "UD-Trucks", image: "UD-trucks-logo-637x426.jpg", category: "fmg" },
-        { name: "UNO MINDA", image: "UNO MINDA.png", category: "fmg" },
-        { name: "Vecv", image: "Vecv.png", category: "fmg" },
-    ];
-
-    const COMMON_PATH = 'images/clients/'; // common path requested
-    const DEFAULT_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='; // tiny transparent pixel
-
-    function createItemNode(client) {
-        const item = document.createElement('div');
-        item.className = 'marquee-item';
-        const box = document.createElement('div');
-        box.className = 'logo-box';
-
-        const img = document.createElement('img');
-        img.alt = client.name || '';
-        img.src = COMMON_PATH + client.image;
-        img.onerror = function () {
-            this.onerror = null;
-            // try a safe placeholder in images/clients/ first (if you have it), else use transparent pixel
-            this.src = COMMON_PATH + 'placeholder.png';
-            // if placeholder.png doesn't exist on server, the browser will try that and hit onerror again
-            // but we already removed onerror to avoid infinite loop; in that case you will see broken image or provide placeholder.png
-        };
-
-        box.appendChild(img);
-        item.appendChild(box);
-        return item;
-    }
-
-    function populateSingleTrack() {
-        const track = document.querySelector('.marquee-track');
-        if (!track) return;
-        track.innerHTML = '';
-
-        // create fragment of original items
-        const frag = document.createDocumentFragment();
-        clients.forEach(c => frag.appendChild(createItemNode(c)));
-
-        // append original items
-        track.appendChild(frag);
-
-        // append a clone of the same items to the same track (seamless loop)
-        // we clone nodes to avoid reusing the exact same elements (keeps DOM stable)
-        const nodesToClone = Array.from(track.children).slice(0, clients.length);
-        nodesToClone.forEach(n => track.appendChild(n.cloneNode(true)));
-    }
-
-    function adjustDurationSingleTrack() {
-        const wrap = document.querySelector('.clients-marquee-wrap');
-        const track = document.querySelector('.marquee-track');
-        if (!wrap || !track) return;
-
-        // One set width is half the scrollWidth because we duplicated content inside same track
-        const total = track.scrollWidth;
-        const oneSetWidth = total / 2 || track.getBoundingClientRect().width / 2;
-
-        const style = getComputedStyle(wrap);
-        const pxPerSecond = Math.max(40, parseFloat(style.getPropertyValue('--px-per-second')) || 120);
-
-        // duration so that oneSetWidth travels at pxPerSecond speed (seconds)
-        const duration = Math.max(6, (oneSetWidth / pxPerSecond));
-        track.style.animationDuration = duration + 's';
-    }
-
-    // init
-    function initSingleMarquee() {
-        populateSingleTrack();
-
-        // wait a bit for images to load and layout to settle before measuring
-        setTimeout(() => {
-            adjustDurationSingleTrack();
-        }, 80);
-
-        // recalc on resize (debounced)
-        let t;
-        window.addEventListener('resize', () => {
-            clearTimeout(t);
-            t = setTimeout(adjustDurationSingleTrack, 150);
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', initSingleMarquee);
-
-    // Firebase configuration (replace with your actual config)
-    const firebaseConfig = {
-        apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
-        authDomain: "psypanweb-7747a.firebaseapp.com",
-        projectId: "psypanweb-7747a",
-        storageBucket: "psypanweb-7747a.appspot.com",
-        messagingSenderId: "441049264188",
-        appId: "1:441049264188:web:4dab8de0554b2c7c741339",
-        measurementId: "G-C1CTMX729Z"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // Gallery data organized by folders
-    const galleryData = {
-        all: [
-            { title: "Corporate Training Session", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-2.png" },
-            { title: "Graduation Ceremony", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE.jpg" },
-            { title: "Workshop in Progress", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-3.jpg" },
-            { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-1.jpg" },
-            { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-2.png" },
-            { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-3.jpg" },
-            { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-4.png" },
-            { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-1.jpg" },
-            { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-2.jpg" },
-            { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-1.jpg" },
-            { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-2.jpg" },
-            { title: "Program Session", folder: "EEP", image: "EEP-PICTURES-3.jpg" },
-            { title: "Workshop in Progress", folder: "EEP", image: "EEP-PICTURES-4.jpg" },
-            { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-5.png" },
-            { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-6.jpg" },
-            { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-7.png" },
-            { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-8.png" },
-            { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-9.png" },
-            { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-1.jpg" },
-            { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-2-1.jpg" },
-            { title: "Ist Engagement", folder: "EEP", image: "ist-enagament.png" },
-            { title: "Ist Engagement", folder: "EEP", image: "ist-engagement.jpg" },
-            { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-1.png" },
-            { title: "Team Adventure", folder: "Outbound", image: "Outbound-2.png" },
-            { title: "Group Activity", folder: "Outbound", image: "Outbound-3.png" },
-            { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-4.png" },
-            { title: "Group Activity", folder: "Outbound", image: "Outbound-5.png" },
-            { title: "Team Adventure", folder: "Outbound", image: "Outbound-6.png" },
-            { title: "Team Building", folder: "Outbound", image: "Outbound-7.png" },
-            { title: "Management Training", folder: "all", image: "IMG-20250921-WA0054.jpg" },
-            { title: "Management Training", folder: "all", image: "IMG-20250921-WA0055.jpg" },
-            { title: "Management Training", folder: "all", image: "IMG-20250921-WA0056.jpg" },
-            { title: "Management Training", folder: "all", image: "IMG-20250921-WA0057.jpg" },
-            { title: "Management Training", folder: "all", image: "IMG-20250921-WA0058.jpg" },
-
-        ],
-        recent: [], // Will be populated from Firestore
-        CampusToCorporate: [
-            { title: "Corporate Training Session", image: "CAMPUS-TO-CORPORATE-2.png" },
-            { title: "Graduation Ceremony", image: "CAMPUS-TO-CORPORATE.jpg" },
-            { title: "Workshop in Progress", image: "CAMPUS-TO-CORPORATE-3.jpg" },
-        ],
-        offsite: [
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0001.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0002.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0003.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0004.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0005.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0006.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0007.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0008.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0009.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0010.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0011.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0012.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0013.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0014.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0015.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0016.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0017.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0018.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0019.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0020.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0033.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0029.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0030.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0031.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0032.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0060.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0069.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0070.jpg" },
-            { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0071.jpg" },
-        ],
-
-        "diversity&inclusion": [
-            { title: "Diversity Workshop", image: "Diversity-and-inclusion-1.jpg" },
-            { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-2.png" },
-            { title: "Team Diversity", image: "Diversity-and-inclusion-3.jpg" },
-            { title: "Diversity Workshop", image: "Diversity-and-inclusion-4.png" },
-            { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-1.jpg" },
-            { title: "Team Diversity", image: "Diversity-and-inclusion-2.jpg" },
-        ],
-        eep: [
-            { title: "EEP Training", image: "EEP-PICTURES-1.jpg" },
-            { title: "EEP Workshop", image: "EEP-PICTURES-2.jpg" },
-            { title: "Program Session", image: "EEP-PICTURES-3.jpg" },
-            { title: "Workshop in Progress", image: "EEP-PICTURES-4.jpg" },
-            { title: "EEP Program", image: "EEP-PICTURES-5.png" },
-            { title: "EEP Training", image: "EEP-PICTURES-6.jpg" },
-            { title: "EEP Workshop", image: "EEP-PICTURES-7.png" },
-            { title: "EEP Program", image: "EEP-PICTURES-8.png" },
-            { title: "EEP Training", image: "EEP-PICTURES-9.png" },
-            { title: "Employee Engagement", image: "Employee-Engagement-1.jpg" },
-            { title: "Employee Engagement", image: "Employee-Engagement-2-1.jpg" },
-            { title: "Ist Engagement", image: "ist-enagament.png" },
-            { title: "Ist Engagement", image: "ist-engagement.jpg" },
-            { title: "Career Counseling", image: "Career-Counselling-for-employee-kids-2.png" },
-            { title: "Career Workshop", image: "Career-Counselling-for-employee-kids-3.jpg" },
-            { title: "Career Guidance", image: "Career-Counselling-for-employee-kids-5.png" },
-            { title: "Student Counseling", image: "Career-Counselling-for-employee-kids-4.png" },
-            { title: "EEP", image: "IMG-20250921-WA0034.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0035.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0036.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0037.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0038.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0039.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0040.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0041.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0042.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0043.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0044.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0045.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0046.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0047.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0048.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0049.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0050.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0051.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0052.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0053.jpg" },
-            { title: "EEP", image: "IMG-20250921-WA0054.jpg" },
-        ],
-        outbound: [
-            { title: "Outdoor Activities", image: "Outbound-1.png" },
-            { title: "Team Adventure", image: "Outbound-2.png" },
-            { title: "Group Activity", image: "Outbound-3.png" },
-            { title: "Outdoor Activities", image: "Outbound-4.png" },
-            { title: "Group Activity", image: "Outbound-5.png" },
-            { title: "Team Adventure", image: "Outbound-6.png" },
-            { title: "Team Building", image: "Outbound-7.png" },
-            { title: "Team Building", image: "IMG-20250921-WA0022.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0023.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0024.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0025.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0026.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0027.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0028.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0073.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0074.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0075.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0076.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0077.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0078.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0079.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0080.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0081.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0082.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0083.jpg" },
-            { title: "Team Building", image: "IMG-20250921-WA0084.jpg" },
-        ]
-    };
-
-    // DOM Elements
-    const galleryGrid = document.getElementById('galleryGrid');
-    const loadMoreBtn = document.getElementById('loadMore');
-    const folderTabs = document.querySelectorAll('.folder-tab');
-    const imageModal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const modalTitle = document.getElementById('modalTitle');
-    const closeModal = document.getElementById('closeModal');
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const chatbotWindow = document.getElementById("chatbotWindow");
+                const chatbotToggle = document.getElementById("chatbotToggle");
+                const chatbotClose = document.getElementById("chatbotClose");
 
 
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
+                // Toggle chatbot when floating button is clicked
+                chatbotToggle.addEventListener("click", () => {
+                    chatbotWindow.classList.toggle("hidden");
                 });
 
-                // Close mobile menu if open
-                mobileMenu.classList.add('hidden');
-            }
-        });
-    });
-
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-        observer.observe(el);
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 80,
-                    behavior: 'smooth'
+                // Close chatbot when "×" is clicked
+                chatbotClose.addEventListener("click", () => {
+                    chatbotWindow.classList.add("hidden");
                 });
+            });
+            /* Use your clients array exactly as provided */
+            const clients = [
+                // Automotive
+                { name: "Honda", image: "honda.png", category: "automotive", tagline: "The Power of Dreams" },
+                { name: "Maruti Suzuki", image: "maruti.png", category: "automotive", tagline: "Way of Life" },
+                { name: "Hero", image: "hero.png", category: "automotive", tagline: "Desh Ki Dhadkan" },
+                { name: "JCB", image: "jcb.png", category: "automotive", tagline: "Powering Progress" },
+                { name: "Yamaha", image: "BirlaYamaha.png", category: "automotive", tagline: "Revs Your Heart" },
+                { name: "Suzuki Motorcycles", image: "Suzuki-Motorcycles.png", category: "automotive" },
+                { name: "JK Tyres", image: "jktyre.png", category: "automotive" },
+                { name: "Escort", image: "Escort.png", category: "automotive" },
+                { name: "Sona Koyo", image: "Sona-Koyo.jpg", category: "automotive" },
+                { name: "Minda", image: "minda.png", category: "automotive" },
+                { name: "JBM Group", image: "jbm.png", category: "automotive" },
 
-                // Close mobile menu if open
-                mobileMenu.classList.add('hidden');
+                // Manufacturing
+                { name: "ACC", image: "acc.png", category: "manufacturing", tagline: "The Professional's Choice" },
+                { name: "Amtek", image: "Amtek.jpg", category: "manufacturing" },
+                { name: "Anchor", image: "Anchor.jpg", category: "manufacturing" },
+                { name: "Asahi Glass", image: "Asahi-Glass.png", category: "manufacturing" },
+                { name: "ATO", image: "ato.png", category: "manufacturing" },
+                { name: "BIRLA POWER", image: "birla-power.png", category: "manufacturing", tagline: "POWER... the ability to change" },
+                { name: "Bria", image: "Birla.jpg", category: "manufacturing" },
+                { name: "Chemsys", image: "Chemsys.png", category: "manufacturing" },
+                { name: "Colgate and Palmolive", image: "ColgateandPalmolive.png", category: "manufacturing" },
+                { name: "Daikin", image: "Daikin.png", category: "manufacturing" },
+                { name: "Dabur", image: "dabur.png", category: "manufacturing" },
+                { name: "Ester Industries", image: "Ester-Industries.png", category: "manufacturing" },
+                { name: "Grasim", image: "Grasim.jpg", category: "manufacturing" },
+                { name: "Hindustan Zinc", image: "Hindustan-Zinc.png", category: "manufacturing" },
+                { name: "Indian Oil", image: "indian-oil.png", category: "manufacturing" },
+                { name: "NTPC", image: "ntpc.png", category: "manufacturing" },
+                { name: "Shree Cements", image: "Shree-Cements.jpg", category: "manufacturing" },
+                { name: "SRF", image: "SRF.png", category: "manufacturing" },
+
+                // Technology
+                { name: "Bharti", image: "Bharti.png", category: "technology" },
+                { name: "HCL", image: "hcl.png", category: "technology" },
+                { name: "Hughes Software", image: "Hughes-Software.png", category: "technology" },
+                { name: "ICICI Bank", image: "icici-bank.png", category: "technology" },
+                { name: "Mizuho Bank", image: "Mizuho-Bank.png", category: "technology" },
+                { name: "RMSI", image: "RMSI.png", category: "technology" },
+                { name: "Safran", image: "Safran.png", category: "technology" },
+                { name: "SPIL", image: "SPIL.png", category: "technology" },
+                { name: "Tech Mahindra", image: "tech-mahindra.png", category: "technology" },
+                { name: "TMTL", image: "TMTL.png", category: "technology" },
+                { name: "Wabag", image: "Wabag.png", category: "technology" },
+                { name: "OMAX Technology", image: "LOGO_OMAX-technology.png", category: "technology" },
+                { name: "Nex-Gen", image: "Nex-Gen.png", category: "technology" },
+                { name: "Biotech", image: "Biotech.webp", category: "technology" },
+
+                // FMCG
+                { name: "Pepsi", image: "pepsi.png", category: "fmg" },
+                { name: "Parle-G", image: "Parle-G.jpg", category: "fmg" },
+                { name: "Dabur", image: "DABUR (1).png", category: "fmg" },
+                { name: "Colgate and Palmolive", image: "Colgate-and-Palmoliv.png", category: "fmg" },
+                { name: "Whirlpool", image: "whirl-pool.png", category: "fmg" },
+                { name: "Spencer's", image: "spencers.png", category: "fmg" },
+                { name: "Van Melle", image: "Van-Melle.png", category: "fmg" },
+                { name: "Mother Dairy", image: "Mother-Dairy.jpg", category: "fmg" },
+                { name: "BSES", image: "bses.png", category: "fmg" },
+                { name: "Antheme", image: "Antheme.png", category: "fmg" },
+                { name: "BPT", image: "BPT.png", category: "fmg" },
+                { name: "EIL", image: "eil.png", category: "fmg" },
+                { name: "LBL", image: "lbl.png", category: "fmg" },
+                { name: "UD-Trucks", image: "UD-trucks-logo-637x426.jpg", category: "fmg" },
+                { name: "UNO MINDA", image: "UNO MINDA.png", category: "fmg" },
+                { name: "Vecv", image: "Vecv.png", category: "fmg" },
+            ];
+
+            const COMMON_PATH = 'images/clients/'; // common path requested
+            const DEFAULT_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='; // tiny transparent pixel
+
+            function createItemNode(client) {
+                const item = document.createElement('div');
+                item.className = 'marquee-item';
+                const box = document.createElement('div');
+                box.className = 'logo-box';
+
+                const img = document.createElement('img');
+                img.alt = client.name || '';
+                img.src = COMMON_PATH + client.image;
+                img.onerror = function () {
+                    this.onerror = null;
+                    // try a safe placeholder in images/clients/ first (if you have it), else use transparent pixel
+                    this.src = COMMON_PATH + 'placeholder.png';
+                    // if placeholder.png doesn't exist on server, the browser will try that and hit onerror again
+                    // but we already removed onerror to avoid infinite loop; in that case you will see broken image or provide placeholder.png
+                };
+
+                box.appendChild(img);
+                item.appendChild(box);
+                return item;
             }
-        });
-    });
 
-    // Current state
-    let currentFolder = 'recent';
-    let visibleItems = 8;
+            function populateSingleTrack() {
+                const track = document.querySelector('.marquee-track');
+                if (!track) return;
+                track.innerHTML = '';
 
-    // Create gallery item
-    function createGalleryItem(item, folder) {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'gallery-item bg-white rounded-xl shadow-md overflow-hidden animate-fade-in';
+                // create fragment of original items
+                const frag = document.createDocumentFragment();
+                clients.forEach(c => frag.appendChild(createItemNode(c)));
 
-        // For Firestore images (recent folder), use the url directly
-        // For static images, use the path structure
-        let imageUrl;
-        if (folder === 'recent') {
-            imageUrl = item.url;
-        } else {
-            // Use the folder from the item if available, otherwise use the current folder
-            const imageFolder = item.folder || folder;
-            imageUrl = `/images/gallery/${imageFolder ? imageFolder + '/' : ''}${item.image}`;
-        }
+                // append original items
+                track.appendChild(frag);
 
-        itemDiv.innerHTML = `
+                // append a clone of the same items to the same track (seamless loop)
+                // we clone nodes to avoid reusing the exact same elements (keeps DOM stable)
+                const nodesToClone = Array.from(track.children).slice(0, clients.length);
+                nodesToClone.forEach(n => track.appendChild(n.cloneNode(true)));
+            }
+
+            function adjustDurationSingleTrack() {
+                const wrap = document.querySelector('.clients-marquee-wrap');
+                const track = document.querySelector('.marquee-track');
+                if (!wrap || !track) return;
+
+                // One set width is half the scrollWidth because we duplicated content inside same track
+                const total = track.scrollWidth;
+                const oneSetWidth = total / 2 || track.getBoundingClientRect().width / 2;
+
+                const style = getComputedStyle(wrap);
+                const pxPerSecond = Math.max(40, parseFloat(style.getPropertyValue('--px-per-second')) || 120);
+
+                // duration so that oneSetWidth travels at pxPerSecond speed (seconds)
+                const duration = Math.max(6, (oneSetWidth / pxPerSecond));
+                track.style.animationDuration = duration + 's';
+            }
+
+            // init
+            function initSingleMarquee() {
+                populateSingleTrack();
+
+                // wait a bit for images to load and layout to settle before measuring
+                setTimeout(() => {
+                    adjustDurationSingleTrack();
+                }, 80);
+
+                // recalc on resize (debounced)
+                let t;
+                window.addEventListener('resize', () => {
+                    clearTimeout(t);
+                    t = setTimeout(adjustDurationSingleTrack, 150);
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', initSingleMarquee);
+
+            // Firebase configuration (replace with your actual config)
+            const firebaseConfig = {
+                apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+                authDomain: "psypanweb-7747a.firebaseapp.com",
+                projectId: "psypanweb-7747a",
+                storageBucket: "psypanweb-7747a.appspot.com",
+                messagingSenderId: "441049264188",
+                appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+                measurementId: "G-C1CTMX729Z"
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
+            // Gallery data organized by folders
+            const galleryData = {
+                all: [
+                    { title: "Corporate Training Session", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-2.png" },
+                    { title: "Graduation Ceremony", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE.jpg" },
+                    { title: "Workshop in Progress", folder: "CAMPUSTOCORPORATE", image: "CAMPUS-TO-CORPORATE-3.jpg" },
+                    { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-1.jpg" },
+                    { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-2.png" },
+                    { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-3.jpg" },
+                    { title: "Diversity Workshop", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-4.png" },
+                    { title: "Inclusion Session", folder: "Diversity&Inclusion", image: "WOMEN-PROGRAMMES-1.jpg" },
+                    { title: "Team Diversity", folder: "Diversity&Inclusion", image: "Diversity-and-inclusion-2.jpg" },
+                    { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-1.jpg" },
+                    { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-2.jpg" },
+                    { title: "Program Session", folder: "EEP", image: "EEP-PICTURES-3.jpg" },
+                    { title: "Workshop in Progress", folder: "EEP", image: "EEP-PICTURES-4.jpg" },
+                    { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-5.png" },
+                    { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-6.jpg" },
+                    { title: "EEP Workshop", folder: "EEP", image: "EEP-PICTURES-7.png" },
+                    { title: "EEP Program", folder: "EEP", image: "EEP-PICTURES-8.png" },
+                    { title: "EEP Training", folder: "EEP", image: "EEP-PICTURES-9.png" },
+                    { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-1.jpg" },
+                    { title: "Employee Engagement", folder: "EEP", image: "Employee-Engagement-2-1.jpg" },
+                    { title: "Ist Engagement", folder: "EEP", image: "ist-enagament.png" },
+                    { title: "Ist Engagement", folder: "EEP", image: "ist-engagement.jpg" },
+                    { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-1.png" },
+                    { title: "Team Adventure", folder: "Outbound", image: "Outbound-2.png" },
+                    { title: "Group Activity", folder: "Outbound", image: "Outbound-3.png" },
+                    { title: "Outdoor Activities", folder: "Outbound", image: "Outbound-4.png" },
+                    { title: "Group Activity", folder: "Outbound", image: "Outbound-5.png" },
+                    { title: "Team Adventure", folder: "Outbound", image: "Outbound-6.png" },
+                    { title: "Team Building", folder: "Outbound", image: "Outbound-7.png" },
+                    { title: "Management Training", folder: "all", image: "IMG-20250921-WA0054.jpg" },
+                    { title: "Management Training", folder: "all", image: "IMG-20250921-WA0055.jpg" },
+                    { title: "Management Training", folder: "all", image: "IMG-20250921-WA0056.jpg" },
+                    { title: "Management Training", folder: "all", image: "IMG-20250921-WA0057.jpg" },
+                    { title: "Management Training", folder: "all", image: "IMG-20250921-WA0058.jpg" },
+
+                ],
+                recent: [], // Will be populated from Firestore
+                CampusToCorporate: [
+                    { title: "Corporate Training Session", image: "CAMPUS-TO-CORPORATE-2.png" },
+                    { title: "Graduation Ceremony", image: "CAMPUS-TO-CORPORATE.jpg" },
+                    { title: "Workshop in Progress", image: "CAMPUS-TO-CORPORATE-3.jpg" },
+                ],
+                offsite: [
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0001.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0002.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0003.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0004.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0005.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0006.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0007.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0008.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0009.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0010.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0011.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0012.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0013.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0014.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0015.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0016.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0017.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0018.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0019.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0020.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0033.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0029.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0030.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0031.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0032.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0060.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0069.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0070.jpg" },
+                    { title: "Offsite Team Building", folder: "offsite", image: "IMG-20250921-WA0071.jpg" },
+                ],
+
+                "diversity&inclusion": [
+                    { title: "Diversity Workshop", image: "Diversity-and-inclusion-1.jpg" },
+                    { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-2.png" },
+                    { title: "Team Diversity", image: "Diversity-and-inclusion-3.jpg" },
+                    { title: "Diversity Workshop", image: "Diversity-and-inclusion-4.png" },
+                    { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-1.jpg" },
+                    { title: "Team Diversity", image: "Diversity-and-inclusion-2.jpg" },
+                ],
+                eep: [
+                    { title: "EEP Training", image: "EEP-PICTURES-1.jpg" },
+                    { title: "EEP Workshop", image: "EEP-PICTURES-2.jpg" },
+                    { title: "Program Session", image: "EEP-PICTURES-3.jpg" },
+                    { title: "Workshop in Progress", image: "EEP-PICTURES-4.jpg" },
+                    { title: "EEP Program", image: "EEP-PICTURES-5.png" },
+                    { title: "EEP Training", image: "EEP-PICTURES-6.jpg" },
+                    { title: "EEP Workshop", image: "EEP-PICTURES-7.png" },
+                    { title: "EEP Program", image: "EEP-PICTURES-8.png" },
+                    { title: "EEP Training", image: "EEP-PICTURES-9.png" },
+                    { title: "Employee Engagement", image: "Employee-Engagement-1.jpg" },
+                    { title: "Employee Engagement", image: "Employee-Engagement-2-1.jpg" },
+                    { title: "Ist Engagement", image: "ist-enagament.png" },
+                    { title: "Ist Engagement", image: "ist-engagement.jpg" },
+                    { title: "Career Counseling", image: "Career-Counselling-for-employee-kids-2.png" },
+                    { title: "Career Workshop", image: "Career-Counselling-for-employee-kids-3.jpg" },
+                    { title: "Career Guidance", image: "Career-Counselling-for-employee-kids-5.png" },
+                    { title: "Student Counseling", image: "Career-Counselling-for-employee-kids-4.png" },
+                    { title: "EEP", image: "IMG-20250921-WA0034.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0035.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0036.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0037.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0038.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0039.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0040.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0041.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0042.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0043.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0044.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0045.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0046.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0047.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0048.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0049.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0050.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0051.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0052.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0053.jpg" },
+                    { title: "EEP", image: "IMG-20250921-WA0054.jpg" },
+                ],
+                outbound: [
+                    { title: "Outdoor Activities", image: "Outbound-1.png" },
+                    { title: "Team Adventure", image: "Outbound-2.png" },
+                    { title: "Group Activity", image: "Outbound-3.png" },
+                    { title: "Outdoor Activities", image: "Outbound-4.png" },
+                    { title: "Group Activity", image: "Outbound-5.png" },
+                    { title: "Team Adventure", image: "Outbound-6.png" },
+                    { title: "Team Building", image: "Outbound-7.png" },
+                    { title: "Team Building", image: "IMG-20250921-WA0022.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0023.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0024.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0025.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0026.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0027.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0028.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0073.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0074.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0075.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0076.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0077.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0078.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0079.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0080.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0081.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0082.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0083.jpg" },
+                    { title: "Team Building", image: "IMG-20250921-WA0084.jpg" },
+                ]
+            };
+
+            // DOM Elements
+            const galleryGrid = document.getElementById('galleryGrid');
+            const loadMoreBtn = document.getElementById('loadMore');
+            const folderTabs = document.querySelectorAll('.folder-tab');
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const closeModal = document.getElementById('closeModal');
+
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                observer.observe(el);
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Current state
+            let currentFolder = 'recent';
+            let visibleItems = 8;
+
+            // Create gallery item
+            function createGalleryItem(item, folder) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'gallery-item bg-white rounded-xl shadow-md overflow-hidden animate-fade-in';
+
+                // For Firestore images (recent folder), use the url directly
+                // For static images, use the path structure
+                let imageUrl;
+                if (folder === 'recent') {
+                    imageUrl = item.url;
+                } else {
+                    // Use the folder from the item if available, otherwise use the current folder
+                    const imageFolder = item.folder || folder;
+                    imageUrl = `/images/gallery/${imageFolder ? imageFolder + '/' : ''}${item.image}`;
+                }
+
+                itemDiv.innerHTML = `
             <div class="relative">
                 <img src="${imageUrl}" alt="${item.title}" 
                     class="w-full h-72 object-contain bg-gray-100 rounded-lg shadow-md">
@@ -945,463 +956,596 @@
             </div>
         `;
 
-        itemDiv.addEventListener('click', () => {
-            modalImage.src = imageUrl;
-            modalTitle.textContent = item.title;
-            imageModal.classList.remove('hidden');
-            imageModal.classList.add('flex');
-        });
+                itemDiv.addEventListener('click', () => {
+                    modalImage.src = imageUrl;
+                    modalTitle.textContent = item.title;
+                    imageModal.classList.remove('hidden');
+                    imageModal.classList.add('flex');
+                });
 
-        return itemDiv;
-    }
+                return itemDiv;
+            }
 
-    // Render gallery items
-    function renderGallery(folder = 'recent', count = visibleItems) {
-        galleryGrid.innerHTML = '';
-        const items = galleryData[folder];
-        const itemsToShow = Math.min(count, items.length);
+            // Render gallery items
+            function renderGallery(folder = 'recent', count = visibleItems) {
+                galleryGrid.innerHTML = '';
+                const items = galleryData[folder];
+                const itemsToShow = Math.min(count, items.length);
 
-        for (let i = 0; i < itemsToShow; i++) {
-            const item = items[i];
-            const galleryItem = createGalleryItem(item, folder === 'all' ? item.folder : folder);
-            galleryGrid.appendChild(galleryItem);
-        }
+                for (let i = 0; i < itemsToShow; i++) {
+                    const item = items[i];
+                    const galleryItem = createGalleryItem(item, folder === 'all' ? item.folder : folder);
+                    galleryGrid.appendChild(galleryItem);
+                }
 
-        // Show/hide load more button
-        loadMoreBtn.style.display = itemsToShow < items.length ? 'block' : 'none';
-    }
+                // Show/hide load more button
+                loadMoreBtn.style.display = itemsToShow < items.length ? 'block' : 'none';
+            }
 
-    // Fetch images from Firestore
-    async function fetchFirestoreImages() {
-        try {
-            const snapshot = await db.collection('images').orderBy('createdAt', 'desc').get();
-            const firestoreImages = [];
+            // Fetch images from Firestore
+            async function fetchFirestoreImages() {
+                try {
+                    const snapshot = await db.collection('images').orderBy('createdAt', 'desc').get();
+                    const firestoreImages = [];
 
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                firestoreImages.push({
-                    title: data.title || 'Untitled',
-                    url: data.url,
-                    createdAt: data.createdAt
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        firestoreImages.push({
+                            title: data.title || 'Untitled',
+                            url: data.url,
+                            createdAt: data.createdAt
+                        });
+                    });
+
+                    // Update galleryData with Firestore images
+                    galleryData.recent = firestoreImages;
+
+                    // Render gallery if we're on the recent folder
+                    if (currentFolder === 'recent') {
+                        renderGallery('recent');
+                    }
+                } catch (error) {
+                    console.error('Error fetching images from Firestore:', error);
+                    // Fallback to static images if Firestore fails
+                    galleryData.recent = [
+                        { title: "Recent Event 1", url: "https://res.cloudinary.com/dhwanw6f7/image/upload/v1757865752/rr" },
+                        { title: "Recent Event 2", url: "https://res.cloudinary.com/dhwanw6f7/image/upload/v1757865753/sample" }
+                    ];
+                    if (currentFolder === 'recent') {
+                        renderGallery('recent');
+                    }
+                }
+            }
+
+            // Initialize gallery and fetch Firestore images
+            fetchFirestoreImages();
+
+            // Folder tab click handler
+            folderTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    folderTabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+
+                    // Update folder icon
+                    const icon = tab.querySelector('.folder-icon');
+                    if (icon) {
+                        icon.classList.remove('fa-folder');
+                        icon.classList.add('fa-folder-open');
+                    }
+
+                    // Set current folder and render gallery
+                    currentFolder = tab.dataset.folder;
+                    visibleItems = 8;
+
+                    // For the recent folder, ensure we have the latest data
+                    if (currentFolder === 'recent' && galleryData.recent.length === 0) {
+                        fetchFirestoreImages();
+                    } else {
+                        renderGallery(currentFolder);
+                    }
                 });
             });
 
-            // Update galleryData with Firestore images
-            galleryData.recent = firestoreImages;
-
-            // Render gallery if we're on the recent folder
-            if (currentFolder === 'recent') {
-                renderGallery('recent');
-            }
-        } catch (error) {
-            console.error('Error fetching images from Firestore:', error);
-            // Fallback to static images if Firestore fails
-            galleryData.recent = [
-                { title: "Recent Event 1", url: "https://res.cloudinary.com/dhwanw6f7/image/upload/v1757865752/rr" },
-                { title: "Recent Event 2", url: "https://res.cloudinary.com/dhwanw6f7/image/upload/v1757865753/sample" }
-            ];
-            if (currentFolder === 'recent') {
-                renderGallery('recent');
-            }
-        }
-    }
-
-    // Initialize gallery and fetch Firestore images
-    fetchFirestoreImages();
-
-    // Folder tab click handler
-    folderTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all tabs
-            folderTabs.forEach(t => t.classList.remove('active'));
-
-            // Add active class to clicked tab
-            tab.classList.add('active');
-
-            // Update folder icon
-            const icon = tab.querySelector('.folder-icon');
-            if (icon) {
-                icon.classList.remove('fa-folder');
-                icon.classList.add('fa-folder-open');
-            }
-
-            // Set current folder and render gallery
-            currentFolder = tab.dataset.folder;
-            visibleItems = 8;
-
-            // For the recent folder, ensure we have the latest data
-            if (currentFolder === 'recent' && galleryData.recent.length === 0) {
-                fetchFirestoreImages();
-            } else {
-                renderGallery(currentFolder);
-            }
-        });
-    });
-
-    // Load more button
-    loadMoreBtn.addEventListener('click', () => {
-        visibleItems += 4;
-        renderGallery(currentFolder, visibleItems);
-    });
-
-    // Modal close
-    closeModal.addEventListener('click', () => {
-        imageModal.classList.add('hidden');
-        imageModal.classList.remove('flex');
-    });
-
-    // Close modal when clicking outside
-    imageModal.addEventListener('click', (e) => {
-        if (e.target === imageModal) {
-            imageModal.classList.add('hidden');
-            imageModal.classList.remove('flex');
-        }
-    });
-
-    (function () {
-        // --- configuration / content (edit as needed) ---
-        const contactInfo = {
-            address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
-            phones: ['+91 9810319292', '+91 9810323292'],
-            email: 'hr@psypanconsulting.com',
-        };
-
-        // PAGE URL map: clicking goto/learn-more opens these pages in the same tab
-        const pageUrlMap = {
-            'Services': 'services.html',
-            'Flagship Programs': 'flagship-programs.html',
-            'Blogs': 'blogs.html',
-            'Events': 'events.html',
-            'Contact': 'contact.html',
-            'About Us': 'about-us.html',
-            // keep Gallery as optional (if desired, add a page)
-            'Gallery': 'gallery.html'
-        };
-
-        const servicesList = [
-            'Management Training',
-            'Employee Engagement',
-            'HR Consulting',
-            'Employee Assistance',
-            'Outbound Training',
-            'Soft Skills'
-        ];
-
-        const flagshipPrograms = [
-            'Managerial Dev. Program',
-            'Train The Trainer',
-            'Handling Conversation',
-            'Campus to Corporate',
-            'Business Comm. Skills',
-            'Mentoring Skills',
-            'Diversity & Inclusion',
-            'Sahyog'
-        ];
-
-        // Keyword responses (typed input fallback)
-        function getBotResponse(message) {
-            const lower = message.toLowerCase();
-            if (lower.includes('contact') || lower.includes('address')) {
-                return `Our office is located at ${contactInfo.address}`;
-            }
-            if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number')) {
-                return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
-            }
-            if (lower.includes('email') || lower.includes('mail')) {
-                return `For inquiries, please email us at ${contactInfo.email}`;
-            }
-            if (lower.includes('training') || lower.includes('program')) {
-                return 'We offer various training programs including Outbound Training, SAHYOG Wellness, and POSH Certification.';
-            }
-            if (lower.includes('service') || lower.includes('offer')) {
-                return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-            }
-            // fallback
-            return 'I’m here to help! You can click one of the options below or tell me what you need.';
-        }
-
-        // --- DOM references ---
-        const toggleBtn = document.getElementById('chatbotToggle');
-        const windowEl = document.getElementById('chatbotWindow');
-        const closeBtn = document.getElementById('chatbotClose');
-        const sendBtn = document.getElementById('chatbotSend');
-        const inputEl = document.getElementById('chatbotInput');
-        const bodyEl = document.getElementById('chatbotBody');
-        const optionsContainer = document.getElementById('chatOptions');
-        const clearBtn = document.getElementById('chatClear');
-
-        // --- helpers ---
-        function scrollChatToBottom() {
-            bodyEl.scrollTop = bodyEl.scrollHeight;
-        }
-
-        function createMessage({ text, who = 'bot', html = false }) {
-            const wrapper = document.createElement('div');
-            wrapper.className =
-                'chatbot-message ' +
-                (who === 'user'
-                    ? 'user bg-primary text-white rounded-lg p-3 mb-3 max-w-[80%] float-right clear-both text-sm sm:text-base'
-                    : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] float-left clear-both text-sm sm:text-base');
-            if (html) wrapper.innerHTML = text;
-            else wrapper.textContent = text;
-            bodyEl.appendChild(wrapper);
-            scrollChatToBottom();
-            return wrapper;
-        }
-
-        function createTypingIndicator() {
-            return createMessage({ text: 'Typing...', who: 'bot' });
-        }
-
-        // Show quick options and prompt "How may I help you?"
-        function showOptionsPrompt(delay = 500) {
-            setTimeout(() => {
-                createMessage({ text: 'How may I help you?', who: 'bot' });
-                renderQuickOptions();
-            }, delay);
-        }
-
-        // Create clickable quick options
-        function renderQuickOptions() {
-            optionsContainer.innerHTML = '';
-
-            const mainOptions = [
-                { label: 'Services', action: 'services' },
-                { label: 'Flagship Programs', action: 'programs' },
-                { label: 'Contact', action: 'contact' },
-                { label: 'Phone', action: 'phone' },
-                { label: 'Email', action: 'email' },
-                { label: 'Events', action: 'goto', target: 'Events' },
-                { label: 'Gallery', action: 'goto', target: 'Gallery' },
-                { label: 'Blogs', action: 'goto', target: 'Blogs' },
-                { label: 'About Us', action: 'goto', target: 'About Us' }
-            ];
-
-            mainOptions.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'px-3 py-1 text-xs sm:text-sm rounded-full border border-gray-200 hover:bg-slate-50';
-                btn.textContent = opt.label;
-                btn.dataset.action = opt.action;
-                if (opt.target) btn.dataset.target = opt.target;
-                optionsContainer.appendChild(btn);
+            // Load more button
+            loadMoreBtn.addEventListener('click', () => {
+                visibleItems += 4;
+                renderGallery(currentFolder, visibleItems);
             });
 
-            scrollChatToBottom();
-        }
+            // Modal close
+            closeModal.addEventListener('click', () => {
+                imageModal.classList.add('hidden');
+                imageModal.classList.remove('flex');
+            });
 
-        // Show service details then show options again
-        function showServiceDetails(serviceName) {
-            const description = `${serviceName} — a tailored solution to address corporate needs. Click Learn more to visit the Services page.`;
-            const typing = createTypingIndicator();
-            setTimeout(() => {
-                typing.remove();
-                createMessage({ text: description, who: 'bot' });
-                const html = `<div class="mt-2"><button data-action="goto" data-target="Services" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Learn more</button></div>`;
-                createMessage({ text: html, who: 'bot', html: true });
-                // show options again
-                showOptionsPrompt(700);
-            }, 700);
-        }
-
-        // Show program details then show options again
-        function showProgramDetails(programName) {
-            const description = `${programName} — structured program designed to build competencies and measurable outcomes. Click Go to Flagship Programs to know more.`;
-            const typing = createTypingIndicator();
-            setTimeout(() => {
-                typing.remove();
-                createMessage({ text: description, who: 'bot' });
-                const html = `<div class="mt-2"><button data-action="goto" data-target="Flagship Programs" class="px-3 py-1 rounded-md bg-primary text-white text-xs">Go to Flagship Programs</button></div>`;
-                createMessage({ text: html, who: 'bot', html: true });
-                // show options again
-                showOptionsPrompt(700);
-            }, 700);
-        }
-
-        // Navigate to the mapped page (same tab). If no mapping, fallback to hash navigation.
-        function goToPage(name) {
-            const normalized = name.trim();
-            const url = pageUrlMap[normalized];
-            if (url) {
-                // give a small confirmation message then navigate
-                createMessage({ text: `Opening ${normalized}...`, who: 'bot' });
-                // navigate in same tab
-                window.location.href = url;
-            } else {
-                // fallback: attempt scroll to element id
-                const id = normalized.toLowerCase().replace(/\s+/g, '-');
-                const el = document.getElementById(id);
-                if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    createMessage({ text: `Taking you to ${normalized} section.`, who: 'bot' });
-                    // show options afterwards
-                    showOptionsPrompt(700);
-                } else {
-                    createMessage({ text: `Couldn't find a page or section for "${normalized}".`, who: 'bot' });
-                    showOptionsPrompt(600);
+            // Close modal when clicking outside
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    imageModal.classList.add('hidden');
+                    imageModal.classList.remove('flex');
                 }
-            }
-        }
+            });
 
-        // --- main event handlers ---
-        function handleOptionClick(target) {
-            const action = target.dataset.action;
-            const t = target.dataset.target || target.textContent;
+            (function () {
+                // --- configuration / content (edit as needed) ---
+                const contactInfo = {
+                    address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
+                    phones: ['+91 9810319292', '+91 9810323292'],
+                    email: 'hr@psypanconsulting.com',
+                };
 
-            if (action === 'services') {
-                const typing = createTypingIndicator();
-                setTimeout(() => {
-                    typing.remove();
-                    createMessage({ text: 'Here are our Services:', who: 'bot' });
-                    const html = servicesList.map(s => `<button data-action="service" data-name="${s}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${s}</button>`).join('');
-                    createMessage({ text: html, who: 'bot', html: true });
-                    // show options again under the list
-                    showOptionsPrompt(600);
-                }, 500);
-                return;
-            }
+                // PAGE URL map
+                const pageUrlMap = {
+                    'Services': 'services.html',
+                    'Contact': 'contact.html',
+                    'Flagship Programs': 'flagship-programs.html',
+                    'Global Programs': 'https://psychepan-mba.netlify.app'
+                };
 
-            if (action === 'programs') {
-                const typing = createTypingIndicator();
-                setTimeout(() => {
-                    typing.remove();
-                    createMessage({ text: 'Our Flagship Programs:', who: 'bot' });
-                    const html = flagshipPrograms.map(p => `<button data-action="program" data-name="${p}" class="m-1 px-3 py-1 text-xs rounded-full border border-gray-200">${p}</button>`).join('');
-                    createMessage({ text: html, who: 'bot', html: true });
-                    showOptionsPrompt(600);
-                }, 500);
-                return;
-            }
+                // Main menu options
+                const mainOptions = [
+                    { id: 1, label: 'Services Offered', icon: '🌐' },
+                    { id: 2, label: 'Management Trainings', icon: '📊' },
+                    { id: 3, label: 'Global Executive Devp Programs', icon: '🌍' },
+                    { id: 4, label: 'Employee Engagement', icon: '👥' },
+                    { id: 5, label: 'Employee Assistance', icon: '🤝' },
+                    { id: 6, label: 'Outbound Training', icon: '🏕️' },
+                    { id: 7, label: 'Offsites', icon: '🏞️' },
+                    { id: 8, label: 'Connect with Us', icon: '📞' }
+                ];
 
-            if (action === 'contact') {
-                createMessage({ text: `Address: ${contactInfo.address}`, who: 'bot' });
-                createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
-                createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
-                showOptionsPrompt(600);
-                return;
-            }
+                // Sub-options for each main option
+                const subOptions = {
+                    1: [
+                        { label: 'Management Trainings', action: 'redirect', target: 'Services' },
+                        { label: 'Employee Engagement', action: 'redirect', target: 'Services' },
+                        { label: 'Global Executive Development', action: 'menu', target: 3 },
+                        { label: 'Outbound Training', action: 'redirect', target: 'Services' },
+                        { label: 'Offsites', action: 'redirect', target: 'Services' },
+                        { label: 'Employee Assistance', action: 'redirect', target: 'Services' }
+                    ],
+                    2: [
+                        { label: '📘 Featured Trainings', action: 'Trainings' },
+                        { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
+                    ],
+                    3: [
+                        { label: '🌍 Global MBA', action: 'redirect', target: 'Global Programs' },
+                        { label: '✅ Eligibility', action: 'redirect', target: 'Global Programs' }
+                    ],
+                    4: [
+                        { label: '🎯 EEP Services', action: 'EEPServices' },
+                        { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
+                    ],
+                    5: [
+                        { label: '🧩 EAP Details', action: 'EAPDetails' },
+                        { label: '📞 Request Call Back', action: 'Phone' }
+                    ],
+                    6: [
+                        { label: '🏖 Venue Options', action: 'Venues' },
+                        { label: '🎯 Format Details', action: 'FormatDetails' }
+                    ],
+                    7: [
+                        { label: '🏞 Sample Activities', action: 'SampleActivities' },
+                        { label: '📅 Book a Session', action: 'redirect', target: 'Flagship Programs' }
+                    ],
+                    8: [
+                        { label: '📩 Talk to a Human', action: 'redirect', target: 'Contact' },
+                        { label: '📅 Book a Consultation', action: 'Email' },
+                        { label: '📞 Request a Call Back', action: 'Phone' }
+                    ]
+                };
 
-            if (action === 'phone') {
-                createMessage({ text: `Phone: ${contactInfo.phones.join(' or ')}`, who: 'bot' });
-                showOptionsPrompt(600);
-                return;
-            }
+                // Content for various options
+                const content = {
+                    trainings: [
+                        'Management Trainings',
+                        'Employee Engagements Trainings',
+                        'HR Consulting',
+                        'Employee Assistance Program',
+                        'Outbound Trainings/Offsites',
+                        'Soft Skills'
+                    ],
+                    eepServices: [
+                        'Employee Wellness Programme',
+                        'Employee Development',
+                        'Employee Konnect',
+                        'Employee Offsite Program'
+                    ],
+                    eapDetails: [
+                        'Workplace / Mental Health Counselling',
+                        'Wellness Assessment',
+                        'Wellness Survey',
+                        'Wellness Report'
+                    ],
+                    venues: [
+                        'Panchgani', 'Chandipur', 'Bubhneshwar', 'Lonavala', 'Khandala',
+                        'Jim Corbett', 'Nanital', 'Ranikhet', 'Kausani', 'Kausali',
+                        'Chail', 'Dhanulti', 'Mussorie', 'Solan', 'Shoghi',
+                        'Nalagarh', 'Garh Mukteshwar'
+                    ],
+                    formatDetails: [
+                        'Result Oriented OBTs',
+                        'Strategic OBTs',
+                        'Immersive Experience',
+                        'Experiential Strategic & Challenging Group activities'
+                    ],
+                    sampleActivities: [
+                        'EEP Program',
+                        'Outbound Activities',
+                        'Offsites and more...'
+                    ]
+                };
 
-            if (action === 'email') {
-                createMessage({ text: `Email: ${contactInfo.email}`, who: 'bot' });
-                showOptionsPrompt(600);
-                return;
-            }
 
-            if (action === 'goto') {
-                // Open mapped page in same tab
-                const targetLabel = target.dataset.target || target.textContent;
-                goToPage(targetLabel);
-                return;
-            }
+                // Bot responses for main options
+                const botResponses = {
+                    1: "We offer a portfolio of services to support organizations and individuals with growth, learning, and transformation. Would you like to explore specific services such as Management Trainings, Employee Engagement, or Outbound Programs?",
+                    2: "Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness. They can be customized for different levels of management. Would you like to see available training modules or connect with our team for details?",
+                    3: "We bring world-class executive development programs through our global collaborations with leading universities and experts. These programs focus on leadership, innovation, and future-ready skills. Would you like an overview or check eligibility to join?",
+                    4: "We design employee engagement initiatives to boost motivation, collaboration, and workplace satisfaction. Programs include workshops, cultural initiatives, and interactive experiences. Would you like examples of engagement activities?",
+                    5: "Our Employee Assistance Programs (EAPs) provide confidential support to employees for work-life balance, stress management, and well-being. Would you like to know more about our EAP offerings?",
+                    6: "Our outbound training programs combine learning with adventure, designed to build teamwork, leadership, and resilience. Would you like to see sample activities or discuss a custom OBT for your team?",
+                    7: "We organize corporate offsites to strengthen bonding, align strategy, and recharge teams in engaging environments. Would you like options for venues and formats?",
+                    8: "Would you like to connect with our team directly?"
+                };
 
-            if (action === 'service') {
-                const name = target.dataset.name;
-                showServiceDetails(name);
-                return;
-            }
-            if (action === 'program') {
-                const name = target.dataset.name;
-                showProgramDetails(name);
-                return;
-            }
+                // Fallback response
+                const fallbackResponse = "❓ I may not know that yet…➡️ Explore services👨‍💼 Talk to a consultant";
 
-            // fallback: treat as typed content
-            const typedText = target.textContent || '';
-            createMessage({ text: typedText, who: 'user' });
-            const response = getBotResponse(typedText);
-            const typing = createTypingIndicator();
-            setTimeout(() => {
-                typing.remove();
-                createMessage({ text: response, who: 'bot' });
-                showOptionsPrompt(600);
-            }, 800);
-        }
+                // Track the last question asked by the bot
+                let lastQuestionContext = null;
 
-        // Delegate clicks inside chat body (for dynamic buttons)
-        bodyEl.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
-            if (!btn) return;
-            const action = btn.dataset.action;
-            if (!action) return;
-            // small user bubble showing clicked option
-            const label = btn.textContent;
-            createMessage({ text: label, who: 'user' });
-            handleOptionClick(btn);
-        });
+                // Keyword responses (typed input fallback)
+                function getBotResponse(message) {
+                    const lower = message.toLowerCase();
 
-        // Top-level quick options click
-        optionsContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
-            if (!btn) return;
-            handleOptionClick(btn);
-        });
+                    // Handle yes/no responses to bot questions
+                    if (lastQuestionContext) {
+                        if (lower === 'yes' || lower === 'y' || lower === 'yeah' || lower === 'yep') {
+                            // Handle the "yes" response based on the last question context
+                            handleActionSelect(lastQuestionContext.action, lastQuestionContext.target);
+                            lastQuestionContext = null;
+                            return "";
+                        } else if (lower === 'no' || lower === 'n' || lower === 'nope') {
+                            // Clear chat and show main options for "no" response
+                            bodyEl.innerHTML = '';
+                            initChatbot();
+                            lastQuestionContext = null;
+                            return "";
+                        }
+                    }
 
-        // send typed message
-        function sendMessage() {
-            const message = inputEl.value.trim();
-            if (!message) return;
-            createMessage({ text: message, who: 'user' });
-            inputEl.value = '';
-            const typing = createTypingIndicator();
-            setTimeout(() => {
-                typing.remove();
-                // If user typed exact name of a service or program, prefer direct show
-                const normalized = message.toLowerCase();
-                const serviceMatch = servicesList.find(s => normalized === s.toLowerCase());
-                const progMatch = flagshipPrograms.find(p => normalized === p.toLowerCase());
-                if (serviceMatch) {
-                    showServiceDetails(serviceMatch);
-                    return;
+                    // Common words mapping
+                    if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+                        return "Hello! How can I help you today?";
+                    }
+                    if (lower.includes('thank')) {
+                        return "You're welcome! Is there anything else I can help you with?";
+                    }
+                    if (lower.includes('bye') || lower.includes('goodbye')) {
+                        return "Thank you for chatting with me. Have a great day!";
+                    }
+                    if (lower.includes('contact') || lower.includes('address')) {
+                        return `Our office is located at ${contactInfo.address}`;
+                    }
+                    if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number') || lower.includes('number')) {
+                        return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
+                    }
+                    if (lower.includes('email') || lower.includes('mail')) {
+                        return `For inquiries, please email us at ${contactInfo.email}`;
+                    }
+                    if (lower.includes('training') || lower.includes('program') || lower.includes('course')) {
+                        return 'We offer various training programs including Management Training, Employee Engagement, and Outbound Training.';
+                    }
+                    if (lower.includes('service') || lower.includes('offer') || lower.includes('provide')) {
+                        return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+                    }
+                    if (lower.includes('management') || lower.includes('leadership')) {
+                        return 'Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness.';
+                    }
+                    if (lower.includes('employee') || lower.includes('staff')) {
+                        return 'We offer Employee Engagement and Employee Assistance programs to support your workforce.';
+                    }
+                    if (lower.includes('global') || lower.includes('executive') || lower.includes('mba')) {
+                        return 'We bring world-class executive development programs through our global collaborations with leading universities.';
+                    }
+                    if (lower.includes('outbound') || lower.includes('obt') || lower.includes('team building')) {
+                        return 'Our outbound training programs combine learning with adventure, designed to build teamwork and leadership.';
+                    }
+                    if (lower.includes('offsites') || lower.includes('offsite')) {
+                        return 'We organize corporate offsites to strengthen bonding and align strategy in engaging environments.';
+                    }
+                    if (lower.includes('help') || lower.includes('support')) {
+                        return "I'm here to help! You can ask me about our services, training programs, or how to contact us.";
+                    }
+
+                    // fallback
+                    return fallbackResponse;
                 }
-                if (progMatch) {
-                    showProgramDetails(progMatch);
-                    return;
+
+                // --- DOM references ---
+                const sendBtn = document.getElementById('chatbotSend');
+                const inputEl = document.getElementById('chatbotInput');
+                const bodyEl = document.getElementById('chatbotBody');
+                const optionsContainer = document.getElementById('chatOptions');
+
+                // Track current menu state
+                let currentMenu = null;
+
+                // --- helpers ---
+                function scrollChatToBottom() {
+                    bodyEl.scrollTop = bodyEl.scrollHeight;
                 }
-                // If they typed a page name like 'services' or 'blogs', open page
-                const pageKey = Object.keys(pageUrlMap).find(k => k.toLowerCase() === message.toLowerCase());
-                if (pageKey) {
-                    goToPage(pageKey);
-                    return;
+
+                function createMessage({ text, who = 'bot', html = false, typing = false }) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className =
+                        'chatbot-message ' +
+                        (who === 'user'
+                            ? 'user bg-blue-500 text-white rounded-lg p-3 mb-3 max-w-[80%] ml-auto clear-both text-sm'
+                            : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] clear-both text-sm');
+
+                    if (typing) {
+                        wrapper.classList.add('typing-animation');
+                        wrapper.style.width = 'fit-content';
+                    }
+
+                    if (html) wrapper.innerHTML = text;
+                    else wrapper.textContent = text;
+
+                    bodyEl.appendChild(wrapper);
+                    scrollChatToBottom();
+                    return wrapper;
                 }
-                const response = getBotResponse(message);
-                createMessage({ text: response, who: 'bot' });
-                showOptionsPrompt(600);
-            }, 900);
-        }
 
-        // Toggle open/close
-        function toggleChatbot() {
-            const isHidden = windowEl.classList.contains('hidden');
-            if (isHidden) {
-                windowEl.classList.remove('hidden');
-                // render quick options each time to ensure fresh buttons
-                renderQuickOptions();
-            } else {
-                windowEl.classList.add('hidden');
-            }
-        }
+                function createTypingIndicator() {
+                    return createMessage({ text: 'PsypanChatbot is typing...', who: 'bot', typing: true });
+                }
 
-        // Clear chat
-        function clearChat() {
-            bodyEl.innerHTML = '';
-            createMessage({ text: 'Welcome! Choose an option below or type your question. 👇', who: 'bot' });
-            renderQuickOptions();
-        }
+                function removeTypingIndicator(indicator) {
+                    if (indicator && indicator.parentNode) {
+                        indicator.classList.remove('typing-animation');
+                        indicator.style.borderRight = 'none';
+                    }
+                }
 
-        // --- wire up events ---
-        toggleBtn.addEventListener('click', toggleChatbot);
-        closeBtn.addEventListener('click', toggleChatbot);
-        sendBtn.addEventListener('click', sendMessage);
-        inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-        clearBtn.addEventListener('click', clearChat);
+                // Show main options
+                function showMainOptions() {
+                    optionsContainer.innerHTML = '';
 
-    })();
-</script>
+                    mainOptions.forEach(opt => {
+                        const btn = document.createElement('button');
+                        btn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
+                        btn.innerHTML = `${opt.icon} ${opt.label}`;
+                        btn.dataset.option = opt.id;
+                        optionsContainer.appendChild(btn);
+                    });
+
+                    currentMenu = null;
+                    scrollChatToBottom();
+                }
+
+                // Show sub options
+                function showSubOptions(optionId) {
+                    optionsContainer.innerHTML = '';
+
+                    if (subOptions[optionId]) {
+                        subOptions[optionId].forEach(opt => {
+                            const btn = document.createElement('button');
+                            btn.className = 'option-btn px-3 py-2 mb-2 mr-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
+                            btn.textContent = opt.label;
+                            btn.dataset.action = opt.action;
+                            if (opt.target) btn.dataset.target = opt.target;
+                            optionsContainer.appendChild(btn);
+                        });
+                    }
+
+                    // Add back button
+                    const backBtn = document.createElement('button');
+                    backBtn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition';
+                    backBtn.textContent = '⬅ Back to Main Menu';
+                    backBtn.addEventListener('click', () => {
+                        createMessage({ text: 'What would you like to know about?', who: 'bot' });
+                        showMainOptions();
+                    });
+                    optionsContainer.appendChild(backBtn);
+
+                    currentMenu = optionId;
+                    scrollChatToBottom();
+                }
+
+                // Show list of items
+                function showList(items, redirectUrl = null) {
+                    let listHtml = '';
+                    if (redirectUrl) {
+                        listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
+                        <ul class="list-disc list-inside text-sm">${items.map(item => `<li class="cursor-pointer hover:underline" onclick="window.location.href='${redirectUrl}'">${item}</li>`).join('')}</ul>
+                    </div>`;
+                    } else {
+                        listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
+                        <ul class="list-disc list-inside text-sm">${items.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>`;
+                    }
+                    createMessage({ text: listHtml, who: 'bot', html: true });
+                }
+
+                // Redirect to page
+                function redirectToPage(page) {
+                    if (pageUrlMap[page]) {
+                        createMessage({ text: `Redirecting you to ${page}...`, who: 'bot' });
+                        setTimeout(() => {
+                            if (pageUrlMap[page].startsWith('http')) {
+                                window.open(pageUrlMap[page], '_blank');
+                            } else {
+                                window.location.href = pageUrlMap[page];
+                            }
+                        }, 1000);
+                    } else {
+                        createMessage({ text: `The ${page} page is not available at the moment.`, who: 'bot' });
+                    }
+                }
+
+                // Show phone number
+                function showPhone() {
+                    createMessage({ text: `You can call us at: ${contactInfo.phones[1]}`, who: 'bot' });
+                }
+
+                // Show email
+                function showEmail() {
+                    createMessage({ text: `Please email us at: ${contactInfo.email}`, who: 'bot' });
+                }
+
+                // Handle option selection
+                function handleOptionSelect(optionId) {
+                    // Create user message
+                    const optionText = mainOptions.find(opt => opt.id == optionId).label;
+                    createMessage({ text: optionText, who: 'user' });
+
+                    // Show typing indicator
+                    const typingIndicator = createTypingIndicator();
+
+                    // After delay, show bot response and options
+                    setTimeout(() => {
+                        removeTypingIndicator(typingIndicator);
+                        createMessage({ text: botResponses[optionId], who: 'bot' });
+
+                        // Set last question context if the response ends with a question mark
+                        if (botResponses[optionId].endsWith('?')) {
+                            const firstSubOption = subOptions[optionId] && subOptions[optionId][0];
+                            if (firstSubOption) {
+                                lastQuestionContext = {
+                                    action: firstSubOption.action,
+                                    target: firstSubOption.target
+                                };
+                            }
+                        }
+
+                        showSubOptions(optionId);
+                    }, 1500);
+                }
+
+                // Handle action selection
+                function handleActionSelect(action, target) {
+                    // Create user message
+                    const actionText = event ? event.target.textContent : "Yes";
+                    createMessage({ text: actionText, who: 'user' });
+
+                    // Show typing indicator
+                    const typingIndicator = createTypingIndicator();
+
+                    // After delay, handle the action
+                    setTimeout(() => {
+                        removeTypingIndicator(typingIndicator);
+
+                        switch (action) {
+                            case 'menu':
+                                handleOptionSelect(target);
+                                break;
+                            case 'Trainings':
+                                showList(content.trainings, pageUrlMap['Services']);
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'EEPServices':
+                                showList(content.eepServices, pageUrlMap['Flagship Programs']);
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'EAPDetails':
+                                showList(content.eapDetails);
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'Venues':
+                                showList(content.venues);
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'FormatDetails':
+                                showList(content.formatDetails);
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'SampleActivities':
+                                showList(content.sampleActivities);
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'Phone':
+                                showPhone();
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'Email':
+                                showEmail();
+                                showSubOptions(currentMenu);
+                                break;
+                            case 'redirect':
+                                redirectToPage(target);
+                                break;
+                            default:
+                                createMessage({ text: "I'm not sure how to help with that.", who: 'bot' });
+                                showMainOptions();
+                        }
+
+                        // Clear the last question context after handling the action
+                        lastQuestionContext = null;
+                    }, 1500);
+                }
+
+                // Initialize chatbot
+                function initChatbot() {
+                    createMessage({ text: "Hello! PsypanChatbot here 👋 Ready to explore our services?", who: 'bot' });
+                    showMainOptions();
+                }
+
+                // --- event handlers ---
+                sendBtn.addEventListener('click', () => {
+                    const message = inputEl.value.trim();
+                    if (message) {
+                        createMessage({ text: message, who: 'user' });
+                        inputEl.value = '';
+
+                        const typingIndicator = createTypingIndicator();
+
+                        setTimeout(() => {
+                            removeTypingIndicator(typingIndicator);
+                            const response = getBotResponse(message);
+
+                            if (response) {
+                                createMessage({ text: response, who: 'bot' });
+
+                                if (response === fallbackResponse) {
+                                    const html = `<div class="flex gap-2 mt-2">
+                                    <button data-action="redirect" data-target="Services" class="px-3 py-1 rounded-md bg-blue-500 text-white text-xs">🌐 Explore Services</button>
+                                    <button data-action="redirect" data-target="Contact" class="px-3 py-1 rounded-md bg-blue-500 text-white text-xs">🤝 Talk to Consultant</button>
+                                </div>`;
+                                    createMessage({ text: html, who: 'bot', html: true });
+                                } else {
+                                    showMainOptions();
+                                }
+                            }
+                        }, 1000);
+                    }
+                });
+
+                inputEl.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendBtn.click();
+                    }
+                });
+
+                // Delegate option clicks
+                optionsContainer.addEventListener('click', (e) => {
+                    if (e.target.dataset.option) {
+                        handleOptionSelect(e.target.dataset.option);
+                    } else if (e.target.dataset.action) {
+                        handleActionSelect(e.target.dataset.action, e.target.dataset.target);
+                    }
+                });
+
+                // Initialize the chatbot when the page loads
+                document.addEventListener('DOMContentLoaded', function () {
+                    initChatbot();
+                });
+            })();
+        </script>
 </body>
 
 </html>
