@@ -1564,16 +1564,14 @@
   </footer>
 
   <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
-  <div class="chatbot fixed bottom-6 right-4" style="z-index: 999;">
+  <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 999;">
     <!-- Toggle / Floating Button -->
     <button id="chatbotToggle"
       class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
       aria-label="Open chat">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         class="opacity-95">
-        <path
-          d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z" />
-        <path d="M9 9h6v6H9z" />
+        <img src="Chatbot.gif" alt="">
       </svg>
     </button>
 
@@ -1613,24 +1611,6 @@
         <button id="chatbotSend"
           class="bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base">Send</button>
       </div>
-    </div>
-  </div>
-
-  <!-- Success Modal -->
-  <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-xl p-8 max-w-md w-full text-center transform scale-95 success-animation">
-      <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <i class="fas fa-check-circle text-green-500 text-5xl"></i>
-      </div>
-      <h3 class="text-2xl font-bold text-gray-900 mb-4">Application Submitted!</h3>
-      <p class="text-gray-700 mb-6">
-        Thank you for applying to Psyche Panacea. We've received your application and will review it within 3-5 business
-        days.
-      </p>
-      <button id="close-modal"
-        class="bg-primary text-white font-bold py-3 px-8 rounded-lg transition-all hover:bg-blue-700">
-        Continue
-      </button>
     </div>
   </div>
 

@@ -178,9 +178,17 @@
         }
 
         .program-card img {
-            height: 200px;
-            object-fit: cover;
             width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* Improved image container sizing */
+        .program-card .overflow-hidden {
+            height: 280px;
+            /* Increased from h-48 (192px) to 280px */
+            overflow: hidden;
         }
 
         .program-content {
@@ -237,6 +245,17 @@
             padding: 2rem;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        /* Single card layout adjustments */
+        .tab-content .program-grid.grid-cols-1 .program-card {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tab-content .program-grid.grid-cols-1 .program-card .overflow-hidden {
+            height: 320px;
+            /* Even larger for single cards */
         }
 
         /* Responsive Adjustments */
@@ -918,6 +937,26 @@
                 padding: 0.2rem 0.5rem;
             }
         }
+
+
+
+        .card-perspective {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.7s;
+        }
+
+        .card-face {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 
@@ -1295,12 +1334,12 @@
             </p>
         </div>
 
-        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+        <div class="program-grid grid grid-cols-1 gap-6">
             <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
                 style="animation-delay: 100ms">
                 <div class="overflow-hidden">
                     <img src="/images/flagship-programs/trsin the trainee.jpg" alt="Train the Trainer"
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div class="program-content p-5 space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
@@ -1344,12 +1383,12 @@
             </p>
         </div>
 
-        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+        <div class="program-grid grid grid-cols-1 gap-6">
             <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
                 style="--delay: 200ms">
                 <div class="overflow-hidden">
                     <img src="/images/flagship-programs/dfclt cnvrsn.jpg" alt="Difficult Conversations"
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div class="program-content p-5 space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800 group-hover:text-red-600 transition-colors">
@@ -1397,12 +1436,12 @@
             </p>
         </div>
 
-        <div class="program-grid grid gap-6 md:grid-cs-2 lg:grid-cols-1">
+        <div class="program-grid grid grid-cols-1 gap-6">
             <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
                 style="--delay: 300ms">
                 <div class="overflow-hidden">
                     <img src="/images/flagship-programs/cmp to cprt.jpg" alt="Campus to Corporate"
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div class="program-content p-5 space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800 group-hover:text-green-600 transition-colors">
@@ -1450,12 +1489,12 @@
             </p>
         </div>
 
-        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+        <div class="program-grid grid grid-cols-1 gap-6">
             <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
                 style="--delay: 100ms">
                 <div class="overflow-hidden">
                     <img src="/images/flagship-programs/business-communication.jpg" alt="Business Communication"
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div class="program-content p-5 space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
@@ -1504,12 +1543,12 @@
             </p>
         </div>
 
-        <div class="program-grid grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+        <div class="program-grid grid grid-cols-1 gap-6">
             <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
                 style="--delay: 100ms">
                 <div class="overflow-hidden">
                     <img src="/images/flagship-programs/MENTORING-SKILLS.jpg" alt="Mentoring Skills"
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div class="program-content p-5 space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800 group-hover:text-purple-600 transition-colors">
@@ -1721,31 +1760,32 @@
                     class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
                     <!-- Front -->
                     <div
-                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-md flex flex-col items-center justify-center p-6">
+                        class="card-face absolute inset-0 rounded-xl shadow-md flex flex-col items-center justify-end overflow-hidden">
                         <img src="/images/flagship-programs/wellness-report-psypan-1.jpg"
-                            alt="Workplace/Mental Health Counselling" class="w-16 h-16 mb-4" />
-                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            alt="Workplace/Mental Health Counselling"
+                            class="absolute inset-0 w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <h3 class="text-lg font-semibold text-white text-center relative z-10 p-4">
                             Workplace / Mental Health Counselling
                         </h3>
                     </div>
                     <!-- Back -->
                     <div
-                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
-                        <h3 class="text-xl font-bold text-red-600 mb-3">
+                        class="card-face card-back absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-blue-700 mb-4 text-center">
                             Workplace / Mental Health Counselling
                         </h3>
-                        <img src="/images/flagship-programs/wellness-report-psypan-1.jpg"
-                            alt="Workplace/Mental Health Counselling"
-                            class="w-20 h-20 mb-4 mx-auto rounded-full shadow" />
-                        <p class="text-gray-700 leading-relaxed">
-                            Nurturing growth and well-being through tailored workspace counseling.
-                        </p>
-                        <p class="text-gray-700 mt-2">
-                            Workplace counselling provides a confidential, supportive environment
-                            where employees can address personal, emotional, and psychological
-                            concerns. By promoting mental wellness, it improves productivity,
-                            resilience, and cultivates a healthier work environment.
-                        </p>
+                        <div class="text-gray-700 space-y-3">
+                            <p class="font-medium">Nurturing growth and well-being through tailored workspace
+                                counseling:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Confidential, supportive environment for employees</li>
+                                <li>Address personal, emotional, and psychological concerns</li>
+                                <li>Promotes mental wellness and improves productivity</li>
+                                <li>Builds resilience and cultivates a healthier work environment</li>
+                                <li>Professional counselors with industry experience</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1755,26 +1795,27 @@
                 <div
                     class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
                     <div
-                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-md flex flex-col items-center justify-center p-6">
+                        class="card-face absolute inset-0 rounded-xl shadow-md flex flex-col items-center justify-end overflow-hidden">
                         <img src="/images/flagship-programs/Employee-Assessment-Psypan.jpg" alt="Wellness Assessment"
-                            class="w-16 h-16 mb-4" />
-                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            class="absolute inset-0 w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <h3 class="text-lg font-semibold text-white text-center relative z-10 p-4">
                             Wellness Assessment
                         </h3>
                     </div>
                     <div
-                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
-                        <h3 class="text-xl font-bold text-green-600 mb-3">Wellness Assessment</h3>
-                        <img src="/images/flagship-programs/Employee-Assessment-Psypan.jpg" alt="Wellness Assessment"
-                            class="w-20 h-20 mb-4 mx-auto rounded-full shadow" />
-                        <p class="text-gray-700">
-                            Fostering well-being through comprehensive assessments that map
-                            physical, emotional, and lifestyle dimensions.
-                        </p>
-                        <p class="text-gray-700 mt-2">
-                            Data-driven insights help design targeted wellness programs that enhance
-                            employee health, productivity, and engagement.
-                        </p>
+                        class="card-face card-back absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-blue-700 mb-4 text-center">Wellness Assessment</h3>
+                        <div class="text-gray-700 space-y-3">
+                            <p class="font-medium">Fostering well-being through comprehensive assessments:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Maps physical, emotional, and lifestyle dimensions</li>
+                                <li>Data-driven insights for targeted wellness programs</li>
+                                <li>Enhances employee health, productivity, and engagement</li>
+                                <li>Customized assessment tools for different industries</li>
+                                <li>Actionable recommendations for improvement</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1784,27 +1825,29 @@
                 <div
                     class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
                     <div
-                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-md flex flex-col items-center justify-center p-6">
+                        class="card-face absolute inset-0 rounded-xl shadow-md flex flex-col items-center justify-end overflow-hidden">
                         <img src="/images/flagship-programs/Employee-Wellness-survey.jpg"
-                            alt="Wellness Survey of Employee" class="w-16 h-16 mb-4" />
-                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            alt="Wellness Survey of Employee" class="absolute inset-0 w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <h3 class="text-lg font-semibold text-white text-center relative z-10 p-4">
                             Employee Wellness Survey
                         </h3>
                     </div>
                     <div
-                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
-                        <h3 class="text-xl font-bold text-blue-600 mb-3">Employee Wellness Survey</h3>
-                        <img src="/images/flagship-programs/Employee-Wellness-survey.jpg"
-                            alt="Wellness Survey of Employee" class="w-20 h-20 mb-4 mx-auto rounded-full shadow" />
-                        <p class="text-gray-700">
-                            Exploring well-being through structured surveys and psychometric tools.
-                        </p>
-                        <ul class="list-disc list-inside text-gray-700 mt-3 space-y-1">
-                            <li>Depression Inventory</li>
-                            <li>Anxiety Inventory</li>
-                            <li>Rorschach Inkblot Test</li>
-                            <li>Thematic Apperception Test</li>
-                        </ul>
+                        class="card-face card-back absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-blue-700 mb-4 text-center">Employee Wellness Survey</h3>
+                        <div class="text-gray-700 space-y-3">
+                            <p class="font-medium">Exploring well-being through structured surveys and psychometric
+                                tools:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Depression Inventory assessment</li>
+                                <li>Anxiety Inventory evaluation</li>
+                                <li>Rorschach Inkblot Test analysis</li>
+                                <li>Thematic Apperception Test interpretation</li>
+                                <li>Customized survey tools for organizational needs</li>
+                                <li>Confidential results with professional insights</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1814,31 +1857,32 @@
                 <div
                     class="card-inner relative w-full h-80 transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
                     <div
-                        class="card-face absolute inset-0 bg-gray-50 rounded-xl shadow-md flex flex-col items-center justify-center p-6">
+                        class="card-face absolute inset-0 rounded-xl shadow-md flex flex-col items-center justify-end overflow-hidden">
                         <img src="/images/flagship-programs/employee-wellness-report-3.jpg"
-                            alt="Employee Wellness Report" class="w-16 h-16 mb-4" />
-                        <h3 class="text-lg font-semibold text-gray-800 text-center">
+                            alt="Employee Wellness Report" class="absolute inset-0 w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <h3 class="text-lg font-semibold text-white text-center relative z-10 p-4">
                             Employee Wellness Report
                         </h3>
                     </div>
                     <div
-                        class="card-face card-back absolute inset-0 bg-white rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
-                        <h3 class="text-xl font-bold text-purple-600 mb-3">Employee Wellness Report</h3>
-                        <img src="/images/flagship-programs/employee-wellness-report-3.jpg"
-                            alt="Employee Wellness Report" class="w-20 h-20 mb-4 mx-auto rounded-full shadow" />
-                        <p class="text-gray-700">
-                            A detailed report offering insights, patterns, and strategies to improve
-                            workforce well-being.
-                        </p>
-                        <p class="text-gray-700 mt-2">
-                            This serves as a roadmap for organizations to foster a healthier,
-                            more resilient, and high-performing workforce.
-                        </p>
+                        class="card-face card-back absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 overflow-y-auto rotate-y-180">
+                        <h3 class="text-xl font-bold text-blue-700 mb-4 text-center">Employee Wellness Report</h3>
+                        <div class="text-gray-700 space-y-3">
+                            <p class="font-medium">Detailed insights and strategies for workforce well-being:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Comprehensive analysis of employee wellness data</li>
+                                <li>Identification of patterns and trends</li>
+                                <li>Actionable strategies for improvement</li>
+                                <li>Roadmap for fostering a healthier workforce</li>
+                                <li>Guidance for building resilience and performance</li>
+                                <li>Benchmarking against industry standards</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- Why EAP Stands Out -->
         <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div class="space-y-5">
@@ -1865,50 +1909,64 @@
                 </p>
             </div>
             <div class="overflow-hidden rounded-2xl shadow-lg animate-fade-in-right">
-                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop"
-                    alt="Creating an Environment Where Employees Thrive" class="w-full h-full object-cover" />
+                <img src="/images/flagship-programs/sahyog.avif" alt="Creating an Environment Where Employees Thrive"
+                    class="w-full h-full object-cover" />
             </div>
         </div>
 
-        <!-- Program Card -->
-        <div
-            class="program-card group bg-gray-50 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2 mt-12">
-            <div class="overflow-hidden">
-                <img src="/images/flagship-programs/Employee-konnect.jpg" alt="Employee Konnect"
-                    class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500" />
-            </div>
-            <div class="program-content p-6 space-y-4">
-                <h3
-                    class="text-xl font-semibold text-gray-800 group-hover:text-teal-600 transition-colors duration-300">
+        <div id="sahyog"
+            class="tab-content hidden space-y-8 px-6 py-10 bg-white rounded-lg shadow-lg animate-pulse-once">
+            <div class="tab-intro text-center max-w-2xl mx-auto">
+                <h2
+                    class="text-3xl font-extrabold text-teal-600 mb-4 transform transition-transform duration-500 hover:scale-105">
                     Employee Konnect
-                </h3>
-                <div class="program-description text-gray-700 space-y-2">
-                    <p>
-                        “Employee Konnect” fosters collaboration, engagement, and professional
-                        growth while promoting holistic well-being.
-                    </p>
-                    <p><strong>Family Konnect:</strong> Strengthening work-life balance by
-                        fostering meaningful connections between employees and their families.
-                    </p>
-                    <ul class="list-disc list-inside space-y-1">
-                        <li><strong>Kids Konnect:</strong> Engages employees’ children with
-                            office tours, activities, and community-building events.</li>
-                        <li><strong>Lifestyle Management:</strong> Practical tools and resources
-                            to maintain healthy routines and balance personal + professional life.
-                        </li>
-                        <li><strong>Relationship Management:</strong> Promoting positive workplace
-                            relationships to boost harmony and productivity.</li>
-                    </ul>
-                </div>
-                <div class="flex items-center justify-between pt-2">
-                    <span
-                        class="read-more text-teal-600 text-sm font-medium hover:underline transition-all duration-300 hover:translate-x-1 cursor-pointer">
-                        Read more
-                    </span>
-                    <button
-                        class="book-now-btn px-5 py-2 text-sm font-medium bg-teal-600 text-white rounded-lg hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105">
-                        Book Now
-                    </button>
+                </h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Fostering collaboration, engagement, and professional growth while promoting holistic well-being.
+                </p>
+            </div>
+
+            <div class="program-grid grid grid-cols-1 gap-6">
+                <div class="program-card group bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform duration-500 hover:-translate-y-2"
+                    style="--delay: 100ms">
+                    <div class="overflow-hidden">
+                        <img src="/images/flagship-programs/Employee-konnect.jpg" alt="Employee Konnect"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div class="program-content p-5 space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800 group-hover:text-teal-600 transition-colors">
+                            Employee Konnect
+                        </h3>
+                        <div class="program-description">
+                            <p>
+                                "Employee Konnect" fosters collaboration, engagement, and professional
+                                growth while promoting holistic well-being.
+                            </p>
+                            <p><strong>Family Konnect:</strong> Strengthening work-life balance by
+                                fostering meaningful connections between employees and their families.
+                            </p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Kids Konnect:</strong> Engages employees' children with
+                                    office tours, activities, and community-building events.</li>
+                                <li><strong>Lifestyle Management:</strong> Practical tools and resources
+                                    to maintain healthy routines and balance personal + professional life.
+                                </li>
+                                <li><strong>Relationship Management:</strong> Promoting positive workplace
+                                    relationships to boost harmony and productivity.</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span
+                                class="read-more text-teal-500 text-sm font-medium hover:underline transform transition-transform duration-300 hover:translate-x-1">
+                                Read more
+                            </span>
+                            <button
+                                class="book-now-btn inline-block px-4 py-2 text-sm font-medium bg-teal-600 text-white rounded hover:bg-teal-700 transform transition-transform duration-300 hover:scale-105"
+                                data-category="Employee Konnect" data-subcategory="Employee Konnect Program">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1993,16 +2051,14 @@
     </footer>
 
     <!-- ====== Chatbot (copy-paste into your HTML) ====== -->
-    <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 1001;">
+    <div class="chatbot fixed bottom-6 right-4 z-50" style="z-index: 999;">
         <!-- Toggle / Floating Button -->
         <button id="chatbotToggle"
             class="chatbot-toggle w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center cursor-pointer shadow-lg text-white"
             aria-label="Open chat">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 class="opacity-95">
-                <path
-                    d="M21 11.5a8.38 8.38 0 0 1-12.5 7.5 8.38 8.38 0 0 1-7.5-12.5 8.38 8.38 0 0 1 12.5-7.5 8.38 8.38 0 0 1 7.5 12.5z" />
-                <path d="M9 9h6v6H9z" />
+                <img src="Chatbot.gif" alt="">
             </svg>
         </button>
 
