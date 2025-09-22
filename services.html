@@ -812,6 +812,174 @@
         padding: 0.2rem 0.5rem;
       }
     }
+
+    :root {
+      --mt-accent: #0b57d0;
+      --mt-bg: linear-gradient(180deg, #ffffff, #f7fafc);
+      --mt-panel: #ffffff;
+      --mt-text: #0f172a;
+    }
+
+    .more-trainings-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 12000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    .more-trainings-modal[aria-hidden="false"] {
+      display: flex;
+    }
+
+    /* backdrop layer */
+    .mt-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(6, 11, 26, 0.56);
+      backdrop-filter: blur(5px) saturate(1.05);
+      -webkit-backdrop-filter: blur(5px) saturate(1.05);
+      transition: opacity 240ms ease;
+    }
+
+    /* dialog panel */
+    .mt-dialog {
+      position: relative;
+      width: 94%;
+      max-width: 1200px;
+      max-height: 92vh;
+      background: var(--mt-panel);
+      border-radius: 12px;
+      box-shadow: 0 18px 60px rgba(6, 10, 20, 0.4);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(18px) scale(.99);
+      opacity: 0;
+      transition: transform 260ms cubic-bezier(.2, .9, .2, 1), opacity 220ms ease;
+    }
+
+    .more-trainings-modal[aria-hidden="false"] .mt-dialog {
+      transform: translateY(0px) scale(1);
+      opacity: 1;
+    }
+
+    /* header */
+    .mt-dialog-header {
+      position: relative;
+      padding: 22px 28px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+      background: linear-gradient(90deg, #f8fbff 0%, rgba(250, 250, 255, 0.85) 100%);
+    }
+
+    .mt-dialog-header h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      color: var(--mt-accent);
+      letter-spacing: -0.3px;
+    }
+
+    .mt-lead {
+      margin: 6px 0 0;
+      color: #465569;
+      font-size: 0.95rem;
+    }
+
+    .mt-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #334155;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 160ms;
+    }
+
+    .mt-close:hover {
+      background: rgba(15, 23, 42, 0.04);
+    }
+
+    /* body - scrollable area */
+    .mt-dialog-body {
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .mt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .mt-col {
+      background: transparent;
+      padding: 14px;
+      border-radius: 8px;
+    }
+
+    .mt-block h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--mt-text);
+    }
+
+    .mt-block ul {
+      margin: 0;
+      padding-left: 1.05rem;
+      color: #334155;
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .mt-block ul li {
+      margin-bottom: 8px;
+    }
+
+    .mt-footer {
+      margin-top: 14px;
+      padding: 12px 0 22px;
+      text-align: center;
+      color: #475569;
+    }
+
+    .mt-link {
+      background: none;
+      border: none;
+      color: var(--mt-accent);
+      cursor: pointer;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* mobile adjustments */
+    @media (max-width: 880px) {
+      .mt-dialog {
+        width: 96%;
+        max-height: 94vh;
+      }
+
+      .mt-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mt-dialog-body {
+        padding: 16px;
+      }
+
+      .mt-dialog-header {
+        padding: 16px;
+      }
+
+      .mt-block ul {
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 
@@ -883,7 +1051,7 @@
   <div class="program-tabs-wrapper" style="--header-height:4rem;">
     <!-- Mobile toggle (visible only on mobile) -->
     <button id="programTabToggle" class="mobile-toggle" aria-expanded="false" aria-controls="programTabs">
-      ☰ Programs
+      ☰ Our Services
     </button>
 
     <!-- Program Tabs (keeps your existing classes/structure) -->
@@ -1227,7 +1395,7 @@
                 class="feature-card bg-white p-8 rounded-2xl shadow-lg border-l-4 border-secondary text-center hover:shadow-xl transition duration-300">
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">And many more..</h3>
                 <div class="mt-4">
-                  <a href="https://psychepan-mba.netlify.app"
+                  <a href=""
                     class="inline-block px-4 py-2 bg-secondary text-white text-sm font-medium rounded-full shadow-md hover:bg-secondary/90 transition">Explore
                     Now</a>
                 </div>
@@ -1238,6 +1406,155 @@
       </div>
     </section>
 
+    <!-- ======= Fullscreen Modal: Full Trainings Reference (hidden by default) ======= -->
+    <section id="moreTrainingsSection" class="more-trainings-modal" aria-hidden="true" style="display:none;">
+      <div class="mt-backdrop" aria-hidden="true"></div>
+
+      <div class="mt-dialog" role="dialog" aria-modal="true" aria-labelledby="mt-title">
+        <header class="mt-dialog-header">
+          <h2 id="mt-title">All Programs & Proposed Trainings</h2>
+          <p class="mt-lead">Consolidated list of our most-sought and proposed trainings (Junior & Middle Management).
+          </p>
+          <button id="moreTrainingsClose" class="mt-close" aria-label="Close trainings panel">✕</button>
+        </header>
+
+        <div class="mt-dialog-body">
+          <div class="mt-grid">
+            <div class="mt-col">
+              <article class="mt-block">
+                <h3>Most Sought — Result Oriented Trainings</h3>
+                <ul>
+                  <li>Business Demeanor</li>
+                  <li>C2C (Campus to Corporate)</li>
+                  <li>Induction Training</li>
+                  <li>Sync with Gen Z</li>
+                  <li>Holistic Stress Management</li>
+                  <li>Negotiation skills</li>
+                  <li>Accountability & Responsibility</li>
+                  <li>Proactive Decision Making</li>
+                  <li>Assertiveness Training</li>
+                  <li>Train the Internal Trainer</li>
+                  <li>Executive Development Program</li>
+                  <li>Supervisory Development Program</li>
+                  <li>Conflict Management</li>
+                  <li>Storytelling</li>
+                  <li>Values & Code of Conduct</li>
+                  <li>Building an effective workplace relationship</li>
+                  <li>Dealing with Ambiguity</li>
+                  <li>DEI / Diversity & Inclusion Training</li>
+                </ul>
+              </article>
+
+              <article class="mt-block">
+                <h3>Junior Management — Core Topics</h3>
+                <ul>
+                  <li>Communication With Impact</li>
+                  <li>Business Communication</li>
+                  <li>Induction & role orientation</li>
+                  <li>Sync with Gen Z</li>
+                  <li>Assertiveness Training</li>
+                  <li>Feedback Matters</li>
+                  <li>Conflict Management</li>
+                  <li>Networking Skills</li>
+                  <li>PoSH awareness</li>
+                  <li>Gender Sensitization</li>
+                  <li>Accountability & Responsibility</li>
+                  <li>Time Intelligence</li>
+                  <li>Dealing with Ambiguity</li>
+                  <li>Handling Difficult Conversations</li>
+                  <li>Building effective workplace relationships</li>
+                  <li>Values & Code of Conduct</li>
+                  <li>DEI Training</li>
+                  <li>MS Trainings & IT Skills</li>
+                </ul>
+              </article>
+
+              <article class="mt-block">
+                <h3>Middle Management — Core Topics</h3>
+                <ul>
+                  <li>Tough-love Based Leadership</li>
+                  <li>Mentoring Skills</li>
+                  <li>People Management Skills</li>
+                  <li>Storytelling for leaders</li>
+                  <li>Problem Solving</li>
+                  <li>Emotional Quotient (EQ)</li>
+                  <li>Inclusive Workplace</li>
+                  <li>Sales Effectiveness Program</li>
+                  <li>Train the Internal Trainer</li>
+                  <li>Lateral Thinking</li>
+                  <li>Six Thinking Hats</li>
+                  <li>Design Thinking</li>
+                  <li>CRM Trainings</li>
+                  <li>Purposeful Collaboration</li>
+                  <li>Conflict Management (advanced)</li>
+                  <li>Executive Development Program</li>
+                  <li>Supervisory Development Program</li>
+                  <li>Transformation Leadership</li>
+                  <li>Strategic Thinking</li>
+                  <li>Data Analytics</li>
+                  <li>Finance for Non-Finance</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="mt-col">
+              <article class="mt-block">
+                <h3>Behavioral Skill Training — (General / Junior)</h3>
+                <ul>
+                  <li>Growth Mindset at Work</li>
+                  <li>Active Listening & Empathy</li>
+                  <li>Influencing Without Authority</li>
+                  <li>Time & Task Prioritization</li>
+                  <li>Giving & Receiving Feedback</li>
+                  <li>Presentation Skills (for Analysts / Scientists)</li>
+                  <li>Personal Accountability</li>
+                  <li>Managing Self Under Pressure</li>
+                  <li>Resilience & Adaptability</li>
+                  <li>Collaborating Across Functions</li>
+                </ul>
+              </article>
+
+              <article class="mt-block">
+                <h3>Behavioral Skill Training — (Middle Management)</h3>
+                <ul>
+                  <li>Coaching Conversations</li>
+                  <li>Leading by Emotional Intelligence</li>
+                  <li>Trust Building & Team Morale</li>
+                  <li>Performance Conversations & Feedback Loops</li>
+                  <li>Stakeholder Management</li>
+                  <li>Conflict → Collaboration</li>
+                  <li>Delegation & Empowerment</li>
+                  <li>Navigating Organizational Politics (Ethically)</li>
+                  <li>Change Agility & Transition Management</li>
+                  <li>Cultural Sensitivity in Global Teams</li>
+                </ul>
+              </article>
+
+              <article class="mt-block">
+                <h3>Additional & Outcome-focused Topics</h3>
+                <ul>
+                  <li>Feedback Matters & Sales Effectiveness</li>
+                  <li>Higher the asset not liability (asset-focused leadership)</li>
+                  <li>Transformation Leadership & value building workshops</li>
+                  <li>Image management & professional presence</li>
+                  <li>Inclusive workplace practices & wellbeing</li>
+                  <li>Emotional intelligence, problem solving & decision making</li>
+                  <li>Communication with impact & purposeful collaboration</li>
+                  <li>Business communication, CRM, IT & MS trainings</li>
+                  <li>Strategic Thinking, Data Analytics & finance trainings</li>
+                  <li>And many more competency-based trainings</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+
+          <footer class="mt-footer">
+            <p>Want a printable version? Export or share this list with your team. <button id="mt-scroll-top"
+                class="mt-link">Back to top</button></p>
+          </footer>
+        </div>
+      </div>
+    </section>
 
     <!-- Benefits -->
     <section class="py-16 bg-gray-50">
@@ -2207,6 +2524,110 @@
   </div>
 
   <script>
+    (function () {
+      const modal = document.getElementById('moreTrainingsSection');
+      const closeBtn = document.getElementById('moreTrainingsClose');
+      const backTop = document.getElementById('mt-scroll-top');
+
+      // Focus-trap helpers
+      function getFocusable(el) {
+        if (!el) return [];
+        return Array.from(el.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'))
+          .filter(node => node.offsetParent !== null);
+      }
+
+      let lastActiveElement = null;
+
+      function openModal() {
+        if (!modal) return;
+        lastActiveElement = document.activeElement;
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+
+        // move focus to close button
+        setTimeout(() => {
+          const focusable = getFocusable(modal);
+          if (focusable.length) focusable[0].focus();
+        }, 80);
+        // add keydown handler for focus trap
+        document.addEventListener('keydown', handleKeyDown);
+      }
+
+      function closeModal() {
+        if (!modal) return;
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', handleKeyDown);
+        if (lastActiveElement && typeof lastActiveElement.focus === 'function') lastActiveElement.focus();
+      }
+
+      function handleKeyDown(e) {
+        if (e.key === 'Escape') {
+          closeModal();
+          return;
+        }
+        if (e.key === 'Tab') {
+          const focusable = getFocusable(modal);
+          if (focusable.length === 0) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+
+      // Find the Explore Now button or feature-card (robust)
+      function findExploreTrigger() {
+        const candidate = Array.from(document.querySelectorAll('.feature-card button, .feature-card a'))
+          .find(el => /explore\s*now/i.test(el.textContent || ''));
+        if (candidate) return candidate;
+        const fallback = Array.from(document.querySelectorAll('.feature-card'))
+          .find(card => /and many/i.test(card.textContent || ''));
+        if (fallback) return fallback.querySelector('button, a') || fallback;
+        return null;
+      }
+
+      const trigger = findExploreTrigger();
+      if (trigger) {
+        trigger.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          openModal();
+        });
+      } else {
+        // don't throw — expose function for manual triggering
+        console.warn('Explore trigger not found. Use openModal() to open trainings panel.');
+      }
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (backTop) backTop.addEventListener('click', () => {
+        // scroll to top of modal content
+        const body = modal && modal.querySelector('.mt-dialog-body');
+        if (body) body.scrollTo({ top: 0, behavior: 'smooth' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // close when clicking backdrop
+      modal.addEventListener('click', (e) => {
+        if (e.target.classList && e.target.classList.contains('mt-backdrop')) {
+          closeModal();
+        }
+      });
+
+      // expose for debugging
+      window.openMoreTrainings = openModal;
+      window.closeMoreTrainings = closeModal;
+    })();
+
+    // chatbot
     document.addEventListener("DOMContentLoaded", function () {
       const chatbotWindow = document.getElementById("chatbotWindow");
       const chatbotToggle = document.getElementById("chatbotToggle");
