@@ -953,16 +953,69 @@
                 right: 8px;
             }
         }
+
+        /* Medium size Back button styling */
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 18px;
+            padding: 8px 14px;
+            /* medium size */
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0b1220;
+            background: #eef6ff;
+            /* subtle light background */
+            border: 1px solid rgba(11, 87, 208, 0.12);
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(11, 87, 208, 0.06);
+            transition: transform 140ms ease, box-shadow 140ms ease, background 140ms;
+        }
+
+        .btn-back-home:hover {
+            transform: translateY(-2px);
+            background: #e6f0ff;
+            box-shadow: 0 10px 24px rgba(11, 87, 208, 0.10);
+        }
+
+        .btn-back-home:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 14px rgba(11, 87, 208, 0.08);
+        }
+
+        /* Keep layout tidy on small screens */
+        @media (max-width: 640px) {
+            .btn-back-home {
+                margin-top: 8px;
+                margin-left: 0;
+                padding: 7px 12px;
+                font-size: 0.9rem;
+            }
+
+            .logo-container {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Header -->
+    <!-- Header (updated: added Back to Home button) -->
     <header>
         <div class="container header-content">
             <div class="logo-container">
                 <div class="logo">Psyche Panacea<span class="logo-divider">|</span></div>
                 <div class="collab-partner">In collaboration with Opresnik</div>
+
+                <!-- Back to Home button -->
+                <button id="backHomeBtn" class="btn-back-home" aria-label="Go back to previous page">
+                    ← Back to Home
+                </button>
             </div>
         </div>
     </header>
@@ -1295,6 +1348,35 @@
     </footer>
 
     <script>
+
+        (function () {
+            const btn = document.getElementById('backHomeBtn');
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // If there's previous history, go back (behaves like browser back arrow)
+                if (window.history.length > 1) {
+                    // Try history.back(), but set a fallback if nothing happens within 600ms
+                    let navigated = false;
+                    const onPageHide = () => { navigated = true; window.removeEventListener('pagehide', onPageHide); };
+                    window.addEventListener('pagehide', onPageHide);
+
+                    history.back();
+
+                    setTimeout(() => {
+                        if (!navigated) {
+                            // fallback: navigate to homepage (change URL if you want a different fallback)
+                            window.location.href = '/';
+                        }
+                    }, 600);
+                    return;
+                }
+
+                // If no usable history, go to homepage (or specific URL)
+                window.location.href = '/';
+            });
+        })();
 
         (function () {
             // EmailJS configuration (provided)
