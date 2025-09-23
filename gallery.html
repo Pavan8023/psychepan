@@ -364,97 +364,187 @@
         }
 
         .typing-animation {
-      overflow: hidden;
-      border-right: .15em solid #3b82f6;
-      white-space: nowrap;
-      animation: typing 1s steps(40, end), blink-caret .75s step-end infinite;
-    }
+            overflow: hidden;
+            border-right: .15em solid #3b82f6;
+            white-space: nowrap;
+            animation: typing 1s steps(40, end), blink-caret .75s step-end infinite;
+        }
 
-    @keyframes typing {
-      from {
-        width: 0
-      }
+        .bot-typing .bot-typing-text {
+            border-right: .15em solid #3b82f6;
+            white-space: pre-wrap;
+            /* allow wrapped typed text */
+            display: inline-block;
+            animation: blink-caret .75s step-end infinite;
+        }
 
-      to {
-        width: 100%
-      }
-    }
+        @keyframes typing {
+            from {
+                width: 0
+            }
 
-    @keyframes blink-caret {
+            to {
+                width: 100%
+            }
+        }
 
-      from,
-      to {
-        border-color: transparent
-      }
+        @keyframes blink-caret {
 
-      50% {
-        border-color: #3b82f6;
-      }
-    }
+            from,
+            to {
+                border-color: transparent
+            }
 
-    .chatbot-body {
-      scroll-behavior: smooth;
-    }
+            50% {
+                border-color: #3b82f6;
+            }
+        }
 
-    #chatbotWindow {
-      transition: all 0.3s ease;
-    }
+        .chatbot-body {
+            scroll-behavior: smooth;
+        }
 
-    .option-btn {
-      transition: all 0.2s ease;
-    }
+        #chatbotWindow {
+            transition: all 0.3s ease;
+        }
 
-    .option-btn:hover {
-      transform: translateY(-2px);
-    }
+        .option-btn {
+            transition: all 0.2s ease;
+        }
 
-    #chatbotToggle {
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-      transition: all 0.3s ease;
-    }
+        .option-btn:hover {
+            transform: translateY(-2px);
+        }
 
-    #chatbotToggle:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
-    }
+        #chatbotToggle {
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
 
-    .chatbot-message {
-      animation: fadeIn 0.3s ease;
-    }
+        #chatbotToggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
+        .chatbot-message {
+            animation: fadeIn 0.3s ease;
+        }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-    @media (max-width: 480px) {
-      .chatbot-window {
-        width: 90vw;
-        max-width: 90vw;
-        right: 5px;
-        max-height: 70vh;
-      }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-      .chatbot-input {
-        padding: 0.5rem;
-      }
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 90vw;
+                max-width: 90vw;
+                right: 5px;
+                max-height: 70vh;
+            }
 
-      .chatbot-input input {
-        padding: 0.5rem;
-      }
+            .chatbot-input {
+                padding: 0.5rem;
+            }
 
-      .chatbot-toggle {
-        width: 50px;
-        height: 50px;
-      }
-    }
+            .chatbot-input input {
+                padding: 0.5rem;
+            }
+
+            .chatbot-toggle {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Mobile-responsive height for chatbot window
+   - Use dynamic viewport units (100dvh) when available to handle mobile browser UI (address bar/keyboard).
+   - Fallback to 100vh for older browsers.
+   - Adjust the number (84px) if your header/offset is different.
+   - Also set body area max-height so messages stay scrollable and input stays visible.
+*/
+
+        /* Primary mobile breakpoint (phones & small devices) */
+        @media (max-width: 640px) {
+
+            /* chatbot container */
+            #chatbotWindow {
+                /* use nearly full width on mobile (keeps some side margin) */
+                width: 92vw;
+                right: 4%;
+                left: auto;
+
+                /* Prefer dynamic viewport if available; fallback to 100vh */
+                height: calc(100dvh - 84px);
+                max-height: calc(100dvh - 84px);
+
+                /* fallback for older browsers */
+                height: calc(100vh - 84px);
+                max-height: calc(100vh - 84px);
+            }
+
+            #chatOptions {
+                padding: 8px;
+            }
+
+            /* chat messages area: reserve space for header + input (approx 120px).
+     Tweak the 120px value if your header/input are taller/shorter. */
+            .chatbot-body {
+                max-height: calc(100dvh - 84px - 120px);
+                max-height: calc(100vh - 84px - 120px);
+                /* fallback */
+                overflow-y: auto;
+            }
+
+            /* keep input area pinned to bottom inside the chat window */
+            .chatbot-input {
+                position: sticky;
+                bottom: 0;
+                z-index: 2;
+                background: inherit;
+            }
+        }
+
+        /* Extra-small phones — slightly larger offsets to ensure input visible when keyboard open */
+        @media (max-width: 420px) {
+            #chatbotWindow {
+                height: calc(100dvh - 96px);
+                max-height: calc(100dvh - 96px);
+                height: calc(100vh - 96px);
+                max-height: calc(100vh - 96px);
+                width: 94vw;
+                right: 3%;
+            }
+
+            .chatbot-body {
+                max-height: calc(100dvh - 96px - 120px);
+                max-height: calc(100vh - 96px - 120px);
+            }
+        }
+
+        /* Landscape phones / small tablets — use shorter height so window doesn't overflow horizontally */
+        @media (orientation: landscape) and (max-width: 900px) {
+            #chatbotWindow {
+                height: calc(100dvh - 64px);
+                max-height: calc(100dvh - 64px);
+                height: calc(100vh - 64px);
+                max-height: calc(100vh - 64px);
+                width: 60vw;
+                right: 4%;
+            }
+
+            .chatbot-body {
+                max-height: calc(100dvh - 64px - 120px);
+                max-height: calc(100vh - 64px - 120px);
+            }
+        }
     </style>
 </head>
 
@@ -742,100 +832,213 @@
         </div>
 
         <script>
-
                 (function () {
-                    const folderNav = document.getElementById('folderNav');
-                    const folderTabs = Array.from(folderNav.querySelectorAll('.folder-tab'));
-                    const toggleBtn = document.getElementById('folderToggle');
-                    const wrapper = document.querySelector('.folder-wrapper');
+                    const chatBody = document.getElementById('chatbotBody');
+                    if (!chatBody) return;
 
-                    // Activate a folder tab visually and show matching content (if present)
-                    function activateFolderTab(tab) {
-                        folderTabs.forEach(t => {
-                            t.classList.toggle('active', t === tab);
-                            // aria-selected for accessibility
-                            t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
-                        });
+                    // typing speed in ms per character (tweak if you want faster/slower)
+                    const TYPE_SPEED = 18;
 
-                        const target = tab.dataset.folder;
-                        // Toggle folder-content panels if they exist (ids should match data-folder values)
-                        const contents = Array.from(document.querySelectorAll('.folder-content'));
-                        if (contents.length) {
-                            contents.forEach(c => {
-                                c.classList.toggle('active', c.id === target);
-                            });
-                        }
+                    // Remove any existing typing-indicator nodes (class 'typing-animation') helper
+                    function clearTypingIndicators() {
+                        const ind = chatBody.querySelectorAll('.typing-animation');
+                        ind.forEach(node => node.remove());
                     }
 
-                    // Attach click + keyboard handlers to each folder tab
-                    folderTabs.forEach(tab => {
-                        tab.addEventListener('click', () => {
-                            activateFolderTab(tab);
-                            // close mobile dropdown for tidy UX
-                            if (window.innerWidth <= 640 && folderNav.classList.contains('mobile-open')) {
-                                folderNav.classList.remove('mobile-open');
-                                toggleBtn.setAttribute('aria-expanded', 'false');
+                    // Smooth scroll helper
+                    function scrollToBottom() {
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    }
+
+                    // Type text into target span element char-by-char
+                    function typeText(span, fullText, onDone) {
+                        let i = 0;
+                        function step() {
+                            if (i <= fullText.length) {
+                                // keep caret visible as we type
+                                span.textContent = fullText.slice(0, i);
+                                i++;
+                                scrollToBottom();
+                                timer = setTimeout(step, TYPE_SPEED);
+                            } else {
+                                if (typeof onDone === 'function') onDone();
                             }
-                        });
-
-                        tab.addEventListener('keydown', (e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault();
-                                activateFolderTab(tab);
-                            }
-                        });
-                    });
-
-                    // Mobile toggle open/close
-                    toggleBtn.addEventListener('click', (e) => {
-                        const open = folderNav.classList.toggle('mobile-open');
-                        toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-
-                        // When opened, ensure wrapper in view
-                        if (open) {
-                            wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
-                    });
+                        let timer = setTimeout(step, TYPE_SPEED);
+                        return () => clearTimeout(timer);
+                    }
 
-                    // Close mobile dropdown when clicking outside
-                    document.addEventListener('click', (e) => {
-                        if (window.innerWidth <= 640) {
-                            if (!folderNav.contains(e.target) && !toggleBtn.contains(e.target)) {
-                                if (folderNav.classList.contains('mobile-open')) {
-                                    folderNav.classList.remove('mobile-open');
-                                    toggleBtn.setAttribute('aria-expanded', 'false');
+                    // Observe added bot messages
+                    const observer = new MutationObserver((mutations) => {
+                        for (const mut of mutations) {
+                            for (const node of mut.addedNodes) {
+                                if (!(node instanceof HTMLElement)) continue;
+
+                                // ignore typing-indicator nodes
+                                if (node.classList.contains('typing-animation')) continue;
+
+                                // only act on bot messages (class includes 'bot')
+                                if (node.classList.contains('bot') && !node.dataset.typed) {
+                                    // mark to avoid double-processing
+                                    node.dataset.typed = 'processing';
+
+                                    // capture original HTML and plain text
+                                    const originalHTML = node.innerHTML || '';
+                                    const plainText = node.textContent ? node.textContent.trim() : '';
+
+                                    // Clear possible typing indicator(s) so we show our typed text cleanly
+                                    // (we don't remove them earlier to avoid interfering with original flow)
+                                    clearTypingIndicators();
+
+                                    // Prepare typed container
+                                    node.innerHTML = ''; // remove content
+                                    node.classList.add('bot-typing');
+
+                                    // create a span to receive typed characters
+                                    const span = document.createElement('span');
+                                    span.className = 'bot-typing-text';
+                                    node.appendChild(span);
+                                    scrollToBottom();
+
+                                    // If the original content contains HTML tags, we will type its plain-text first,
+                                    // then replace with originalHTML at the end (so lists and markup render properly).
+                                    // If original was plain text, we type it fully and leave as-is.
+                                    const textToType = plainText.length ? plainText : originalHTML.replace(/<[^>]*>/g, '');
+
+                                    typeText(span, textToType, () => {
+                                        // done typing: if originalHTML had markup, set it now (so lists render)
+                                        if (/<[a-z][\s\S]*>/i.test(originalHTML)) {
+                                            node.innerHTML = originalHTML;
+                                        } else {
+                                            // ensure final text exactly matches original (in case of trimming)
+                                            span.textContent = plainText || originalHTML;
+                                        }
+                                        node.classList.remove('bot-typing');
+                                        node.dataset.typed = 'true';
+                                        scrollToBottom();
+                                    });
                                 }
                             }
                         }
                     });
 
-                    // Close on Escape
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'Escape') {
-                            if (folderNav.classList.contains('mobile-open')) {
-                                folderNav.classList.remove('mobile-open');
-                                toggleBtn.setAttribute('aria-expanded', 'false');
-                            }
-                        }
+                    observer.observe(chatBody, { childList: true, subtree: false });
+
+                    // Also make existing bot messages (already present on load) appear typed
+                    // by triggering a small re-process for any untyped bot nodes
+                    window.addEventListener('load', () => {
+                        const existing = Array.from(chatBody.querySelectorAll('.bot')).filter(n => !n.dataset.typed);
+                        existing.forEach(n => {
+                            // trigger MutationObserver by re-appending node (no visual move)
+                            // create a shallow clone then replace to fire the observer logic
+                            const clone = n.cloneNode(true);
+                            n.replaceWith(clone);
+                        });
                     });
 
-                    // Handle resize: ensure mobile-open removed when going to larger screens
-                    window.addEventListener('resize', () => {
-                        if (window.innerWidth > 640) {
-                            if (folderNav.classList.contains('mobile-open')) {
-                                folderNav.classList.remove('mobile-open');
-                                toggleBtn.setAttribute('aria-expanded', 'false');
-                            }
-                        }
-                    });
-
-                    // init: ensure one active folder
-                    (function init() {
-                        const activeTab = folderTabs.find(t => t.classList.contains('active')) || folderTabs[0];
-                        if (activeTab) activateFolderTab(activeTab);
-                    })();
-
+                    // tidy: expose a function to force-enable or disable this enhancer if needed
+                    window.__psypanBotTypingEnhancer = {
+                        disconnect: () => observer.disconnect(),
+                        reconnect: () => observer.observe(chatBody, { childList: true, subtree: false })
+                    };
                 })();
+        </script>
+
+        <script>
+
+            (function () {
+                const folderNav = document.getElementById('folderNav');
+                const folderTabs = Array.from(folderNav.querySelectorAll('.folder-tab'));
+                const toggleBtn = document.getElementById('folderToggle');
+                const wrapper = document.querySelector('.folder-wrapper');
+
+                // Activate a folder tab visually and show matching content (if present)
+                function activateFolderTab(tab) {
+                    folderTabs.forEach(t => {
+                        t.classList.toggle('active', t === tab);
+                        // aria-selected for accessibility
+                        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+                    });
+
+                    const target = tab.dataset.folder;
+                    // Toggle folder-content panels if they exist (ids should match data-folder values)
+                    const contents = Array.from(document.querySelectorAll('.folder-content'));
+                    if (contents.length) {
+                        contents.forEach(c => {
+                            c.classList.toggle('active', c.id === target);
+                        });
+                    }
+                }
+
+                // Attach click + keyboard handlers to each folder tab
+                folderTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        activateFolderTab(tab);
+                        // close mobile dropdown for tidy UX
+                        if (window.innerWidth <= 640 && folderNav.classList.contains('mobile-open')) {
+                            folderNav.classList.remove('mobile-open');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+
+                    tab.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            activateFolderTab(tab);
+                        }
+                    });
+                });
+
+                // Mobile toggle open/close
+                toggleBtn.addEventListener('click', (e) => {
+                    const open = folderNav.classList.toggle('mobile-open');
+                    toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+                    // When opened, ensure wrapper in view
+                    if (open) {
+                        wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+
+                // Close mobile dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 640) {
+                        if (!folderNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+                            if (folderNav.classList.contains('mobile-open')) {
+                                folderNav.classList.remove('mobile-open');
+                                toggleBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    }
+                });
+
+                // Close on Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        if (folderNav.classList.contains('mobile-open')) {
+                            folderNav.classList.remove('mobile-open');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+
+                // Handle resize: ensure mobile-open removed when going to larger screens
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 640) {
+                        if (folderNav.classList.contains('mobile-open')) {
+                            folderNav.classList.remove('mobile-open');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+
+                // init: ensure one active folder
+                (function init() {
+                    const activeTab = folderTabs.find(t => t.classList.contains('active')) || folderTabs[0];
+                    if (activeTab) activateFolderTab(activeTab);
+                })();
+
+            })();
 
             document.addEventListener("DOMContentLoaded", function () {
                 const chatbotWindow = document.getElementById("chatbotWindow");
@@ -1821,7 +2024,7 @@
 
                 // Initialize chatbot
                 function initChatbot() {
-                    createMessage({ text: "Hello! PsypanChatbot here 👋 Ready to explore our services?", who: 'bot' });
+                    createMessage({ text: "Hello! PsypanChatbot here 👋 Ready to explore our Website?", who: 'bot' });
                     showMainOptions();
                 }
 
