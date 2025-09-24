@@ -44,9 +44,10 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, rgba(92, 165, 199, 0.8) 0%, var(--primary) 100%);
             color: white;
-            padding: 10px 0;
+            backdrop-filter: blur(20px);
+            padding: 10px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -86,11 +87,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .collab-partner {
-            font-size: 16px;
-            font-weight: 500;
-        }
-
         /* Navigation */
         nav {
             display: flex;
@@ -125,7 +121,8 @@
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            padding: 15px;
+            font-size: 30px;
             cursor: pointer;
             z-index: 101;
         }
@@ -213,10 +210,14 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(26, 54, 93, 0.85), rgba(26, 54, 93, 0.9)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative;
+            /* <-- important so the button can sit inside the hero */
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(26, 54, 93, 0.4)),
+                url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             color: white;
             padding: 100px 0;
             text-align: center;
+            height: 90vh;
         }
 
         .hero h1 {
@@ -243,7 +244,7 @@
 
         .cta-button {
             display: inline-block;
-            background-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.5);
             color: var(--primary);
             padding: 15px 35px;
             border-radius: 50px;
@@ -254,17 +255,103 @@
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(214, 158, 46, 0.3);
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         .cta-button.secondary {
             background-color: transparent;
+            box-shadow: 0px 0px 20px 4px rgb(0 0 0);
             border: 2px solid white;
             color: white;
+            margin-top: 50px;
         }
 
         .cta-button.secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.5);
+            color: black;
+        }
+
+        /* Back Button (original styles preserved) */
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            padding: 8px 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0b1220;
+            background: #eef6ff;
+            border: 1px solid rgba(11, 87, 208, 0.12);
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(11, 87, 208, 0.06);
+            transition: transform 140ms ease, box-shadow 140ms ease, background 140ms;
+        }
+
+        .btn-back-home:hover {
+            transform: translateY(-2px);
+            background: #e6f0ff;
+            box-shadow: 0 10px 24px rgba(11, 87, 208, 0.10);
+        }
+
+        .btn-back-home:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 14px rgba(11, 87, 208, 0.08);
+        }
+
+        /* Position the back button inside the hero: lower-right corner */
+        .hero .btn-back-home {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            /* keep appearance same as original; only position added */
+        }
+
+        /* Responsive tweaks (keep colors unchanged) */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .cta-button {
+                padding: 12px 28px;
+            }
+
+            .hero .btn-back-home {
+                right: 16px;
+                bottom: 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 70px 16px;
+                height: auto;
+                /* allow content to grow on small screens */
+            }
+
+            .hero h1 {
+                font-size: 28px;
+                line-height: 1.15;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-button {
+                padding: 10px 18px;
+                font-size: 0.95rem;
+                border-radius: 40px;
+            }
+
+            .hero .btn-back-home {
+                right: 12px;
+                bottom: 12px;
+                padding: 7px 10px;
+                font-size: 0.88rem;
+            }
         }
 
         /* Trust Panel - updated */
@@ -534,8 +621,12 @@
         }
 
         .flip-card-back p {
-            font-size: 14px;
-            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-top: 50px;
         }
 
         .flip-card-back .logo-small {
@@ -1029,6 +1120,12 @@
             font-size: 22px;
         }
 
+        .contact-detail a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
         .contact-detail i {
             color: var(--accent);
             margin-right: 15px;
@@ -1084,6 +1181,11 @@
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+        }
+
+        .footer-contact a {
+            text-decoration: none;
+            color: white;
         }
 
         .footer-contact i {
@@ -1193,34 +1295,6 @@
             transform: translateY(0);
         }
 
-        /* Back Button */
-        .btn-back-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-left: 18px;
-            padding: 8px 14px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #0b1220;
-            background: #eef6ff;
-            border: 1px solid rgba(11, 87, 208, 0.12);
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(11, 87, 208, 0.06);
-            transition: transform 140ms ease, box-shadow 140ms ease, background 140ms;
-        }
-
-        .btn-back-home:hover {
-            transform: translateY(-2px);
-            background: #e6f0ff;
-            box-shadow: 0 10px 24px rgba(11, 87, 208, 0.10);
-        }
-
-        .btn-back-home:active {
-            transform: translateY(0);
-            box-shadow: 0 6px 14px rgba(11, 87, 208, 0.08);
-        }
 
         /* Responsive Styles */
         @media (max-width: 992px) {
@@ -1397,21 +1471,136 @@
                 padding: 5px 8px;
             }
         }
+
+        .logo-container img {
+            height: 50px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Program PDF Button Styles */
+        .program-pdf-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .program-pdf-btn:hover {
+            background-color: #c28d27;
+            transform: translateY(-2px);
+        }
+
+        /* Program PDF Modal Styles */
+        .program-pdf-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .program-pdf-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .program-pdf-modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .program-pdf-modal.active .program-pdf-modal-content {
+            transform: scale(1);
+        }
+
+        .program-pdf-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .program-pdf-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .program-pdf-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .program-pdf-close:hover {
+            color: var(--accent);
+        }
+
+        .program-pdf-modal-body {
+            flex: 1;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .program-pdf-modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .program-pdf-modal-content {
+                width: 95%;
+                height: 80vh;
+            }
+
+            .program-pdf-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <!-- Header with Navigation -->
     <header>
-        <div class="container header-content">
+        <div class="header-content">
             <div class="logo-container">
-                <div class="logo">Psyche Panacea<span class="logo-divider">|</span></div>
-                <div class="collab-partner">In collaboration with Opresnik</div>
-
-                <!-- Back to Home button -->
-                <button id="backHomeBtn" class="btn-back-home" aria-label="Go back to previous page">
-                    ← Back to Website
-                </button>
+                <div class="logo"><img src="/mba/img/psypan-logo-transparent.png" alt="psyche-panacea-consulting"><i
+                        class="fas fa-handshake"></i></div>
+                <div class="collab-partner"><img src="/mba/img/operesnik.png" alt="operesnik"
+                        style="margin-left: 10px;">
+                </div>
             </div>
 
             <nav>
@@ -1451,14 +1640,20 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="container">
-            <h1>Fast-Track Global MBA in 8 Months — Fully Online. UK-Accredited Degree Pathway.</h1>
-            <p>4 months of interactive modules + seamless enrollment to a UK university for your Master's thesis.</p>
+            <h1>Fast-Track Global MBA in 8 Months — 100% Online. <br> UK-Accredited Degree Pathway.</h1>
+            <p></p>
             <div class="hero-btns">
-                <a href="#contact" class="cta-button">Apply Now</a>
+                <a href="#contact" class="cta-button secondary">Apply Now</a>
                 <a href="#brochure" class="cta-button secondary">Download Brochure</a>
             </div>
         </div>
+
+        <!-- Back to Home button placed inside hero, lower-right corner -->
+        <button id="backHomeBtn" class="btn-back-home" aria-label="Go back to previous page">
+            ← Back to Website
+        </button>
     </section>
+
 
     <!-- Trust Panel -->
     <section class="trust-panel">
@@ -1477,7 +1672,7 @@
                 </div>
 
                 <div class="trust-logo" data-title="Global Network">
-                    <img src="/mba/img/IMG-20250921-WA0065.jpg" alt="Global Network">
+                    <img src="/mba/img/IMG-20250921-WA0066.jpg" alt="Global Network">
                     <div class="logo-caption">Global Network</div>
                 </div>
             </div>
@@ -1509,11 +1704,15 @@
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <i class="fas fa-rocket"></i>
-                            <h3>8-Month Fast-Track, 100% Online</h3>
+                            <h3>8-Month Fast-Track MBA, <br> 100% Online</h3>
                         </div>
                         <div class="flip-card-back">
                             <p>Complete your MBA in just 8 months through our intensive online program designed for
                                 working professionals.</p>
+                            <a href="index.html#brochure" aria-label="Download Brochure">
+                                <i class="fas fa-download"
+                                    style="color: white; font-size: 25px; background-color: black;height: 40px;width: 40px;display: flex;align-items: center;justify-content: center;"></i>
+                            </a>
                             <div class="logo-small">Psyche Panacea & Opresnik</div>
                         </div>
                     </div>
@@ -1529,6 +1728,10 @@
                         <div class="flip-card-back">
                             <p>Engage with 8 comprehensive modules, each concluding with a Reflective Thinking Report to
                                 apply your learning.</p>
+                            <a href="index.html#brochure" aria-label="Download Brochure">
+                                <i class="fas fa-download"
+                                    style="color: white; font-size: 25px; background-color: black;height: 40px;width: 40px;display: flex;align-items: center;justify-content: center;"></i>
+                            </a>
                             <div class="logo-small">Psyche Panacea & Opresnik</div>
                         </div>
                     </div>
@@ -1544,6 +1747,10 @@
                         <div class="flip-card-back">
                             <p>After completing the modules, transition seamlessly to one of our UK university partners
                                 for your Master's Thesis.</p>
+                            <a href="index.html#brochure" aria-label="Download Brochure">
+                                <i class="fas fa-download"
+                                    style="color: white; font-size: 25px; background-color: black;height: 40px;width: 40px;display: flex;align-items: center;justify-content: center;"></i>
+                            </a>
                             <div class="logo-small">Psyche Panacea & Opresnik</div>
                         </div>
                     </div>
@@ -1559,6 +1766,10 @@
                         <div class="flip-card-back">
                             <p>Entry possible without traditional bachelor's degrees in specific cases based on
                                 professional experience.</p>
+                            <a href="index.html#brochure" aria-label="Download Brochure">
+                                <i class="fas fa-download"
+                                    style="color: white; font-size: 25px; background-color: black;height: 40px;width: 40px;display: flex;align-items: center;justify-content: center;"></i>
+                            </a>
                             <div class="logo-small">Psyche Panacea & Opresnik</div>
                         </div>
                     </div>
@@ -1573,6 +1784,10 @@
                         </div>
                         <div class="flip-card-back">
                             <p>Private cohorts available for 12+ participants with monthly enrollment opportunities.</p>
+                            <a href="index.html#brochure" aria-label="Download Brochure">
+                                <i class="fas fa-download"
+                                    style="color: white; font-size: 25px; background-color: black;height: 40px;width: 40px;display: flex;align-items: center;justify-content: center;"></i>
+                            </a>
                             <div class="logo-small">Psyche Panacea & Opresnik</div>
                         </div>
                     </div>
@@ -1588,6 +1803,10 @@
                         <div class="flip-card-back">
                             <p>Enhance your experience with optional masterclasses and hosted European study modules.
                             </p>
+                            <a href="index.html#brochure" aria-label="Download Brochure">
+                                <i class="fas fa-download"
+                                    style="color: white; font-size: 25px; background-color: black;height: 40px;width: 40px;display: flex;align-items: center;justify-content: center;"></i>
+                            </a>
                             <div class="logo-small">Psyche Panacea & Opresnik</div>
                         </div>
                     </div>
@@ -1603,6 +1822,10 @@
                         <div class="flip-card-back">
                             <p>MBA degree awarded directly by the UK university. Co-brand option available for the
                                 Level-7 Diploma.</p>
+                            <a href="index.html#brochure" aria-label="Download Brochure">
+                                <i class="fas fa-download"
+                                    style="color: white; font-size: 25px; background-color: black;height: 40px;width: 40px;display: flex;align-items: center;justify-content: center;"></i>
+                            </a>
                             <div class="logo-small">Psyche Panacea & Opresnik</div>
                         </div>
                     </div>
@@ -1674,14 +1897,6 @@
                         <h3>Implementation Roadmap</h3>
                         <p>Create actionable implementation plans for sustainable growth.</p>
                     </div>
-                </div>
-
-                <div style="margin-top: 40px; background: #f7fafc; padding: 25px; border-radius: 10px;">
-                    <h4>Program Format & Deliverables</h4>
-                    <p><strong>Format:</strong> 2–3 days in-country led by Prof. Dr. Marc Opresnik, optional hosted
-                        module in Europe (no co-branding).</p>
-                    <p><strong>Deliverables:</strong> Certificate of Completion, Participant workbook, PIVOTAL Infinity
-                        Pin® (optional).</p>
                 </div>
             </div>
         </div>
@@ -1790,48 +2005,65 @@
     <section id="executive">
         <div class="container">
             <div class="section-title">
-                <h2>Executive Programs</h2>
+                <h2>Global Executive Programs</h2>
                 <p>Specialized programs designed for today's business leaders</p>
             </div>
 
             <div class="programs-grid">
                 <div class="program-card animated">
                     <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Leadership & Negotiation">
+                        <img src="/mba/img/Hafen-Klub_0082.jpg" alt="Leadership & Negotiation">
                     </div>
                     <div class="program-content">
-                        <h3>Leadership & Negotiation</h3>
+                        <h3>PIVOTAL Strategy & Executive Leadership Program</h3>
                         <p>Develop advanced leadership capabilities and master negotiation strategies for business
                             success.</p>
+                        <button class="program-pdf-btn"
+                            data-pdf="/mba/pdf/Pivotal strategy smeinar & Workshop .pdf">View Program Details</button>
                     </div>
                 </div>
 
                 <div class="program-card animated">
                     <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Strategy & Marketing">
+                        <img src="/mba/img/KML_9735.JPG" alt="Strategy & Marketing">
                     </div>
                     <div class="program-content">
-                        <h3>Strategy & Marketing</h3>
+                        <h3>The Harvard Approach to Negotiation & Communication Excellence</h3>
                         <p>Learn to develop winning business strategies and effective marketing approaches in
                             competitive markets.</p>
+                        <button class="program-pdf-btn" data-pdf="/mba/pdf/Seminar harvard approach.pdf">View
+                            Program Details</button>
                     </div>
                 </div>
 
                 <div class="program-card animated">
                     <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="AI & Digital Leadership">
+                        <img src="/mba/img/PIVOTAL EBook V2.jpg" alt="AI & Digital Leadership">
                     </div>
                     <div class="program-content">
-                        <h3>AI & Digital Leadership</h3>
+                        <h3>Social Media Marketing & AI - Strategies for Modern Brand Management</h3>
                         <p>Navigate the digital transformation landscape and leverage AI for competitive advantage.</p>
+                        <button class="program-pdf-btn" data-pdf="/mba/pdf/Seminar social media marketing .pdf">View
+                            Program
+                            Details</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- PDF Viewer Modal for Program Details -->
+    <div id="programPdfModal" class="program-pdf-modal">
+        <div class="program-pdf-modal-content">
+            <div class="program-pdf-modal-header">
+                <h3 id="programPdfTitle">Program Details</h3>
+                <button class="program-pdf-close">&times;</button>
+            </div>
+            <div class="program-pdf-modal-body">
+                <iframe id="programPdfViewer" src="" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </div>
 
     <!-- FAQs Section -->
     <section id="faqs" class="executive-programs">
@@ -1889,12 +2121,13 @@
 
                 <div class="faq-item animated">
                     <div class="faq-question">
-                        <span>Who awards the MBA degree?</span>
+                        <span>What you will get?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>The MBA degree is awarded directly by our accredited UK university partners. The Level-7
-                            Diploma offers co-branding options if required.</p>
+                        <p>Dual Certification: Earn two certificates—one from a world- renowned academic institution
+                            (e.g., Imperial College London or Oxford) and one from the Opresnik Business School,
+                            showcasing your leadership excellence.</p>
                     </div>
                 </div>
             </div>
@@ -1915,6 +2148,7 @@
                     <div class="contact-detail">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
+                            <div class="footer-logo">Psyche Panacea <span>&</span> Opresnik</div>
                             <strong>Address</strong><br>
                             308/2, Old Delhi Rd, adjacent Country Inn,<br>
                             Sector 12 A, Anamika Enclave,<br>
@@ -1925,7 +2159,8 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <strong>Email</strong><br>
-                            hr@psypanconsulting.com
+
+                            <a href="mailto:deepa.consultant24@gmail.com">deepa.consultant24@gmail.com</a>
                         </div>
                     </div>
                     <div class="contact-detail">
@@ -1955,7 +2190,8 @@
                         collaborations.</p>
                     <div class="social-links">
                         <a href="https://wa.me/919311452925" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"><i
+                                class="fab fa-linkedin-in"></i></a>
                         <a href="mailto:hr@psypanconsulting.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
@@ -1964,7 +2200,8 @@
                     <h3>Contact Us</h3>
                     <p><i class="fas fa-map-marker-alt"></i> 308/2, Old Delhi Rd, adjacent Country Inn, Sector 12 A,
                         Anamika Enclave, Gurugram, Haryana 122001</p>
-                    <p><i class="fas fa-envelope"></i> hr@psypanconsulting.com</p>
+                    <p><i class="fas fa-envelope"></i><a href="mailto:deepa.consultant24@gmail.com">
+                            deepa.consultant24@gmail.com</a></p>
                     <p><i class="fas fa-phone"></i> <a href="tel:09810323292">09810323292</a></p>
                 </div>
 
@@ -1994,6 +2231,70 @@
     </footer>
 
     <script>
+
+        // Program PDF Viewer Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const programPdfModal = document.getElementById('programPdfModal');
+            const programPdfViewer = document.getElementById('programPdfViewer');
+            const programPdfTitle = document.getElementById('programPdfTitle');
+            const programPdfClose = document.querySelector('.program-pdf-close');
+
+            // Get all program PDF buttons
+            const programPdfButtons = document.querySelectorAll('.program-pdf-btn');
+
+            // Add click event to each button
+            programPdfButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const pdfPath = this.getAttribute('data-pdf');
+                    const programName = this.closest('.program-card').querySelector('h3').textContent;
+
+                    // Set PDF source and title
+                    programPdfViewer.src = pdfPath;
+                    programPdfTitle.textContent = programName;
+
+                    // Show the modal
+                    programPdfModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                });
+            });
+
+            // Close modal when close button is clicked
+            programPdfClose.addEventListener('click', function () {
+                programPdfModal.classList.remove('active');
+                programPdfViewer.src = ''; // Clear the iframe source
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+
+            // Close modal when clicking outside the content
+            programPdfModal.addEventListener('click', function (e) {
+                if (e.target === programPdfModal) {
+                    programPdfModal.classList.remove('active');
+                    programPdfViewer.src = '';
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && programPdfModal.classList.contains('active')) {
+                    programPdfModal.classList.remove('active');
+                    programPdfViewer.src = '';
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+
+        document.getElementById('backHomeBtn')?.addEventListener('click', function () {
+            // If there's a referrer go back, otherwise go to index/home
+            if (document.referrer && document.referrer !== window.location.href) {
+                history.back();
+            } else {
+                // fallback: navigate to homepage root or index.html
+                window.location.href = 'index.html';
+            }
+        });
+
         // Initialize EmailJS
         (function () {
             emailjs.init('6KRvQp4CW2Wc9Ir-x');
