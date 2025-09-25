@@ -1832,6 +1832,98 @@
         .trust-logo:focus {
             box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.14), 0 12px 30px rgba(2, 6, 23, 0.12);
         }
+
+        /* Professor card styles (small & responsive) */
+        .prof-card {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            max-width: 720px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+            border: 1px solid rgba(2, 6, 23, 0.04);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        .prof-card__media img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            /* instead of cover */
+            border-radius: 10px;
+            display: block;
+            background: #f1f5f9;
+            /* optional: neutral background behind transparent/shorter images */
+        }
+
+
+        .prof-card__body {
+            flex: 1 1 auto;
+        }
+
+        .prof-card__title {
+            margin: 0 0 6px;
+            font-size: 1.05rem;
+            color: #0f172a;
+        }
+
+        .prof-card__text {
+            margin: 0 0 12px;
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .prof-card__actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Button */
+        .prof-btn {
+            display: flex;
+            align-items: center;
+            padding: 9px 14px;
+            margin-top: 50px;
+            background: #0ea5a4;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        .prof-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(14, 165, 164, 0.12);
+        }
+
+        .prof-btn:active {
+            transform: translateY(0);
+        }
+
+        .prof-btn svg {
+            color: inherit;
+        }
+
+        /* Responsive: stack on small screens */
+        @media (max-width: 520px) {
+            .prof-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .prof-card__media img {
+                width: 100%;
+                height: 160px;
+                border-radius: 8px;
+            }
+        }
     </style>
 </head>
 
@@ -2137,6 +2229,35 @@
 
                             <div class="logo-small" style="margin-top:14px; font-size:0.92rem;">Psyche Panacea &amp;
                                 Opresnik</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Professor card -->
+                <div class="prof-card" id="profCard">
+                    <div class="prof-card__media" aria-hidden="true">
+                        <!-- optional avatar — replace src or remove -->
+                        <img src="/img/Hafen-Klub_0082.jpg" alt="Professor Marc" />
+                    </div>
+
+                    <div class="prof-card__body">
+                        <h4 class="prof-card__title">Know about the professor</h4>
+                        <p class="prof-card__text">Learn about the professor's experience, research interests, and
+                            contributions to leadership and management education.</p>
+
+                        <div class="prof-card__actions">
+                            <button id="knowBtn" class="prof-btn" type="button" aria-label="Open professor brochure">
+                                <!-- inline download/view SVG icon -->
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                                    focusable="false" style="margin-right:8px;">
+                                    <path d="M12 3v12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M21 21H3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                Know him
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2926,6 +3047,31 @@
     </footer>
 
     <script>
+
+        /* Replace this path with your actual professor PDF path (relative or absolute) */
+        const PDF_URL = '/mba/pdf/CV_Abstract_Opresnik_EN-Final-2025 .pdf';
+
+        document.getElementById('knowBtn').addEventListener('click', (e) => {
+            // open the PDF in a new tab for viewing
+            const url = encodeURI(PDF_URL);
+            window.open(url, '_blank', 'noopener');
+
+            // also attempt to trigger a download (may be ignored by some browsers for cross-origin)
+            try {
+                const a = document.createElement('a');
+                a.href = url;
+                // sensible filename for download
+                a.download = url.split('/').pop() || 'professor-bio.pdf';
+                a.rel = 'noopener noreferrer';
+                // append/click/remove to trigger download
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } catch (err) {
+                // fallback: nothing — user can use the opened tab to download/view
+                console.warn('Download attempt failed, opened PDF in new tab instead.', err);
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.trust-logo[role="button"]').forEach(el => {
