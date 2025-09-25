@@ -1118,20 +1118,19 @@
         .contact-info h3 {
             color: var(--primary);
             margin-bottom: 20px;
-            font-size: 22px;
+            font-size: 20px;
         }
 
         .contact-detail {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
-            font-size: 22px;
+            font-size: 18px;
         }
 
         .contact-detail a {
             text-decoration: none;
             color: black;
-            font-weight: bold;
         }
 
         .contact-detail i {
@@ -1487,117 +1486,43 @@
             font-weight: bold;
         }
 
-        /* Program PDF Button Styles */
-        .program-pdf-btn {
-            display: inline-block;
-            background-color: var(--secondary);
-            color: var(--light);
+        /* Program download button (minimal & consistent with your theme) */
+        .program-actions {
+            margin-top: 14px;
+        }
+
+        .program-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--secondary, #0ea5a4);
+            color: var(--light, #ffffff);
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 10px 16px;
+            border-radius: 6px;
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 15px;
             font-size: 14px;
-        }
-
-        .program-pdf-btn:hover {
-            background-color: #36e8fc;
-            color: black;
-            transform: translateY(-2px);
-        }
-
-        /* Program PDF Modal Styles */
-        .program-pdf-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .program-pdf-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .program-pdf-modal-content {
-            background-color: white;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 900px;
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .program-pdf-modal.active .program-pdf-modal-content {
-            transform: scale(1);
-        }
-
-        .program-pdf-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .program-pdf-modal-header h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .program-pdf-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: transform .15s ease, box-shadow .15s ease;
         }
 
-        .program-pdf-close:hover {
-            color: var(--accent);
+        .program-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(14, 165, 164, 0.12);
         }
 
-        .program-pdf-modal-body {
-            flex: 1;
-            padding: 0;
-            overflow: hidden;
+        .program-download-btn:active {
+            transform: translateY(0);
         }
 
-        .program-pdf-modal-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Responsive adjustments */
+        /* mobile tweak */
         @media (max-width: 768px) {
-            .program-pdf-modal-content {
-                width: 95%;
-                height: 80vh;
-            }
-
-            .program-pdf-btn {
-                padding: 8px 16px;
+            .program-download-btn {
+                padding: 9px 14px;
                 font-size: 13px;
             }
         }
+
 
         /* ===== Contact Section Mobile Styles ===== */
         @media (max-width: 768px) {
@@ -2240,7 +2165,7 @@
         </div>
     </div>
 
-    <!-- Executive Programs Section -->
+    <!-- Executive Programs Section (download buttons in each card) -->
     <section id="executive">
         <div class="container">
             <div class="section-title">
@@ -2249,60 +2174,59 @@
             </div>
 
             <div class="programs-grid">
-                <div class="program-card animated">
+                <div class="program-card animated" data-pdf-tab="/pdf/Pivotal strategy smeinar & Workshop .pdf">
                     <div class="program-img">
-                        <img src="/img/PIVOTAL EBook V2.jpg" alt="Leadership & Negotiation">
+                        <img src="/img/PIVOTAL EBook V2.jpg" alt="PIVOTAL Strategy & Executive Leadership">
                     </div>
                     <div class="program-content">
                         <h3>PIVOTAL Strategy & Executive Leadership Program</h3>
                         <p>Develop advanced leadership capabilities and master negotiation strategies for business
                             success.</p>
-                        <button class="program-pdf-btn" data-pdf="/pdf/Pivotal strategy smeinar & Workshop .pdf">View
-                            Program Details</button>
+                        <div class="program-actions">
+                            <button class="program-download-btn" type="button"
+                                data-pdf="/pdf/Pivotal strategy smeinar & Workshop .pdf">
+                                ⤓ Download Brochure
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="program-card animated">
+                <div class="program-card animated" data-pdf-tab="/pdf/Seminar harvard approach.pdf">
                     <div class="program-img">
-                        <img src="/img/KML_9735.JPG" alt="Strategy & Marketing">
+                        <img src="/img/KML_9735.JPG" alt="Harvard Negotiation & Communication">
                     </div>
                     <div class="program-content">
                         <h3>The Harvard Approach to Negotiation & Communication Excellence</h3>
                         <p>Learn to develop winning business strategies and effective marketing approaches in
                             competitive markets.</p>
-                        <button class="program-pdf-btn" data-pdf="/pdf/Seminar harvard approach.pdf">View
-                            Program Details</button>
+                        <div class="program-actions">
+                            <button class="program-download-btn" type="button"
+                                data-pdf="/pdf/Seminar harvard approach.pdf">
+                                ⤓ Download Brochure
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="program-card animated">
+                <div class="program-card animated" data-pdf-tab="/pdf/Seminar social media marketing .pdf">
                     <div class="program-img">
-                        <img src="/img/Hafen-Klub_0082.jpg" alt="AI & Digital Leadership">
+                        <img src="/img/Hafen-Klub_0082.jpg" alt="Social Media Marketing & AI">
                     </div>
                     <div class="program-content">
                         <h3>Social Media Marketing & AI - Strategies for Modern Brand Management</h3>
                         <p>Navigate the digital transformation landscape and leverage AI for competitive advantage.</p>
-                        <button class="program-pdf-btn" data-pdf="/pdf/Seminar social media marketing .pdf">View
-                            Program
-                            Details</button>
+                        <div class="program-actions">
+                            <button class="program-download-btn" type="button"
+                                data-pdf="/pdf/Seminar social media marketing .pdf">
+                                ⤓ Download Brochure
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PDF Viewer Modal for Program Details -->
-    <div id="programPdfModal" class="program-pdf-modal">
-        <div class="program-pdf-modal-content">
-            <div class="program-pdf-modal-header">
-                <h3 id="programPdfTitle">Program Details</h3>
-                <button class="program-pdf-close">&times;</button>
-            </div>
-            <div class="program-pdf-modal-body">
-                <iframe id="programPdfViewer" src="" width="100%" height="100%"></iframe>
-            </div>
-        </div>
-    </div>
 
     <!-- FAQs Section -->
     <section id="faqs" class="executive-programs">
@@ -2402,10 +2326,7 @@
                             <a
                                 href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a>
                             <br>
-                            <a
-                                href="mailto:www.Opresnik-Management-Consulting.de">www.Opresnik-Management-Consulting.de</a>
-                            <br>
-                            <a href="mailto:deepa23@psypanconsulting.com">deepa23@psypanconsulting.com</a>
+                            <a href="mailto:Globalteam@psypanconsulting.com">Globalteam@psypanconsulting.com</a>
                         </div>
                     </div>
                     <div class="contact-detail">
@@ -2413,14 +2334,13 @@
                         <div>
                             <strong>Phone</strong><br>
                             <a href="tel:+919810323292" style="color: inherit;">+919810323292</a> <br>
-                            <a href="tel:+491602791969" style="color: inherit;">+491602791969</a>
                         </div>
                     </div>
                     <div class="social-links">
                         <a href="https://wa.me/919311452925" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"><i
                                 class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:deepa23@psypanconsulting.com" aria-label="Email"><i
+                        <a href="mailto:Globalteam@psypanconsulting.com" aria-label="Email"><i
                                 class="fas fa-envelope"></i></a>
                     </div>
                 </div>
@@ -2544,7 +2464,8 @@
                     <strong>Psyche Panacea</strong><br>
                     308/2, Old Delhi Road, Nr Countryinn Hotel,<br>
                     Gurgaon-122001, Haryana, India<br>
-                    <a href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a><br>
+                    <a
+                        href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a><br>
                     <a href="tel:+919810323292">+91 9810323292</a>
                 </address>
             </div>
@@ -2674,7 +2595,8 @@
                     <strong>Psyche Panacea</strong><br>
                     308/2, Old Delhi Road, Nr Countryinn Hotel,<br>
                     Gurgaon-122001, Haryana, India<br>
-                    <a href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a><br>
+                    <a
+                        href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a><br>
                     <a href="tel:+919810323292">+91 9810323292</a>
                 </address>
             </div>
@@ -2760,7 +2682,9 @@
                     <strong>Psyche Panacea</strong><br>
                     308/2, Old Delhi Road, Nr Countryinn Hotel,<br>
                     Gurgaon-122001, Haryana, India<br>
-                    <a href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a><br>
+                    <a
+                        href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a><br>
+                    <a href="mailto:Globalteam@psypanconsulting.com">Globalteam@psypanconsulting.com</a><br>
                     <a href="tel:+919810323292">+91 9810323292</a>
                 </address>
             </div>
@@ -2791,10 +2715,9 @@
                         Anamika Enclave, Gurugram, Haryana 122001</p>
                     <p><i class="fas fa-envelope"></i><a href="mailto:Deepa@Opresnik-Management-Consulting.de">
                             Deepa@Opresnik-Management-Consulting.de</a></p>
+                    <p><i class="fas fa-envelope"></i><a href="mailto:Globalteam@psypanconsulting.com">
+                            Globalteam@psypanconsulting.com</a></p>
                     <p><i class="fas fa-phone"></i> <a href="tel:+919810323292">+919810323292</a></p>
-                    <p><i class="fas fa-envelope"></i><a href="mailto:www.Opresnik-Management-Consulting.de">
-                            www.Opresnik-Management-Consulting.de</a></p>
-                    <p><i class="fas fa-phone"></i> <a href="tel:+491602791969">+491602791969</a></p>
                 </div>
 
                 <div class="footer-links">
@@ -2886,58 +2809,6 @@
             // Optional: close when clicking the backdrop area (already uses data-close on backdrop)
             // (backdrops have data-close attribute in markup)
         })();
-
-        // Program PDF Viewer Functionality
-        document.addEventListener('DOMContentLoaded', function () {
-            const programPdfModal = document.getElementById('programPdfModal');
-            const programPdfViewer = document.getElementById('programPdfViewer');
-            const programPdfTitle = document.getElementById('programPdfTitle');
-            const programPdfClose = document.querySelector('.program-pdf-close');
-
-            // Get all program PDF buttons
-            const programPdfButtons = document.querySelectorAll('.program-pdf-btn');
-
-            // Add click event to each button
-            programPdfButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const pdfPath = this.getAttribute('data-pdf');
-                    const programName = this.closest('.program-card').querySelector('h3').textContent;
-
-                    // Set PDF source and title
-                    programPdfViewer.src = pdfPath;
-                    programPdfTitle.textContent = programName;
-
-                    // Show the modal
-                    programPdfModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-                });
-            });
-
-            // Close modal when close button is clicked
-            programPdfClose.addEventListener('click', function () {
-                programPdfModal.classList.remove('active');
-                programPdfViewer.src = ''; // Clear the iframe source
-                document.body.style.overflow = ''; // Restore scrolling
-            });
-
-            // Close modal when clicking outside the content
-            programPdfModal.addEventListener('click', function (e) {
-                if (e.target === programPdfModal) {
-                    programPdfModal.classList.remove('active');
-                    programPdfViewer.src = '';
-                    document.body.style.overflow = '';
-                }
-            });
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && programPdfModal.classList.contains('active')) {
-                    programPdfModal.classList.remove('active');
-                    programPdfViewer.src = '';
-                    document.body.style.overflow = '';
-                }
-            });
-        });
 
 
         document.getElementById('backHomeBtn')?.addEventListener('click', function () {
@@ -3065,6 +2936,55 @@
                 window.location.href = 'https://psychepan.netlify.app/services.html';
             });
         })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // helper: sanitize filename (trim and remove duplicate spaces)
+            function sanitizeFilename(name) {
+                return name.replace(/\s+/g, ' ').trim();
+            }
+
+            // attach click handler using event delegation
+            document.addEventListener('click', function (e) {
+                const btn = e.target.closest('.program-download-btn');
+                if (!btn) return;
+
+                // find pdf path: priority button[data-pdf] then card[data-pdf-tab]
+                let pdfPath = btn.getAttribute('data-pdf');
+                if (!pdfPath) {
+                    const card = btn.closest('.program-card');
+                    if (card) pdfPath = card.getAttribute('data-pdf-tab');
+                }
+                if (!pdfPath) {
+                    console.warn('No PDF path found for this program.');
+                    return;
+                }
+
+                // encode the URL (handles spaces & special characters)
+                const encodedUrl = encodeURI(pdfPath);
+
+                // derive filename from path (last segment)
+                let filename = pdfPath.split('/').pop() || 'brochure.pdf';
+                filename = sanitizeFilename(filename);
+
+                // create temporary anchor to trigger download
+                const a = document.createElement('a');
+                a.href = encodedUrl;
+                a.setAttribute('download', filename);
+                a.setAttribute('rel', 'noopener noreferrer');
+
+                // Some browsers (esp cross-origin) ignore download attribute — open in new tab as fallback:
+                // Try to use click() to download; if blocked, open in new tab.
+                document.body.appendChild(a);
+                try {
+                    a.click();
+                } catch (err) {
+                    window.open(encodedUrl, '_blank', 'noopener');
+                } finally {
+                    a.remove();
+                }
+            });
+        });
+
 
         // PDF Modal and Viewer functionality
         document.addEventListener('DOMContentLoaded', () => {
