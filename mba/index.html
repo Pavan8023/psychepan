@@ -1994,6 +1994,37 @@
                         </div>
                     </div>
                 </div>
+                <!-- Card 8 (Admissions) -->
+                <div class="flip-card animated">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front" aria-hidden="false">
+                            <i class="fas fa-user-graduate" aria-hidden="true" style="font-size:32px;"></i>
+                            <h3>Admissions</h3>
+                        </div>
+
+                        <div class="flip-card-back" aria-hidden="true" id="Admissions">
+                            <h4><i class="fas fa-file-alt" style="margin-right:8px;"></i> Entry Requirements</h4>
+
+                            <ul style="margin:10px 0 12px 18px; line-height:1.5;">
+                                <li><strong>Typical entry:</strong> Level 6 qualification or a first degree (e.g., BA).
+                                </li>
+                                <li><strong>Experienced applicants:</strong> Senior managers with substantial
+                                    professional experience may be considered even without formal qualifications.</li>
+                            </ul>
+
+                            <div style="margin-top:10px; display:flex; gap:12px; align-items:center;">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                    <span>Document verification required</span>
+                                </div>
+                            </div>
+
+                            <div class="logo-small" style="margin-top:14px; font-size:0.92rem;">Psyche Panacea &amp;
+                                Opresnik</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -2006,6 +2037,10 @@
             </div>
 
             <div class="mba-details animated">
+                <h3>For Admission Click Below</h3>
+                <p><button class="program-download-btn" type="button" onclick="location.href='#Admissions';">
+                        Click Here
+                    </button></p><br>
                 <h3>8-Month Fast-Track MBA</h3>
                 <p>Our 8-month fully online MBA program is delivered in collaboration with accredited UK universities.
                     It consists of 4 months of interactive online modules (8 in total, each ending with a Reflective
@@ -2315,7 +2350,7 @@
                             <strong>Address</strong><br>
                             308/2, Old Delhi Rd, adjacent Country Inn,<br>
                             Sector 12 A, Anamika Enclave,<br>
-                            Gurugram, Haryana 122001
+                            Gurugram, Haryana 122001, India
                         </div>
                     </div>
                     <div class="contact-detail">
@@ -2323,8 +2358,6 @@
                         <div>
                             <strong>Email</strong><br>
 
-                            <a
-                                href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a>
                             <br>
                             <a href="mailto:Globalteam@psypanconsulting.com">Globalteam@psypanconsulting.com</a>
                         </div>
@@ -2337,7 +2370,7 @@
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="https://wa.me/919311452925" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://wa.me/+919810323292" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"><i
                                 class="fab fa-linkedin-in"></i></a>
                         <a href="mailto:Globalteam@psypanconsulting.com" aria-label="Email"><i
@@ -2682,10 +2715,9 @@
                     <strong>Psyche Panacea</strong><br>
                     308/2, Old Delhi Road, Nr Countryinn Hotel,<br>
                     Gurgaon-122001, Haryana, India<br>
-                    <a
-                        href="mailto:Deepa@Opresnik-Management-Consulting.de">Deepa@Opresnik-Management-Consulting.de</a><br>
+
                     <a href="mailto:Globalteam@psypanconsulting.com">Globalteam@psypanconsulting.com</a><br>
-                    <a href="tel:+919810323292">+91 9810323292</a>
+                    <a href="tel:+919810323292">+919810323292</a>
                 </address>
             </div>
         </div>
@@ -2701,10 +2733,10 @@
                     <p>Providing world-class executive education and globally accredited MBA programs through strategic
                         collaborations.</p>
                     <div class="social-links">
-                        <a href="https://wa.me/919311452925" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://wa.me/+919810323292" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"><i
                                 class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:deepa23@psypanconsulting.com" aria-label="Email"><i
+                        <a href="mailto:Globalteam@psypanconsulting.com" aria-label="Email"><i
                                 class="fas fa-envelope"></i></a>
                     </div>
                 </div>
@@ -2712,9 +2744,7 @@
                 <div class="footer-contact">
                     <h3>Contact Us</h3>
                     <p><i class="fas fa-map-marker-alt"></i> 308/2, Old Delhi Rd, adjacent Country Inn, Sector 12 A,
-                        Anamika Enclave, Gurugram, Haryana 122001</p>
-                    <p><i class="fas fa-envelope"></i><a href="mailto:Deepa@Opresnik-Management-Consulting.de">
-                            Deepa@Opresnik-Management-Consulting.de</a></p>
+                        Anamika Enclave, Gurugram, Haryana 122001, India</p>
                     <p><i class="fas fa-envelope"></i><a href="mailto:Globalteam@psypanconsulting.com">
                             Globalteam@psypanconsulting.com</a></p>
                     <p><i class="fas fa-phone"></i> <a href="tel:+919810323292">+919810323292</a></p>
@@ -2747,6 +2777,95 @@
     </footer>
 
     <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+  let active = null;
+
+  function closeActive() {
+    if (!active) return;
+    const { cardElem, innerElem, cleanupFn } = active;
+    if (innerElem) {
+      innerElem.style.transform = '';
+      innerElem.style.transition = '';
+    }
+    cardElem.removeAttribute('data-forced-flip');
+    if (cleanupFn) cleanupFn();
+    active = null;
+  }
+
+  function makeOutsideClickListener(cardElem) {
+    const onDocClick = (ev) => {
+      if (ev.target.closest && ev.target.closest('.flip-card') === cardElem) return;
+      closeActive();
+    };
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
+  }
+
+  function makeEscapeListener() {
+    const onKey = (ev) => {
+      if (ev.key === 'Escape') closeActive();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }
+
+  const buttons = Array.from(document.querySelectorAll('.program-download-btn'));
+
+  buttons.forEach(btn => {
+    let targetId = btn.getAttribute('data-target') || btn.dataset.target || null;
+    if (!targetId) {
+      const onclickAttr = btn.getAttribute('onclick') || '';
+      const m = onclickAttr.match(/#([A-Za-z0-9\-_]+)/);
+      if (m) targetId = m[1];
+    }
+    if (btn.getAttribute('onclick')) btn.removeAttribute('onclick');
+    if (!targetId) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      if (active && active.cardElem) {
+        const sameCard = active.cardElem.querySelector(`#${CSS.escape(targetId)}`);
+        if (sameCard) return;
+        closeActive();
+      }
+
+      const backEl = document.getElementById(targetId);
+      if (!backEl) return;
+      const card = backEl.closest('.flip-card');
+      if (!card) return;
+      const inner = card.querySelector('.flip-card-inner');
+
+      // Scroll card into view first
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Flip after scrolling (small delay to allow smooth scroll)
+      setTimeout(() => {
+        card.setAttribute('data-forced-flip', 'true');
+        if (inner) {
+          inner.style.transition = inner.style.transition || 'transform 0.6s cubic-bezier(.2,.9,.2,1)';
+          inner.style.transform = 'rotateY(180deg)';
+        }
+
+        const cleanupClick = makeOutsideClickListener(card);
+        const cleanupEsc = makeEscapeListener();
+
+        active = {
+          cardElem: card,
+          innerElem: inner,
+          cleanupFn: () => {
+            cleanupClick();
+            cleanupEsc();
+          }
+        };
+      }, 600); // adjust delay if needed
+    });
+  });
+
+  window.addEventListener('beforeunload', closeActive);
+});
 
         (function () {
             // helpers
