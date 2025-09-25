@@ -1751,6 +1751,83 @@
                 display: block;
             }
         }
+
+        /* Gallery section */
+        .gallery-section .gallery-title {
+            font-size: 2rem;
+            margin-bottom: 14px;
+            color: #0f172a;
+            text-align: center;
+        }
+
+        /* Grid: default 3 columns */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            align-items: stretch;
+        }
+
+        /* Each item wrapper — clickable */
+        .trust-logo {
+            display: block;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #ffffff;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+            transition: transform .18s ease, box-shadow .18s ease;
+            outline: none;
+        }
+
+        /* Hover / focus */
+        .trust-logo:hover,
+        .trust-logo:focus {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
+        }
+
+        /* Image styling */
+        .trust-logo img {
+            width: 100%;
+            height: 180px;
+            /* fixed visual height; adjust as needed */
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Small caption (optional, visually hidden but available to modal via data-title) */
+        .trust-logo .thumb-caption {
+            display: none;
+        }
+
+        /* Responsive: 2 columns on medium, 1 column on small */
+        @media (max-width: 900px) {
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trust-logo img {
+                height: 160px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-logo img {
+                height: 44vh;
+            }
+
+            /* taller on small screens */
+        }
+
+        /* Accessibility: visible focus ring when keyboard focusing */
+        .trust-logo:focus {
+            box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.14), 0 12px 30px rgba(2, 6, 23, 0.12);
+        }
     </style>
 </head>
 
@@ -1842,6 +1919,41 @@
             </div>
         </div>
     </section>
+
+    <section class="gallery-section" aria-labelledby="galleryTitle">
+        <div class="container">
+            <h2 id="galleryTitle" class="gallery-title">Universities</h2>
+
+            <div class="trust-grid" role="list">
+                <!-- trust-logo wrappers must match the selector used by your modal JS -->
+                <div class="trust-logo" role="button" tabindex="0" data-title="PIVOTAL E-Book">
+                    <img src="/mba/img/univercities/IMG-20250925-WA0008.jpg"
+                        data-full="/mba/img/univercities/IMG-20250925-WA0008.jpg" alt="PIVOTAL E-Book cover">
+                </div>
+
+                <div class="trust-logo" role="button" tabindex="0" data-title="Harvard Seminar">
+                    <img src="/mba/img/univercities/emblem.webp" data-full="/mba/img/univercities/emblem.webp"
+                        alt="Harvard seminar image">
+                </div>
+
+                <div class="trust-logo" role="button" tabindex="0" data-title="Social Media & AI">
+                    <img src="/mba/img/univercities/IMG-20250925-WA0011.jpg"
+                        data-full="/mba/img/univercities/IMG-20250925-WA0011.jpg" alt="Social Media and AI">
+                </div>
+
+                <div class="trust-logo" role="button" tabindex="0" data-title="Leadership Workshop">
+                    <img src="/mba/img/univercities/IMG-20250925-WA0012.jpg"
+                        data-full="/mba/img/univercities/IMG-20250925-WA0012.jpg" alt="Leadership workshop">
+                </div>
+
+                <div class="trust-logo" role="button" tabindex="0" data-title="UK Degree Award">
+                    <img src="/mba/img/univercities/IMG-20250925-WA0013.jpg"
+                        data-full="/mba/img/univercities/IMG-20250925-WA0013.jpg" alt="UK University Degree Award">
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Image modal (hidden by default) -->
     <div id="imageModal" class="image-modal" aria-hidden="true">
@@ -2330,6 +2442,22 @@
                             showcasing your leadership excellence.</p>
                     </div>
                 </div>
+                <div class="qa-card"
+                    style="border:1px solid #ddd; padding:16px; border-radius:10px; max-width:600px; margin:20px auto; font-family:sans-serif;">
+                    <h3 style="margin-bottom:8px; font-size:1.2rem;">
+                        <i class="fas fa-question-circle" style="color:#007BFF; margin-right:8px;"></i>
+                        Got More Questions?
+                    </h3>
+                    <p style="margin:0 0 16px 28px; line-height:1.5;">
+                        We’ve Got Answers
+                    </p>
+                    <button type="button"
+                        onclick="window.open('/pdf/FAQ MBA Opresnik Business School English Final (1).pdf','_blank')"
+                        style="display:flex; align-items:center; gap:8px; padding:10px 16px; border:none; border-radius:6px; background-color:#007BFF; color:#fff; cursor:pointer;">
+                        <i class="fas fa-download"></i> Download FAQ's PDF
+                    </button>
+                </div>
+
             </div>
         </div>
     </section>
@@ -2794,6 +2922,18 @@
     </footer>
 
     <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.trust-logo[role="button"]').forEach(el => {
+                el.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        el.click(); // triggers your existing modal click handler
+                    }
+                });
+            });
+        });
+
 
         document.addEventListener('DOMContentLoaded', () => {
             let active = null;
