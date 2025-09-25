@@ -2368,12 +2368,20 @@
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="https://wa.me/+919810323292" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"><i
-                                class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:Globalteam@psypanconsulting.com" aria-label="Email"><i
-                                class="fas fa-envelope"></i></a>
+                        <a href="https://wa.me/+919810323292" aria-label="WhatsApp" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:Globalteam@psypanconsulting.com" aria-label="Email" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -2731,12 +2739,20 @@
                     <p>Providing world-class executive education and globally accredited MBA programs through strategic
                         collaborations.</p>
                     <div class="social-links">
-                        <a href="https://wa.me/+919810323292" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"><i
-                                class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:Globalteam@psypanconsulting.com" aria-label="Email"><i
-                                class="fas fa-envelope"></i></a>
+                        <a href="https://wa.me/+919810323292" aria-label="WhatsApp" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/psyche-panacea-consulting" aria-label="LinkedIn"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:Globalteam@psypanconsulting.com" aria-label="Email" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
+
                 </div>
 
                 <div class="footer-contact">
@@ -2776,94 +2792,94 @@
 
     <script>
 
-document.addEventListener('DOMContentLoaded', () => {
-  let active = null;
+        document.addEventListener('DOMContentLoaded', () => {
+            let active = null;
 
-  function closeActive() {
-    if (!active) return;
-    const { cardElem, innerElem, cleanupFn } = active;
-    if (innerElem) {
-      innerElem.style.transform = '';
-      innerElem.style.transition = '';
-    }
-    cardElem.removeAttribute('data-forced-flip');
-    if (cleanupFn) cleanupFn();
-    active = null;
-  }
+            function closeActive() {
+                if (!active) return;
+                const { cardElem, innerElem, cleanupFn } = active;
+                if (innerElem) {
+                    innerElem.style.transform = '';
+                    innerElem.style.transition = '';
+                }
+                cardElem.removeAttribute('data-forced-flip');
+                if (cleanupFn) cleanupFn();
+                active = null;
+            }
 
-  function makeOutsideClickListener(cardElem) {
-    const onDocClick = (ev) => {
-      if (ev.target.closest && ev.target.closest('.flip-card') === cardElem) return;
-      closeActive();
-    };
-    document.addEventListener('click', onDocClick);
-    return () => document.removeEventListener('click', onDocClick);
-  }
+            function makeOutsideClickListener(cardElem) {
+                const onDocClick = (ev) => {
+                    if (ev.target.closest && ev.target.closest('.flip-card') === cardElem) return;
+                    closeActive();
+                };
+                document.addEventListener('click', onDocClick);
+                return () => document.removeEventListener('click', onDocClick);
+            }
 
-  function makeEscapeListener() {
-    const onKey = (ev) => {
-      if (ev.key === 'Escape') closeActive();
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }
+            function makeEscapeListener() {
+                const onKey = (ev) => {
+                    if (ev.key === 'Escape') closeActive();
+                };
+                document.addEventListener('keydown', onKey);
+                return () => document.removeEventListener('keydown', onKey);
+            }
 
-  const buttons = Array.from(document.querySelectorAll('.program-download-btn'));
+            const buttons = Array.from(document.querySelectorAll('.program-download-btn'));
 
-  buttons.forEach(btn => {
-    let targetId = btn.getAttribute('data-target') || btn.dataset.target || null;
-    if (!targetId) {
-      const onclickAttr = btn.getAttribute('onclick') || '';
-      const m = onclickAttr.match(/#([A-Za-z0-9\-_]+)/);
-      if (m) targetId = m[1];
-    }
-    if (btn.getAttribute('onclick')) btn.removeAttribute('onclick');
-    if (!targetId) return;
+            buttons.forEach(btn => {
+                let targetId = btn.getAttribute('data-target') || btn.dataset.target || null;
+                if (!targetId) {
+                    const onclickAttr = btn.getAttribute('onclick') || '';
+                    const m = onclickAttr.match(/#([A-Za-z0-9\-_]+)/);
+                    if (m) targetId = m[1];
+                }
+                if (btn.getAttribute('onclick')) btn.removeAttribute('onclick');
+                if (!targetId) return;
 
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      e.preventDefault();
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
 
-      if (active && active.cardElem) {
-        const sameCard = active.cardElem.querySelector(`#${CSS.escape(targetId)}`);
-        if (sameCard) return;
-        closeActive();
-      }
+                    if (active && active.cardElem) {
+                        const sameCard = active.cardElem.querySelector(`#${CSS.escape(targetId)}`);
+                        if (sameCard) return;
+                        closeActive();
+                    }
 
-      const backEl = document.getElementById(targetId);
-      if (!backEl) return;
-      const card = backEl.closest('.flip-card');
-      if (!card) return;
-      const inner = card.querySelector('.flip-card-inner');
+                    const backEl = document.getElementById(targetId);
+                    if (!backEl) return;
+                    const card = backEl.closest('.flip-card');
+                    if (!card) return;
+                    const inner = card.querySelector('.flip-card-inner');
 
-      // Scroll card into view first
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
+                    // Scroll card into view first
+                    card.scrollIntoView({ behavior: "smooth", block: "center" });
 
-      // Flip after scrolling (small delay to allow smooth scroll)
-      setTimeout(() => {
-        card.setAttribute('data-forced-flip', 'true');
-        if (inner) {
-          inner.style.transition = inner.style.transition || 'transform 0.6s cubic-bezier(.2,.9,.2,1)';
-          inner.style.transform = 'rotateY(180deg)';
-        }
+                    // Flip after scrolling (small delay to allow smooth scroll)
+                    setTimeout(() => {
+                        card.setAttribute('data-forced-flip', 'true');
+                        if (inner) {
+                            inner.style.transition = inner.style.transition || 'transform 0.6s cubic-bezier(.2,.9,.2,1)';
+                            inner.style.transform = 'rotateY(180deg)';
+                        }
 
-        const cleanupClick = makeOutsideClickListener(card);
-        const cleanupEsc = makeEscapeListener();
+                        const cleanupClick = makeOutsideClickListener(card);
+                        const cleanupEsc = makeEscapeListener();
 
-        active = {
-          cardElem: card,
-          innerElem: inner,
-          cleanupFn: () => {
-            cleanupClick();
-            cleanupEsc();
-          }
-        };
-      }, 600); // adjust delay if needed
-    });
-  });
+                        active = {
+                            cardElem: card,
+                            innerElem: inner,
+                            cleanupFn: () => {
+                                cleanupClick();
+                                cleanupEsc();
+                            }
+                        };
+                    }, 600); // adjust delay if needed
+                });
+            });
 
-  window.addEventListener('beforeunload', closeActive);
-});
+            window.addEventListener('beforeunload', closeActive);
+        });
 
         (function () {
             // helpers
