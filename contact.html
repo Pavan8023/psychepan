@@ -302,42 +302,68 @@
             height: 300px;
         }
 
-        /* Mobile menu fixes */
+        /* Mobile menu quick-toggle styles (drop into your CSS) */
+
+        #mobile-menu.hidden {
+            opacity: 0;
+            transform-origin: top center;
+            transform: scaleY(.96) translateY(-4px);
+            pointer-events: none;
+            transition: opacity 120ms ease, transform 120ms ease;
+            will-change: opacity, transform;
+        }
+
+        /* Visible state */
+        #mobile-menu.open {
+            opacity: 1;
+            transform: scaleY(1) translateY(0);
+            pointer-events: auto;
+            transition: opacity 120ms ease, transform 120ms ease;
+        }
+
+        /* Small visual polish for the mobile panel */
         #mobile-menu {
-            position: fixed;
+            position: absolute;
             left: 0;
             right: 0;
             top: 20px;
-            background: white;
-            z-index: 1000;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            /* Start hidden */
+            /* adjust if your header height differs */
+            z-index: 60;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 10px 30px rgba(6, 11, 26, 0.12);
+            overflow: hidden;
         }
 
-        /* Mobile menu visible */
-        #mobile-menu.active {
-            display: block;
+        /* Keep inner links comfortable and tappable */
+        #mobile-menu .px-2 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
         }
 
-        /* Mobile menu links */
         #mobile-menu a {
             display: block;
-            padding: 12px 20px;
-            color: #333;
-            font-weight: 500;
+            width: 100%;
             text-decoration: none;
-            border-bottom: 1px solid #eee;
-            transition: background 0.3s;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.06);
         }
 
-        #mobile-menu a:hover {
-            background-color: #f0f7ff;
+        /* Slight background and separation so it feels snappy */
+        #mobile-menu {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(15, 23, 42, 0.04);
         }
 
-        /* Active link in mobile menu */
-        #mobile-menu a.active {
-            background-color: #e6f2ff;
-            color: #0052cc;
+        /* Responsive safety: ensure hidden on desktop by CSS if needed */
+        @media (min-width: 768px) {
+            #mobile-menu {
+                display: none !important;
+            }
+        }
+
+        /* Utility class to block body scroll while menu open */
+        .body-no-scroll {
+            overflow: hidden !important;
         }
 
         /* Fixed navbar solution */
@@ -836,118 +862,205 @@
             </div>
         </div>
     </div>
-
+    <!-- Put this JS before </body> -->
     <script>
             (function () {
-                const chatBody = document.getElementById('chatbotBody');
-                if (!chatBody) return;
+                const btn = document.getElementById('mobile-menu-button');
+                const menu = document.getElementById('mobile-menu');
 
-                // typing speed in ms per character (tweak if you want faster/slower)
-                const TYPE_SPEED = 18;
+                if (!btn || !menu) return;
 
-                // Remove any existing typing-indicator nodes (class 'typing-animation') helper
-                function clearTypingIndicators() {
-                    const ind = chatBody.querySelectorAll('.typing-animation');
-                    ind.forEach(node => node.remove());
+                // initialize aria states
+                btn.setAttribute('aria-expanded', 'false');
+                menu.setAttribute('aria-hidden', 'true');
+
+                // helper to open/close
+                function openMenu() {
+                    menu.classList.remove('hidden');
+                    menu.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                    menu.setAttribute('aria-hidden', 'false');
+                    document.documentElement.classList.add('body-no-scroll');
+
+                    // focus first link for keyboard users
+                    const firstLink = menu.querySelector('a, button');
+                    if (firstLink) firstLink.focus({ preventScroll: true });
                 }
 
-                // Smooth scroll helper
-                function scrollToBottom() {
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                }
+                function closeMenu() {
+                    menu.classList.remove('open');
+                    // keep hidden attribute until transition finishes for smoothness
+                    menu.setAttribute('aria-hidden', 'true');
+                    btn.setAttribute('aria-expanded', 'false');
+                    document.documentElement.classList.remove('body-no-scroll');
 
-                // Type text into target span element char-by-char
-                function typeText(span, fullText, onDone) {
-                    let i = 0;
-                    function step() {
-                        if (i <= fullText.length) {
-                            // keep caret visible as we type
-                            span.textContent = fullText.slice(0, i);
-                            i++;
-                            scrollToBottom();
-                            timer = setTimeout(step, TYPE_SPEED);
-                        } else {
-                            if (typeof onDone === 'function') onDone();
-                        }
+                    // after transition end hide completely to remove pointer-events if .hidden used elsewhere
+                    const onTransEnd = () => {
+                        menu.classList.add('hidden');
+                        menu.removeEventListener('transitionend', onTransEnd);
+                    };
+                    // if no transition fire immediately
+                    const computed = getComputedStyle(menu);
+                    const dur = parseFloat(computed.transitionDuration) || 0;
+                    if (dur > 0) {
+                        menu.addEventListener('transitionend', onTransEnd);
+                    } else {
+                        onTransEnd();
                     }
-                    let timer = setTimeout(step, TYPE_SPEED);
-                    return () => clearTimeout(timer);
+
+                    // return focus to button
+                    btn.focus({ preventScroll: true });
                 }
 
-                // Observe added bot messages
-                const observer = new MutationObserver((mutations) => {
-                    for (const mut of mutations) {
-                        for (const node of mut.addedNodes) {
-                            if (!(node instanceof HTMLElement)) continue;
+                // toggle handler
+                btn.addEventListener('click', (e) => {
+                    const isOpen = menu.classList.contains('open');
+                    if (isOpen) closeMenu();
+                    else openMenu();
+                });
 
-                            // ignore typing-indicator nodes
-                            if (node.classList.contains('typing-animation')) continue;
+                // close when a menu link is clicked
+                menu.addEventListener('click', (e) => {
+                    const target = e.target.closest('a, button');
+                    if (!target) return;
+                    // small delay so native navigation begins without abrupt UI change
+                    setTimeout(closeMenu, 60);
+                });
 
-                            // only act on bot messages (class includes 'bot')
-                            if (node.classList.contains('bot') && !node.dataset.typed) {
-                                // mark to avoid double-processing
-                                node.dataset.typed = 'processing';
-
-                                // capture original HTML and plain text
-                                const originalHTML = node.innerHTML || '';
-                                const plainText = node.textContent ? node.textContent.trim() : '';
-
-                                // Clear possible typing indicator(s) so we show our typed text cleanly
-                                // (we don't remove them earlier to avoid interfering with original flow)
-                                clearTypingIndicators();
-
-                                // Prepare typed container
-                                node.innerHTML = ''; // remove content
-                                node.classList.add('bot-typing');
-
-                                // create a span to receive typed characters
-                                const span = document.createElement('span');
-                                span.className = 'bot-typing-text';
-                                node.appendChild(span);
-                                scrollToBottom();
-
-                                // If the original content contains HTML tags, we will type its plain-text first,
-                                // then replace with originalHTML at the end (so lists and markup render properly).
-                                // If original was plain text, we type it fully and leave as-is.
-                                const textToType = plainText.length ? plainText : originalHTML.replace(/<[^>]*>/g, '');
-
-                                typeText(span, textToType, () => {
-                                    // done typing: if originalHTML had markup, set it now (so lists render)
-                                    if (/<[a-z][\s\S]*>/i.test(originalHTML)) {
-                                        node.innerHTML = originalHTML;
-                                    } else {
-                                        // ensure final text exactly matches original (in case of trimming)
-                                        span.textContent = plainText || originalHTML;
-                                    }
-                                    node.classList.remove('bot-typing');
-                                    node.dataset.typed = 'true';
-                                    scrollToBottom();
-                                });
-                            }
-                        }
+                // close on Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && menu.classList.contains('open')) {
+                        closeMenu();
                     }
                 });
 
-                observer.observe(chatBody, { childList: true, subtree: false });
-
-                // Also make existing bot messages (already present on load) appear typed
-                // by triggering a small re-process for any untyped bot nodes
-                window.addEventListener('load', () => {
-                    const existing = Array.from(chatBody.querySelectorAll('.bot')).filter(n => !n.dataset.typed);
-                    existing.forEach(n => {
-                        // trigger MutationObserver by re-appending node (no visual move)
-                        // create a shallow clone then replace to fire the observer logic
-                        const clone = n.cloneNode(true);
-                        n.replaceWith(clone);
-                    });
+                // close on outside click (outside menu and outside button)
+                document.addEventListener('click', (e) => {
+                    if (!menu.classList.contains('open')) return;
+                    const isInsideMenu = !!e.target.closest('#mobile-menu');
+                    const isOnButton = !!e.target.closest('#mobile-menu-button');
+                    if (!isInsideMenu && !isOnButton) closeMenu();
                 });
 
-                // tidy: expose a function to force-enable or disable this enhancer if needed
-                window.__psypanBotTypingEnhancer = {
-                    disconnect: () => observer.disconnect(),
-                    reconnect: () => observer.observe(chatBody, { childList: true, subtree: false })
-                };
+                // ensure correct initial state if menu had no "hidden" class in markup
+                if (!menu.classList.contains('hidden') && !menu.classList.contains('open')) {
+                    menu.classList.add('hidden');
+                    menu.setAttribute('aria-hidden', 'true');
+                }
             })();
+    </script>
+
+    <script>
+        (function () {
+            const chatBody = document.getElementById('chatbotBody');
+            if (!chatBody) return;
+
+            // typing speed in ms per character (tweak if you want faster/slower)
+            const TYPE_SPEED = 18;
+
+            // Remove any existing typing-indicator nodes (class 'typing-animation') helper
+            function clearTypingIndicators() {
+                const ind = chatBody.querySelectorAll('.typing-animation');
+                ind.forEach(node => node.remove());
+            }
+
+            // Smooth scroll helper
+            function scrollToBottom() {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            // Type text into target span element char-by-char
+            function typeText(span, fullText, onDone) {
+                let i = 0;
+                function step() {
+                    if (i <= fullText.length) {
+                        // keep caret visible as we type
+                        span.textContent = fullText.slice(0, i);
+                        i++;
+                        scrollToBottom();
+                        timer = setTimeout(step, TYPE_SPEED);
+                    } else {
+                        if (typeof onDone === 'function') onDone();
+                    }
+                }
+                let timer = setTimeout(step, TYPE_SPEED);
+                return () => clearTimeout(timer);
+            }
+
+            // Observe added bot messages
+            const observer = new MutationObserver((mutations) => {
+                for (const mut of mutations) {
+                    for (const node of mut.addedNodes) {
+                        if (!(node instanceof HTMLElement)) continue;
+
+                        // ignore typing-indicator nodes
+                        if (node.classList.contains('typing-animation')) continue;
+
+                        // only act on bot messages (class includes 'bot')
+                        if (node.classList.contains('bot') && !node.dataset.typed) {
+                            // mark to avoid double-processing
+                            node.dataset.typed = 'processing';
+
+                            // capture original HTML and plain text
+                            const originalHTML = node.innerHTML || '';
+                            const plainText = node.textContent ? node.textContent.trim() : '';
+
+                            // Clear possible typing indicator(s) so we show our typed text cleanly
+                            // (we don't remove them earlier to avoid interfering with original flow)
+                            clearTypingIndicators();
+
+                            // Prepare typed container
+                            node.innerHTML = ''; // remove content
+                            node.classList.add('bot-typing');
+
+                            // create a span to receive typed characters
+                            const span = document.createElement('span');
+                            span.className = 'bot-typing-text';
+                            node.appendChild(span);
+                            scrollToBottom();
+
+                            // If the original content contains HTML tags, we will type its plain-text first,
+                            // then replace with originalHTML at the end (so lists and markup render properly).
+                            // If original was plain text, we type it fully and leave as-is.
+                            const textToType = plainText.length ? plainText : originalHTML.replace(/<[^>]*>/g, '');
+
+                            typeText(span, textToType, () => {
+                                // done typing: if originalHTML had markup, set it now (so lists render)
+                                if (/<[a-z][\s\S]*>/i.test(originalHTML)) {
+                                    node.innerHTML = originalHTML;
+                                } else {
+                                    // ensure final text exactly matches original (in case of trimming)
+                                    span.textContent = plainText || originalHTML;
+                                }
+                                node.classList.remove('bot-typing');
+                                node.dataset.typed = 'true';
+                                scrollToBottom();
+                            });
+                        }
+                    }
+                }
+            });
+
+            observer.observe(chatBody, { childList: true, subtree: false });
+
+            // Also make existing bot messages (already present on load) appear typed
+            // by triggering a small re-process for any untyped bot nodes
+            window.addEventListener('load', () => {
+                const existing = Array.from(chatBody.querySelectorAll('.bot')).filter(n => !n.dataset.typed);
+                existing.forEach(n => {
+                    // trigger MutationObserver by re-appending node (no visual move)
+                    // create a shallow clone then replace to fire the observer logic
+                    const clone = n.cloneNode(true);
+                    n.replaceWith(clone);
+                });
+            });
+
+            // tidy: expose a function to force-enable or disable this enhancer if needed
+            window.__psypanBotTypingEnhancer = {
+                disconnect: () => observer.disconnect(),
+                reconnect: () => observer.observe(chatBody, { childList: true, subtree: false })
+            };
+        })();
     </script>
 
     <script>
@@ -1116,55 +1229,6 @@
 
         document.addEventListener('DOMContentLoaded', initSingleMarquee);
 
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-
-        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-            observer.observe(el);
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
         // Form Submission Handler with EmailJS
         document.getElementById('contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
