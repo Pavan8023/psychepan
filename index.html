@@ -351,70 +351,42 @@
       height: 300px;
     }
 
-    /* Mobile menu quick-toggle styles (drop into your CSS) */
-
-    #mobile-menu.hidden {
-      opacity: 0;
-      transform-origin: top center;
-      transform: scaleY(.96) translateY(-4px);
-      pointer-events: none;
-      transition: opacity 120ms ease, transform 120ms ease;
-      will-change: opacity, transform;
-    }
-
-    /* Visible state */
-    #mobile-menu.open {
-      opacity: 1;
-      transform: scaleY(1) translateY(0);
-      pointer-events: auto;
-      transition: opacity 120ms ease, transform 120ms ease;
-    }
-
-    /* Small visual polish for the mobile panel */
+    /* Mobile menu fixes */
     #mobile-menu {
-      position: absolute;
+      position: fixed;
       left: 0;
       right: 0;
       top: 20px;
-      /* adjust if your header height differs */
-      z-index: 60;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      box-shadow: 0 10px 30px rgba(6, 11, 26, 0.12);
-      overflow: hidden;
+      background: white;
+      z-index: 1000;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      /* Start hidden */
     }
 
-    /* Keep inner links comfortable and tappable */
-    #mobile-menu .px-2 {
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
+    /* Mobile menu visible */
+    #mobile-menu.active {
+      display: block;
     }
 
+    /* Mobile menu links */
     #mobile-menu a {
       display: block;
-      width: 100%;
+      padding: 12px 20px;
+      color: #333;
       text-decoration: none;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.06);
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s;
     }
 
-    /* Slight background and separation so it feels snappy */
-    #mobile-menu {
-      background: rgba(255, 255, 255, 0.98);
-      border: 1px solid rgba(15, 23, 42, 0.04);
+    #mobile-menu a:hover {
+      background-color: #f0f7ff;
     }
 
-    /* Responsive safety: ensure hidden on desktop by CSS if needed */
-    @media (min-width: 768px) {
-      #mobile-menu {
-        display: none !important;
-      }
+    /* Active link in mobile menu */
+    #mobile-menu a.active {
+      background-color: #e6f2ff;
+      color: #0052cc;
     }
-
-    /* Utility class to block body scroll while menu open */
-    .body-no-scroll {
-      overflow: hidden !important;
-    }
-
 
     /* 1) Container hides the overflow */
     .logo-slider {
@@ -2408,10 +2380,10 @@
         reconnect: () => observer.observe(chatBody, { childList: true, subtree: false })
       };
     })();
-  </script>
 
-  <!-- ====== Chatbot script (place before </body>) ====== -->
-  <script>
+
+
+
 
     document.addEventListener("DOMContentLoaded", function () {
       const chatbotWindow = document.getElementById("chatbotWindow");
@@ -3482,6 +3454,22 @@
           });
         });
       })();
+
+
+      // Scroll animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+        observer.observe(el);
+      });
 
     });
 
