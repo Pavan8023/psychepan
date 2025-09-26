@@ -1214,7 +1214,8 @@
   <!-- Header -->
   <header>
     <div class="flex items-center space-x-2">
-      <img class="h-16 w-14" src="/images/psypan-logo-transparent.png" alt="Psyche Panacea" style="height: 80px; width: 80px;">
+      <img class="h-16 w-14" src="/images/psypan-logo-transparent.png" alt="Psyche Panacea"
+        style="height: 80px; width: 80px;">
       <div class="text-2xl font-bold text-primary">Psyche Panacea</div>
     </div>
     <nav class="hidden md:flex items-center space-x-6">
@@ -1985,48 +1986,6 @@
           </div>
         </div>
       </div>
-
-      <script>
-        // Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
-          authDomain: "psypanweb-7747a.firebaseapp.com",
-          projectId: "psypanweb-7747a",
-          storageBucket: "psypanweb-7747a.firebasestorage.app",
-          messagingSenderId: "441049264188",
-          appId: "1:441049264188:web:4dab8de0554b2c7c741339",
-          measurementId: "G-C1CTMX729Z"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        // Wait for Firebase to be initialized
-        document.addEventListener('DOMContentLoaded', function () {
-          // Reference to Firestore
-          const db = firebase.firestore();
-
-          // Reference to the numdata collection
-          const numdataRef = db.collection('numdata');
-
-          // Get the stats document
-          numdataRef.doc('stats').get().then(doc => {
-            if (doc.exists) {
-              const data = doc.data();
-
-              // Update the counters with the fetched data
-              document.getElementById('companies-stat').textContent = data.companies;
-              document.getElementById('experience-stat').textContent = data.experience;
-              document.getElementById('associates-stat').textContent = data.associates;
-              document.getElementById('participants-stat').textContent = data.participants;
-            } else {
-              console.log('No such document!');
-            }
-          }).catch(error => {
-            console.log('Error getting document:', error);
-          });
-        });
-      </script>
     </section>
 
     <!-- Call to Action -->
@@ -2749,1146 +2708,1215 @@
       </button>
     </div>
   </div>
-  <!-- Put this JS before </body> -->
-  <script>
-    (function () {
-      const btn = document.getElementById('mobile-menu-button');
-      const menu = document.getElementById('mobile-menu');
 
-      if (!btn || !menu) return;
-
-      // initialize aria states
-      btn.setAttribute('aria-expanded', 'false');
-      menu.setAttribute('aria-hidden', 'true');
-
-      // helper to open/close
-      function openMenu() {
-        menu.classList.remove('hidden');
-        menu.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-        menu.setAttribute('aria-hidden', 'false');
-        document.documentElement.classList.add('body-no-scroll');
-
-        // focus first link for keyboard users
-        const firstLink = menu.querySelector('a, button');
-        if (firstLink) firstLink.focus({ preventScroll: true });
-      }
-
-      function closeMenu() {
-        menu.classList.remove('open');
-        // keep hidden attribute until transition finishes for smoothness
-        menu.setAttribute('aria-hidden', 'true');
-        btn.setAttribute('aria-expanded', 'false');
-        document.documentElement.classList.remove('body-no-scroll');
-
-        // after transition end hide completely to remove pointer-events if .hidden used elsewhere
-        const onTransEnd = () => {
-          menu.classList.add('hidden');
-          menu.removeEventListener('transitionend', onTransEnd);
-        };
-        // if no transition fire immediately
-        const computed = getComputedStyle(menu);
-        const dur = parseFloat(computed.transitionDuration) || 0;
-        if (dur > 0) {
-          menu.addEventListener('transitionend', onTransEnd);
-        } else {
-          onTransEnd();
-        }
-
-        // return focus to button
-        btn.focus({ preventScroll: true });
-      }
-
-      // toggle handler
-      btn.addEventListener('click', (e) => {
-        const isOpen = menu.classList.contains('open');
-        if (isOpen) closeMenu();
-        else openMenu();
-      });
-
-      // close when a menu link is clicked
-      menu.addEventListener('click', (e) => {
-        const target = e.target.closest('a, button');
-        if (!target) return;
-        // small delay so native navigation begins without abrupt UI change
-        setTimeout(closeMenu, 60);
-      });
-
-      // close on Escape
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && menu.classList.contains('open')) {
-          closeMenu();
-        }
-      });
-
-      // close on outside click (outside menu and outside button)
-      document.addEventListener('click', (e) => {
-        if (!menu.classList.contains('open')) return;
-        const isInsideMenu = !!e.target.closest('#mobile-menu');
-        const isOnButton = !!e.target.closest('#mobile-menu-button');
-        if (!isInsideMenu && !isOnButton) closeMenu();
-      });
-
-      // ensure correct initial state if menu had no "hidden" class in markup
-      if (!menu.classList.contains('hidden') && !menu.classList.contains('open')) {
-        menu.classList.add('hidden');
-        menu.setAttribute('aria-hidden', 'true');
-      }
-    })();
-  </script>
-
-  <script>
-    (function () {
-      const chatBody = document.getElementById('chatbotBody');
-      if (!chatBody) return;
-
-      // typing speed in ms per character (tweak if you want faster/slower)
-      const TYPE_SPEED = 18;
-
-      // Remove any existing typing-indicator nodes (class 'typing-animation') helper
-      function clearTypingIndicators() {
-        const ind = chatBody.querySelectorAll('.typing-animation');
-        ind.forEach(node => node.remove());
-      }
-
-      // Smooth scroll helper
-      function scrollToBottom() {
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-
-      // Type text into target span element char-by-char
-      function typeText(span, fullText, onDone) {
-        let i = 0;
-        function step() {
-          if (i <= fullText.length) {
-            // keep caret visible as we type
-            span.textContent = fullText.slice(0, i);
-            i++;
-            scrollToBottom();
-            timer = setTimeout(step, TYPE_SPEED);
-          } else {
-            if (typeof onDone === 'function') onDone();
-          }
-        }
-        let timer = setTimeout(step, TYPE_SPEED);
-        return () => clearTimeout(timer);
-      }
-
-      // Observe added bot messages
-      const observer = new MutationObserver((mutations) => {
-        for (const mut of mutations) {
-          for (const node of mut.addedNodes) {
-            if (!(node instanceof HTMLElement)) continue;
-
-            // ignore typing-indicator nodes
-            if (node.classList.contains('typing-animation')) continue;
-
-            // only act on bot messages (class includes 'bot')
-            if (node.classList.contains('bot') && !node.dataset.typed) {
-              // mark to avoid double-processing
-              node.dataset.typed = 'processing';
-
-              // capture original HTML and plain text
-              const originalHTML = node.innerHTML || '';
-              const plainText = node.textContent ? node.textContent.trim() : '';
-
-              // Clear possible typing indicator(s) so we show our typed text cleanly
-              // (we don't remove them earlier to avoid interfering with original flow)
-              clearTypingIndicators();
-
-              // Prepare typed container
-              node.innerHTML = ''; // remove content
-              node.classList.add('bot-typing');
-
-              // create a span to receive typed characters
-              const span = document.createElement('span');
-              span.className = 'bot-typing-text';
-              node.appendChild(span);
-              scrollToBottom();
-
-              // If the original content contains HTML tags, we will type its plain-text first,
-              // then replace with originalHTML at the end (so lists and markup render properly).
-              // If original was plain text, we type it fully and leave as-is.
-              const textToType = plainText.length ? plainText : originalHTML.replace(/<[^>]*>/g, '');
-
-              typeText(span, textToType, () => {
-                // done typing: if originalHTML had markup, set it now (so lists render)
-                if (/<[a-z][\s\S]*>/i.test(originalHTML)) {
-                  node.innerHTML = originalHTML;
-                } else {
-                  // ensure final text exactly matches original (in case of trimming)
-                  span.textContent = plainText || originalHTML;
-                }
-                node.classList.remove('bot-typing');
-                node.dataset.typed = 'true';
-                scrollToBottom();
-              });
-            }
-          }
-        }
-      });
-
-      observer.observe(chatBody, { childList: true, subtree: false });
-
-      // Also make existing bot messages (already present on load) appear typed
-      // by triggering a small re-process for any untyped bot nodes
-      window.addEventListener('load', () => {
-        const existing = Array.from(chatBody.querySelectorAll('.bot')).filter(n => !n.dataset.typed);
-        existing.forEach(n => {
-          // trigger MutationObserver by re-appending node (no visual move)
-          // create a shallow clone then replace to fire the observer logic
-          const clone = n.cloneNode(true);
-          n.replaceWith(clone);
-        });
-      });
-
-      // tidy: expose a function to force-enable or disable this enhancer if needed
-      window.__psypanBotTypingEnhancer = {
-        disconnect: () => observer.disconnect(),
-        reconnect: () => observer.observe(chatBody, { childList: true, subtree: false })
-      };
-    })();
+</body>
 
 
+<script>
+  // Firebase configuration and counter update - ADD THIS AT THE BOTTOM OF YOUR SCRIPT
+  document.addEventListener('DOMContentLoaded', function () {
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8t0YBEkZ-hDHmw7u8aud-jwNybYEKnbU",
+      authDomain: "psypanweb-7747a.firebaseapp.com",
+      projectId: "psypanweb-7747a",
+      storageBucket: "psypanweb-7747a.firebasestorage.app",
+      messagingSenderId: "441049264188",
+      appId: "1:441049264188:web:4dab8de0554b2c7c741339",
+      measurementId: "G-C1CTMX729Z"
+    };
 
-    (function () {
-      const modal = document.getElementById('moreTrainingsSection');
-      const closeBtn = document.getElementById('moreTrainingsClose');
-      const backTop = document.getElementById('mt-scroll-top');
+    // Initialize Firebase only if it hasn't been initialized
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
-      // Focus-trap helpers
-      function getFocusable(el) {
-        if (!el) return [];
-        return Array.from(el.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'))
-          .filter(node => node.offsetParent !== null);
-      }
+    const db = firebase.firestore();
 
-      let lastActiveElement = null;
+    // Reference to the numdata collection
+    const numdataRef = db.collection('numdata');
 
-      function openModal() {
-        if (!modal) return;
-        lastActiveElement = document.activeElement;
-        modal.style.display = 'flex';
-        modal.setAttribute('aria-hidden', 'false');
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
+    // Get the stats document
+    numdataRef.doc('stats').get().then(doc => {
+      if (doc.exists) {
+        const data = doc.data();
 
-        // move focus to close button
-        setTimeout(() => {
-          const focusable = getFocusable(modal);
-          if (focusable.length) focusable[0].focus();
-        }, 80);
-        // add keydown handler for focus trap
-        document.addEventListener('keydown', handleKeyDown);
-      }
+        // Update the counters with the fetched data
+        const companiesStat = document.getElementById('companies-stat');
+        const experienceStat = document.getElementById('experience-stat');
+        const associatesStat = document.getElementById('associates-stat');
 
-      function closeModal() {
-        if (!modal) return;
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', handleKeyDown);
-        if (lastActiveElement && typeof lastActiveElement.focus === 'function') lastActiveElement.focus();
-      }
-
-      function handleKeyDown(e) {
-        if (e.key === 'Escape') {
-          closeModal();
-          return;
-        }
-        if (e.key === 'Tab') {
-          const focusable = getFocusable(modal);
-          if (focusable.length === 0) return;
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
-
-      // Find the Explore Now button or feature-card (robust)
-      function findExploreTrigger() {
-        const candidate = Array.from(document.querySelectorAll('.feature-card button, .feature-card a'))
-          .find(el => /explore\s*now/i.test(el.textContent || ''));
-        if (candidate) return candidate;
-        const fallback = Array.from(document.querySelectorAll('.feature-card'))
-          .find(card => /and many/i.test(card.textContent || ''));
-        if (fallback) return fallback.querySelector('button, a') || fallback;
-        return null;
-      }
-
-      const trigger = findExploreTrigger();
-      if (trigger) {
-        trigger.addEventListener('click', function (ev) {
-          ev.preventDefault();
-          openModal();
-        });
+        if (companiesStat) companiesStat.textContent = data.companies + '+';
+        if (experienceStat) experienceStat.textContent = data.experience + '+';
+        if (associatesStat) associatesStat.textContent = data.associates + '+';
       } else {
-        // don't throw — expose function for manual triggering
-        console.warn('Explore trigger not found. Use openModal() to open trainings panel.');
+        console.log('No such document!');
       }
+    }).catch(error => {
+      console.log('Error getting document:', error);
+    });
+  });
 
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (backTop) backTop.addEventListener('click', () => {
-        // scroll to top of modal content
-        const body = modal && modal.querySelector('.mt-dialog-body');
-        if (body) body.scrollTo({ top: 0, behavior: 'smooth' });
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+  // Scroll animation initialization - ADD THIS AFTER THE FIREBASE CODE
+  function initScrollAnimations() {
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
 
-      // close when clicking backdrop
-      modal.addEventListener('click', (e) => {
-        if (e.target.classList && e.target.classList.contains('mt-backdrop')) {
-          closeModal();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
       });
-
-      // expose for debugging
-      window.openMoreTrainings = openModal;
-      window.closeMoreTrainings = closeModal;
-    })();
-
-    // chatbot
-    document.addEventListener("DOMContentLoaded", function () {
-      const chatbotWindow = document.getElementById("chatbotWindow");
-      const chatbotToggle = document.getElementById("chatbotToggle");
-      const chatbotClose = document.getElementById("chatbotClose");
-
-
-      // Toggle chatbot when floating button is clicked
-      chatbotToggle.addEventListener("click", () => {
-        chatbotWindow.classList.toggle("hidden");
-      });
-
-      // Close chatbot when "×" is clicked
-      chatbotClose.addEventListener("click", () => {
-        chatbotWindow.classList.add("hidden");
-      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     });
 
-    window.addEventListener("DOMContentLoaded", function () {
-      const input = document.getElementById("chatbotInput");
-      const sendBtn = document.getElementById("chatbotSend");
+    animateElements.forEach(el => observer.observe(el));
+  }
 
-      // Simulate typing effect
-      let message = "hii";
-      let i = 0;
-
-      function typeMessage() {
-        if (i < message.length) {
-          input.value += message.charAt(i);
-          i++;
-          setTimeout(typeMessage, 150); // typing speed
-        } else {
-          // Click send button after typing
-          setTimeout(() => {
-            sendBtn.click();
-          }, 500);
-        }
-      }
-
-      typeMessage();
-    });
+  // Initialize scroll animations when DOM is loaded
+  document.addEventListener('DOMContentLoaded', initScrollAnimations);
 
 
-    /* ---------- Single-track marquee script (no double-vertical logos) ---------- */
+  (function () {
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
 
-    /* Use your clients array exactly as provided */
-    const clients = [
-      // Automotive
-      { name: "Honda", image: "honda.png", category: "automotive", tagline: "The Power of Dreams" },
-      { name: "Maruti Suzuki", image: "maruti.png", category: "automotive", tagline: "Way of Life" },
-      { name: "Hero", image: "hero.png", category: "automotive", tagline: "Desh Ki Dhadkan" },
-      { name: "JCB", image: "jcb.png", category: "automotive", tagline: "Powering Progress" },
-      { name: "Yamaha", image: "BirlaYamaha.png", category: "automotive", tagline: "Revs Your Heart" },
-      { name: "Suzuki Motorcycles", image: "Suzuki-Motorcycles.png", category: "automotive" },
-      { name: "JK Tyres", image: "jktyre.png", category: "automotive" },
-      { name: "Escort", image: "Escort.png", category: "automotive" },
-      { name: "Sona Koyo", image: "Sona-Koyo.jpg", category: "automotive" },
-      { name: "Minda", image: "minda.png", category: "automotive" },
-      { name: "JBM Group", image: "jbm.png", category: "automotive" },
+    if (!btn || !menu) return;
 
-      // Manufacturing
-      { name: "ACC", image: "acc.png", category: "manufacturing", tagline: "The Professional's Choice" },
-      { name: "Amtek", image: "Amtek.jpg", category: "manufacturing" },
-      { name: "Anchor", image: "Anchor.jpg", category: "manufacturing" },
-      { name: "Asahi Glass", image: "Asahi-Glass.png", category: "manufacturing" },
-      { name: "ATO", image: "ato.png", category: "manufacturing" },
-      { name: "BIRLA POWER", image: "birla-power.png", category: "manufacturing", tagline: "POWER... the ability to change" },
-      { name: "Bria", image: "Birla.jpg", category: "manufacturing" },
-      { name: "Chemsys", image: "Chemsys.png", category: "manufacturing" },
-      { name: "Colgate and Palmolive", image: "ColgateandPalmolive.png", category: "manufacturing" },
-      { name: "Daikin", image: "Daikin.png", category: "manufacturing" },
-      { name: "Dabur", image: "dabur.png", category: "manufacturing" },
-      { name: "Ester Industries", image: "Ester-Industries.png", category: "manufacturing" },
-      { name: "Grasim", image: "Grasim.jpg", category: "manufacturing" },
-      { name: "Hindustan Zinc", image: "Hindustan-Zinc.png", category: "manufacturing" },
-      { name: "Indian Oil", image: "indian-oil.png", category: "manufacturing" },
-      { name: "NTPC", image: "ntpc.png", category: "manufacturing" },
-      { name: "Shree Cements", image: "Shree-Cements.jpg", category: "manufacturing" },
-      { name: "SRF", image: "SRF.png", category: "manufacturing" },
+    // initialize aria states
+    btn.setAttribute('aria-expanded', 'false');
+    menu.setAttribute('aria-hidden', 'true');
 
-      // Technology
-      { name: "Bharti", image: "Bharti.png", category: "technology" },
-      { name: "HCL", image: "hcl.png", category: "technology" },
-      { name: "Hughes Software", image: "Hughes-Software.png", category: "technology" },
-      { name: "ICICI Bank", image: "icici-bank.png", category: "technology" },
-      { name: "Mizuho Bank", image: "Mizuho-Bank.png", category: "technology" },
-      { name: "RMSI", image: "RMSI.png", category: "technology" },
-      { name: "Safran", image: "Safran.png", category: "technology" },
-      { name: "SPIL", image: "SPIL.png", category: "technology" },
-      { name: "Tech Mahindra", image: "tech-mahindra.png", category: "technology" },
-      { name: "TMTL", image: "TMTL.png", category: "technology" },
-      { name: "Wabag", image: "Wabag.png", category: "technology" },
-      { name: "OMAX Technology", image: "LOGO_OMAX-technology.png", category: "technology" },
-      { name: "Nex-Gen", image: "Nex-Gen.png", category: "technology" },
-      { name: "Biotech", image: "Biotech.webp", category: "technology" },
+    // helper to open/close
+    function openMenu() {
+      menu.classList.remove('hidden');
+      menu.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('body-no-scroll');
 
-      // FMCG
-      { name: "Pepsi", image: "pepsi.png", category: "fmg" },
-      { name: "Parle-G", image: "Parle-G.jpg", category: "fmg" },
-      { name: "Dabur", image: "DABUR (1).png", category: "fmg" },
-      { name: "Colgate and Palmolive", image: "Colgate-and-Palmoliv.png", category: "fmg" },
-      { name: "Whirlpool", image: "whirl-pool.png", category: "fmg" },
-      { name: "Spencer's", image: "spencers.png", category: "fmg" },
-      { name: "Van Melle", image: "Van-Melle.png", category: "fmg" },
-      { name: "Mother Dairy", image: "Mother-Dairy.jpg", category: "fmg" },
-      { name: "Antheme", image: "AnthemLogo_White_01-Small.png", category: "fmg" },
-      { name: "BPT", image: "BPT.png", category: "fmg" },
-      { name: "EIL", image: "eil", category: "fmg" },
-      { name: "LBL", image: "lbl.png", category: "fmg" },
-      { name: "UD-Trucks", image: "UD-trucks-logo-637x426.jpg", category: "fmg" },
-      { name: "UNO MINDA", image: "UNO MINDA.png", category: "fmg" },
-      { name: "Vecv", image: "Vecv.png", category: "fmg" },
-      { name: "BSES", image: "bses.png", category: "fmg" }
-    ];
+      // focus first link for keyboard users
+      const firstLink = menu.querySelector('a, button');
+      if (firstLink) firstLink.focus({ preventScroll: true });
+    }
 
-    const COMMON_PATH = 'images/clients/'; // common path requested
-    const DEFAULT_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='; // tiny transparent pixel
+    function closeMenu() {
+      menu.classList.remove('open');
+      // keep hidden attribute until transition finishes for smoothness
+      menu.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+      document.documentElement.classList.remove('body-no-scroll');
 
-    function createItemNode(client) {
-      const item = document.createElement('div');
-      item.className = 'marquee-item';
-      const box = document.createElement('div');
-      box.className = 'logo-box';
-
-      const img = document.createElement('img');
-      img.alt = client.name || '';
-      img.src = COMMON_PATH + client.image;
-      img.onerror = function () {
-        this.onerror = null;
-        // try a safe placeholder in images/clients/ first (if you have it), else use transparent pixel
-        this.src = COMMON_PATH + 'placeholder.png';
-        // if placeholder.png doesn't exist on server, the browser will try that and hit onerror again
-        // but we already removed onerror to avoid infinite loop; in that case you will see broken image or provide placeholder.png
+      // after transition end hide completely to remove pointer-events if .hidden used elsewhere
+      const onTransEnd = () => {
+        menu.classList.add('hidden');
+        menu.removeEventListener('transitionend', onTransEnd);
       };
+      // if no transition fire immediately
+      const computed = getComputedStyle(menu);
+      const dur = parseFloat(computed.transitionDuration) || 0;
+      if (dur > 0) {
+        menu.addEventListener('transitionend', onTransEnd);
+      } else {
+        onTransEnd();
+      }
 
-      box.appendChild(img);
-      item.appendChild(box);
-      return item;
+      // return focus to button
+      btn.focus({ preventScroll: true });
     }
 
-    function populateSingleTrack() {
-      const track = document.querySelector('.marquee-track');
-      if (!track) return;
-      track.innerHTML = '';
+    // toggle handler
+    btn.addEventListener('click', (e) => {
+      const isOpen = menu.classList.contains('open');
+      if (isOpen) closeMenu();
+      else openMenu();
+    });
 
-      // create fragment of original items
-      const frag = document.createDocumentFragment();
-      clients.forEach(c => frag.appendChild(createItemNode(c)));
+    // close when a menu link is clicked
+    menu.addEventListener('click', (e) => {
+      const target = e.target.closest('a, button');
+      if (!target) return;
+      // small delay so native navigation begins without abrupt UI change
+      setTimeout(closeMenu, 60);
+    });
 
-      // append original items
-      track.appendChild(frag);
+    // close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('open')) {
+        closeMenu();
+      }
+    });
 
-      // append a clone of the same items to the same track (seamless loop)
-      // we clone nodes to avoid reusing the exact same elements (keeps DOM stable)
-      const nodesToClone = Array.from(track.children).slice(0, clients.length);
-      nodesToClone.forEach(n => track.appendChild(n.cloneNode(true)));
+    // close on outside click (outside menu and outside button)
+    document.addEventListener('click', (e) => {
+      if (!menu.classList.contains('open')) return;
+      const isInsideMenu = !!e.target.closest('#mobile-menu');
+      const isOnButton = !!e.target.closest('#mobile-menu-button');
+      if (!isInsideMenu && !isOnButton) closeMenu();
+    });
+
+    // ensure correct initial state if menu had no "hidden" class in markup
+    if (!menu.classList.contains('hidden') && !menu.classList.contains('open')) {
+      menu.classList.add('hidden');
+      menu.setAttribute('aria-hidden', 'true');
+    }
+  })();
+</script>
+
+<script>
+  (function () {
+    const chatBody = document.getElementById('chatbotBody');
+    if (!chatBody) return;
+
+    // typing speed in ms per character (tweak if you want faster/slower)
+    const TYPE_SPEED = 18;
+
+    // Remove any existing typing-indicator nodes (class 'typing-animation') helper
+    function clearTypingIndicators() {
+      const ind = chatBody.querySelectorAll('.typing-animation');
+      ind.forEach(node => node.remove());
     }
 
-    function adjustDurationSingleTrack() {
-      const wrap = document.querySelector('.clients-marquee-wrap');
-      const track = document.querySelector('.marquee-track');
-      if (!wrap || !track) return;
-
-      // One set width is half the scrollWidth because we duplicated content inside same track
-      const total = track.scrollWidth;
-      const oneSetWidth = total / 2 || track.getBoundingClientRect().width / 2;
-
-      const style = getComputedStyle(wrap);
-      const pxPerSecond = Math.max(40, parseFloat(style.getPropertyValue('--px-per-second')) || 120);
-
-      // duration so that oneSetWidth travels at pxPerSecond speed (seconds)
-      const duration = Math.max(6, (oneSetWidth / pxPerSecond));
-      track.style.animationDuration = duration + 's';
+    // Smooth scroll helper
+    function scrollToBottom() {
+      chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    // init
-    function initSingleMarquee() {
-      populateSingleTrack();
-
-      // wait a bit for images to load and layout to settle before measuring
-      setTimeout(() => {
-        adjustDurationSingleTrack();
-      }, 80);
-
-      // recalc on resize (debounced)
-      let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(adjustDurationSingleTrack, 150);
-      });
+    // Type text into target span element char-by-char
+    function typeText(span, fullText, onDone) {
+      let i = 0;
+      function step() {
+        if (i <= fullText.length) {
+          // keep caret visible as we type
+          span.textContent = fullText.slice(0, i);
+          i++;
+          scrollToBottom();
+          timer = setTimeout(step, TYPE_SPEED);
+        } else {
+          if (typeof onDone === 'function') onDone();
+        }
+      }
+      let timer = setTimeout(step, TYPE_SPEED);
+      return () => clearTimeout(timer);
     }
 
-    document.addEventListener('DOMContentLoaded', initSingleMarquee);
+    // Observe added bot messages
+    const observer = new MutationObserver((mutations) => {
+      for (const mut of mutations) {
+        for (const node of mut.addedNodes) {
+          if (!(node instanceof HTMLElement)) continue;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.read-more').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const target = document.getElementById(btn.dataset.target);
-          const icon = btn.querySelector('i');
-          const label = btn.querySelector('span');
+          // ignore typing-indicator nodes
+          if (node.classList.contains('typing-animation')) continue;
 
-          if (target.classList.toggle('hidden')) {
-            label.textContent = 'Read More';
-            icon.style.transform = 'rotate(0deg)';
-          } else {
-            label.textContent = 'Read Less';
-            icon.style.transform = 'rotate(180deg)';
+          // only act on bot messages (class includes 'bot')
+          if (node.classList.contains('bot') && !node.dataset.typed) {
+            // mark to avoid double-processing
+            node.dataset.typed = 'processing';
+
+            // capture original HTML and plain text
+            const originalHTML = node.innerHTML || '';
+            const plainText = node.textContent ? node.textContent.trim() : '';
+
+            // Clear possible typing indicator(s) so we show our typed text cleanly
+            // (we don't remove them earlier to avoid interfering with original flow)
+            clearTypingIndicators();
+
+            // Prepare typed container
+            node.innerHTML = ''; // remove content
+            node.classList.add('bot-typing');
+
+            // create a span to receive typed characters
+            const span = document.createElement('span');
+            span.className = 'bot-typing-text';
+            node.appendChild(span);
+            scrollToBottom();
+
+            // If the original content contains HTML tags, we will type its plain-text first,
+            // then replace with originalHTML at the end (so lists and markup render properly).
+            // If original was plain text, we type it fully and leave as-is.
+            const textToType = plainText.length ? plainText : originalHTML.replace(/<[^>]*>/g, '');
+
+            typeText(span, textToType, () => {
+              // done typing: if originalHTML had markup, set it now (so lists render)
+              if (/<[a-z][\s\S]*>/i.test(originalHTML)) {
+                node.innerHTML = originalHTML;
+              } else {
+                // ensure final text exactly matches original (in case of trimming)
+                span.textContent = plainText || originalHTML;
+              }
+              node.classList.remove('bot-typing');
+              node.dataset.typed = 'true';
+              scrollToBottom();
+            });
           }
-        });
+        }
+      }
+    });
+
+    observer.observe(chatBody, { childList: true, subtree: false });
+
+    // Also make existing bot messages (already present on load) appear typed
+    // by triggering a small re-process for any untyped bot nodes
+    window.addEventListener('load', () => {
+      const existing = Array.from(chatBody.querySelectorAll('.bot')).filter(n => !n.dataset.typed);
+      existing.forEach(n => {
+        // trigger MutationObserver by re-appending node (no visual move)
+        // create a shallow clone then replace to fire the observer logic
+        const clone = n.cloneNode(true);
+        n.replaceWith(clone);
       });
     });
 
-    document.querySelectorAll('.read-more-btn').forEach(btn => {
+    // tidy: expose a function to force-enable or disable this enhancer if needed
+    window.__psypanBotTypingEnhancer = {
+      disconnect: () => observer.disconnect(),
+      reconnect: () => observer.observe(chatBody, { childList: true, subtree: false })
+    };
+  })();
+
+
+
+  (function () {
+    const modal = document.getElementById('moreTrainingsSection');
+    const closeBtn = document.getElementById('moreTrainingsClose');
+    const backTop = document.getElementById('mt-scroll-top');
+
+    // Focus-trap helpers
+    function getFocusable(el) {
+      if (!el) return [];
+      return Array.from(el.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'))
+        .filter(node => node.offsetParent !== null);
+    }
+
+    let lastActiveElement = null;
+
+    function openModal() {
+      if (!modal) return;
+      lastActiveElement = document.activeElement;
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+
+      // move focus to close button
+      setTimeout(() => {
+        const focusable = getFocusable(modal);
+        if (focusable.length) focusable[0].focus();
+      }, 80);
+      // add keydown handler for focus trap
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyDown);
+      if (lastActiveElement && typeof lastActiveElement.focus === 'function') lastActiveElement.focus();
+    }
+
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusable = getFocusable(modal);
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    // Find the Explore Now button or feature-card (robust)
+    function findExploreTrigger() {
+      const candidate = Array.from(document.querySelectorAll('.feature-card button, .feature-card a'))
+        .find(el => /explore\s*now/i.test(el.textContent || ''));
+      if (candidate) return candidate;
+      const fallback = Array.from(document.querySelectorAll('.feature-card'))
+        .find(card => /and many/i.test(card.textContent || ''));
+      if (fallback) return fallback.querySelector('button, a') || fallback;
+      return null;
+    }
+
+    const trigger = findExploreTrigger();
+    if (trigger) {
+      trigger.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        openModal();
+      });
+    } else {
+      // don't throw — expose function for manual triggering
+      console.warn('Explore trigger not found. Use openModal() to open trainings panel.');
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backTop) backTop.addEventListener('click', () => {
+      // scroll to top of modal content
+      const body = modal && modal.querySelector('.mt-dialog-body');
+      if (body) body.scrollTo({ top: 0, behavior: 'smooth' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // close when clicking backdrop
+    modal.addEventListener('click', (e) => {
+      if (e.target.classList && e.target.classList.contains('mt-backdrop')) {
+        closeModal();
+      }
+    });
+
+    // expose for debugging
+    window.openMoreTrainings = openModal;
+    window.closeMoreTrainings = closeModal;
+  })();
+
+  // chatbot
+  document.addEventListener("DOMContentLoaded", function () {
+    const chatbotWindow = document.getElementById("chatbotWindow");
+    const chatbotToggle = document.getElementById("chatbotToggle");
+    const chatbotClose = document.getElementById("chatbotClose");
+
+
+    // Toggle chatbot when floating button is clicked
+    chatbotToggle.addEventListener("click", () => {
+      chatbotWindow.classList.toggle("hidden");
+    });
+
+    // Close chatbot when "×" is clicked
+    chatbotClose.addEventListener("click", () => {
+      chatbotWindow.classList.add("hidden");
+    });
+  });
+
+  window.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("chatbotInput");
+    const sendBtn = document.getElementById("chatbotSend");
+
+    // Simulate typing effect
+    let message = "hii";
+    let i = 0;
+
+    function typeMessage() {
+      if (i < message.length) {
+        input.value += message.charAt(i);
+        i++;
+        setTimeout(typeMessage, 150); // typing speed
+      } else {
+        // Click send button after typing
+        setTimeout(() => {
+          sendBtn.click();
+        }, 500);
+      }
+    }
+
+    typeMessage();
+  });
+
+
+  /* ---------- Single-track marquee script (no double-vertical logos) ---------- */
+
+  /* Use your clients array exactly as provided */
+  const clients = [
+    // Automotive
+    { name: "Honda", image: "honda.png", category: "automotive", tagline: "The Power of Dreams" },
+    { name: "Maruti Suzuki", image: "maruti.png", category: "automotive", tagline: "Way of Life" },
+    { name: "Hero", image: "hero.png", category: "automotive", tagline: "Desh Ki Dhadkan" },
+    { name: "JCB", image: "jcb.png", category: "automotive", tagline: "Powering Progress" },
+    { name: "Yamaha", image: "BirlaYamaha.png", category: "automotive", tagline: "Revs Your Heart" },
+    { name: "Suzuki Motorcycles", image: "Suzuki-Motorcycles.png", category: "automotive" },
+    { name: "JK Tyres", image: "jktyre.png", category: "automotive" },
+    { name: "Escort", image: "Escort.png", category: "automotive" },
+    { name: "Sona Koyo", image: "Sona-Koyo.jpg", category: "automotive" },
+    { name: "Minda", image: "minda.png", category: "automotive" },
+    { name: "JBM Group", image: "jbm.png", category: "automotive" },
+
+    // Manufacturing
+    { name: "ACC", image: "acc.png", category: "manufacturing", tagline: "The Professional's Choice" },
+    { name: "Amtek", image: "Amtek.jpg", category: "manufacturing" },
+    { name: "Anchor", image: "Anchor.jpg", category: "manufacturing" },
+    { name: "Asahi Glass", image: "Asahi-Glass.png", category: "manufacturing" },
+    { name: "ATO", image: "ato.png", category: "manufacturing" },
+    { name: "BIRLA POWER", image: "birla-power.png", category: "manufacturing", tagline: "POWER... the ability to change" },
+    { name: "Bria", image: "Birla.jpg", category: "manufacturing" },
+    { name: "Chemsys", image: "Chemsys.png", category: "manufacturing" },
+    { name: "Colgate and Palmolive", image: "ColgateandPalmolive.png", category: "manufacturing" },
+    { name: "Daikin", image: "Daikin.png", category: "manufacturing" },
+    { name: "Dabur", image: "dabur.png", category: "manufacturing" },
+    { name: "Ester Industries", image: "Ester-Industries.png", category: "manufacturing" },
+    { name: "Grasim", image: "Grasim.jpg", category: "manufacturing" },
+    { name: "Hindustan Zinc", image: "Hindustan-Zinc.png", category: "manufacturing" },
+    { name: "Indian Oil", image: "indian-oil.png", category: "manufacturing" },
+    { name: "NTPC", image: "ntpc.png", category: "manufacturing" },
+    { name: "Shree Cements", image: "Shree-Cements.jpg", category: "manufacturing" },
+    { name: "SRF", image: "SRF.png", category: "manufacturing" },
+
+    // Technology
+    { name: "Bharti", image: "Bharti.png", category: "technology" },
+    { name: "HCL", image: "hcl.png", category: "technology" },
+    { name: "Hughes Software", image: "Hughes-Software.png", category: "technology" },
+    { name: "ICICI Bank", image: "icici-bank.png", category: "technology" },
+    { name: "Mizuho Bank", image: "Mizuho-Bank.png", category: "technology" },
+    { name: "RMSI", image: "RMSI.png", category: "technology" },
+    { name: "Safran", image: "Safran.png", category: "technology" },
+    { name: "SPIL", image: "SPIL.png", category: "technology" },
+    { name: "Tech Mahindra", image: "tech-mahindra.png", category: "technology" },
+    { name: "TMTL", image: "TMTL.png", category: "technology" },
+    { name: "Wabag", image: "Wabag.png", category: "technology" },
+    { name: "OMAX Technology", image: "LOGO_OMAX-technology.png", category: "technology" },
+    { name: "Nex-Gen", image: "Nex-Gen.png", category: "technology" },
+    { name: "Biotech", image: "Biotech.webp", category: "technology" },
+
+    // FMCG
+    { name: "Pepsi", image: "pepsi.png", category: "fmg" },
+    { name: "Parle-G", image: "Parle-G.jpg", category: "fmg" },
+    { name: "Dabur", image: "DABUR (1).png", category: "fmg" },
+    { name: "Colgate and Palmolive", image: "Colgate-and-Palmoliv.png", category: "fmg" },
+    { name: "Whirlpool", image: "whirl-pool.png", category: "fmg" },
+    { name: "Spencer's", image: "spencers.png", category: "fmg" },
+    { name: "Van Melle", image: "Van-Melle.png", category: "fmg" },
+    { name: "Mother Dairy", image: "Mother-Dairy.jpg", category: "fmg" },
+    { name: "Antheme", image: "AnthemLogo_White_01-Small.png", category: "fmg" },
+    { name: "BPT", image: "BPT.png", category: "fmg" },
+    { name: "EIL", image: "eil", category: "fmg" },
+    { name: "LBL", image: "lbl.png", category: "fmg" },
+    { name: "UD-Trucks", image: "UD-trucks-logo-637x426.jpg", category: "fmg" },
+    { name: "UNO MINDA", image: "UNO MINDA.png", category: "fmg" },
+    { name: "Vecv", image: "Vecv.png", category: "fmg" },
+    { name: "BSES", image: "bses.png", category: "fmg" }
+  ];
+
+  const COMMON_PATH = 'images/clients/'; // common path requested
+  const DEFAULT_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='; // tiny transparent pixel
+
+  function createItemNode(client) {
+    const item = document.createElement('div');
+    item.className = 'marquee-item';
+    const box = document.createElement('div');
+    box.className = 'logo-box';
+
+    const img = document.createElement('img');
+    img.alt = client.name || '';
+    img.src = COMMON_PATH + client.image;
+    img.onerror = function () {
+      this.onerror = null;
+      // try a safe placeholder in images/clients/ first (if you have it), else use transparent pixel
+      this.src = COMMON_PATH + 'placeholder.png';
+      // if placeholder.png doesn't exist on server, the browser will try that and hit onerror again
+      // but we already removed onerror to avoid infinite loop; in that case you will see broken image or provide placeholder.png
+    };
+
+    box.appendChild(img);
+    item.appendChild(box);
+    return item;
+  }
+
+  function populateSingleTrack() {
+    const track = document.querySelector('.marquee-track');
+    if (!track) return;
+    track.innerHTML = '';
+
+    // create fragment of original items
+    const frag = document.createDocumentFragment();
+    clients.forEach(c => frag.appendChild(createItemNode(c)));
+
+    // append original items
+    track.appendChild(frag);
+
+    // append a clone of the same items to the same track (seamless loop)
+    // we clone nodes to avoid reusing the exact same elements (keeps DOM stable)
+    const nodesToClone = Array.from(track.children).slice(0, clients.length);
+    nodesToClone.forEach(n => track.appendChild(n.cloneNode(true)));
+  }
+
+  function adjustDurationSingleTrack() {
+    const wrap = document.querySelector('.clients-marquee-wrap');
+    const track = document.querySelector('.marquee-track');
+    if (!wrap || !track) return;
+
+    // One set width is half the scrollWidth because we duplicated content inside same track
+    const total = track.scrollWidth;
+    const oneSetWidth = total / 2 || track.getBoundingClientRect().width / 2;
+
+    const style = getComputedStyle(wrap);
+    const pxPerSecond = Math.max(40, parseFloat(style.getPropertyValue('--px-per-second')) || 120);
+
+    // duration so that oneSetWidth travels at pxPerSecond speed (seconds)
+    const duration = Math.max(6, (oneSetWidth / pxPerSecond));
+    track.style.animationDuration = duration + 's';
+  }
+
+  // init
+  function initSingleMarquee() {
+    populateSingleTrack();
+
+    // wait a bit for images to load and layout to settle before measuring
+    setTimeout(() => {
+      adjustDurationSingleTrack();
+    }, 80);
+
+    // recalc on resize (debounced)
+    let t;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(adjustDurationSingleTrack, 150);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initSingleMarquee);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.read-more').forEach(btn => {
       btn.addEventListener('click', () => {
         const target = document.getElementById(btn.dataset.target);
         const icon = btn.querySelector('i');
+        const label = btn.querySelector('span');
+
         if (target.classList.toggle('hidden')) {
-          btn.querySelector('span').textContent = 'Read More';
+          label.textContent = 'Read More';
           icon.style.transform = 'rotate(0deg)';
         } else {
-          btn.querySelector('span').textContent = 'Read Less';
+          label.textContent = 'Read Less';
           icon.style.transform = 'rotate(180deg)';
         }
       });
     });
+  });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.read-more-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const targetEl = document.getElementById(btn.dataset.target);
-          const icon = btn.querySelector('i');
-          const label = btn.firstChild; // the text node
+  document.querySelectorAll('.read-more-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      const icon = btn.querySelector('i');
+      if (target.classList.toggle('hidden')) {
+        btn.querySelector('span').textContent = 'Read More';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        btn.querySelector('span').textContent = 'Read Less';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
 
-          // Toggle visibility
-          const isHidden = targetEl.classList.toggle('hidden');
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetEl = document.getElementById(btn.dataset.target);
+        const icon = btn.querySelector('i');
+        const label = btn.firstChild; // the text node
 
-          // Update button text and icon rotation
-          if (isHidden) {
-            label.textContent = 'Read More ';
-            icon.style.transform = 'rotate(0deg)';
-          } else {
-            label.textContent = 'Read Less ';
-            icon.style.transform = 'rotate(180deg)';
+        // Toggle visibility
+        const isHidden = targetEl.classList.toggle('hidden');
+
+        // Update button text and icon rotation
+        if (isHidden) {
+          label.textContent = 'Read More ';
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          label.textContent = 'Read Less ';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  });
+
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+
+    (function () {
+      const wrapper = document.querySelector('.program-tabs-wrapper');
+      const tabContainer = document.getElementById('tabContainer');
+      const tabButtons = Array.from(document.querySelectorAll('.tab-button'));
+      const tabContents = Array.from(document.querySelectorAll('.tab-content'));
+      const toggleBtn = document.getElementById('programTabToggle');
+      const programTabs = document.getElementById('programTabs');
+
+      // Activate a tab button and its content
+      function activateTab(btn) {
+        tabButtons.forEach(b => {
+          const isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        const targetId = btn.dataset.tab;
+        tabContents.forEach(tc => tc.classList.toggle('active', tc.id === targetId));
+
+        // Close mobile dropdown after selection (if open)
+        if (wrapper.classList.contains('mobile-open')) {
+          wrapper.classList.remove('mobile-open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      }
+
+      // Attach click handlers for tab buttons
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => activateTab(btn));
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activateTab(btn);
           }
         });
+      });
+
+      // Mobile toggle open/close
+      toggleBtn.addEventListener('click', () => {
+        const open = wrapper.classList.toggle('mobile-open');
+        toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+        if (open) {
+          // Ensure the sticky wrapper is visible (avoid overlay issues)
+          wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      // Click outside to close mobile dropdown
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 640) {
+          if (!wrapper.contains(e.target)) {
+            if (wrapper.classList.contains('mobile-open')) {
+              wrapper.classList.remove('mobile-open');
+              toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+          }
+        }
+      });
+
+      // On resize: remove mobile-open when switching to larger screens
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 640 && wrapper.classList.contains('mobile-open')) {
+          wrapper.classList.remove('mobile-open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // init: make sure there's one active tab
+      (function init() {
+        const initial = tabButtons.find(b => b.classList.contains('active')) || tabButtons[0];
+        if (initial) activateTab(initial);
+      })();
+
+    })();
+
+    // Read more functionality
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+    readMoreButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+
+        // Toggle content visibility
+        content.classList.toggle('show');
+
+        // Toggle button icon
+        button.classList.toggle('active');
+
+        // Change button text
+        if (content.classList.contains('show')) {
+          button.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+        } else {
+          button.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+        }
       });
     });
 
+    (function () {
+      // --- configuration / content (edit as needed) ---
+      const contactInfo = {
+        address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
+        phones: ['+91 9810319292', '+91 9810323292'],
+        email: 'hr@psypanconsulting.com',
+      };
 
-    // Initialize when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
+      // PAGE URL map
+      const pageUrlMap = {
+        'Services': 'services.html',
+        'Contact': 'contact.html',
+        'Gallery': 'gallery.html',
+        'Global Programs': 'https://psychepan-mba.netlify.app'
+      };
 
-      (function () {
-        const wrapper = document.querySelector('.program-tabs-wrapper');
-        const tabContainer = document.getElementById('tabContainer');
-        const tabButtons = Array.from(document.querySelectorAll('.tab-button'));
-        const tabContents = Array.from(document.querySelectorAll('.tab-content'));
-        const toggleBtn = document.getElementById('programTabToggle');
-        const programTabs = document.getElementById('programTabs');
+      // Main menu options
+      const mainOptions = [
+        { id: 1, label: 'Services Offered', icon: '🌐' },
+        { id: 2, label: 'Management Trainings', icon: '📊' },
+        { id: 3, label: 'Global Executive Devp Programs', icon: '🌍' },
+        { id: 4, label: 'Emp Engagement', icon: '👥' },
+        { id: 5, label: 'Emp Assistance', icon: '🤝' },
+        { id: 6, label: 'OBT Training', icon: '🏕️' },
+        { id: 7, label: 'Offsites', icon: '🏞️' },
+        { id: 8, label: 'Contact Us', icon: '📞' }
+      ];
 
-        // Activate a tab button and its content
-        function activateTab(btn) {
-          tabButtons.forEach(b => {
-            const isActive = b === btn;
-            b.classList.toggle('active', isActive);
-            b.setAttribute('aria-selected', isActive ? 'true' : 'false');
-          });
+      // Sub-options for each main option
+      const subOptions = {
+        1: [
+          { label: 'Management Trainings', action: 'redirect', target: 'Services' },
+          { label: 'Employee Engagement', action: 'redirect', target: 'Services' },
+          { label: 'Global Executive Development', action: 'menu', target: 3 },
+          { label: 'Outbound Training', action: 'redirect', target: 'Services' },
+          { label: 'Offsites', action: 'redirect', target: 'Services' },
+          { label: 'Employee Assistance', action: 'redirect', target: 'Services' }
+        ],
+        2: [
+          { label: '📘 Featured Trainings', action: 'Trainings' },
+          { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
+        ],
+        3: [
+          { label: '🌍 Global MBA', action: 'redirect', target: 'Global Programs' },
+          { label: '✅ Eligibility', action: 'redirect', target: 'Global Programs' }
+        ],
+        4: [
+          { label: '🎯 EEP Services', action: 'EEPServices' },
+          { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
+        ],
+        5: [
+          { label: '🧩 EAP Details', action: 'EAPDetails' },
+          { label: '📞 Request Call Back', action: 'Phone' }
+        ],
+        6: [
+          { label: '🏖 Venue Options', action: 'Venues' },
+          { label: '🎯 Format Details', action: 'FormatDetails' }
+        ],
+        7: [
+          { label: '🏞 Sample Activities', action: 'SampleActivities' },
+          { label: '📸 Go to Gallery', action: 'redirect', target: 'Gallery' }
+        ],
+        8: [
+          { label: '📩 Talk to a Human', action: 'redirect', target: 'Contact' },
+          { label: '📅 Book a Consultation', action: 'Email' },
+          { label: '📞 Request a Call Back', action: 'Phone' }
+        ]
+      };
 
-          const targetId = btn.dataset.tab;
-          tabContents.forEach(tc => tc.classList.toggle('active', tc.id === targetId));
+      // Content for various options
+      const content = {
+        trainings: [
+          'Result Oriented Trainings',
+          'Impact Assessment Program',
+          'Tailormade Program',
+          'Employee Feedback Analysis',
+          'People & Team Leadership',
+          'Strategy & Operational Excellence'
+        ],
+        eepServices: [
+          'Employee Wellness Programme',
+          'Employee Development',
+          'Employee Konnect',
+          'Employee Offsite Program'
+        ],
+        eapDetails: [
+          'Workplace / Mental Health Counselling',
+          'Wellness Assessment',
+          'Wellness Survey',
+          'Wellness Report'
+        ],
+        venues: [
+          'Panchgani', 'Chandipur', 'Bubhneshwar', 'Lonavala', 'Khandala',
+          'Jim Corbett', 'Nanital', 'Ranikhet', 'Kausani', 'Kausali',
+          'Chail', 'Dhanulti', 'Mussorie', 'Solan', 'Shoghi',
+          'Nalagarh', 'Garh Mukteshwar'
+        ],
+        formatDetails: [
+          'Result Oriented OBTs',
+          'Strategic OBTs',
+          'Immersive Experience',
+          'Experiential Strategic & Challenging Group activities'
+        ],
+        sampleActivities: [
+          'Big Picture',
+          'Street Jam',
+          'Pixel Challenge',
+          'Drone Making',
+          'Olympic Challenge',
+          'Treasure Hunt',
+          'Pyramid Challenge',
+          'Drop the ball',
+          'Ripple Effect',
+          'Gladiator'
+        ]
+      };
 
-          // Close mobile dropdown after selection (if open)
-          if (wrapper.classList.contains('mobile-open')) {
-            wrapper.classList.remove('mobile-open');
-            toggleBtn.setAttribute('aria-expanded', 'false');
+
+      // Bot responses for main options
+      const botResponses = {
+        1: "We offer a portfolio of services to support organizations and individuals with growth, learning, and transformation. Would you like to explore specific services such as Management Trainings, Employee Engagement, or Outbound Programs?",
+        2: "Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness. They can be customized for different levels of management. Would you like to see available training modules or connect with our team for details?",
+        3: "We bring world-class executive development programs through our global collaborations with leading universities and experts. These programs focus on leadership, innovation, and future-ready skills. Would you like an overview or check eligibility to join?",
+        4: "We design employee engagement initiatives to boost motivation, collaboration, and workplace satisfaction. Programs include workshops, cultural initiatives, and interactive experiences. Would you like examples of engagement activities?",
+        5: "Our Employee Assistance Programs (EAPs) provide confidential support to employees for work-life balance, stress management, and well-being. Would you like to know more about our EAP offerings?",
+        6: "Our outbound training programs combine learning with adventure, designed to build teamwork, leadership, and resilience. Would you like to see sample activities or discuss a custom OBT for your team?",
+        7: "We organize corporate offsites to strengthen bonding, align strategy, and recharge teams in engaging environments. Would you like options for venues and formats?",
+        8: "Would you like to connect with our team directly?"
+      };
+
+      // Fallback response
+      const fallbackResponse = "❓ I may not know that yet…➡️ Explore services👨‍💼 Talk to a consultant";
+
+      // Track the last question asked by the bot
+      let lastQuestionContext = null;
+
+      // Keyword responses (typed input fallback)
+      function getBotResponse(message) {
+        const lower = message.toLowerCase();
+
+        // Handle yes/no responses to bot questions
+        if (lastQuestionContext) {
+          if (lower === 'yes' || lower === 'y' || lower === 'yeah' || lower === 'yep') {
+            // Handle the "yes" response based on the last question context
+            handleActionSelect(lastQuestionContext.action, lastQuestionContext.target);
+            lastQuestionContext = null;
+            return "";
+          } else if (lower === 'no' || lower === 'n' || lower === 'nope') {
+            // Clear chat and show main options for "no" response
+            bodyEl.innerHTML = '';
+            initChatbot();
+            lastQuestionContext = null;
+            return "";
           }
         }
 
-        // Attach click handlers for tab buttons
-        tabButtons.forEach(btn => {
-          btn.addEventListener('click', () => activateTab(btn));
-          btn.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              activateTab(btn);
-            }
-          });
+        // Common words mapping
+        if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+          return "Hello! How can I help you today?";
+        }
+        if (lower.includes('thank')) {
+          return "You're welcome! Is there anything else I can help you with?";
+        }
+        if (lower.includes('bye') || lower.includes('goodbye')) {
+          return "Thank you for chatting with me. Have a great day!";
+        }
+        if (lower.includes('contact') || lower.includes('address')) {
+          return `Our office is located at ${contactInfo.address}`;
+        }
+        if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number') || lower.includes('number')) {
+          return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
+        }
+        if (lower.includes('email') || lower.includes('mail')) {
+          return `For inquiries, please email us at ${contactInfo.email}`;
+        }
+        if (lower.includes('training') || lower.includes('program') || lower.includes('course')) {
+          return 'We offer various training programs including Management Training, Employee Engagement, and Outbound Training.';
+        }
+        if (lower.includes('service') || lower.includes('offer') || lower.includes('provide')) {
+          return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
+        }
+        if (lower.includes('management') || lower.includes('leadership')) {
+          return 'Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness.';
+        }
+        if (lower.includes('employee') || lower.includes('staff')) {
+          return 'We offer Employee Engagement and Employee Assistance programs to support your workforce.';
+        }
+        if (lower.includes('global') || lower.includes('executive') || lower.includes('mba')) {
+          return 'We bring world-class executive development programs through our global collaborations with leading universities.';
+        }
+        if (lower.includes('outbound') || lower.includes('obt') || lower.includes('team building')) {
+          return 'Our outbound training programs combine learning with adventure, designed to build teamwork and leadership.';
+        }
+        if (lower.includes('offsites') || lower.includes('offsite')) {
+          return 'We organize corporate offsites to strengthen bonding and align strategy in engaging environments.';
+        }
+        if (lower.includes('help') || lower.includes('support')) {
+          return "I'm here to help! You can ask me about our services, training programs, or how to contact us.";
+        }
+
+        // fallback
+        return fallbackResponse;
+      }
+
+      // --- DOM references ---
+      const sendBtn = document.getElementById('chatbotSend');
+      const inputEl = document.getElementById('chatbotInput');
+      const bodyEl = document.getElementById('chatbotBody');
+      const optionsContainer = document.getElementById('chatOptions');
+
+      // Track current menu state
+      let currentMenu = null;
+
+      // --- helpers ---
+      function scrollChatToBottom() {
+        bodyEl.scrollTop = bodyEl.scrollHeight;
+      }
+
+      function createMessage({ text, who = 'bot', html = false, typing = false }) {
+        const wrapper = document.createElement('div');
+        wrapper.className =
+          'chatbot-message ' +
+          (who === 'user'
+            ? 'user bg-blue-500 text-white rounded-lg p-3 mb-3 max-w-[80%] ml-auto clear-both text-sm'
+            : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] clear-both text-sm');
+
+        if (typing) {
+          wrapper.classList.add('typing-animation');
+          wrapper.style.width = 'fit-content';
+        }
+
+        if (html) wrapper.innerHTML = text;
+        else wrapper.textContent = text;
+
+        bodyEl.appendChild(wrapper);
+        scrollChatToBottom();
+        return wrapper;
+      }
+
+      function createTypingIndicator() {
+        return createMessage({ text: 'PsypanChatbot is typing...', who: 'bot', typing: true });
+      }
+
+      function removeTypingIndicator(indicator) {
+        if (indicator && indicator.parentNode) {
+          indicator.classList.remove('typing-animation');
+          indicator.style.borderRight = 'none';
+        }
+      }
+
+      // Show main options
+      function showMainOptions() {
+        optionsContainer.innerHTML = '';
+
+        mainOptions.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
+          btn.innerHTML = `${opt.icon} ${opt.label}`;
+          btn.dataset.option = opt.id;
+          optionsContainer.appendChild(btn);
         });
 
-        // Mobile toggle open/close
-        toggleBtn.addEventListener('click', () => {
-          const open = wrapper.classList.toggle('mobile-open');
-          toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        currentMenu = null;
+        scrollChatToBottom();
+      }
 
-          if (open) {
-            // Ensure the sticky wrapper is visible (avoid overlay issues)
-            wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
+      // Show sub options
+      function showSubOptions(optionId) {
+        optionsContainer.innerHTML = '';
 
-        // Click outside to close mobile dropdown
-        document.addEventListener('click', (e) => {
-          if (window.innerWidth <= 640) {
-            if (!wrapper.contains(e.target)) {
-              if (wrapper.classList.contains('mobile-open')) {
-                wrapper.classList.remove('mobile-open');
-                toggleBtn.setAttribute('aria-expanded', 'false');
-              }
-            }
-          }
-        });
-
-        // On resize: remove mobile-open when switching to larger screens
-        window.addEventListener('resize', () => {
-          if (window.innerWidth > 640 && wrapper.classList.contains('mobile-open')) {
-            wrapper.classList.remove('mobile-open');
-            toggleBtn.setAttribute('aria-expanded', 'false');
-          }
-        });
-
-        // init: make sure there's one active tab
-        (function init() {
-          const initial = tabButtons.find(b => b.classList.contains('active')) || tabButtons[0];
-          if (initial) activateTab(initial);
-        })();
-
-      })();
-
-      // Read more functionality
-      const readMoreButtons = document.querySelectorAll('.read-more-btn');
-      readMoreButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const targetId = button.getAttribute('data-target');
-          const content = document.getElementById(targetId);
-
-          // Toggle content visibility
-          content.classList.toggle('show');
-
-          // Toggle button icon
-          button.classList.toggle('active');
-
-          // Change button text
-          if (content.classList.contains('show')) {
-            button.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
-          } else {
-            button.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
-          }
-        });
-      });
-
-      (function () {
-        // --- configuration / content (edit as needed) ---
-        const contactInfo = {
-          address: '08/2, Old Delhi Rd, adjacent Country In, Sector 12 A, Anamika Enclave,Sector 14, Gurugram, Haryana 122001',
-          phones: ['+91 9810319292', '+91 9810323292'],
-          email: 'hr@psypanconsulting.com',
-        };
-
-        // PAGE URL map
-        const pageUrlMap = {
-          'Services': 'services.html',
-          'Contact': 'contact.html',
-          'Gallery': 'gallery.html',
-          'Global Programs': 'https://psychepan-mba.netlify.app'
-        };
-
-        // Main menu options
-        const mainOptions = [
-          { id: 1, label: 'Services Offered', icon: '🌐' },
-          { id: 2, label: 'Management Trainings', icon: '📊' },
-          { id: 3, label: 'Global Executive Devp Programs', icon: '🌍' },
-          { id: 4, label: 'Emp Engagement', icon: '👥' },
-          { id: 5, label: 'Emp Assistance', icon: '🤝' },
-          { id: 6, label: 'OBT Training', icon: '🏕️' },
-          { id: 7, label: 'Offsites', icon: '🏞️' },
-          { id: 8, label: 'Contact Us', icon: '📞' }
-        ];
-
-        // Sub-options for each main option
-        const subOptions = {
-          1: [
-            { label: 'Management Trainings', action: 'redirect', target: 'Services' },
-            { label: 'Employee Engagement', action: 'redirect', target: 'Services' },
-            { label: 'Global Executive Development', action: 'menu', target: 3 },
-            { label: 'Outbound Training', action: 'redirect', target: 'Services' },
-            { label: 'Offsites', action: 'redirect', target: 'Services' },
-            { label: 'Employee Assistance', action: 'redirect', target: 'Services' }
-          ],
-          2: [
-            { label: '📘 Featured Trainings', action: 'Trainings' },
-            { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
-          ],
-          3: [
-            { label: '🌍 Global MBA', action: 'redirect', target: 'Global Programs' },
-            { label: '✅ Eligibility', action: 'redirect', target: 'Global Programs' }
-          ],
-          4: [
-            { label: '🎯 EEP Services', action: 'EEPServices' },
-            { label: '📩 Contact Our Team', action: 'redirect', target: 'Contact' }
-          ],
-          5: [
-            { label: '🧩 EAP Details', action: 'EAPDetails' },
-            { label: '📞 Request Call Back', action: 'Phone' }
-          ],
-          6: [
-            { label: '🏖 Venue Options', action: 'Venues' },
-            { label: '🎯 Format Details', action: 'FormatDetails' }
-          ],
-          7: [
-            { label: '🏞 Sample Activities', action: 'SampleActivities' },
-            { label: '📸 Go to Gallery', action: 'redirect', target: 'Gallery' }
-          ],
-          8: [
-            { label: '📩 Talk to a Human', action: 'redirect', target: 'Contact' },
-            { label: '📅 Book a Consultation', action: 'Email' },
-            { label: '📞 Request a Call Back', action: 'Phone' }
-          ]
-        };
-
-        // Content for various options
-        const content = {
-          trainings: [
-            'Result Oriented Trainings',
-            'Impact Assessment Program',
-            'Tailormade Program',
-            'Employee Feedback Analysis',
-            'People & Team Leadership',
-            'Strategy & Operational Excellence'
-          ],
-          eepServices: [
-            'Employee Wellness Programme',
-            'Employee Development',
-            'Employee Konnect',
-            'Employee Offsite Program'
-          ],
-          eapDetails: [
-            'Workplace / Mental Health Counselling',
-            'Wellness Assessment',
-            'Wellness Survey',
-            'Wellness Report'
-          ],
-          venues: [
-            'Panchgani', 'Chandipur', 'Bubhneshwar', 'Lonavala', 'Khandala',
-            'Jim Corbett', 'Nanital', 'Ranikhet', 'Kausani', 'Kausali',
-            'Chail', 'Dhanulti', 'Mussorie', 'Solan', 'Shoghi',
-            'Nalagarh', 'Garh Mukteshwar'
-          ],
-          formatDetails: [
-            'Result Oriented OBTs',
-            'Strategic OBTs',
-            'Immersive Experience',
-            'Experiential Strategic & Challenging Group activities'
-          ],
-          sampleActivities: [
-            'Big Picture',
-            'Street Jam',
-            'Pixel Challenge',
-            'Drone Making',
-            'Olympic Challenge',
-            'Treasure Hunt',
-            'Pyramid Challenge',
-            'Drop the ball',
-            'Ripple Effect',
-            'Gladiator'
-          ]
-        };
-
-
-        // Bot responses for main options
-        const botResponses = {
-          1: "We offer a portfolio of services to support organizations and individuals with growth, learning, and transformation. Would you like to explore specific services such as Management Trainings, Employee Engagement, or Outbound Programs?",
-          2: "Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness. They can be customized for different levels of management. Would you like to see available training modules or connect with our team for details?",
-          3: "We bring world-class executive development programs through our global collaborations with leading universities and experts. These programs focus on leadership, innovation, and future-ready skills. Would you like an overview or check eligibility to join?",
-          4: "We design employee engagement initiatives to boost motivation, collaboration, and workplace satisfaction. Programs include workshops, cultural initiatives, and interactive experiences. Would you like examples of engagement activities?",
-          5: "Our Employee Assistance Programs (EAPs) provide confidential support to employees for work-life balance, stress management, and well-being. Would you like to know more about our EAP offerings?",
-          6: "Our outbound training programs combine learning with adventure, designed to build teamwork, leadership, and resilience. Would you like to see sample activities or discuss a custom OBT for your team?",
-          7: "We organize corporate offsites to strengthen bonding, align strategy, and recharge teams in engaging environments. Would you like options for venues and formats?",
-          8: "Would you like to connect with our team directly?"
-        };
-
-        // Fallback response
-        const fallbackResponse = "❓ I may not know that yet…➡️ Explore services👨‍💼 Talk to a consultant";
-
-        // Track the last question asked by the bot
-        let lastQuestionContext = null;
-
-        // Keyword responses (typed input fallback)
-        function getBotResponse(message) {
-          const lower = message.toLowerCase();
-
-          // Handle yes/no responses to bot questions
-          if (lastQuestionContext) {
-            if (lower === 'yes' || lower === 'y' || lower === 'yeah' || lower === 'yep') {
-              // Handle the "yes" response based on the last question context
-              handleActionSelect(lastQuestionContext.action, lastQuestionContext.target);
-              lastQuestionContext = null;
-              return "";
-            } else if (lower === 'no' || lower === 'n' || lower === 'nope') {
-              // Clear chat and show main options for "no" response
-              bodyEl.innerHTML = '';
-              initChatbot();
-              lastQuestionContext = null;
-              return "";
-            }
-          }
-
-          // Common words mapping
-          if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
-            return "Hello! How can I help you today?";
-          }
-          if (lower.includes('thank')) {
-            return "You're welcome! Is there anything else I can help you with?";
-          }
-          if (lower.includes('bye') || lower.includes('goodbye')) {
-            return "Thank you for chatting with me. Have a great day!";
-          }
-          if (lower.includes('contact') || lower.includes('address')) {
-            return `Our office is located at ${contactInfo.address}`;
-          }
-          if (lower.includes('phone') || lower.includes('call') || lower.includes('contact number') || lower.includes('number')) {
-            return `You can reach us at ${contactInfo.phones.join(' or ')}.`;
-          }
-          if (lower.includes('email') || lower.includes('mail')) {
-            return `For inquiries, please email us at ${contactInfo.email}`;
-          }
-          if (lower.includes('training') || lower.includes('program') || lower.includes('course')) {
-            return 'We offer various training programs including Management Training, Employee Engagement, and Outbound Training.';
-          }
-          if (lower.includes('service') || lower.includes('offer') || lower.includes('provide')) {
-            return 'We provide corporate training solutions in leadership development, team building, and mental wellness programs.';
-          }
-          if (lower.includes('management') || lower.includes('leadership')) {
-            return 'Our management training programs are designed to build leadership skills, strategic thinking, and team effectiveness.';
-          }
-          if (lower.includes('employee') || lower.includes('staff')) {
-            return 'We offer Employee Engagement and Employee Assistance programs to support your workforce.';
-          }
-          if (lower.includes('global') || lower.includes('executive') || lower.includes('mba')) {
-            return 'We bring world-class executive development programs through our global collaborations with leading universities.';
-          }
-          if (lower.includes('outbound') || lower.includes('obt') || lower.includes('team building')) {
-            return 'Our outbound training programs combine learning with adventure, designed to build teamwork and leadership.';
-          }
-          if (lower.includes('offsites') || lower.includes('offsite')) {
-            return 'We organize corporate offsites to strengthen bonding and align strategy in engaging environments.';
-          }
-          if (lower.includes('help') || lower.includes('support')) {
-            return "I'm here to help! You can ask me about our services, training programs, or how to contact us.";
-          }
-
-          // fallback
-          return fallbackResponse;
-        }
-
-        // --- DOM references ---
-        const sendBtn = document.getElementById('chatbotSend');
-        const inputEl = document.getElementById('chatbotInput');
-        const bodyEl = document.getElementById('chatbotBody');
-        const optionsContainer = document.getElementById('chatOptions');
-
-        // Track current menu state
-        let currentMenu = null;
-
-        // --- helpers ---
-        function scrollChatToBottom() {
-          bodyEl.scrollTop = bodyEl.scrollHeight;
-        }
-
-        function createMessage({ text, who = 'bot', html = false, typing = false }) {
-          const wrapper = document.createElement('div');
-          wrapper.className =
-            'chatbot-message ' +
-            (who === 'user'
-              ? 'user bg-blue-500 text-white rounded-lg p-3 mb-3 max-w-[80%] ml-auto clear-both text-sm'
-              : 'bot bg-blue-50 text-gray-800 rounded-lg p-3 mb-3 max-w-[80%] clear-both text-sm');
-
-          if (typing) {
-            wrapper.classList.add('typing-animation');
-            wrapper.style.width = 'fit-content';
-          }
-
-          if (html) wrapper.innerHTML = text;
-          else wrapper.textContent = text;
-
-          bodyEl.appendChild(wrapper);
-          scrollChatToBottom();
-          return wrapper;
-        }
-
-        function createTypingIndicator() {
-          return createMessage({ text: 'PsypanChatbot is typing...', who: 'bot', typing: true });
-        }
-
-        function removeTypingIndicator(indicator) {
-          if (indicator && indicator.parentNode) {
-            indicator.classList.remove('typing-animation');
-            indicator.style.borderRight = 'none';
-          }
-        }
-
-        // Show main options
-        function showMainOptions() {
-          optionsContainer.innerHTML = '';
-
-          mainOptions.forEach(opt => {
+        if (subOptions[optionId]) {
+          subOptions[optionId].forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
-            btn.innerHTML = `${opt.icon} ${opt.label}`;
-            btn.dataset.option = opt.id;
+            btn.className = 'option-btn px-3 py-2 mb-2 mr-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
+            btn.textContent = opt.label;
+            btn.dataset.action = opt.action;
+            if (opt.target) btn.dataset.target = opt.target;
             optionsContainer.appendChild(btn);
           });
-
-          currentMenu = null;
-          scrollChatToBottom();
         }
 
-        // Show sub options
-        function showSubOptions(optionId) {
-          optionsContainer.innerHTML = '';
+        // Add back button
+        const backBtn = document.createElement('button');
+        backBtn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition';
+        backBtn.textContent = '⬅ Back to Main Menu';
+        backBtn.addEventListener('click', () => {
+          createMessage({ text: 'What would you like to know about?', who: 'bot' });
+          showMainOptions();
+        });
+        optionsContainer.appendChild(backBtn);
 
-          if (subOptions[optionId]) {
-            subOptions[optionId].forEach(opt => {
-              const btn = document.createElement('button');
-              btn.className = 'option-btn px-3 py-2 mb-2 mr-2 text-sm rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition';
-              btn.textContent = opt.label;
-              btn.dataset.action = opt.action;
-              if (opt.target) btn.dataset.target = opt.target;
-              optionsContainer.appendChild(btn);
-            });
-          }
+        currentMenu = optionId;
+        scrollChatToBottom();
+      }
 
-          // Add back button
-          const backBtn = document.createElement('button');
-          backBtn.className = 'option-btn px-3 py-2 mb-2 text-sm rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition';
-          backBtn.textContent = '⬅ Back to Main Menu';
-          backBtn.addEventListener('click', () => {
-            createMessage({ text: 'What would you like to know about?', who: 'bot' });
-            showMainOptions();
-          });
-          optionsContainer.appendChild(backBtn);
-
-          currentMenu = optionId;
-          scrollChatToBottom();
-        }
-
-        // Show list of items
-        function showList(items, redirectUrl = null) {
-          let listHtml = '';
-          if (redirectUrl) {
-            listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
+      // Show list of items
+      function showList(items, redirectUrl = null) {
+        let listHtml = '';
+        if (redirectUrl) {
+          listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
                         <ul class="list-disc list-inside text-sm">${items.map(item => `<li class="cursor-pointer hover:underline" onclick="window.location.href='${redirectUrl}'">${item}</li>`).join('')}</ul>
                     </div>`;
-          } else {
-            listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
+        } else {
+          listHtml = `<div class="bg-white p-3 rounded-lg border border-blue-100">
                         <ul class="list-disc list-inside text-sm">${items.map(item => `<li>${item}</li>`).join('')}</ul>
                     </div>`;
+        }
+        createMessage({ text: listHtml, who: 'bot', html: true });
+      }
+
+      // Redirect to page
+      function redirectToPage(page) {
+        if (pageUrlMap[page]) {
+          createMessage({ text: `Redirecting you to ${page}...`, who: 'bot' });
+          setTimeout(() => {
+            if (pageUrlMap[page].startsWith('http')) {
+              window.open(pageUrlMap[page], '_blank');
+            } else {
+              window.location.href = pageUrlMap[page];
+            }
+          }, 1000);
+        } else {
+          createMessage({ text: `The ${page} page is not available at the moment.`, who: 'bot' });
+        }
+      }
+
+      // Show phone number
+      function showPhone() {
+        createMessage({ text: `You can call us at: ${contactInfo.phones[1]}`, who: 'bot' });
+      }
+
+      // Show email
+      function showEmail() {
+        createMessage({ text: `Please email us at: ${contactInfo.email}`, who: 'bot' });
+      }
+
+      // Handle option selection
+      function handleOptionSelect(optionId) {
+        // Create user message
+        const optionText = mainOptions.find(opt => opt.id == optionId).label;
+        createMessage({ text: optionText, who: 'user' });
+
+        // Show typing indicator
+        const typingIndicator = createTypingIndicator();
+
+        // After delay, show bot response and options
+        setTimeout(() => {
+          removeTypingIndicator(typingIndicator);
+          createMessage({ text: botResponses[optionId], who: 'bot' });
+
+          // Set last question context if the response ends with a question mark
+          if (botResponses[optionId].endsWith('?')) {
+            const firstSubOption = subOptions[optionId] && subOptions[optionId][0];
+            if (firstSubOption) {
+              lastQuestionContext = {
+                action: firstSubOption.action,
+                target: firstSubOption.target
+              };
+            }
           }
-          createMessage({ text: listHtml, who: 'bot', html: true });
-        }
 
-        // Redirect to page
-        function redirectToPage(page) {
-          if (pageUrlMap[page]) {
-            createMessage({ text: `Redirecting you to ${page}...`, who: 'bot' });
-            setTimeout(() => {
-              if (pageUrlMap[page].startsWith('http')) {
-                window.open(pageUrlMap[page], '_blank');
-              } else {
-                window.location.href = pageUrlMap[page];
-              }
-            }, 1000);
-          } else {
-            createMessage({ text: `The ${page} page is not available at the moment.`, who: 'bot' });
+          showSubOptions(optionId);
+        }, 1500);
+      }
+
+      // Handle action selection
+      function handleActionSelect(action, target) {
+        // Create user message
+        const actionText = event ? event.target.textContent : "Yes";
+        createMessage({ text: actionText, who: 'user' });
+
+        // Show typing indicator
+        const typingIndicator = createTypingIndicator();
+
+        // After delay, handle the action
+        setTimeout(() => {
+          removeTypingIndicator(typingIndicator);
+
+          switch (action) {
+            case 'menu':
+              handleOptionSelect(target);
+              break;
+            case 'Trainings':
+              showList(content.trainings, pageUrlMap['Services']);
+              showSubOptions(currentMenu);
+              break;
+            case 'EEPServices':
+              showList(content.eepServices, pageUrlMap['Services']);
+              showSubOptions(currentMenu);
+              break;
+            case 'EAPDetails':
+              showList(content.eapDetails, pageUrlMap['Services']);
+              showSubOptions(currentMenu);
+              break;
+            case 'Venues':
+              showList(content.venues, pageUrlMap['Services']);
+              showSubOptions(currentMenu);
+              break;
+            case 'FormatDetails':
+              showList(content.formatDetails, pageUrlMap['Services']);
+              showSubOptions(currentMenu);
+              break;
+            case 'SampleActivities':
+              showList(content.sampleActivities);
+              showSubOptions(currentMenu);
+              break;
+            case 'Phone':
+              showPhone();
+              showSubOptions(currentMenu);
+              break;
+            case 'Email':
+              showEmail();
+              showSubOptions(currentMenu);
+              break;
+            case 'redirect':
+              redirectToPage(target);
+              break;
+            default:
+              createMessage({ text: "I'm not sure how to help with that.", who: 'bot' });
+              showMainOptions();
           }
-        }
 
-        // Show phone number
-        function showPhone() {
-          createMessage({ text: `You can call us at: ${contactInfo.phones[1]}`, who: 'bot' });
-        }
+          // Clear the last question context after handling the action
+          lastQuestionContext = null;
+        }, 1500);
+      }
 
-        // Show email
-        function showEmail() {
-          createMessage({ text: `Please email us at: ${contactInfo.email}`, who: 'bot' });
-        }
+      // Initialize chatbot
+      function initChatbot() {
+        createMessage({ text: "Hello! PsypanChatbot here 👋 Ready to explore our Website?", who: 'bot' });
+        showMainOptions();
+      }
 
-        // Handle option selection
-        function handleOptionSelect(optionId) {
-          // Create user message
-          const optionText = mainOptions.find(opt => opt.id == optionId).label;
-          createMessage({ text: optionText, who: 'user' });
+      // --- event handlers ---
+      sendBtn.addEventListener('click', () => {
+        const message = inputEl.value.trim();
+        if (message) {
+          createMessage({ text: message, who: 'user' });
+          inputEl.value = '';
 
-          // Show typing indicator
           const typingIndicator = createTypingIndicator();
 
-          // After delay, show bot response and options
           setTimeout(() => {
             removeTypingIndicator(typingIndicator);
-            createMessage({ text: botResponses[optionId], who: 'bot' });
+            const response = getBotResponse(message);
 
-            // Set last question context if the response ends with a question mark
-            if (botResponses[optionId].endsWith('?')) {
-              const firstSubOption = subOptions[optionId] && subOptions[optionId][0];
-              if (firstSubOption) {
-                lastQuestionContext = {
-                  action: firstSubOption.action,
-                  target: firstSubOption.target
-                };
-              }
-            }
+            if (response) {
+              createMessage({ text: response, who: 'bot' });
 
-            showSubOptions(optionId);
-          }, 1500);
-        }
-
-        // Handle action selection
-        function handleActionSelect(action, target) {
-          // Create user message
-          const actionText = event ? event.target.textContent : "Yes";
-          createMessage({ text: actionText, who: 'user' });
-
-          // Show typing indicator
-          const typingIndicator = createTypingIndicator();
-
-          // After delay, handle the action
-          setTimeout(() => {
-            removeTypingIndicator(typingIndicator);
-
-            switch (action) {
-              case 'menu':
-                handleOptionSelect(target);
-                break;
-              case 'Trainings':
-                showList(content.trainings, pageUrlMap['Services']);
-                showSubOptions(currentMenu);
-                break;
-              case 'EEPServices':
-                showList(content.eepServices, pageUrlMap['Services']);
-                showSubOptions(currentMenu);
-                break;
-              case 'EAPDetails':
-                showList(content.eapDetails, pageUrlMap['Services']);
-                showSubOptions(currentMenu);
-                break;
-              case 'Venues':
-                showList(content.venues, pageUrlMap['Services']);
-                showSubOptions(currentMenu);
-                break;
-              case 'FormatDetails':
-                showList(content.formatDetails, pageUrlMap['Services']);
-                showSubOptions(currentMenu);
-                break;
-              case 'SampleActivities':
-                showList(content.sampleActivities);
-                showSubOptions(currentMenu);
-                break;
-              case 'Phone':
-                showPhone();
-                showSubOptions(currentMenu);
-                break;
-              case 'Email':
-                showEmail();
-                showSubOptions(currentMenu);
-                break;
-              case 'redirect':
-                redirectToPage(target);
-                break;
-              default:
-                createMessage({ text: "I'm not sure how to help with that.", who: 'bot' });
-                showMainOptions();
-            }
-
-            // Clear the last question context after handling the action
-            lastQuestionContext = null;
-          }, 1500);
-        }
-
-        // Initialize chatbot
-        function initChatbot() {
-          createMessage({ text: "Hello! PsypanChatbot here 👋 Ready to explore our Website?", who: 'bot' });
-          showMainOptions();
-        }
-
-        // --- event handlers ---
-        sendBtn.addEventListener('click', () => {
-          const message = inputEl.value.trim();
-          if (message) {
-            createMessage({ text: message, who: 'user' });
-            inputEl.value = '';
-
-            const typingIndicator = createTypingIndicator();
-
-            setTimeout(() => {
-              removeTypingIndicator(typingIndicator);
-              const response = getBotResponse(message);
-
-              if (response) {
-                createMessage({ text: response, who: 'bot' });
-
-                if (response === fallbackResponse) {
-                  const html = `<div class="flex gap-2 mt-2">
+              if (response === fallbackResponse) {
+                const html = `<div class="flex gap-2 mt-2">
                                     <button data-action="redirect" data-target="Services" class="px-3 py-1 rounded-md bg-blue-500 text-white text-xs">🌐 Explore Services</button>
                                     <button data-action="redirect" data-target="Contact" class="px-3 py-1 rounded-md bg-blue-500 text-white text-xs">🤝 Talk to Consultant</button>
                                 </div>`;
-                  createMessage({ text: html, who: 'bot', html: true });
-                } else {
-                  showMainOptions();
-                }
+                createMessage({ text: html, who: 'bot', html: true });
+              } else {
+                showMainOptions();
               }
-            }, 1000);
-          }
-        });
+            }
+          }, 1000);
+        }
+      });
 
-        inputEl.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            sendBtn.click();
-          }
-        });
+      inputEl.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendBtn.click();
+        }
+      });
 
-        // Delegate option clicks
-        optionsContainer.addEventListener('click', (e) => {
-          if (e.target.dataset.option) {
-            handleOptionSelect(e.target.dataset.option);
-          } else if (e.target.dataset.action) {
-            handleActionSelect(e.target.dataset.action, e.target.dataset.target);
-          }
-        });
+      // Delegate option clicks
+      optionsContainer.addEventListener('click', (e) => {
+        if (e.target.dataset.option) {
+          handleOptionSelect(e.target.dataset.option);
+        } else if (e.target.dataset.action) {
+          handleActionSelect(e.target.dataset.action, e.target.dataset.target);
+        }
+      });
 
-        // Initialize the chatbot when the page loads
-        document.addEventListener('DOMContentLoaded', function () {
-          initChatbot();
-        });
-      })();
-    });
-  </script>
+      // Initialize the chatbot when the page loads
+      document.addEventListener('DOMContentLoaded', function () {
+        initChatbot();
+      });
+    })();
+  });
+</script>
 </body>
 
 </html>

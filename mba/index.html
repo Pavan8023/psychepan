@@ -1764,87 +1764,6 @@
             }
         }
 
-        /* Gallery section */
-        .gallery-section .gallery-title {
-            font-size: 2rem;
-            margin-bottom: 14px;
-            color: #0f172a;
-            text-align: center;
-        }
-
-        /* Grid: default 3 columns */
-        .trust-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            align-items: stretch;
-        }
-
-        /* Each item wrapper — clickable */
-        .trust-logo {
-            display: block;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            background: #ffffff;
-            box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
-            transition: transform .18s ease, box-shadow .18s ease;
-            outline: none;
-        }
-
-        /* Hover / focus */
-        .trust-logo:hover,
-        .trust-logo:focus {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
-        }
-
-        /* Image styling */
-        .trust-logo img {
-            width: 100%;
-            height: 180px;
-            /* fixed visual height; adjust as needed */
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Small caption (optional, visually hidden but available to modal via data-title) */
-        .trust-logo .thumb-caption {
-            display: none;
-        }
-
-        /* Responsive: 2 columns on medium, 1 column on small */
-        @media (max-width: 900px) {
-            .trust-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .trust-logo img {
-                height: 160px;
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .trust-grid {
-                grid-template-columns: 1fr;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .trust-logo img {
-                height: 44vh;
-            }
-
-            /* taller on small screens */
-        }
-
-        /* Accessibility: visible focus ring when keyboard focusing */
-        .trust-logo:focus {
-            box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.14), 0 12px 30px rgba(2, 6, 23, 0.12);
-        }
-
         /* Professor card styles (small & responsive) */
         .prof-card {
             display: flex;
@@ -1933,6 +1852,199 @@
                 width: 100%;
                 height: 160px;
                 border-radius: 8px;
+            }
+        }
+
+        /* ====== Hero + Banners Section ====== */
+        /* Section fills width */
+        .hero-banner-section {
+            width: 100%;
+            background: rgba(250, 250, 252, 1);
+            padding: 36px 12px;
+            box-sizing: border-box;
+        }
+
+        /* Inner keeps content centered and constrained */
+        .hb-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Title */
+        .hb-title {
+            margin: 0 0 18px;
+            text-align: center;
+            font-size: 1.9rem;
+            line-height: 1.1;
+            color: rgba(10, 34, 51, 0.96);
+            font-weight: 800;
+            letter-spacing: -0.2px;
+        }
+
+        /* Hero image wrapper */
+        .hb-hero {
+            position: relative;
+            width: 100%;
+            height: clamp(200px, 26vw, 380px);
+            /* responsive height */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(6, 10, 20, 0.08);
+            background: rgba(240, 246, 250, 1);
+        }
+
+        /* The image itself fits and is centered */
+        .hb-hero-img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            /* fill the area while preserving aspect ratio */
+            object-position: center;
+            /* keep center focused */
+            transform-origin: center;
+            transition: transform 0.6s ease;
+        }
+
+        /* optional subtle zoom on hover for non-touch devices */
+        @media (hover: hover) {
+            .hb-hero:hover .hb-hero-img {
+                transform: scale(1.04);
+            }
+        }
+
+        /* Gradient overlay at the bottom (black fade) */
+        .hb-hero-gradient {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 34%;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.55) 85%);
+        }
+
+        /* caption over hero (placed above gradient) */
+        .hb-hero-caption {
+            position: absolute;
+            left: 20px;
+            bottom: 18px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.02rem;
+            text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+            z-index: 3;
+        }
+
+        /* Small spacer between hero and banners */
+        .hb-gap {
+            height: 18px;
+        }
+
+        /* Banners grid (two square items) */
+        .hb-banners {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            justify-items: center;
+            align-items: start;
+            margin-top: 6px;
+        }
+
+        /* each banner item */
+        .hb-banner-item {
+            width: 100%;
+            max-width: 540px;
+            object-fit: contain;
+            /* restrict how wide a banner can grow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+            text-align: center;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        /* the square image area */
+        .hb-banner-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            /* ensure square shape */
+            max-height: 380px;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 10px;
+            box-shadow: 0 12px 30px rgba(6, 10, 20, 0.06);
+            transition: transform 0.4s ease, box-shadow 0.25s ease;
+        }
+
+        /* banner hover lift */
+        @media (hover: hover) {
+            .hb-banner-item:hover img {
+                transform: translateY(-6px) scale(1.02);
+                box-shadow: 0 20px 50px rgba(6, 10, 20, 0.1);
+            }
+        }
+
+        /* banner caption */
+        .hb-banner-item figcaption {
+            margin: 0;
+            font-weight: 700;
+            color: rgba(10, 34, 51, 0.95);
+            font-size: 1rem;
+        }
+
+        /* Make banners more compact on narrow screens */
+        @media (max-width: 880px) {
+            .hb-banners {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .hb-inner {
+                padding: 0 10px;
+            }
+
+            .hb-title {
+                font-size: 1.6rem;
+            }
+
+            .hb-hero-caption {
+                left: 14px;
+                bottom: 14px;
+                font-size: 0.98rem;
+            }
+        }
+
+        /* Stack banners on mobile */
+        @media (max-width: 520px) {
+            .hb-banners {
+                grid-template-columns: 1fr;
+            }
+
+            .hb-banner-item {
+                max-width: 640px;
+            }
+
+            .hb-hero {
+                height: clamp(180px, 36vw, 260px);
+            }
+
+            .hb-title {
+                font-size: 1.35rem;
+            }
+        }
+
+        /* print-friendly: remove shadows and gradients */
+        @media print {
+
+            .hb-hero-gradient,
+            .hb-hero-caption,
+            .hb-hero {
+                box-shadow: none;
             }
         }
     </style>
@@ -2027,31 +2139,33 @@
         </div>
     </section>
 
-    <section class="gallery-section" aria-labelledby="galleryTitle">
-        <div class="container">
-            <h2 id="galleryTitle" class="gallery-title">Universities</h2>
+    <!-- Full-width hero + banners section -->
+    <section class="hero-banner-section" aria-labelledby="heroBannerTitle">
+        <div class="hb-inner">
+            <h2 id="heroBannerTitle" class="hb-title">Partner UK Universities </h2>
 
-            <div class="trust-grid" role="list">
-                <!-- trust-logo wrappers must match the selector used by your modal JS -->
-                <div class="trust-logo" role="button" tabindex="0" data-title="Anglia Ruskin University">
-                    <img src="/img/univercities/IMG-20250925-WA0008.jpg"
-                        data-full="/img/univercities/IMG-20250925-WA0008.jpg" alt="Anglia Ruskin University">
-                </div>
+            <!-- Horizontal hero image (full-width visual inside the section) -->
+            <div class="hb-hero">
+                <img src="/img/univercities/WhatsApp Image 2025-09-26 at 13,36,58_b52d06ac-Picsart-AiImageEnhancer.jpg"
+                    alt="Executive leadership workshop" class="hb-hero-img" loading="lazy" />
+            </div>
 
-                <div class="trust-logo" role="button" tabindex="0" data-title=" North Wales Management School">
-                    <img src="/img/univercities/emblem.webp" data-full="/img/univercities/emblem.webp"
-                        alt="North Wales Management School image">
-                </div>
+            <!-- small gap -->
+            <div class="hb-gap" aria-hidden="true"></div>
 
-                <div class="trust-logo" role="button" tabindex="0" data-title="Universityb of Central Lancashire">
-                    <img src="/img/univercities/IMG-20250925-WA0011.jpg"
-                        data-full="/img/univercities/IMG-20250925-WA0011.jpg" alt="University of Central Lancashire">
-                </div>
+            <!-- Two square banners -->
+            <div class="hb-banners">
+                <figure class="hb-banner-item">
+                    <img src="/img/univercities/WhatsApp Image 2025-09-26 at 13.44.15_c5e5c7e5.jpg"
+                        alt="Program Banner" loading="lazy" />
+                    <figcaption>Program Banner</figcaption>
+                </figure>
 
-                <div class="trust-logo" role="button" tabindex="0" data-title="University of Wolverhampton">
-                    <img src="/img/univercities/IMG-20250925-WA0012.jpg"
-                        data-full="/img/univercities/IMG-20250925-WA0012.jpg" alt="University of Wolverhampton">
-                </div>
+                <figure class="hb-banner-item">
+                    <img src="/img/univercities/WhatsApp Image 2025-09-21 at 14.36.19_ede65c5c.jpg"
+                        alt="Program Details" loading="lazy" />
+                    <figcaption>Program Broucher</figcaption>
+                </figure>
             </div>
         </div>
     </section>
@@ -3047,7 +3161,7 @@
     <script>
 
         /* Replace this path with your actual professor PDF path (relative or absolute) */
-        const PDF_URL = '/mba/pdf/CV_Abstract_Opresnik_EN-Final-2025 .pdf';
+        const PDF_URL = '/pdf/CV_Abstract_Opresnik_EN-Final-2025 .pdf';
 
         document.getElementById('knowBtn').addEventListener('click', (e) => {
             // open the PDF in a new tab for viewing
@@ -3070,18 +3184,6 @@
                 console.warn('Download attempt failed, opened PDF in new tab instead.', err);
             }
         });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.trust-logo[role="button"]').forEach(el => {
-                el.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        el.click(); // triggers your existing modal click handler
-                    }
-                });
-            });
-        });
-
 
         document.addEventListener('DOMContentLoaded', () => {
             let active = null;
