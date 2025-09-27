@@ -1474,8 +1474,14 @@
               <option value="Corporate Trainer">Corporate Trainer</option>
               <option value="Program Manager">Program Manager</option>
               <option value="Event Coordinator">Event Coordinator</option>
+              <option value="Other">Other</option>
             </select>
+
+            <!-- Hidden text field for "Other" -->
+            <input type="text" id="otherJob" placeholder="Please specify"
+              class="w-full p-3 border border-gray-300 rounded-lg mt-2 hidden focus:outline-none focus:ring-2 focus:ring-primary" />
           </div>
+
 
           <!-- File Upload Section (compact & styled) -->
           <div>
@@ -1735,92 +1741,115 @@
       </button>
     </div>
   </div>
-  <!-- Put this JS before </body> -->
+
+
   <script>
-      (function () {
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
 
-        if (!btn || !menu) return;
+    const jobSelect = document.getElementById("job");
+    const otherInput = document.getElementById("otherJob");
 
-        // initialize aria states
-        btn.setAttribute('aria-expanded', 'false');
+    jobSelect.addEventListener("change", function () {
+      if (this.value === "Other") {
+        otherInput.classList.remove("hidden");
+        otherInput.required = true;
+      } else {
+        otherInput.classList.add("hidden");
+        otherInput.required = false;
+        otherInput.value = "";
+      }
+    });
+
+    // Update the select value with the custom text
+    otherInput.addEventListener("input", function () {
+      jobSelect.options[jobSelect.selectedIndex].value = this.value;
+      jobSelect.options[jobSelect.selectedIndex].text = this.value;
+    });
+
+
+    (function () {
+      const btn = document.getElementById('mobile-menu-button');
+      const menu = document.getElementById('mobile-menu');
+
+      if (!btn || !menu) return;
+
+      // initialize aria states
+      btn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+
+      // helper to open/close
+      function openMenu() {
+        menu.classList.remove('hidden');
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        menu.setAttribute('aria-hidden', 'false');
+        document.documentElement.classList.add('body-no-scroll');
+
+        // focus first link for keyboard users
+        const firstLink = menu.querySelector('a, button');
+        if (firstLink) firstLink.focus({ preventScroll: true });
+      }
+
+      function closeMenu() {
+        menu.classList.remove('open');
+        // keep hidden attribute until transition finishes for smoothness
         menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        document.documentElement.classList.remove('body-no-scroll');
 
-        // helper to open/close
-        function openMenu() {
-          menu.classList.remove('hidden');
-          menu.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
-          menu.setAttribute('aria-hidden', 'false');
-          document.documentElement.classList.add('body-no-scroll');
-
-          // focus first link for keyboard users
-          const firstLink = menu.querySelector('a, button');
-          if (firstLink) firstLink.focus({ preventScroll: true });
-        }
-
-        function closeMenu() {
-          menu.classList.remove('open');
-          // keep hidden attribute until transition finishes for smoothness
-          menu.setAttribute('aria-hidden', 'true');
-          btn.setAttribute('aria-expanded', 'false');
-          document.documentElement.classList.remove('body-no-scroll');
-
-          // after transition end hide completely to remove pointer-events if .hidden used elsewhere
-          const onTransEnd = () => {
-            menu.classList.add('hidden');
-            menu.removeEventListener('transitionend', onTransEnd);
-          };
-          // if no transition fire immediately
-          const computed = getComputedStyle(menu);
-          const dur = parseFloat(computed.transitionDuration) || 0;
-          if (dur > 0) {
-            menu.addEventListener('transitionend', onTransEnd);
-          } else {
-            onTransEnd();
-          }
-
-          // return focus to button
-          btn.focus({ preventScroll: true });
-        }
-
-        // toggle handler
-        btn.addEventListener('click', (e) => {
-          const isOpen = menu.classList.contains('open');
-          if (isOpen) closeMenu();
-          else openMenu();
-        });
-
-        // close when a menu link is clicked
-        menu.addEventListener('click', (e) => {
-          const target = e.target.closest('a, button');
-          if (!target) return;
-          // small delay so native navigation begins without abrupt UI change
-          setTimeout(closeMenu, 60);
-        });
-
-        // close on Escape
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && menu.classList.contains('open')) {
-            closeMenu();
-          }
-        });
-
-        // close on outside click (outside menu and outside button)
-        document.addEventListener('click', (e) => {
-          if (!menu.classList.contains('open')) return;
-          const isInsideMenu = !!e.target.closest('#mobile-menu');
-          const isOnButton = !!e.target.closest('#mobile-menu-button');
-          if (!isInsideMenu && !isOnButton) closeMenu();
-        });
-
-        // ensure correct initial state if menu had no "hidden" class in markup
-        if (!menu.classList.contains('hidden') && !menu.classList.contains('open')) {
+        // after transition end hide completely to remove pointer-events if .hidden used elsewhere
+        const onTransEnd = () => {
           menu.classList.add('hidden');
-          menu.setAttribute('aria-hidden', 'true');
+          menu.removeEventListener('transitionend', onTransEnd);
+        };
+        // if no transition fire immediately
+        const computed = getComputedStyle(menu);
+        const dur = parseFloat(computed.transitionDuration) || 0;
+        if (dur > 0) {
+          menu.addEventListener('transitionend', onTransEnd);
+        } else {
+          onTransEnd();
         }
-      })();
+
+        // return focus to button
+        btn.focus({ preventScroll: true });
+      }
+
+      // toggle handler
+      btn.addEventListener('click', (e) => {
+        const isOpen = menu.classList.contains('open');
+        if (isOpen) closeMenu();
+        else openMenu();
+      });
+
+      // close when a menu link is clicked
+      menu.addEventListener('click', (e) => {
+        const target = e.target.closest('a, button');
+        if (!target) return;
+        // small delay so native navigation begins without abrupt UI change
+        setTimeout(closeMenu, 60);
+      });
+
+      // close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menu.classList.contains('open')) {
+          closeMenu();
+        }
+      });
+
+      // close on outside click (outside menu and outside button)
+      document.addEventListener('click', (e) => {
+        if (!menu.classList.contains('open')) return;
+        const isInsideMenu = !!e.target.closest('#mobile-menu');
+        const isOnButton = !!e.target.closest('#mobile-menu-button');
+        if (!isInsideMenu && !isOnButton) closeMenu();
+      });
+
+      // ensure correct initial state if menu had no "hidden" class in markup
+      if (!menu.classList.contains('hidden') && !menu.classList.contains('open')) {
+        menu.classList.add('hidden');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    })();
   </script>
 
   <script>

@@ -282,7 +282,7 @@
         }
 
         /* Sticky wrapper similar to your tabs wrapper */
-        
+
         .folder-wrapper {
             position: sticky;
             top: 0;
@@ -573,8 +573,7 @@
             </button>
 
             <!-- Folder Navigation (keep inner markup exactly as you provided) -->
-            <div id="folderNav" class="gap-3 mb-10 overflow-x-auto py-2 folder-nav"
-                role="tablist">
+            <div id="folderNav" class="gap-3 mb-10 overflow-x-auto py-2 folder-nav" role="tablist">
                 <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
                     data-folder="recent">
                     <i class="fas fa-folder-open folder-icon text-xl mr-3 text-yellow-500"></i>
@@ -632,8 +631,9 @@
 
 
         <!-- Image Modal -->
-        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
-            <div class="relative max-w-5xl w-full" style="height: 400px; width: 600px;">
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4"
+            style="z-index: 10000;">
+            <div class="relative max-w-5xl w-full" style="height: 500px; width: 600px; margin-bottom: 80px;">
                 <button id="closeModal"
                     class="mt-16 absolute -top-12 right-0 text-red-600 text-3xl hover:text-gray-300 transition-colors">
                     <i class="fas fa-times"></i>
@@ -1477,7 +1477,7 @@
                 }
 
                 itemDiv.innerHTML = `
-            <div class="relative">
+            <div class="relative z-50 mt-8">
                 <img src="${imageUrl}" alt="${item.title}" 
                     class="w-full h-72 object-contain bg-gray-100 rounded-lg shadow-md">
                 <div
