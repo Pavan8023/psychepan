@@ -282,14 +282,15 @@
         }
 
         /* Sticky wrapper similar to your tabs wrapper */
+        
         .folder-wrapper {
             position: sticky;
             top: 0;
+            height: auto;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(4px);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            padding: 0.5rem 0.75rem;
             /* small padding for wrapper */
         }
 
@@ -354,7 +355,7 @@
 
             .folder-tab {
                 padding: 0.4rem 0.5rem !important;
-                font-size: 0.75rem !important;
+                font-size: 0.70rem !important;
                 margin: 0;
                 border-radius: 6px;
                 text-align: center;
@@ -572,7 +573,7 @@
             </button>
 
             <!-- Folder Navigation (keep inner markup exactly as you provided) -->
-            <div id="folderNav" class="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto py-2 folder-nav"
+            <div id="folderNav" class="gap-3 mb-10 overflow-x-auto py-2 folder-nav"
                 role="tablist">
                 <div class="folder-tab active flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
                     data-folder="recent">
@@ -602,12 +603,12 @@
                 <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
                     data-folder="eep">
                     <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
-                    <span>EEP Program</span>
+                    <span>Employee Engagement Program</span>
                 </div>
                 <div class="folder-tab flex items-center px-5 py-3 rounded-lg bg-white shadow cursor-pointer"
                     data-folder="outbound">
                     <i class="fas fa-folder folder-icon text-xl mr-3 text-yellow-500"></i>
-                    <span>Outbound Activities</span>
+                    <span>Outbound Trainings</span>
                 </div>
             </div>
         </div>
@@ -1353,6 +1354,18 @@
                     { title: "Diversity Workshop", image: "Diversity-and-inclusion-4.png" },
                     { title: "Inclusion Session", image: "WOMEN-PROGRAMMES-1.jpg" },
                     { title: "Team Diversity", image: "Diversity-and-inclusion-2.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0002.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0003.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0004.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0005.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0006.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0007.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0008.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0009.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0010.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0011.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0012.jpg" },
+                    { title: "Diversity Workshop", image: "IMG-20250927-WA0013.jpg" },
                 ],
                 eep: [
                     { title: "EEP Training", image: "EEP-PICTURES-1.jpg" },
