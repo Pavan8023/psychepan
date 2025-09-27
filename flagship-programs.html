@@ -2711,20 +2711,27 @@
         }
 
         /* ---------- Read More ---------- */
-        function initReadMore() {
-            document.querySelectorAll('.read-more').forEach(button => {
-                button.addEventListener('click', function () {
-                    const card = this.closest('.program-card');
-                    if (!card) return;
-                    const description = card.querySelector('.program-description');
-                    if (!description) return;
+function initReadMore() {
+  document.querySelectorAll('.read-more').forEach(button => {
+    button.addEventListener('click', function () {
+      const card = this.closest('.program-card');
+      if (!card) return;
 
-                    description.classList.toggle('expanded');
+      const description = card.querySelector('.program-description');
+      if (!description) return;
 
-                    this.textContent = description.classList.contains('expanded') ? 'Read less' : 'Read more';
-                });
-            });
-        }
+      description.classList.toggle('expanded');
+
+      this.textContent = description.classList.contains('expanded')
+        ? 'Read less'
+        : 'Read more';
+    });
+  });
+}
+
+/* Call after DOM load */
+document.addEventListener("DOMContentLoaded", initReadMore);
+
 
         (function () {
             // --- configuration / content (edit as needed) ---
