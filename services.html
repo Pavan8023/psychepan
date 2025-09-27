@@ -2746,9 +2746,9 @@
         const experienceStat = document.getElementById('experience-stat');
         const associatesStat = document.getElementById('associates-stat');
 
-        if (companiesStat) companiesStat.textContent = data.companies + '+';
-        if (experienceStat) experienceStat.textContent = data.experience + '+';
-        if (associatesStat) associatesStat.textContent = data.associates + '+';
+        if (companiesStat) companiesStat.textContent = data.companies + '';
+        if (experienceStat) experienceStat.textContent = data.experience + '';
+        if (associatesStat) associatesStat.textContent = data.associates + '';
       } else {
         console.log('No such document!');
       }
