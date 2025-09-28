@@ -3458,11 +3458,18 @@
         <script>
 
             (function () {
-                const STORAGE_KEY = 'ppc_accept_v1'; // bump the key when policy changes
+                // use sessionStorage so acceptance persists across reloads in the same tab,
+                // but not across new windows/tabs.
+                const STORAGE_KEY = 'ppc_accept_session_v1';
                 const modal = document.getElementById('consentModal');
                 const checkbox = document.getElementById('consentCheck');
                 const acceptBtn = document.getElementById('consentAccept');
                 const links = Array.from(document.querySelectorAll('.consent-link'));
+
+                if (!modal || !checkbox || !acceptBtn) {
+                    console.warn('Consent modal elements not found - script aborted.');
+                    return;
+                }
 
                 // helper to open other in-page modals (if they exist)
                 function openExistingModal(id) {
@@ -3470,10 +3477,8 @@
                         const target = document.getElementById(id);
                         if (!target) return false;
                         target.setAttribute('aria-hidden', 'false');
-                        // focus the content area if available
                         const body = target.querySelector('.policy-body, .mt-dialog-body') || target.querySelector('.policy-panel') || target;
                         if (body && typeof body.focus === 'function') body.focus();
-                        // prevent background scroll while their modal is open
                         document.documentElement.classList.add('consent-no-scroll');
                         return true;
                     } catch (e) {
@@ -3481,11 +3486,9 @@
                     }
                 }
 
-                // show modal if not accepted
                 function showModal() {
                     modal.setAttribute('aria-hidden', 'false');
                     document.documentElement.classList.add('consent-no-scroll');
-                    // focus on checkbox for accessibility
                     setTimeout(() => checkbox.focus(), 60);
                 }
 
@@ -3494,27 +3497,29 @@
                     document.documentElement.classList.remove('consent-no-scroll');
                 }
 
-                // init
-                if (localStorage.getItem(STORAGE_KEY) === 'true') {
-                    // user already accepted
+                // Init: check sessionStorage (per-tab)
+                if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
                     modal.setAttribute('aria-hidden', 'true');
                 } else {
-                    // show it after small delay so page renders
+                    // show after small delay for UX
                     setTimeout(showModal, 180);
                 }
 
                 // checkbox toggles accept button enabled state
                 checkbox.addEventListener('change', function () {
                     acceptBtn.disabled = !this.checked;
-                    // If checked, focus accept button
                     if (this.checked) acceptBtn.focus();
                 });
 
-                // Accept action: store and hide
+                // Accept action: store in sessionStorage and hide
                 acceptBtn.addEventListener('click', function () {
                     if (this.disabled) return;
-                    // persist acceptance (you can add timestamp if needed)
-                    localStorage.setItem(STORAGE_KEY, 'true');
+                    try {
+                        sessionStorage.setItem(STORAGE_KEY, 'true');
+                    } catch (e) {
+                        // if sessionStorage blocked, fallback to keeping hidden for this page view
+                        console.warn('sessionStorage unavailable; consent will not persist beyond this page view.', e);
+                    }
                     hideModal();
                 });
 
@@ -3523,27 +3528,18 @@
                     a.addEventListener('click', function (e) {
                         e.preventDefault();
                         const targetId = this.dataset.open;
-                        if (targetId && openExistingModal(targetId)) {
-                            // keep consent modal visible under the policy modal; user can read policy and then return
-                            return;
-                        }
-                        // fallback: open a new tab to a conventional path (privacy, terms, imprint) or href if provided
+                        if (targetId && openExistingModal(targetId)) return;
                         const fallbackMap = {
-                            'privacyModal': '#privacyModal',
-                            'termsModal': '#termsModal',
-                            'imprintModal': '#imprintModal'
+                            'privacyModal': '/privacy.html',
+                            'termsModal': '/terms.html',
+                            'imprintModal': '/imprint.html'
                         };
                         const url = fallbackMap[targetId] || this.getAttribute('href') || '/';
                         window.open(url, '_blank', 'noopener');
                     });
                 });
 
-                // prevent closing by Escape / backdrop — user must accept (no decline) as requested.
-                // But allow tab navigation; trap could be added if desired.
-
-                // Accessibility: make sure tabbing stays useful
-                // close any opened policy modal will remove no-scroll elsewhere (not handled here)
-
+                // don't allow Escape/backdrop to close — user must accept (per earlier behavior)
             })();
 
             (function () {
