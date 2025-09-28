@@ -1764,6 +1764,175 @@
             }
         }
 
+        /* Consent popup (professional & responsive) */
+        .consent-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2200;
+            display: none;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        /* show when visible */
+        .consent-modal[aria-hidden="false"] {
+            display: block;
+        }
+
+        /* backdrop */
+        .consent-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(6, 11, 26, 0.62);
+            backdrop-filter: blur(4px) saturate(1.02);
+        }
+
+        /* panel */
+        .consent-panel {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 92%;
+            max-width: 760px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(6, 10, 20, 0.35);
+            overflow: hidden;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        /* header */
+        .consent-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 250, 252, 1));
+        }
+
+        .consent-header h2 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: rgba(12, 34, 51, 0.98);
+        }
+
+        /* close (disabled visually) */
+        .consent-close {
+            background: transparent;
+            border: none;
+            color: rgba(51, 65, 85, 0.9);
+            font-size: 20px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            cursor: not-allowed;
+            opacity: 0.45;
+        }
+
+        /* body */
+        .consent-body {
+            padding: 18px 20px 22px;
+            color: rgba(45, 55, 72, 0.95);
+            line-height: 1.5;
+        }
+
+        /* main text */
+        .consent-text {
+            margin: 0 0 14px;
+            color: rgba(55, 65, 81, 0.95);
+            font-size: 0.98rem;
+        }
+
+        /* links */
+        .consent-link {
+            color: rgba(14, 165, 164, 0.95);
+            text-decoration: underline;
+            font-weight: 700;
+        }
+
+        .consent-link:hover {
+            text-decoration: none;
+        }
+
+        /* checkbox row */
+        .consent-checkbox {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(245, 247, 250, 0.9);
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            margin-bottom: 16px;
+        }
+
+        .consent-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: rgba(14, 165, 164, 1);
+            flex: 0 0 auto;
+        }
+
+        .consent-checkbox-label {
+            font-weight: 600;
+            color: rgba(30, 41, 59, 0.95);
+            font-size: 0.98rem;
+        }
+
+        /* actions */
+        .consent-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .consent-accept {
+            background: rgba(14, 165, 164, 0.98);
+            color: rgba(255, 255, 255, 1);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 28px rgba(14, 165, 164, 0.12);
+            transition: transform 140ms ease, box-shadow 140ms ease, opacity 120ms ease;
+        }
+
+        .consent-accept[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .consent-accept:not([disabled]):hover {
+            transform: translateY(-3px);
+        }
+
+        /* responsive */
+        @media (max-width: 520px) {
+            .consent-panel {
+                width: 96%;
+                padding: 0;
+            }
+
+            .consent-body {
+                padding: 14px;
+            }
+
+            .consent-header {
+                padding: 14px;
+            }
+
+            .consent-accept {
+                width: 100%;
+            }
+
+            .consent-actions {
+                justify-content: center;
+            }
+        }
+
         /* Section wrapper - full width */
         .prof-section {
             width: 100%;
@@ -1910,7 +2079,7 @@
             }
         }
 
-        /* ====== Hero + Banners Section ====== */
+        /* ====== Hero + Logos + Banners Section (combined) ====== */
         /* Section fills width */
         .hero-banner-section {
             width: 100%;
@@ -1937,67 +2106,53 @@
             letter-spacing: -0.2px;
         }
 
-        /* Hero image wrapper */
-        .hb-hero {
-            position: relative;
-            width: 100%;
-            height: clamp(200px, 26vw, 380px);
-            /* responsive height */
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 18px 40px rgba(6, 10, 20, 0.08);
-            background: rgba(240, 246, 250, 1);
+        /* ---------- NEW: Logos grid (replaces hero image) ---------- */
+        .hb-logos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 columns on desktop */
+            gap: 14px;
+            align-items: center;
+            justify-items: center;
         }
 
-        /* The image itself fits and is centered */
-        .hb-hero-img {
+        /* each logo box */
+        .hb-logo-item {
+            width: 100%;
+            max-width: 240px;
+            height: 120px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            box-sizing: border-box;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            box-shadow: 0 8px 20px rgba(6, 10, 20, 0.04);
+            /* no animation / no hover transform as requested */
+        }
+
+        /* Logo image: fully visible and centered on all screen sizes */
+        .hb-logo-item img {
             width: 100%;
             height: 100%;
-            display: block;
-            object-fit: cover;
-            /* fill the area while preserving aspect ratio */
+            object-fit: contain;
+            /* ensures entire logo is visible without cropping */
             object-position: center;
-            /* keep center focused */
-            transform-origin: center;
-            transition: transform 0.6s ease;
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
-        /* optional subtle zoom on hover for non-touch devices */
-        @media (hover: hover) {
-            .hb-hero:hover .hb-hero-img {
-                transform: scale(1.04);
-            }
-        }
-
-        /* Gradient overlay at the bottom (black fade) */
-        .hb-hero-gradient {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 34%;
-            pointer-events: none;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.55) 85%);
-        }
-
-        /* caption over hero (placed above gradient) */
-        .hb-hero-caption {
-            position: absolute;
-            left: 20px;
-            bottom: 18px;
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.02rem;
-            text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-            z-index: 3;
-        }
-
-        /* Small spacer between hero and banners */
+        /* Small spacer between logos and banners */
         .hb-gap {
             height: 18px;
         }
 
-        /* Banners grid (two square items) */
+        /* Banners grid (two square items) — unchanged behavior */
         .hb-banners {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -2011,8 +2166,6 @@
         .hb-banner-item {
             width: 100%;
             max-width: 540px;
-            object-fit: contain;
-            /* restrict how wide a banner can grow */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -2027,21 +2180,14 @@
         .hb-banner-item img {
             width: 100%;
             aspect-ratio: 1 / 1;
-            /* ensure square shape */
             max-height: 380px;
             object-fit: contain;
+            /* keep the full image visible */
             object-position: center;
             border-radius: 10px;
             box-shadow: 0 12px 30px rgba(6, 10, 20, 0.06);
-            transition: transform 0.4s ease, box-shadow 0.25s ease;
-        }
-
-        /* banner hover lift */
-        @media (hover: hover) {
-            .hb-banner-item:hover img {
-                transform: translateY(-6px) scale(1.02);
-                box-shadow: 0 20px 50px rgba(6, 10, 20, 0.1);
-            }
+            transition: none;
+            /* remove animation */
         }
 
         /* banner caption */
@@ -2052,40 +2198,45 @@
             font-size: 1rem;
         }
 
-        /* Make banners more compact on narrow screens */
-        @media (max-width: 880px) {
-            .hb-banners {
-                grid-template-columns: 1fr 1fr;
+        /* ---------- Responsive adjustments ---------- */
+
+        /* medium screens: 2 columns logos */
+        @media (max-width: 1000px) {
+            .hb-logos {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
 
+            .hb-logo-item {
+                max-width: 320px;
+                height: 110px;
+            }
+
             .hb-inner {
-                padding: 0 10px;
+                padding: 0 12px;
             }
 
             .hb-title {
-                font-size: 1.6rem;
-            }
-
-            .hb-hero-caption {
-                left: 14px;
-                bottom: 14px;
-                font-size: 0.98rem;
+                font-size: 1.7rem;
             }
         }
 
-        /* Stack banners on mobile */
+        /* small screens: stack logos vertically */
         @media (max-width: 520px) {
-            .hb-banners {
+            .hb-logos {
                 grid-template-columns: 1fr;
+                /* one per row */
+                gap: 12px;
+            }
+
+            .hb-logo-item {
+                max-width: 520px;
+                height: 100px;
+                padding: 10px;
             }
 
             .hb-banner-item {
                 max-width: 640px;
-            }
-
-            .hb-hero {
-                height: clamp(180px, 36vw, 260px);
             }
 
             .hb-title {
@@ -2096,10 +2247,10 @@
         /* print-friendly: remove shadows and gradients */
         @media print {
 
-            .hb-hero-gradient,
-            .hb-hero-caption,
-            .hb-hero {
+            .hb-logo-item,
+            .hb-banner-item img {
                 box-shadow: none;
+                border: none;
             }
         }
     </style>
@@ -2192,21 +2343,34 @@
         </div>
     </section>
 
-    <!-- Full-width hero + banners section -->
+    <!-- Partner UK Universities (updated: logos grid + banners) -->
     <section class="hero-banner-section" aria-labelledby="heroBannerTitle">
         <div class="hb-inner">
-            <h2 id="heroBannerTitle" class="hb-title">Partner UK Universities </h2>
+            <h2 id="heroBannerTitle" class="hb-title">Partner UK Universities</h2>
 
-            <!-- Horizontal hero image (full-width visual inside the section) -->
-            <div class="hb-hero">
-                <img src="/img/univercities/WhatsApp Image 2025-09-26 at 13,36,58_b52d06ac-Picsart-AiImageEnhancer.jpg"
-                    alt="Executive leadership workshop" class="hb-hero-img" loading="lazy" />
+            <!-- REPLACED: Instead of a single hero image show 4 logo boxes (no animation) -->
+            <div class="hb-logos" role="list" aria-label="Partner logos">
+                <figure class="hb-logo-item" role="listitem">
+                    <img src="/img/univercities/IMG-20250928-WA0001.jpg" alt="Partner University 1" loading="lazy" />
+                </figure>
+
+                <figure class="hb-logo-item" role="listitem">
+                    <img src="/img/univercities/IMG-20250928-WA0002.jpg" alt="Partner University 2" loading="lazy" />
+                </figure>
+
+                <figure class="hb-logo-item" role="listitem">
+                    <img src="/img/univercities/IMG-20250928-WA0003.jpg" alt="Partner University 3" loading="lazy" />
+                </figure>
+
+                <figure class="hb-logo-item" role="listitem">
+                    <img src="/img/univercities/IMG-20250928-WA0004.jpg" alt="Partner University 4" loading="lazy" />
+                </figure>
             </div>
 
             <!-- small gap -->
             <div class="hb-gap" aria-hidden="true"></div>
 
-            <!-- Two square banners -->
+            <!-- Two square banners (unchanged) -->
             <div class="hb-banners">
                 <figure class="hb-banner-item">
                     <img src="/img/univercities/WhatsApp Image 2025-09-26 at 13.44.15_c5e5c7e5.jpg" alt="Program Banner"
@@ -3256,7 +3420,131 @@
             </div>
         </footer>
 
+        <!-- Consent / Policy Acceptance Popup -->
+        <div id="consentModal" class="consent-modal" aria-hidden="true" role="dialog" aria-modal="true"
+            aria-labelledby="consentTitle">
+            <div class="consent-backdrop" data-close></div>
+
+            <div class="consent-panel" role="document">
+                <header class="consent-header">
+                    <h2 id="consentTitle">Before you continue</h2>
+                    <button class="consent-close" type="button" aria-label="Close dialog (disabled until accept)"
+                        disabled>✕</button>
+                </header>
+
+                <div class="consent-body">
+                    <p class="consent-text">
+                        We use cookies and store certain information on your device to improve your experience.
+                        Please review and accept our <a href="#" class="consent-link" data-open="privacyModal">Privacy
+                            Policy</a>,
+                        <a href="#" class="consent-link" data-open="termsModal">Terms of Service</a>, and
+                        <a href="#" class="consent-link" data-open="imprintModal">Imprint</a> to continue.
+                    </p>
+
+                    <label class="consent-checkbox">
+                        <input type="checkbox" id="consentCheck" />
+                        <span class="consent-checkbox-label">I have read and agree to the Privacy Policy, Terms &
+                            Imprint</span>
+                    </label>
+
+                    <div class="consent-actions">
+                        <button id="consentAccept" class="consent-accept" type="button" disabled>Accept and
+                            Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
+
+            (function () {
+                const STORAGE_KEY = 'ppc_accept_v1'; // bump the key when policy changes
+                const modal = document.getElementById('consentModal');
+                const checkbox = document.getElementById('consentCheck');
+                const acceptBtn = document.getElementById('consentAccept');
+                const links = Array.from(document.querySelectorAll('.consent-link'));
+
+                // helper to open other in-page modals (if they exist)
+                function openExistingModal(id) {
+                    try {
+                        const target = document.getElementById(id);
+                        if (!target) return false;
+                        target.setAttribute('aria-hidden', 'false');
+                        // focus the content area if available
+                        const body = target.querySelector('.policy-body, .mt-dialog-body') || target.querySelector('.policy-panel') || target;
+                        if (body && typeof body.focus === 'function') body.focus();
+                        // prevent background scroll while their modal is open
+                        document.documentElement.classList.add('consent-no-scroll');
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+                }
+
+                // show modal if not accepted
+                function showModal() {
+                    modal.setAttribute('aria-hidden', 'false');
+                    document.documentElement.classList.add('consent-no-scroll');
+                    // focus on checkbox for accessibility
+                    setTimeout(() => checkbox.focus(), 60);
+                }
+
+                function hideModal() {
+                    modal.setAttribute('aria-hidden', 'true');
+                    document.documentElement.classList.remove('consent-no-scroll');
+                }
+
+                // init
+                if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                    // user already accepted
+                    modal.setAttribute('aria-hidden', 'true');
+                } else {
+                    // show it after small delay so page renders
+                    setTimeout(showModal, 180);
+                }
+
+                // checkbox toggles accept button enabled state
+                checkbox.addEventListener('change', function () {
+                    acceptBtn.disabled = !this.checked;
+                    // If checked, focus accept button
+                    if (this.checked) acceptBtn.focus();
+                });
+
+                // Accept action: store and hide
+                acceptBtn.addEventListener('click', function () {
+                    if (this.disabled) return;
+                    // persist acceptance (you can add timestamp if needed)
+                    localStorage.setItem(STORAGE_KEY, 'true');
+                    hideModal();
+                });
+
+                // handle policy links: try open in-page modal if present, otherwise open new tab
+                links.forEach(a => {
+                    a.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.dataset.open;
+                        if (targetId && openExistingModal(targetId)) {
+                            // keep consent modal visible under the policy modal; user can read policy and then return
+                            return;
+                        }
+                        // fallback: open a new tab to a conventional path (privacy, terms, imprint) or href if provided
+                        const fallbackMap = {
+                            'privacyModal': '#privacyModal',
+                            'termsModal': '#termsModal',
+                            'imprintModal': '#imprintModal'
+                        };
+                        const url = fallbackMap[targetId] || this.getAttribute('href') || '/';
+                        window.open(url, '_blank', 'noopener');
+                    });
+                });
+
+                // prevent closing by Escape / backdrop — user must accept (no decline) as requested.
+                // But allow tab navigation; trap could be added if desired.
+
+                // Accessibility: make sure tabbing stays useful
+                // close any opened policy modal will remove no-scroll elsewhere (not handled here)
+
+            })();
 
             (function () {
                 const section = document.getElementById('profSection');
